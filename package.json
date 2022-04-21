@@ -1,0 +1,23 @@
+{
+  "name": "ab_web",
+  "version": "0.0.0",
+  "description": "(AppBuilder) The web server for our incoming connections.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digi-serve/ab_web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/digi-serve/ab_web/issues"
+  },
+  "homepage": "https://github.com/digi-serve/ab_web#readme",
+  "dependencies": {
+    "bpmn-js": "^9.0.3",
+    "tinymce": "^6.0.1"
+  }
+}
