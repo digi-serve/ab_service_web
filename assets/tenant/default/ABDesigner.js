@@ -69464,8 +69464,12 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./process/ABProcessTriggerLifecycle.js */ "./src/rootPages/Designer/properties/process/ABProcessTriggerLifecycle.js"),
       __webpack_require__(/*! ./process/ABProcessTaskService.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskService.js"),
       __webpack_require__(/*! ./process/ABProcessTaskServiceInsertRecord.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceInsertRecord.js"),
+      __webpack_require__(/*! ./process/ABProcessTaskServiceCalculate.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceCalculate.js"),
       __webpack_require__(/*! ./process/ABProcessTaskServiceGetResetPasswordUrl.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceGetResetPasswordUrl.js"),
       __webpack_require__(/*! ./process/ABProcessTaskServiceQuery.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceQuery.js"),
+      __webpack_require__(/*! ./process/ABProcessTaskUser.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskUser.js"),
+      __webpack_require__(/*! ./process/ABProcessTaskUserApproval.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskUserApproval.js"),
+      __webpack_require__(/*! ./process/ABProcessTaskUserExternal.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskUserExternal.js"),
    ].forEach((P) => {
       let Klass = P.default(AB);
       Processes.push(Klass);
@@ -76956,6 +76960,252 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceCalculate.js":
+/*!************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/process/ABProcessTaskServiceCalculate.js ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/*
+ * UIProcessTaskServiceCalculate
+ *
+ * Display the form for entering the properties for a new
+ * ServiceCalculate Task
+ *
+ * @return {ClassUI} The Class Definition for this UI widget.
+ */
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   var L = UIClass.L();
+
+   class UIProcessServiceCalculate extends UIClass {
+      constructor() {
+         super("properties_process_service_calculate", {
+            name: "",
+            formulaText: "",
+            variableList: "",
+
+            variablePopup: "",
+            operatorPopup: "",
+         });
+
+         this.element = null;
+      }
+
+      static get key() {
+         return "Calculate";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         webix.ui({
+            id: ids.variablePopup,
+            view: "popup",
+            hidden: true,
+            body: {
+               id: ids.variableList,
+               view: "list",
+               template: (item) => {
+                  return item.value;
+               },
+               data: "",
+               on: {
+                  onItemClick: function (id) {
+                     var component = this.getItem(id);
+
+                     insertFormula(`{${component.value}}`);
+
+                     $$(ids.variablePopup).hide();
+                  },
+               },
+            },
+         });
+
+         const insertFormula = (message) => {
+            const formula = $$(ids.formulaText).getValue();
+
+            $$(ids.formulaText).setValue(`${formula}${message} `);
+         };
+
+         webix.ui({
+            id: ids.operatorPopup,
+            view: "popup",
+            hidden: true,
+            width: 180,
+            body: {
+               view: "list",
+               template: (item) => {
+                  var template = "";
+
+                  if (item.icon) {
+                     template += `<i class="fa fa-${item.icon}" aria-hidden="true"></i> `;
+                  }
+
+                  if (item.label) {
+                     template += item.label;
+                  }
+
+                  return template;
+               },
+               data: [
+                  {
+                     label: L("+ Adds"),
+                     symbol: "+",
+                  },
+                  {
+                     label: L("- Subtracts"),
+                     symbol: "-",
+                  },
+                  {
+                     label: L("* Multiples"),
+                     symbol: "*",
+                  },
+                  {
+                     label: L("/ Divides"),
+                     symbol: "/",
+                  },
+                  {
+                     label: L("( Open Bracket"),
+                     symbol: "(",
+                  },
+                  {
+                     label: L(") Closed Bracket"),
+                     symbol: ")",
+                  },
+               ],
+               on: {
+                  onItemClick: function (id, e, node) {
+                     var component = this.getItem(id);
+
+                     insertFormula(component.symbol);
+
+                     $$(ids.operatorPopup).hide();
+                  },
+               },
+            },
+         });
+         let labelWidth = 120;
+         return {
+            rows: [
+               {
+                  //     id: id,
+                  view: "form",
+                  elementsConfig: {
+                     labelWidth: labelWidth,
+                  },
+                  elements: [
+                     {
+                        id: ids.name,
+                        view: "text",
+                        label: L("Name"),
+                        name: "name",
+                        value: this.name,
+                     },
+
+                     {
+                        id: ids.formulaText,
+                        view: "texthighlight",
+                        height: 200,
+                        label: L("Formula"),
+                        type: "textarea",
+                        value: this.formulaText || "",
+                        highlight: (text) => {
+                           return text;
+                        },
+                     },
+                     {
+                        cols: [
+                           {
+                              width: labelWidth,
+                              fillspace: true,
+                           },
+                           {
+                              view: "button",
+                              css: "webix_primary",
+                              type: "icon",
+                              icon: "fa fa-at",
+                              label: L("Parameters"),
+                              click: function () {
+                                 // show popup
+                                 $$(ids.variablePopup).show(this.$view);
+                              },
+                           },
+                           {
+                              view: "button",
+                              css: "webix_primary",
+                              type: "icon",
+                              icon: "fa fa-hashtag",
+                              label: L("Operators"),
+                              click: function () {
+                                 // show popup
+                                 $$(ids.operatorPopup).show(this.$view);
+                              },
+                           },
+                        ],
+                     },
+                  ],
+               },
+            ],
+         };
+      }
+
+      populate(element) {
+         const ids = this.ids;
+
+         const list = (element?.process?.processDataFields(element) || []).map(
+            (item) => {
+               return {
+                  id: item.key,
+                  value: item.label,
+               };
+            }
+         );
+
+         $$(ids.name).setValue(element.name);
+         $$(ids.formulaText).setValue(element.formulaText);
+         $$(ids.variableList).define("data", list);
+         $$(ids.variableList).refresh();
+      }
+
+      values() {
+         const obj = {};
+         const ids = this.ids;
+
+         obj.name = $$(ids.name)?.getValue();
+         obj.formulaText = $$(ids.formulaText).getValue();
+
+         return obj;
+      }
+
+      /**
+       * @method propertiesStash()
+       * pull our values from our property panel.
+       * @param {string} id
+       *        the webix $$(id) of the properties panel area.
+       */
+      propertiesStash(id) {
+         const ids = this.propertyIDs(id);
+
+         this.name = this.property(ids.name);
+         this.formulaText = this.property(ids.formulaText);
+      }
+   } //End
+
+   return UIProcessServiceCalculate;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceGetResetPasswordUrl.js":
 /*!**********************************************************************************************!*\
   !*** ./src/rootPages/Designer/properties/process/ABProcessTaskServiceGetResetPasswordUrl.js ***!
@@ -77015,11 +77265,10 @@ __webpack_require__.r(__webpack_exports__);
                },
                {
                   id: ids.email,
-                  view: "text",
+                  view: "multicombo",
                   label: L("Email"),
-                  placeholder: L("Type email address here..."),
                   name: "email",
-                  value: "",
+                  options: [],
                },
             ],
          };
@@ -77027,7 +77276,6 @@ __webpack_require__.r(__webpack_exports__);
 
       async init(AB) {
          this.AB = AB;
-
          return Promise.resolve();
       }
 
@@ -77044,6 +77292,16 @@ __webpack_require__.r(__webpack_exports__);
       // }
 
       populate(element) {
+         const processData = (
+            element.process.processDataFields(element) ?? []
+         ).filter((item) => item.field?.key == "email").map((item) => {
+            return {
+               id: item.key,
+               value: item.label,
+            };
+         });
+
+
          const ids = this.ids;
 
          const $name = $$(ids.name);
@@ -77051,6 +77309,9 @@ __webpack_require__.r(__webpack_exports__);
 
          $name.setValue(element.label);
          $email.setValue(element.email);
+         $email.define("options", processData);
+         $email.refresh();
+
       }
 
       /**
@@ -77660,6 +77921,623 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return UIProcessServiceQuery;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/process/ABProcessTaskUser.js":
+/*!************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/process/ABProcessTaskUser.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = UIClass.L();
+
+   const ProcessTaskManager = AB.Class.ABProcessTaskManager;
+
+   class UIProcessUser extends UIClass {
+      constructor() {
+         super("properties_process_user", {
+            name: "",
+            option: "",
+         });
+      }
+
+      static get key() {
+         return "TaskUser";
+      }
+      // {string}
+      // This should match the ABProcessTaskServiceCore.defaults().key value.
+
+      ui() {
+         // we are creating these on the fly, and should have CurrentApplication
+         // defined already.
+
+         const ids = this.ids;
+
+         return {
+            id: ids.component,
+            view: "form",
+            elements: [
+               {
+                  id: ids.name,
+                  view: "text",
+                  label: L("Name"),
+                  name: "name",
+                  value: "",
+               },
+               {
+                  id: ids.option,
+                  rows: [
+                     {
+                        view: "button",
+                        label: L("Approval Task"),
+                        click: () => {
+                           this.switchTo("Approval");
+                        },
+                     },
+                     {
+                        view: "button",
+                        label: L("External Task"),
+                        click: () => {
+                           this.switchTo("External");
+                        },
+                     },
+                  ],
+               },
+            ],
+         };
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         return Promise.resolve();
+      }
+      /**
+       * switchTo()
+       * replace this object with an instance of one of our child classes:
+       * @param {string} classType
+       *        a key representing with subObject to create an instance of.
+       * @param {string} propertiesID
+       *        the webix ui.id container for the properties panel.
+       */
+      switchTo(key) {
+         const ids = this.ids;
+
+         const values = this.values();
+
+         values.id = this.element.id;
+         values.diagramID = this.element.diagramID;
+         values.key = key ?? UIProcessUser.key;
+
+         const subtask =
+            ProcessTaskManager.newTask(values, this.element.process, this.AB) ??
+            null;
+
+         if (subtask) {
+            this.element.switchTo(subtask, ids.component);
+         }
+      }
+
+      // applicationLoad(application) {
+      //    super.applicationLoad(application);
+
+      //    $$(this.ids.objList).define("data", listObj);
+      //    $$(this.ids.objList).refresh();
+      // }
+
+      // show() {
+      //    super.show();
+      //    AppList.show();
+      // }
+
+      values() {
+         const ids = this.ids;
+
+         let obj = {};
+
+         const $name = $$(ids.name);
+
+         obj.label = $name?.getValue() ?? "";
+         obj.name = $name?.getValue() ?? "";
+
+         return obj;
+      }
+
+      populate(element) {
+         const ids = this.ids;
+         const $name = $$(ids.name);
+         this.element = element;
+         $name?.setValue(element.label ?? "");
+      }
+   }
+
+   return UIProcessUser;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/process/ABProcessTaskUserApproval.js":
+/*!********************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/process/ABProcessTaskUserApproval.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/* harmony import */ var _ABProcessParticipant_selectManagersUI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ABProcessParticipant_selectManagersUI */ "./src/rootPages/Designer/properties/process/ABProcessParticipant_selectManagersUI.js");
+/*
+ * ABProcessTaskUserApproval
+ *
+ * Display the form for entering the properties for an Approval Task
+ *
+ * @return {ClassUI} The Class Definition for this UI widget.
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   var L = UIClass.L();
+
+   const ABProcessParticipantUsers = (0,_ABProcessParticipant_selectManagersUI__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+
+   class UIProcessUserApproval extends UIClass {
+      constructor() {
+         super("properties_process_user_approval", {
+            name: "",
+            who: "",
+            toUser: "",
+            formBuilder: "",
+            modalWindow: "",
+            formPreview: "",
+         });
+
+         this.toUser = new ABProcessParticipantUsers(
+            `${this.ids.component}_to_`
+         );
+         this.on("save", () => {
+            this.processComponents();
+         });
+      }
+
+      static get key() {
+         return "Approval";
+      }
+      // {string}
+      // This should match the ABProcessTaskServiceGetResetPasswordUrlCore.defaults().key value.
+
+      uiUser(obj) {
+         var usersUI = this.users.ui(obj ?? {});
+         return {
+            id: this.ids.users,
+            rows: [usersUI],
+            paddingY: 10,
+         };
+      }
+
+      ui(element) {
+         // we are creating these on the fly, and should have CurrentApplication
+         // defined already.
+
+         const ids = this.ids;
+
+         const whoOptions = [
+            // current lane/participant
+            {
+               id: 0,
+               value: L("Current Participant"),
+            },
+            // manually select User/Role
+            {
+               id: 1,
+               value: L("Select Role or User"),
+            },
+         ];
+
+         // if we don't have a lane, then remove the lane option:
+         if (!this.laneDiagramID || this.laneDiagramID == "?laneID?") {
+            whoOptions.shift();
+         }
+
+         const modalUi = () => {
+            return {
+               id: ids.modalWindow,
+               view: "window",
+               position: "center",
+               fullscreen: true,
+               modal: true,
+               head: {
+                  view: "toolbar",
+                  css: "webix_dark",
+                  cols: [
+                     {
+                        view: "spacer",
+                        width: 17,
+                     },
+                     {
+                        view: "label",
+                        label: L("Customize the approval layout"),
+                     },
+                     {
+                        view: "spacer",
+                     },
+                     {
+                        view: "button",
+                        label: L("Cancel"),
+                        autowidth: true,
+                        click: function () {
+                           $$(ids.modalWindow).close();
+                        },
+                     },
+                     {
+                        view: "button",
+                        css: "webixtype_form",
+                        label: L("Save"),
+                        autowidth: true,
+                        click: () => {
+                           this.formBuilder = $$(ids.formBuilder).getFormData();
+                           this.element.formBuilder = this.formBuilder;
+                           (this.formBuilder.components || []).forEach(
+                              (component) => {
+                                 if (
+                                    component._key &&
+                                    component.key != component._key
+                                 )
+                                    component.key = component._key;
+                              }
+                           );
+                           this.emit("save");
+                           $$(ids.modalWindow).close();
+                        },
+                     },
+                     {
+                        view: "spacer",
+                        width: 17,
+                     },
+                  ],
+               },
+               body: {
+                  id: ids.formBuilder,
+                  view: "formiobuilder",
+                  dataFields: this.dataFields,
+                  formComponents: this.formIOComponents,
+               },
+            };
+         };
+
+         const toUserUI = this.toUser.ui(element?.toUsers ?? {});
+
+         return {
+            id: ids.component,
+            view: "form",
+            rows: [
+               {
+                  id: ids.name,
+                  view: "text",
+                  label: L("Name"),
+                  name: "name",
+                  value: "",
+               },
+               {
+                  id: ids.who,
+                  view: "select",
+                  label: L("Who"),
+                  name: "who",
+                  options: whoOptions,
+                  value: whoOptions.length == 1 ? "1" : "",
+                  on: {
+                     onChange: (val) => {
+                        if (parseInt(val) == 1) {
+                           $$(ids.toUser).show();
+                        } else {
+                           $$(ids.toUser).hide();
+                        }
+                     },
+                  },
+               },
+               {
+                  id: ids.toUser,
+                  rows: [toUserUI],
+                  paddingY: 10,
+               },
+               {
+                  view: "spacer",
+                  height: 10,
+               },
+               {
+                  view: "toolbar",
+                  type: "clean",
+                  borderless: true,
+                  cols: [
+                     {
+                        view: "label",
+                        label: L("Data To Approve"),
+                     },
+                     {
+                        view: "spacer",
+                     },
+                     {
+                        view: "button",
+                        value: L("Customize Layout"),
+                        autowidth: true,
+                        click: () => {
+                           webix.ui(modalUi()).show();
+                        },
+                     },
+                  ],
+               },
+               {
+                  view: "layout",
+                  type: "form",
+                  rows: [
+                     {
+                        view: "layout",
+                        padding: 20,
+                        rows: [
+                           {
+                              id: ids.formPreview,
+                              view: "formiopreview",
+                              formComponents: [],
+                              height: 500,
+                           },
+                        ],
+                     },
+                  ],
+               },
+            ],
+         };
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         return Promise.resolve();
+      }
+
+      /**
+       * process the formIOComponents components and data for the preview and
+       * form builder
+       * @function processComponents
+       */
+      processComponents() {
+         const ids = this.ids;
+         this.dataFields = this.element.process.processDataFields(this.element);
+         this.formIOComponents = this.element.preProcessFormIOComponents();
+
+         const $preview = $$(ids.formPreview).getParentView();
+         $preview.removeView(ids.formPreview);
+
+         $preview.addView({
+            id: ids.formPreview,
+            view: "formiopreview",
+            formComponents: this.formIOComponents,
+            height: 500,
+         });
+      }
+
+      populate(element) {
+         this.element = element;
+         const ids = this.ids;
+
+         const $name = $$(ids.name);
+         const $who = $$(ids.who);
+
+         $name.setValue(element.label);
+
+         if (element.who !== null) {
+            $who.setValue(element.who);
+            if (element.who === "0") {
+               $$(ids.toUser).hide();
+            } else {
+               let $toUser = this.toUser.ui(element.toUsers ?? {});
+               let $toUserUi = {
+                  id: ids.toUser,
+                  rows: [$toUser],
+                  paddingY: 10,
+               };
+               webix.ui($toUserUi, $$(ids.toUser));
+            }
+         }
+         this.processComponents();
+      }
+
+      /**
+       * values()
+       * return an object hash representing the values for this component.
+       * @return {json}
+       */
+
+      values() {
+         const obj = {};
+         const ids = this.ids;
+
+         const $name = $$(ids.name);
+         // "who", "toUsers", "formBuilder"
+         const $who = $$(ids.who);
+
+         obj.label = $name?.getValue() ?? "";
+         obj.name = $name?.getValue() ?? "";
+         obj.who = $who?.getValue() ?? "";
+         obj.formBuilder = this.formBuilder;
+         obj.toUsers = this.toUser.values();
+
+         return obj;
+      }
+   }
+
+   return UIProcessUserApproval;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/process/ABProcessTaskUserExternal.js":
+/*!********************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/process/ABProcessTaskUserExternal.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/* harmony import */ var _ABProcessParticipant_selectManagersUI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ABProcessParticipant_selectManagersUI */ "./src/rootPages/Designer/properties/process/ABProcessParticipant_selectManagersUI.js");
+/*
+ * ABProcessTaskUserExternal
+ *
+ * Display the form for entering the properties for an External Task
+ *
+ * @return {ClassUI} The Class Definition for this UI widget.
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = UIClass.L();
+
+   const ABProcessParticipantUsers = (0,_ABProcessParticipant_selectManagersUI__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+
+   class UIProcessUserExternal extends UIClass {
+      constructor() {
+         super("properties_process_user_external", {
+            toUsers: "",
+         });
+
+         this.toUsers = new ABProcessParticipantUsers(
+            `${this.ids.component}_to_`
+         );
+      }
+
+      static get key() {
+         return "External";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return {
+            id: ids.component,
+            view: "form",
+            elements: [
+               {
+                  view: "text",
+                  label: L("Name"),
+                  name: "name",
+                  value: "",
+               },
+               {
+                  view: "select",
+                  label: L("Who"),
+                  name: "who",
+                  options: [
+                     // current lane/participant
+                     {
+                        id: 0,
+                        value: L("Current Participant"),
+                     },
+                     // manually select User/Role
+                     {
+                        id: 1,
+                        value: L("Select Role or User"),
+                     },
+                  ],
+                  value: "0",
+                  on: {
+                     onChange: (value) => {
+                        const $toUsers = $$(ids.toUsers);
+                        if (parseInt(value) === 1) $toUsers.show();
+                        else $toUsers.hide();
+                     },
+                  },
+               },
+               {
+                  id: ids.toUsers,
+                  rows: [this.toUsers.ui({})],
+               },
+               {
+                  view: "text",
+                  label: L("URL"),
+                  name: "url",
+                  value: "",
+               },
+            ],
+         };
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         return Promise.resolve();
+      }
+
+      populate(element) {
+         const ids = this.ids;
+         const obj = {
+            name: element.name,
+            who: element.who,
+            url: element.url,
+         };
+         const $component = $$(ids.component);
+         const $toUsers = $$(ids.toUsers);
+
+         this.element = element;
+
+         $component.setValues(obj);
+
+         if (element.who === "0") $toUsers.hide();
+         else
+            webix.ui(
+               {
+                  id: ids.toUsers,
+                  rows: [this.toUsers.ui(element.toUsers ?? {})],
+                  paddingY: 10,
+               },
+               $toUsers
+            );
+      }
+
+      /**
+       * values()
+       * return an object hash representing the values for this component.
+       * @return {json}
+       */
+
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const obj = $component.getValues();
+
+         obj.label = obj.name;
+         obj.toUsers = this.toUsers.values();
+
+         return obj;
+      }
+   }
+
+   return UIProcessUserExternal;
 }
 
 
