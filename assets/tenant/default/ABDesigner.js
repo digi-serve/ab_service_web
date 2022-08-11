@@ -27737,7 +27737,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@keyframes pulseDark {\r\n   0% {\r\n      /* color: darkorange; */\r\n      transform: scale(1);\r\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);\r\n   }\r\n   50% {\r\n      /* color: orange; */\r\n   }\r\n   100% {\r\n      /* color: darkorange; */\r\n      transform: scale(1.25);\r\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);\r\n   }\r\n}\r\n@keyframes pulseLight {\r\n   0% {\r\n      /* color: darkorange; */\r\n      transform: scale(1);\r\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);\r\n   }\r\n   50% {\r\n      /* color: orange; */\r\n   }\r\n   100% {\r\n      /* color: darkorange; */\r\n      transform: scale(1.25);\r\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);\r\n   }\r\n}\r\n.pulseDark {\r\n   animation-name: pulseDark;\r\n   animation-duration: 1s;\r\n   animation-timing-function: ease-out;\r\n   animation-direction: alternate;\r\n   animation-iteration-count: infinite;\r\n   animation-play-state: running;\r\n   color: orange !important;\r\n}\r\n.pulseLight {\r\n   animation-name: pulseLight;\r\n   animation-duration: 1s;\r\n   animation-timing-function: ease-out;\r\n   animation-direction: alternate;\r\n   animation-iteration-count: infinite;\r\n   animation-play-state: running;\r\n   color: orange !important;\r\n}\r\n.smalltext {\r\n   font-size: small !important;\r\n}\r\n.ab-object-list-item .webix_sidebar_dir_icon {\r\n   margin-right: 20px;\r\n}\r\n.ab-datacollection-list-item .webix_sidebar_dir_icon {\r\n   margin-right: 20px;\r\n}\r\n.ab-interface-list-item .webix_sidebar_dir_icon {\r\n   margin-right: 20px;\r\n}\r\n.darkorange .webix_button {\r\n   background-color: darkorange !important;\r\n}\r\n.warningtext {\r\n   color: orange;\r\n}\r\n.warningslist {\r\n   list-style-type: none;\r\n   margin: 0;\r\n   padding: 0;\r\n   line-height: 28px;\r\n   background-color: transparent;\r\n   color: white;\r\n}\r\n.warningslist li {\r\n   border-bottom: 1px solid rgba(0, 0, 0, 0.2);\r\n}\r\n.webix_theme_dark {\r\n   background-color: #4a4e58;\r\n}\r\n.lighten {\r\n   opacity: 0.4;\r\n}\r\n", "",{"version":3,"sources":["webpack://./styles/Designer.css"],"names":[],"mappings":"AAAA;GACG;MACG,uBAAuB;MACvB,mBAAmB;MACnB,uCAAuC;GAC1C;GACA;MACG,mBAAmB;GACtB;GACA;MACG,uBAAuB;MACvB,sBAAsB;MACtB,yCAAyC;GAC5C;AACH;AACA;GACG;MACG,uBAAuB;MACvB,mBAAmB;MACnB,uCAAuC;GAC1C;GACA;MACG,mBAAmB;GACtB;GACA;MACG,uBAAuB;MACvB,sBAAsB;MACtB,yCAAyC;GAC5C;AACH;AACA;GACG,yBAAyB;GACzB,sBAAsB;GACtB,mCAAmC;GACnC,8BAA8B;GAC9B,mCAAmC;GACnC,6BAA6B;GAC7B,wBAAwB;AAC3B;AACA;GACG,0BAA0B;GAC1B,sBAAsB;GACtB,mCAAmC;GACnC,8BAA8B;GAC9B,mCAAmC;GACnC,6BAA6B;GAC7B,wBAAwB;AAC3B;AACA;GACG,2BAA2B;AAC9B;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,uCAAuC;AAC1C;AACA;GACG,aAAa;AAChB;AACA;GACG,qBAAqB;GACrB,SAAS;GACT,UAAU;GACV,iBAAiB;GACjB,6BAA6B;GAC7B,YAAY;AACf;AACA;GACG,2CAA2C;AAC9C;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,YAAY;AACf","sourcesContent":["@keyframes pulseDark {\r\n   0% {\r\n      /* color: darkorange; */\r\n      transform: scale(1);\r\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);\r\n   }\r\n   50% {\r\n      /* color: orange; */\r\n   }\r\n   100% {\r\n      /* color: darkorange; */\r\n      transform: scale(1.25);\r\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);\r\n   }\r\n}\r\n@keyframes pulseLight {\r\n   0% {\r\n      /* color: darkorange; */\r\n      transform: scale(1);\r\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);\r\n   }\r\n   50% {\r\n      /* color: orange; */\r\n   }\r\n   100% {\r\n      /* color: darkorange; */\r\n      transform: scale(1.25);\r\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);\r\n   }\r\n}\r\n.pulseDark {\r\n   animation-name: pulseDark;\r\n   animation-duration: 1s;\r\n   animation-timing-function: ease-out;\r\n   animation-direction: alternate;\r\n   animation-iteration-count: infinite;\r\n   animation-play-state: running;\r\n   color: orange !important;\r\n}\r\n.pulseLight {\r\n   animation-name: pulseLight;\r\n   animation-duration: 1s;\r\n   animation-timing-function: ease-out;\r\n   animation-direction: alternate;\r\n   animation-iteration-count: infinite;\r\n   animation-play-state: running;\r\n   color: orange !important;\r\n}\r\n.smalltext {\r\n   font-size: small !important;\r\n}\r\n.ab-object-list-item .webix_sidebar_dir_icon {\r\n   margin-right: 20px;\r\n}\r\n.ab-datacollection-list-item .webix_sidebar_dir_icon {\r\n   margin-right: 20px;\r\n}\r\n.ab-interface-list-item .webix_sidebar_dir_icon {\r\n   margin-right: 20px;\r\n}\r\n.darkorange .webix_button {\r\n   background-color: darkorange !important;\r\n}\r\n.warningtext {\r\n   color: orange;\r\n}\r\n.warningslist {\r\n   list-style-type: none;\r\n   margin: 0;\r\n   padding: 0;\r\n   line-height: 28px;\r\n   background-color: transparent;\r\n   color: white;\r\n}\r\n.warningslist li {\r\n   border-bottom: 1px solid rgba(0, 0, 0, 0.2);\r\n}\r\n.webix_theme_dark {\r\n   background-color: #4a4e58;\r\n}\r\n.lighten {\r\n   opacity: 0.4;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "@keyframes pulseDark {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);\n   }\n}\n@keyframes pulseLight {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);\n   }\n}\n.pulseDark {\n   animation-name: pulseDark;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.pulseLight {\n   animation-name: pulseLight;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.smalltext {\n   font-size: small !important;\n}\n.ab-object-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-datacollection-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-interface-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.darkorange .webix_button {\n   background-color: darkorange !important;\n}\n.warningtext {\n   color: orange;\n}\n.warningslist {\n   list-style-type: none;\n   margin: 0;\n   padding: 0;\n   line-height: 28px;\n   background-color: transparent;\n   color: white;\n}\n.warningslist li {\n   border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n}\n.webix_theme_dark {\n   background-color: #4a4e58;\n}\n.lighten {\n   opacity: 0.4;\n}\n", "",{"version":3,"sources":["webpack://./styles/Designer.css"],"names":[],"mappings":"AAAA;GACG;MACG,uBAAuB;MACvB,mBAAmB;MACnB,uCAAuC;GAC1C;GACA;MACG,mBAAmB;GACtB;GACA;MACG,uBAAuB;MACvB,sBAAsB;MACtB,yCAAyC;GAC5C;AACH;AACA;GACG;MACG,uBAAuB;MACvB,mBAAmB;MACnB,uCAAuC;GAC1C;GACA;MACG,mBAAmB;GACtB;GACA;MACG,uBAAuB;MACvB,sBAAsB;MACtB,yCAAyC;GAC5C;AACH;AACA;GACG,yBAAyB;GACzB,sBAAsB;GACtB,mCAAmC;GACnC,8BAA8B;GAC9B,mCAAmC;GACnC,6BAA6B;GAC7B,wBAAwB;AAC3B;AACA;GACG,0BAA0B;GAC1B,sBAAsB;GACtB,mCAAmC;GACnC,8BAA8B;GAC9B,mCAAmC;GACnC,6BAA6B;GAC7B,wBAAwB;AAC3B;AACA;GACG,2BAA2B;AAC9B;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,uCAAuC;AAC1C;AACA;GACG,aAAa;AAChB;AACA;GACG,qBAAqB;GACrB,SAAS;GACT,UAAU;GACV,iBAAiB;GACjB,6BAA6B;GAC7B,YAAY;AACf;AACA;GACG,2CAA2C;AAC9C;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,YAAY;AACf","sourcesContent":["@keyframes pulseDark {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);\n   }\n}\n@keyframes pulseLight {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);\n   }\n}\n.pulseDark {\n   animation-name: pulseDark;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.pulseLight {\n   animation-name: pulseLight;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.smalltext {\n   font-size: small !important;\n}\n.ab-object-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-datacollection-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-interface-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.darkorange .webix_button {\n   background-color: darkorange !important;\n}\n.warningtext {\n   color: orange;\n}\n.warningslist {\n   list-style-type: none;\n   margin: 0;\n   padding: 0;\n   line-height: 28px;\n   background-color: transparent;\n   color: white;\n}\n.warningslist li {\n   border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n}\n.webix_theme_dark {\n   background-color: #4a4e58;\n}\n.lighten {\n   opacity: 0.4;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -68668,17 +68668,22 @@ __webpack_require__.r(__webpack_exports__);
  *
  */
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
-   var Editors = [];
+   const Editors = [];
    // {array}
    // All the ABField Component Inerfaces available.
    [
       __webpack_require__(/*! ./views/ABViewCarousel */ "./src/rootPages/Designer/editors/views/ABViewCarousel.js"),
       __webpack_require__(/*! ./views/ABViewContainer */ "./src/rootPages/Designer/editors/views/ABViewContainer.js"),
+      __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/editors/views/ABViewDataview.js"),
+      __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/editors/views/ABViewDetail.js"),
+      __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/editors/views/ABViewDocxBuilder.js"),
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/editors/views/ABViewForm.js"),
       __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/editors/views/ABViewGrid.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/editors/views/ABViewPage.js"),
+      __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/editors/views/ABViewTab.js"),
    ].forEach((E) => {
-      let Klass = E.default(AB);
+      const Klass = E.default(AB);
+
       Editors.push(Klass);
    });
 
@@ -68887,8 +68892,8 @@ var myClass = null;
                child.warningsSilent = true;
                // let's not be alerted to unconfigured settings in this context
 
-               console.error("TODO: REMOVE THIS TESTING CODE:");
-               if (!child.componentOld) return;
+               // console.error("TODO: REMOVE THIS TESTING CODE:");
+               // if (!child.componentOld) return;
 
                var component = child.component();
 
@@ -69214,6 +69219,222 @@ var myClass = null;
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/editors/views/ABViewDataview.js":
+/*!****************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewDataview.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewContainer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewContainer */ "./src/rootPages/Designer/editors/views/ABViewContainer.js");
+/**
+ * ABViewDataviewEditor
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+ let myClass = null;
+ // {singleton}
+ // we will want to call this factory fn() repeatedly in our imports,
+ // but we only want to define 1 Class reference.
+ 
+ 
+ 
+ /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+    if (!myClass) {
+       const ABViewContainer = (0,_ABViewContainer__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+       // var L = UIClass.L();
+       // var L = ABViewContainer.L();
+ 
+       myClass = class ABViewDataviewEditor extends ABViewContainer {
+          static get key() {
+             return "dataview";
+          }
+ 
+          constructor(view, base = "interface_editor_viewdataview") {
+             // base: {string} unique base id reference
+ 
+             super(view, base);
+ 
+             // this.component = this.view.component();
+          }
+ 
+          ui() {
+             let _ui = super.ui();
+             _ui.rows[0].cellHeight = 75;
+             return _ui;
+          }
+ 
+          init(AB) {
+             this.AB = AB;
+             return super.init(AB);
+          }
+ 
+          detatch() {
+             this.component?.detatch?.();
+          }
+ 
+          onShow() {
+             this.component?.onShow?.();
+          }
+       };
+    }
+ 
+    return myClass;
+ }
+ 
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewDetail.js":
+/*!**************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewDetail.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewContainer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewContainer */ "./src/rootPages/Designer/editors/views/ABViewContainer.js");
+/**
+ * ABViewDetailEditor
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const ABViewContainer = (0,_ABViewContainer__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      // var L = UIClass.L();
+      // var L = ABViewContainer.L();
+
+      myClass = class ABViewDetailEditor extends ABViewContainer {
+         static get key() {
+            return "detail";
+         }
+
+         constructor(view, base = "interface_editor_viewdetail") {
+            // base: {string} unique base id reference
+
+            super(view, base);
+
+            // this.component = this.view.component();
+         }
+
+         ui() {
+            let _ui = super.ui();
+            _ui.rows[0].cellHeight = 75;
+            return _ui;
+         }
+
+         init(AB) {
+            this.AB = AB;
+            return super.init(AB);
+         }
+
+         detatch() {
+            this.component?.detatch?.();
+         }
+
+         onShow() {
+            this.component?.onShow?.();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewDocxBuilder.js":
+/*!*******************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewDocxBuilder.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewDocxBuilder
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (myClass) return myClass;
+
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   // var L = UIClass.L();
+   // var L = ABViewContainer.L();
+
+   myClass = class ABViewDocxBuilderEditor extends UIClass {
+      static get key() {
+         return "docxBuilder";
+      }
+
+      constructor(view, base = "interface_editor_viewdocxBuilder") {
+         // base: {string} unique base id reference
+
+         super(base, {});
+
+         this.view = view;
+         this.settings = view.settings;
+         // shortcut to reference the settings
+
+         this.base = base;
+         this.AB = AB;
+
+         this.component = this.view.component();
+      }
+
+      ui() {
+         return this.component.ui();
+      }
+
+      init(AB) {
+         this.AB = AB;
+         return this.component.init(AB, 2);
+         // in our editor, we provide accessLv = 2
+      }
+
+      detatch() {
+         this.component.detatch?.();
+      }
+
+      onShow() {
+         this.component.onShow?.();
+      }
+   };
+
+   return myClass;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/editors/views/ABViewForm.js":
 /*!************************************************************!*\
   !*** ./src/rootPages/Designer/editors/views/ABViewForm.js ***!
@@ -69408,6 +69629,583 @@ var myClass = null;
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/editors/views/ABViewTab.js":
+/*!***********************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewTab.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/* harmony import */ var _interface_common_ui_tab_form_popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../interface_common/ui_tab_form_popup */ "./src/rootPages/Designer/interface_common/ui_tab_form_popup.js");
+/**
+ * ABViewTab
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewtab";
+
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      const L = UIClass.L();
+
+      const TabPopup = (0,_interface_common_ui_tab_form_popup__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+
+      myClass = class ABViewTabEditor extends UIClass {
+         static get key() {
+            return "tab";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(base, {
+               view: "",
+            });
+
+            this.AB = AB;
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            const ids = this.ids;
+            const baseView = this.view;
+            const component = this.component;
+            const componentUI = this.component.ui();
+
+            if (componentUI.rows) {
+               componentUI.rows[0].id = ids.component;
+               componentUI.rows[0].tabbar = {
+                  height: 60,
+                  type: "bottom",
+                  css: baseView.settings.darkTheme ? "webix_dark" : "",
+                  on: {
+                     onItemClick: (id, e) => {
+                        const tabID = $$(ids.component).getValue();
+                        const tab = baseView.views(
+                           (view) => view.id === tabID
+                        )[0];
+                        const currIndex = baseView._views.findIndex(
+                           (view) => view.id === tabID
+                        );
+
+                        // Rename
+                        if (e.target.classList.contains("rename")) {
+                           baseView.tabPopup.show(tab);
+                        }
+                        // Reorder back
+                        else if (e.target.classList.contains("move-back")) {
+                           baseView.viewReorder(tabID, currIndex - 1);
+
+                           // refresh editor view
+                           baseView.emit("properties.updated", baseView);
+                        }
+                        // Reorder next
+                        else if (e.target.classList.contains("move-next")) {
+                           baseView.viewReorder(tabID, currIndex + 1);
+
+                           // refresh editor view
+                           baseView.emit("properties.updated", baseView);
+                        }
+                     },
+                  },
+               };
+
+               // Add action buttons
+               for (
+                  let i = 0;
+                  i < (componentUI.rows[0]?.cells ?? []).length;
+                  i++
+               ) {
+                  // Add 'move back' icon
+                  componentUI.rows[0].cells[
+                     i
+                  ].header = `<i class="fa fa-caret-left move-back ab-tab-back"></i>${componentUI.rows[0]?.cells[i].header}`;
+
+                  // Add 'edit' icon
+                  componentUI.rows[0].cells[i].header +=
+                     ' <i class="fa fa-pencil-square rename ab-tab-edit"></i>';
+
+                  // Add 'move next' icon
+                  componentUI.rows[0].cells[i].header +=
+                     ' <i class="fa fa-caret-right move-next ab-tab-next"></i>';
+               }
+            } else if (componentUI.cols) {
+               // if we detect colums we are using sidebar and need to format the onItemClick event differently
+               let viewIndex = 1;
+               let tabIndex = 0;
+
+               if (baseView.settings.sidebarPos === "right") {
+                  // the sidebar is in the second column now so we need to reference it properly
+                  viewIndex = 0;
+                  tabIndex = 1;
+               }
+
+               componentUI.cols[viewIndex].id = ids.component;
+               componentUI.cols[tabIndex].on = {
+                  onItemClick: (id, e) => {
+                     const tabID = id.replace("_menu", "");
+                     const tab = baseView.views((view) => view.id == tabID)[0];
+                     const currIndex = baseView._views.findIndex(
+                        (view) => view.id === tabID
+                     );
+
+                     component.onShow(tabID);
+
+                     // Rename
+                     if (e.target.classList.contains("rename"))
+                        baseView.tabPopup.show(tab);
+                     // Reorder back
+                     else if (e.target.classList.contains("move-back")) {
+                        baseView.viewReorder(tabID, currIndex - 1);
+
+                        // refresh editor view
+                        baseView.emit("properties.updated", baseView);
+                     }
+                     // Reorder next
+                     else if (e.target.classList.contains("move-next")) {
+                        baseView.viewReorder(tabID, currIndex + 1);
+
+                        // refresh editor view
+                        baseView.emit("properties.updated", baseView);
+                     }
+                  },
+               };
+
+               // Add action buttons
+               for (
+                  let i = 0;
+                  i < (componentUI.cols[tabIndex].data ?? []).length;
+                  i++
+               ) {
+                  // Add 'edit' icon
+                  componentUI.cols[tabIndex].data[i].value =
+                     componentUI.cols[tabIndex].data[i].value +
+                     ' <i class="fa fa-pencil-square rename ab-tab-edit"></i>';
+                  // Add 'move up' icon
+                  componentUI.cols[tabIndex].data[i].value +=
+                     '<i class="fa fa-caret-up move-back ab-tab-up"></i>';
+                  // Add 'move down' icon
+                  componentUI.cols[tabIndex].data[i].value +=
+                     ' <i class="fa fa-caret-down move-next ab-tab-down"></i>';
+               }
+            }
+
+            return {
+               rows: [componentUI],
+            };
+         }
+
+         async init(AB) {
+            this.AB = AB;
+
+            const ids = this.ids;
+
+            await this.component.init(this.AB);
+
+            const $component = $$(ids.component);
+
+            // Add actions buttons - Edit , Delete
+            if ($component.config.view === "tabview") {
+               webix.ui({
+                  container: $component.getMultiview().$view,
+                  view: "template",
+                  autoheight: false,
+                  height: 1,
+                  width: 0,
+                  template: [
+                     '<div class="ab-component-tools ab-layout-view ab-tab-tools">',
+                     '<i class="fa fa-trash ab-component-remove"></i>',
+                     '<i class="fa fa-edit ab-component-edit"></i>',
+                     "</div>",
+                  ].join(""),
+                  onClick: {
+                     "ab-component-edit": (e, id, trg) => {
+                        this.tabEdit(e, id, trg);
+                     },
+                     "ab-component-remove": (e, id, trg) => {
+                        this.tabRemove(e, id, trg);
+                     },
+                  },
+               });
+            } else if ($component.config.view === "multiview") {
+               webix.ui({
+                  container: $component.$view,
+                  view: "template",
+                  autoheight: false,
+                  height: 1,
+                  width: 0,
+                  template: [
+                     '<div class="ab-component-tools ab-layout-view ab-tab-tools">',
+                     '<i class="fa fa-trash ab-component-remove"></i>',
+                     '<i class="fa fa-edit ab-component-edit"></i>',
+                     "</div>",
+                  ].join(""),
+                  onClick: {
+                     "ab-component-edit": (e) => {
+                        this.tabEdit(e);
+                     },
+                     "ab-component-remove": (e) => {
+                        this.tabRemove(e);
+                     },
+                  },
+               });
+            }
+
+            const baseView = this.view;
+
+            if (!baseView.tabPopup) {
+               baseView.tabPopup = new TabPopup(baseView);
+               baseView.tabPopup.init(AB);
+            }
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         // templateBlock(tab) {
+         // 	const _template = [
+         // 		'<div class="ab-component-in-page">',
+         // 		'<div id="' + ids.view + '_#objID#" >',
+         // 		'<i class="fa fa-#icon#"></i>',
+         // 		' #label#',
+         // 		'</div>',
+         // 		'</div>'
+         // 	].join('');
+
+         // 	return _template
+         // 		.replace('#objID#', tab.id)
+         // 		.replace('#icon#', tab.icon)
+         // 		.replace('#label#', tab.label);
+         // }
+
+         tabEdit(element) {
+            const tabID = $$(this.ids.component).getValue();
+            const view = this.view.views((view) => view.id == tabID)[0];
+
+            if (!view) return false;
+
+            // NOTE: let webix finish this onClick event, before
+            // calling .populateInterfaceWorkspace() which will replace
+            // the interface elements with the edited view.  (apparently
+            // that causes errors.)
+            setTimeout(() => {
+               try {
+                  this.emit("view.edit", view);
+               } catch (err) {
+                  console.error(err);
+               }
+            }, 50);
+
+            element.preventDefault();
+
+            return false;
+         }
+
+         tabRemove(element) {
+            const ids = this.ids;
+
+            const $component = $$(ids.component);
+
+            const tabID = $component.getValue();
+            const deletedView = this.view.views((view) => view.id == tabID)[0];
+
+            if (deletedView) {
+               webix.confirm({
+                  title: L("Delete tab"),
+                  text: L("Do you want to delete <b>{0}</b>?", [
+                     deletedView.label,
+                  ]),
+                  callback: (result) => {
+                     if (result) {
+                        // this.viewDestroy(deletedView);
+                        deletedView.destroy();
+
+                        const componentUI = this.component.ui();
+
+                        // remove tab option
+                        if (componentUI.rows) $component.removeView(tabID);
+                        else {
+                           let $sidebar = null;
+
+                           for (let i = 0; i < componentUI.cols.length; i++)
+                              if (componentUI.cols[i].view === "sidebar") {
+                                 $sidebar = $$(componentUI.cols[i].id);
+
+                                 break;
+                              }
+
+                           $sidebar.remove(`${tabID}_menu`);
+                        }
+                     }
+                  },
+               });
+            }
+
+            element.preventDefault();
+
+            return false;
+         }
+
+         detatch() {
+            this.component.detatch?.();
+         }
+
+         onShow() {
+            this.component.onShow();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/interface_common/ui_tab_form_popup.js":
+/*!**********************************************************************!*\
+  !*** ./src/rootPages/Designer/interface_common/ui_tab_form_popup.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * ui_tab_form_popup
+ *
+ * The widget that displays the UI Popup Component (Add/Edit Tab) on the screen
+ * when designing the UI.
+ */
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const L = (...params) => AB.Multilingual.label(...params);
+
+   class TabPopup extends AB.ClassUI {
+      constructor(view) {
+         super(`${view.id}_popup`, {
+            popupTabManager: "",
+            popupTabManagerForm: "",
+            popupTabManagerSaveButton: "",
+         });
+
+         this.view = view;
+      }
+
+      async init(AB) {
+         this.view.AB = AB;
+
+         this.create();
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return {
+            id: ids.popupTabManager,
+            view: "window",
+            height: 250,
+            width: 300,
+            modal: true,
+            position: "center",
+            head: " ",
+            body: {
+               id: ids.popupTabManagerForm,
+               view: "form",
+               elements: [
+                  {
+                     view: "text",
+                     name: "label",
+                     label: L("Label"),
+                     required: true,
+                  },
+                  {
+                     view: "combo",
+                     name: "tabicon",
+                     label: L("Icon"),
+                     options: {
+                        filter: (item, value) => {
+                           if (
+                              item.value
+                                 .toString()
+                                 .toLowerCase()
+                                 .indexOf(value.toLowerCase()) === 0
+                           )
+                              return true;
+
+                           return false;
+                        },
+                        body: {
+                           data: this.view.AB._App.icons ?? [],
+                           template:
+                              "<i class='fa fa-fw fa-#value#'></i> #value#",
+                        },
+                     },
+                  },
+                  // action buttons
+                  {
+                     cols: [
+                        { fillspace: true },
+                        {
+                           view: "button",
+                           value: L("Cancel"),
+                           css: "ab-cancel-button",
+                           autowidth: true,
+                           click: () => {
+                              this.hide();
+                           },
+                        },
+                        {
+                           id: ids.popupTabManagerSaveButton,
+                           view: "button",
+                           css: "webix_primary",
+                           value: L("Add Tab"),
+                           autowidth: true,
+                           type: "form",
+                           click: () => {
+                              const $form = $$(ids.popupTabManagerForm);
+
+                              if ($form.validate()) {
+                                 this.busy();
+
+                                 const vals = $form.getValues();
+
+                                 const doneFn = () => {
+                                    this.ready();
+                                    this.hide();
+
+                                    // Trigger the event - 'saved'
+                                    this.emit("saved");
+                                 };
+
+                                 // add
+                                 if (!vals.id) {
+                                    this.addTab(vals).then(() => doneFn());
+                                 }
+                                 // edit
+                                 else {
+                                    this.editTab(vals).then(() => doneFn());
+                                 }
+                              }
+                           },
+                        },
+                     ],
+                  },
+               ],
+            },
+         };
+      }
+
+      create() {
+         this.view.AB.Webix.ui(this.ui()).hide();
+      }
+
+      show(tab) {
+         const ids = this.ids;
+
+         const $popup = $$(ids.popupTabManager);
+         const $form = $$(ids.popupTabManagerForm);
+         const $button = $$(ids.popupTabManagerSaveButton);
+
+         if ($popup) {
+            // Edit tab
+            if (tab) {
+               $form.setValues({
+                  id: tab.id,
+                  label: tab.label,
+                  tabicon: tab.tabicon,
+               });
+
+               $popup.getHead().setHTML(L("Edit Tab"));
+               $button.setValue(L("Save"));
+            }
+
+            // Add new tab
+            else {
+               $form.setValues({
+                  id: null,
+                  label: "",
+                  tabicon: "",
+               });
+
+               $popup.getHead().setHTML(L("Add Tab"));
+               $button.setValue(L("Add"));
+            }
+
+            $button.refresh();
+
+            // show 'add new field' popup
+            $popup.show();
+         }
+      }
+
+      hide() {
+         const ids = this.ids;
+
+         const $popup = $$(ids.popupTabManager);
+
+         if ($popup) $popup.hide();
+      }
+
+      busy() {
+         const ids = this.ids;
+
+         const $button = $$(ids.popupTabManagerSaveButton);
+
+         if ($button) $button.disable();
+      }
+
+      ready() {
+         const ids = this.ids;
+
+         const $button = $$(ids.popupTabManagerSaveButton);
+
+         if ($button) $button.enable();
+      }
+
+      addTab(values) {
+         // get current instance and .addTab()
+         const LayoutView = this.view;
+
+         return LayoutView.addTab(values.label ?? "", values.tabicon ?? null);
+      }
+
+      editTab(values) {
+         // get current instance and rename tab
+         const LayoutView = this.view;
+         const editedTab = LayoutView.views((view) => view.id === values.id)[0];
+
+         if (!editedTab) return;
+
+         editedTab.label = values.label;
+         editedTab.tabicon = values.tabicon;
+
+         return editedTab.save();
+      }
+   }
+
+   return TabPopup;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/PropertyManager.js":
 /*!**************************************************************!*\
   !*** ./src/rootPages/Designer/properties/PropertyManager.js ***!
@@ -69480,9 +70278,13 @@ __webpack_require__.r(__webpack_exports__);
    // All the ABViewXXX Property Interfaces Available.
    [
       __webpack_require__(/*! ./views/ABViewCarousel */ "./src/rootPages/Designer/properties/views/ABViewCarousel.js"),
+      __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/properties/views/ABViewDataview.js"),
+      __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/properties/views/ABViewDetail.js"),
+      __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/properties/views/ABViewDocxBuilder.js"),
       __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/properties/views/ABViewGrid.js"),
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/properties/views/ABViewForm.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/properties/views/ABViewPage.js"),
+      __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/properties/views/ABViewTab.js"),
    ].forEach((V) => {
       let Klass = V.default(AB);
       Views.push(Klass);
@@ -74592,14 +75394,9 @@ __webpack_require__.r(__webpack_exports__);
             );
             if (!domNode) return false;
 
-            // TODO : use to render selectivity to set default values
-            let selectivityRender = new ABFieldSelectivity(
-               {
-                  settings: {},
-               },
-               {},
-               {}
-            );
+            const values = this.values();
+
+            const selectivityRender = new ABFieldSelectivity(values, this);
 
             selectivityRender.selectivityRender(domNode, {
                multiple: true,
@@ -78476,10 +79273,15 @@ __webpack_require__.r(__webpack_exports__);
                   rows: [this.toUsers.ui({})],
                },
                {
-                  view: "text",
+                  view: "texthighlight",
                   label: L("URL"),
                   name: "url",
                   value: "",
+                  highlight: (string) => {
+                     return string.replace(/{%=[^%]*%}/g, (x) => {
+                        return `<span style="font-weight:500;background-color:#ebedf0;">${x}</span>`
+                     })
+                  },
                },
             ],
          };
@@ -86404,6 +87206,960 @@ const ABViewContainerDefaults = {
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/properties/views/ABViewDataview.js":
+/*!*******************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDataview.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewDetail__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewDetail */ "./src/rootPages/Designer/properties/views/ABViewDetail.js");
+/* harmony import */ var _viewProperties_ABViewPropertyLinkPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewProperties/ABViewPropertyLinkPage */ "./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyLinkPage.js");
+/*
+ * ABViewDataview
+ * A Property manager for our ABViewDataview definitions
+ */
+
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const base = "properties_abview_dataview";
+
+   const ABViewDetail = (0,_ABViewDetail__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const LinkPageProperty = (0,_viewProperties_ABViewPropertyLinkPage__WEBPACK_IMPORTED_MODULE_1__["default"])(AB, base);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABViewDetail.L();
+
+   let ABViewDataviewPropertyComponentDefaults = {};
+
+   class ABViewDataviewProperty extends ABViewDetail {
+      constructor() {
+         super(base, {
+            // Put our ids here
+            xCount: "",
+         });
+
+         this.AB = AB;
+         ABViewDataviewPropertyComponentDefaults =
+            this.AB.Class.ABViewManager.viewClass("dataview").defaultValues();
+
+         this.linkPageComponent = new LinkPageProperty(AB, base);
+      }
+
+      static get key() {
+         return "dataview";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               id: ids.xCount,
+               view: "counter",
+               name: "xCount",
+               min: 1, // we cannot have 0 columns per row so lets not accept it
+               label: L("Items in a row"),
+               labelWidth: uiConfig.labelWidthLarge,
+               step: 1,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            this.linkPageComponent.ui(),
+         ]);
+      }
+
+      init() {
+         super.init(this.AB);
+
+         this.linkPageComponent.init();
+         this.linkPageComponent.on("change", () => {
+            this.onChange();
+         });
+      }
+
+      populate(view) {
+         super.populate(view);
+         if (!view) return;
+
+         const ids = this.ids;
+
+         $$(ids.xCount).setValue(
+            view.settings.xCount ||
+               ABViewDataviewPropertyComponentDefaults.xCount
+         );
+
+         this.linkPageComponent.viewLoad(view);
+         this.linkPageComponent.setSettings(view.settings);
+      }
+
+      defaultValues() {
+         let values = {};
+         const ViewClass = this.ViewClass();
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+         let vals = super.values();
+
+         vals.settings = vals.settings ?? {};
+         vals.settings.xCount = $$(ids.xCount).getValue();
+
+         let linkSettings = this.linkPageComponent.getSettings();
+         for (let key in linkSettings) {
+            vals.settings[key] = linkSettings[key];
+         }
+
+         return vals;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("dataview");
+      }
+   }
+
+   return ABViewDataviewProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewDetail.js":
+/*!*****************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDetail.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewContainer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewContainer */ "./src/rootPages/Designer/properties/views/ABViewContainer.js");
+/*
+ * ABViewDetail
+ * A Property manager for our ABViewDetail definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ABViewContainer = (0,_ABViewContainer__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABViewContainer.L();
+
+   let ABViewDetailPropertyComponentDefaults = {};
+
+   const base = "properties_abview_detail";
+
+   class ABViewDetailProperty extends ABViewContainer {
+      constructor(base, ids = {}) {
+         super(
+            base,
+            Object.assign(
+               {
+                  // Put our ids here
+                  datacollection: "",
+                  fields: "",
+                  showLabel: "",
+                  labelPosition: "",
+                  labelWidth: "",
+                  height: "",
+               },
+               ids
+            )
+         );
+
+         this.AB = AB;
+         ABViewDetailPropertyComponentDefaults =
+            this.AB.Class.ABViewManager.viewClass("detail").defaultValues();
+      }
+
+      static get key() {
+         return "detail";
+      }
+
+      ui(elements) {
+         const ids = this.ids;
+
+         let _ui = [
+            {
+               id: ids.datacollection,
+               name: "datacollection",
+               view: "richselect",
+               label: L("Data Source"),
+               labelWidth: uiConfig.labelWidthLarge,
+               skipAutoSave: true,
+               on: {
+                  onChange: (newId, oldId) => {
+                     this.selectSource(newId, oldId);
+                  },
+               },
+            },
+            {
+               id: ids.fields,
+               name: "fields",
+               view: "list",
+               select: false,
+               minHeight: 200,
+               template: this.listTemplate,
+               type: {
+                  markCheckbox: function (item) {
+                     return (
+                        "<span class='check webix_icon fa fa-" +
+                        (item.selected ? "check-" : "") +
+                        "square-o'></span>"
+                     );
+                  },
+               },
+               onClick: {
+                  check: (...params) => this.check(...params),
+               },
+            },
+            {
+               id: ids.showLabel,
+               name: "showLabel",
+               view: "checkbox",
+               label: L("Display Label"),
+               labelWidth: uiConfig.labelWidthLarge,
+            },
+            {
+               id: ids.labelPosition,
+               name: "labelPosition",
+               view: "richselect",
+               label: L("Label Position"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [
+                  {
+                     id: "left",
+                     value: L("Left"),
+                  },
+                  {
+                     id: "top",
+                     value: L("Top"),
+                  },
+               ],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.labelWidth,
+               name: "labelWidth",
+               view: "counter",
+               label: L("Label Width"),
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.height,
+               name: "height",
+               view: "counter",
+               label: L("Height:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+         ];
+
+         // Union arrays: ._ui + .elements
+         (elements ?? []).forEach((elem) => {
+            _ui.push(elem);
+         });
+
+         return super.ui(_ui);
+      }
+
+      populate(view) {
+         super.populate(view);
+         if (!view) return;
+
+         const ids = this.ids;
+
+         const datacollectionId = view.settings?.dataviewID;
+         const SourceSelector = $$(ids.datacollection);
+
+         // Pull data collections to options
+         const dcOptions = view.application
+            .datacollectionsIncluded()
+            .filter((dc) => {
+               const obj = dc.datasource;
+               return dc.sourceType == "object" && obj && !obj.isImported;
+            })
+            .map((d) => {
+               let entry = { id: d.id, value: d.label };
+               if (d.sourceType == "query") {
+                  entry.icon = "fa fa-filter";
+               } else {
+                  entry.icon = "fa fa-database";
+               }
+               return entry;
+            });
+         SourceSelector.define("options", dcOptions);
+         SourceSelector.define("value", datacollectionId);
+         SourceSelector.refresh();
+
+         this.propertyUpdateFieldOptions(datacollectionId, view);
+
+         $$(ids.showLabel).setValue(
+            view.settings.showLabel ??
+               ABViewDetailPropertyComponentDefaults.showLabel
+         );
+         $$(ids.labelPosition).setValue(
+            view.settings.labelPosition ??
+               ABViewDetailPropertyComponentDefaults.labelPosition
+         );
+         $$(ids.labelWidth).setValue(
+            parseInt(view.settings.labelWidth) ??
+               ABViewDetailPropertyComponentDefaults.labelWidth
+         );
+         $$(ids.height).setValue(
+            view.settings.height >= 0
+               ? view.settings.height
+               : ABViewDetailPropertyComponentDefaults.height
+         );
+
+         // update properties when a field component is deleted
+         view?.views().forEach((v) => {
+            if (v instanceof this.AB.Class.ABViewDetailItem)
+               v.once("destroyed", () => this.populate(view));
+         });
+      }
+
+      defaultValues() {
+         let values = {};
+         const ViewClass = this.ViewClass();
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+         let vals = super.values();
+
+         vals.settings = vals.settings ?? {};
+         vals.settings.dataviewID = $$(ids.datacollection).getValue();
+         vals.settings.showLabel = $$(ids.showLabel).getValue();
+         vals.settings.labelPosition = $$(ids.labelPosition).getValue();
+         vals.settings.labelWidth = $$(ids.labelWidth).getValue();
+         vals.settings.height = $$(ids.height).getValue();
+
+         return vals;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("detail");
+      }
+
+      /**
+       * @method propertyUpdateFieldOptions
+       * Populate fields of object to select list in property
+       *
+       * @param {string} dcId - id of ABDatacollection
+       */
+      propertyUpdateFieldOptions(dcId, view) {
+         const ids = this.ids;
+         const datacollection = this.AB.datacollections(
+            (dc) => dc.id == dcId
+         )[0];
+         const object = datacollection?.datasource;
+
+         // Pull field list
+         const fieldOptions = object?.fields().map((f) => {
+            f.selected =
+               view?.views((com) => f.id == com.settings.fieldId).length > 0;
+
+            return f;
+         });
+
+         $$(ids.fields).clearAll();
+         $$(ids.fields).parse(fieldOptions ?? []);
+      }
+
+      async selectSource(dcId) {
+         const ids = this.ids;
+         // _logic.busy();
+
+         let currView = this.CurrentView;
+
+         currView.settings.dataviewID = dcId;
+
+         // clear sub views
+         let viewsToRemove = currView._views;
+         currView._views = [];
+
+         // remove all old field components
+         let allRemoves = [];
+         viewsToRemove.forEach((v) => {
+            allRemoves.push(v.destroy());
+         });
+         await Promise.all(allRemoves);
+
+         // refresh UI
+         // Update field options in property
+         this.propertyUpdateFieldOptions(dcId);
+
+         // add all fields to editor by default
+         if (currView._views.length < 1) {
+            let saveTasks = [];
+            let fields = $$(ids.fields).find({});
+            fields.reverse();
+            fields.forEach((f, index) => {
+               if (!f.selected) {
+                  const yPosition = fields.length - index - 1;
+
+                  // Add new form field
+                  const newFieldView = currView.addFieldToDetail(f, yPosition);
+                  if (newFieldView) {
+                     newFieldView.once("destroyed", () =>
+                        this.populate(currView)
+                     );
+
+                     // // Call save API
+                     saveTasks.push(newFieldView.save());
+                  }
+
+                  // update item to UI list
+                  f.selected = 1;
+                  $$(ids.fields).updateItem(f.id, f);
+               }
+            });
+
+            await Promise.all(saveTasks);
+         }
+
+         // Saving
+         await currView.save();
+
+         // Finally
+         const detailView = currView.parentDetailComponent();
+         detailView?.emit("properties.updated", currView);
+
+         // _logic.ready();
+         this.onChange();
+      }
+
+      listTemplate(field, common) {
+         return (
+            common.markCheckbox(field) +
+            " #label#".replace("#label#", field.label)
+         );
+      }
+
+      check(e, fieldId) {
+         const ids = this.ids;
+         const currView = this.CurrentView;
+         const detailView = currView.parentDetailComponent();
+
+         // update UI list
+         const item = $$(ids.fields).getItem(fieldId);
+         item.selected = item.selected ? 0 : 1;
+         $$(ids.fields).updateItem(fieldId, item);
+
+         const doneFn = () => {
+            // refresh UI
+            currView.emit("properties.updated", currView);
+            this.onChange();
+         };
+
+         // add a field to the form
+         if (item.selected) {
+            const fieldView = currView.addFieldToDetail(item);
+            if (fieldView) {
+               fieldView.save().then(() => {
+                  fieldView.once("destroyed", () => this.populate(currView));
+                  currView.viewInsert(fieldView).then(() => {
+                     doneFn();
+                  });
+               });
+            }
+         }
+         // remove field in the form
+         else {
+            const fieldView = detailView.views(
+               (c) => c.settings.fieldId == fieldId
+            )[0];
+
+            if (fieldView) {
+               fieldView.destroy();
+               currView.viewRemove(fieldView).then(() => {
+                  doneFn();
+               });
+            }
+         }
+      }
+   }
+
+   return ABViewDetailProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewDocxBuilder.js":
+/*!**********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDocxBuilder.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewDocxBuilder
+ * A Property manager for our ABViewDocxBuilder definitions
+ */
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABView.L();
+
+   let ABViewDocxBuilderPropertyComponentDefaults = {};
+
+   const base = "properties_abview_docxBuilder";
+
+   class ABViewDocxBuilderProperty extends ABView {
+      constructor() {
+         super(base, {
+            // Put our ids here
+            buttonlabel: "",
+            buttonPosition: "",
+            datacollection: "",
+            docxFile: "",
+            docxDownload: "",
+            filelabel: "",
+            language: "",
+            toolbarBackground: "",
+            width: 0,
+         });
+
+         this.AB = AB;
+         ABViewDocxBuilderPropertyComponentDefaults =
+            this.AB.Class.ABViewManager.viewClass(
+               "docxBuilder"
+            ).defaultValues();
+      }
+
+      static get key() {
+         return "docxBuilder";
+      }
+
+      ui() {
+         //  const ids = this.ids;
+
+         // Populate language options
+         const langOptions = this.AB.Multilingual.languages().map((lang) => {
+            return {
+               id: lang.language_code,
+               value: lang.language_label,
+            };
+         });
+
+         // docxFile: "",
+         // docxDownload: "",
+         // toolbarBackground: "",
+         // width: 0,
+
+         return super.ui([
+            {
+               view: "fieldset",
+               label: L("Data:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        id: this.ids.datacollection,
+                        name: "datacollection",
+                        view: "richselect",
+                        // view: "multicombo",
+                        label: L("Data Source"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+                  ],
+               },
+            },
+
+            {
+               view: "fieldset",
+               label: L("Template file:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        cols: [
+                           {
+                              view: "label",
+                              label: L("DOCX file:"),
+                              css: "ab-text-bold",
+                              width: uiConfig.labelWidthXLarge,
+                           },
+                           {
+                              id: this.ids.docxFile,
+                              view: "uploader",
+                              value: L("Upload"),
+                              name: "docxFile",
+                              apiOnly: true,
+                              inputName: "file",
+                              multiple: false,
+                              on: {
+                                 onBeforeFileAdd: (item) => {
+                                    return this.validateType(item);
+                                 },
+
+                                 onFileUpload: (file, response) => {
+                                    this.uploadedFile(file);
+                                 },
+
+                                 onFileUploadError: (file, response) => {},
+                              },
+                           },
+                        ],
+                     },
+                     {
+                        id: this.ids.filelabel,
+                        name: "filelabel",
+                        view: "text",
+                        label: L("Filename"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+                     {
+                        id: this.ids.docxDownload,
+                        name: "docxDownload",
+                        view: "button",
+                        type: "icon",
+                        css: "webix_primary",
+                        icon: "fa fa-file-word-o",
+                        label: L("Download Template File"),
+                        click: () => {
+                           this.downloadFile();
+                        },
+                     },
+                  ],
+               },
+            },
+
+            {
+               view: "fieldset",
+               label: L("Language:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        id: this.ids.language,
+                        name: "language",
+                        view: "richselect",
+                        label: L("Language"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        options: langOptions,
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+                  ],
+               },
+            },
+
+            {
+               view: "fieldset",
+               label: L("Customize Display:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        id: this.ids.buttonlabel,
+                        name: "buttonlabel",
+                        view: "text",
+                        label: L("Label"),
+                        labelWidth: uiConfig.labelWidthXLarge,
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+
+                     {
+                        id: this.ids.width,
+                        view: "counter",
+                        name: "width",
+                        label: L("Width:"),
+                        labelWidth: uiConfig.labelWidthXLarge,
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+                     {
+                        id: this.ids.toolbarBackground,
+                        view: "richselect",
+                        name: "toolbarBackground",
+                        label: L("Page background:"),
+                        labelWidth: uiConfig.labelWidthXLarge,
+                        options: [
+                           {
+                              id: "ab-background-default",
+                              value: L("White (default)"),
+                           },
+                           {
+                              id: "webix_dark",
+                              value: L("Dark"),
+                           },
+                           {
+                              id: "ab-background-lightgray",
+                              value: L("Gray"),
+                           },
+                        ],
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+
+                     {
+                        id: this.ids.buttonPosition,
+                        view: "richselect",
+                        name: "buttonPosition",
+                        label: L("Button Position:"),
+                        labelWidth: uiConfig.labelWidthXLarge,
+                        options: [
+                           {
+                              id: "left",
+                              value: L("Left (default)"),
+                           },
+                           {
+                              id: "center",
+                              value: L("Centered"),
+                           },
+                           {
+                              id: "right",
+                              value: L("Right"),
+                           },
+                        ],
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+                  ],
+               },
+            },
+         ]);
+      }
+
+      populate(view) {
+         super.populate(view);
+         if (!view) return;
+
+         const ids = this.ids;
+
+         const $DcSelector = $$(ids.datacollection);
+
+         const selectedDvId = view.settings.dataviewID ?? null;
+
+         $$(ids.toolbarBackground).setValue(
+            view.settings.toolbarBackground ??
+               ABViewDocxBuilderPropertyComponentDefaults.toolbarBackground
+         );
+         $$(ids.buttonPosition).setValue(
+            view.settings.buttonPosition ??
+               ABViewDocxBuilderPropertyComponentDefaults.buttonPosition
+         );
+
+         // Pull data views to options
+         const dcOptions = view.application
+            .datacollectionsIncluded()
+            .map((dc) => {
+               return {
+                  id: dc.id,
+                  value: dc.label,
+               };
+            });
+
+         $DcSelector.define("options", dcOptions);
+         $DcSelector.define("value", selectedDvId);
+         $DcSelector.refresh();
+
+         $$(ids.language).setValue(
+            view.settings.language ??
+               ABViewDocxBuilderPropertyComponentDefaults.language
+         );
+
+         $$(ids.filelabel).setValue(view.filelabel ?? view.settings.filelabel);
+         $$(ids.buttonlabel).setValue(
+            view.buttonlabel ?? view.settings.buttonlabel
+         );
+         $$(ids.width).setValue(view.settings.width);
+
+         if (view.settings.filename) {
+            $$(ids.docxDownload).show();
+         } else {
+            $$(ids.docxDownload).hide();
+         }
+      }
+
+      defaultValues() {
+         let values = {};
+         const ViewClass = this.ViewClass();
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+         let vals = super.values();
+
+         vals.settings = vals.settings ?? {};
+         vals.settings.buttonlabel = $$(ids.buttonlabel).getValue();
+         vals.settings.dataviewID = $$(ids.datacollection).getValue();
+         vals.settings.width = $$(ids.width).getValue();
+         vals.filelabel = $$(ids.filelabel).getValue();
+         vals.settings.language = $$(ids.language).getValue();
+         vals.settings.toolbarBackground = $$(ids.toolbarBackground).getValue();
+         vals.settings.buttonPosition = $$(ids.buttonPosition).getValue();
+
+         return vals;
+      }
+
+      /**
+       * @method ViewClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("docxBuilder");
+      }
+
+      validateType(item) {
+         const ids = this.ids;
+
+         // verify file type
+         const acceptableTypes = ["docx"];
+         const type = item.type.toLowerCase();
+         if (acceptableTypes.indexOf(type) == -1) {
+            this.AB.Webix.message(
+               L(`Only [${acceptableTypes.join(", ")}] files are supported`)
+            );
+            return false;
+         } else {
+            // set upload url to uploader
+            const currView = this.CurrentView;
+            const uploadUrl = currView.uploadUrl();
+
+            $$(ids.docxFile).define("upload", uploadUrl);
+            $$(ids.docxFile).refresh();
+
+            return true;
+         }
+      }
+
+      uploadedFile(fileInfo) {
+         if (!fileInfo || !fileInfo.data) return;
+
+         const ids = this.ids;
+         let currView = this.CurrentView;
+         currView.settings.filename = fileInfo.data.uuid;
+         currView.filelabel = fileInfo.name;
+
+         $$(ids.filelabel).setValue(currView.filelabel);
+         $$(ids.docxDownload).show();
+      }
+
+      downloadFile() {
+         const currView = this.CurrentView;
+         const url = currView.downloadUrl();
+
+         fetch(url)
+            .then((response) => response.blob())
+            .then((blob) => {
+               currView.letUserDownload(blob, currView.filelabel);
+            });
+      }
+   }
+
+   return ABViewDocxBuilderProperty;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/views/ABViewForm.js":
 /*!***************************************************************!*\
   !*** ./src/rootPages/Designer/properties/views/ABViewForm.js ***!
@@ -88242,6 +89998,250 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/properties/views/ABViewTab.js":
+/*!**************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewTab.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/* harmony import */ var _interface_common_ui_tab_form_popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../interface_common/ui_tab_form_popup */ "./src/rootPages/Designer/interface_common/ui_tab_form_popup.js");
+/*
+ * ABViewTab
+ * A Property manager for our ABViewTab definitions
+ */
+
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_tab";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABView.L();
+
+   const TabPopup = (0,_interface_common_ui_tab_form_popup__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+
+   class ABViewTabProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            sidebarWidth: "",
+            sidebarPos: "",
+            iconOnTop: "",
+            height: "",
+            minWidth: "",
+            stackTabs: "",
+            darkTheme: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "tab";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               id: ids.height,
+               view: "counter",
+               label: L("Height"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.minWidth,
+               view: "counter",
+               label: L("Minimum width"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.stackTabs,
+               view: "checkbox",
+               labelRight: L("Stack Tabs Vertically"),
+               labelWidth: uiConfig.labelWidthCheckbox,
+               on: {
+                  onChange: (newValue) => {
+                     if (newValue == 1) {
+                        $$(ids.sidebarWidth).show();
+                        $$(ids.sidebarPos).show();
+                        $$(ids.iconOnTop).hide();
+                     } else {
+                        $$(ids.sidebarWidth).hide();
+                        $$(ids.sidebarPos).hide();
+                        $$(ids.iconOnTop).show();
+                     }
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.iconOnTop,
+               view: "checkbox",
+               labelRight: L("Position icon above text"),
+               labelWidth: uiConfig.labelWidthCheckbox,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.darkTheme,
+               view: "checkbox",
+               labelRight: L("Use Dark Theme"),
+               labelWidth: uiConfig.labelWidthCheckbox,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.sidebarWidth,
+               view: "counter",
+               label: L("Width of Sidebar"),
+               labelWidth: uiConfig.labelWidthXLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.sidebarPos,
+               view: "richselect",
+               label: L("Position of Sidebar"),
+               labelWidth: uiConfig.labelWidthXLarge,
+               options: [
+                  { id: "left", value: L("Left") },
+                  { id: "right", value: L("Right") },
+               ],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            // [button] : add tab
+            {
+               view: "button",
+               css: "webix_primary",
+               value: L("Add Tab"),
+               click: () => {
+                  const baseView = this.CurrentView;
+
+                  baseView.tabPopup.show();
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         await super.init(AB);
+
+         const baseView = this.CurrentView;
+
+         if (!baseView.tabPopup) {
+            baseView.tabPopup = new TabPopup(baseView);
+
+            await baseView.tabPopup.init(AB);
+
+            baseView.tabPopup.on("saved", () => {
+               this.onChange();
+            });
+         }
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+
+         $$(ids.height).setValue(view.settings.height);
+         $$(ids.minWidth).setValue(view.settings.minWidth);
+         $$(ids.stackTabs).setValue(view.settings.stackTabs);
+         $$(ids.darkTheme).setValue(view.settings.darkTheme);
+         $$(ids.sidebarWidth).setValue(view.settings.sidebarWidth);
+         $$(ids.sidebarPos).setValue(view.settings.sidebarPos);
+         $$(ids.iconOnTop).setValue(view.settings.iconOnTop);
+
+         if (view.settings.stackTabs) {
+            $$(ids.sidebarWidth).show();
+            $$(ids.sidebarPos).show();
+            $$(ids.iconOnTop).hide();
+         } else {
+            $$(ids.sidebarWidth).hide();
+            $$(ids.sidebarPos).hide();
+            $$(ids.iconOnTop).show();
+         }
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+         const values = super.values();
+
+         values.settings = values.settings ?? {};
+         values.settings.height = $$(ids.height).getValue();
+         values.settings.minWidth = $$(ids.minWidth).getValue();
+         values.settings.stackTabs = $$(ids.stackTabs).getValue();
+         values.settings.darkTheme = $$(ids.darkTheme).getValue();
+         values.settings.sidebarWidth = $$(ids.sidebarWidth).getValue();
+         values.settings.sidebarPos = $$(ids.sidebarPos).getValue();
+         values.settings.iconOnTop = $$(ids.iconOnTop).getValue();
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("tab");
+      }
+   }
+
+   return ABViewTabProperty;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyFilterData.js":
 /*!********************************************************************************************!*\
   !*** ./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyFilterData.js ***!
@@ -88896,6 +90896,9 @@ var myClass = null;
                         label: L("Details Page:"),
                         labelWidth: uiConfig.labelWidthLarge,
                         options: [],
+                        on: {
+                           onChange: () => this.emit("change"),
+                        },
                      },
                      {
                         id: this.ids.editPage,
@@ -88906,6 +90909,9 @@ var myClass = null;
                         label: L("Edit Form:"),
                         labelWidth: uiConfig.labelWidthLarge,
                         options: [],
+                        on: {
+                           onChange: () => this.emit("change"),
+                        },
                      },
                   ],
                },
@@ -108433,6 +110439,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
 /* harmony import */ var _ui_warnings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui_warnings */ "./src/rootPages/Designer/ui_warnings.js");
 /* harmony import */ var _ui_work_process_workspace_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui_work_process_workspace_model */ "./src/rootPages/Designer/ui_work_process_workspace_model.js");
+/* harmony import */ var _ui_work_process_workspace_monitor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ui_work_process_workspace_monitor */ "./src/rootPages/Designer/ui_work_process_workspace_monitor.js");
+
 
 
 
@@ -108455,7 +110463,7 @@ __webpack_require__.r(__webpack_exports__);
    };
    const ModelUI = (0,_ui_work_process_workspace_model__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
    const TestUI = mockUI;
-   const MonitorUI = mockUI;
+   const MonitorUI = (0,_ui_work_process_workspace_monitor__WEBPACK_IMPORTED_MODULE_3__["default"])(AB);
 
    var Warnings = (0,_ui_warnings__WEBPACK_IMPORTED_MODULE_1__["default"])(AB, `${ibase}_view_warnings`);
 
@@ -108583,7 +110591,11 @@ __webpack_require__.r(__webpack_exports__);
                      {
                         id: ids.multiview,
                         view: "multiview",
-                        cells: [ModelUI.ui() /*, TestUI.ui(), MonitorUI.ui()*/],
+                        cells: [
+                           ModelUI.ui(),
+                           // TestUI.ui(),
+                           MonitorUI.ui(),
+                        ],
                      },
                      Warnings.ui(),
                   ],
@@ -110530,6 +112542,483 @@ function series(list, cb) {
    }
 
    return new UI_Work_Process_Workspace_Model();
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/ui_work_process_workspace_monitor.js":
+/*!*********************************************************************!*\
+  !*** ./src/rootPages/Designer/ui_work_process_workspace_monitor.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
+/*
+ * ui_work_process_workspace_monitor
+ *
+ * UI for managing process instances
+ *
+ */
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ibase = "ui_work_process_workspace_monitor";
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = UIClass.L();
+
+   class UI_Work_Process_Workspace_Monitor extends UIClass {
+      /**
+       * @param {object} App
+       * @param {string} idBase
+       */
+      constructor() {
+         super(ibase, {
+            component: "",
+            taskList: "",
+            processLogs: "",
+            detailView: "",
+            resetButton: "",
+            deleteButton: "",
+            context: "",
+            error: "",
+            tabGroup: "",
+         });
+      }
+
+      ui() {
+         const ids = this.ids;
+         // Our webix UI definition:
+         return {
+            id: ids.component,
+            cols: [
+               {
+                  gravity: 1,
+                  rows: [
+                     {
+                        view: "toolbar",
+                        css: "ab-data-toolbar webix_dark",
+                        cols: [
+                           {
+                              type: "spacer",
+                              width: 15,
+                           },
+                           {
+                              view: "label",
+                              label: L("Instances"),
+                           },
+                           {
+                              view: "icon",
+                              id: "filterIcon",
+                              css: "icon-disable",
+                              icon: "fa fa-filter",
+                              align: "right",
+                              popup: {
+                                 view: "checksuggest",
+                                 id: "instanceFilter",
+                                 button: false,
+                                 body: {
+                                    template: `${L("Hide")} #value#`,
+                                 },
+                                 data: [
+                                    {
+                                       id: "completed",
+                                       value: L("Completed"),
+                                    },
+                                    {
+                                       id: "created",
+                                       value: L("Created"),
+                                    },
+                                    { id: "error", value: L("Error") },
+                                 ],
+                                 on: {
+                                    onValueSuggest: () => {
+                                       const filter = $$("instanceFilter")
+                                          .config.value.split(",")
+                                          .filter((s) => s !== "");
+                                       const instances = this.instances.filter(
+                                          (i) => filter.indexOf(i.status) == -1
+                                       );
+                                       $$(ids.taskList).clearAll();
+                                       $$(ids.taskList).parse(instances);
+                                       $$("filterIcon").config.badge =
+                                          filter.length == 0
+                                             ? ""
+                                             : filter.length;
+                                       $$("filterIcon").refresh();
+                                    },
+                                 },
+                              },
+                           },
+                        ],
+                     },
+                     {
+                        view: "list",
+                        id: ids.taskList,
+                        select: true,
+                        navigation: true,
+                        item: {
+                           height: 74,
+                           template: (instance) => {
+                              const icons = {
+                                 error: {
+                                    icon: "fa-times-circle",
+                                    color: "#FF5C4C",
+                                 },
+                                 created: {
+                                    icon: "fa-clock-o",
+                                    color: "#FFAE38",
+                                 },
+                                 completed: {
+                                    icon: "fa-check-circle",
+                                    color: "#38AEA2",
+                                 },
+                              };
+                              const { icon, color } = icons[
+                                 instance.status
+                              ] ?? { icon: "fa-question", color: "gray" };
+                              // Format updated_at as title
+                              const title = new Date(
+                                 instance.updated_at
+                              ).toLocaleString(
+                                 //eslint-disable-next-line no-undef
+                                 window?.webixLocale ?? "en-US"
+                              );
+                              // Use the last log as a description text
+                              const lastLog =
+                                 instance.log[instance.log.length - 1];
+                              return `<div
+                                    style="float:left;height:70px;line-height:70px;margin-right:10px;color:${color};"
+                                    class="fa ${icon} fa-2x">
+                                 </div>
+                                 <div style="margin:5px 0;height:60px;overflow:hidden;line-height:20px">
+                                    <div style="font-size: 16px; font-weight: 600;">
+                                       ${title}
+                                    </div>
+                                    <div>${lastLog.split(":")[2]}</div>
+                                 </div>`;
+                           },
+                        },
+                        on: {
+                           onItemClick: (id) => this.showInstance(id),
+                        },
+                     },
+                  ],
+               },
+               { view: "resizer", css: "bg_gray", width: 11 },
+               {
+                  gravity: 2,
+                  rows: [
+                     {
+                        gravity: 2,
+                        rows: [
+                           {
+                              view: "toolbar",
+                              css: "ab-data-toolbar webix_dark",
+                              cols: [
+                                 { type: "spacer", width: 15 },
+                                 {
+                                    view: "label",
+                                    label: L("Instance Details"),
+                                 },
+                                 {
+                                    id: ids.resetButton,
+                                    view: "button",
+                                    width: 100,
+                                    css: "webix_secondary",
+                                    type: "icon",
+                                    icon: "fa fa-refresh",
+                                    label: L("Reset"),
+                                    click: () => this.resetInstance(),
+                                 },
+                                 {
+                                    id: ids.deleteButton,
+                                    view: "button",
+                                    width: 100,
+                                    css: "webix_danger",
+                                    type: "icon",
+                                    icon: "fa fa-trash",
+                                    label: L("Delete"),
+                                    click: () => this.deleteInstance(),
+                                 },
+                                 { type: "spacer", width: 1 },
+                              ],
+                           },
+                           {
+                              view: "property",
+                              height: 200,
+                              id: ids.detailView,
+                              editable: false,
+                              elements: [
+                                 { label: L("Instance"), type: "label" },
+                                 {
+                                    label: L("ID"),
+                                    type: "text",
+                                    id: "id",
+                                 },
+                                 {
+                                    label: L("Created"),
+                                    type: "date",
+                                    id: "created",
+                                 },
+                                 {
+                                    label: L("Updated"),
+                                    type: "date",
+                                    id: "updated",
+                                 },
+                                 {
+                                    label: L("Job ID"),
+                                    type: "text",
+                                    id: "jobId",
+                                 },
+                                 {
+                                    label: L("Status"),
+                                    type: "text",
+                                    id: "status",
+                                 },
+                                 {
+                                    label: L("Triggered By"),
+                                    type: "text",
+                                    id: "triggeredBy",
+                                 },
+                              ],
+                           },
+                        ],
+                     },
+                     {
+                        view: "tabview",
+                        id: ids.tabGroup,
+                        css: "webix_dark",
+                        cells: [
+                           {
+                              header: L("Logs"),
+                              body: {
+                                 id: ids.processLogs,
+                                 view: "list",
+                                 type: { height: "auto" },
+                                 template:
+                                    '<div style="padding:5px 0; line-height:20px;color:black">#value#</div>',
+                              },
+                           },
+                           {
+                              header: L("Context"),
+                              body: {
+                                 view: "treetable",
+                                 id: ids.context,
+                                 css: { color: "black !important" },
+                                 resizable: true,
+                                 scroll: true,
+                                 columns: [
+                                    {
+                                       id: "title",
+                                       header: L("Property"),
+                                       width: 300,
+                                       template: "{common.treetable()} #key#",
+                                    },
+                                    {
+                                       id: "value",
+                                       header: L("Value"),
+                                       width: 500,
+                                    },
+                                 ],
+                              },
+                           },
+                        ],
+                     },
+                  ],
+               },
+            ],
+         };
+      }
+
+      // Our init() function for setting up our UI
+      async init(AB) {
+         this.model = AB.objectProcessInstance().model();
+      }
+
+      async processLoad(process) {
+         super.processLoad(process);
+         const processIdField = "d5afbc83-17dd-4b38-bded-1bf3f4594135";
+         const where = {};
+         where[processIdField] = process.id;
+         // Need to findAll without limit and sort client side, because server
+         // cannot currently sort based on the updated_at columns. Later we
+         // might want to add way to do this server side.
+         const res = await this.model.findAll({ where });
+         this.instances = res.data.sort((a, b) => {
+            return new Date(b.updated_at) - new Date(a.updated_at);
+         });
+         const $taskList = $$(this.ids.taskList);
+         $taskList.clearAll();
+         $taskList.parse(this.instances);
+         if (this.instances[0]) {
+            this.showInstance(this.instances[0].id);
+            $taskList.select(this.instances[0].id);
+         }
+      }
+
+      showInstance(itemId) {
+         this.instance = itemId;
+         const ids = this.ids;
+         // Clear if itemId is undefinded (happens if last instance is deleted)
+         if (!itemId) {
+            $$(ids.processLogs).clearAll();
+            $$(ids.detailView).clear();
+            $$(ids.tabGroup).removeView(ids.error);
+            $$(ids.context).clearAll();
+            $$(ids.resetButton).hide();
+            $$(ids.deleteButton).hide();
+            return;
+         }
+         const item = $$(ids.taskList).getItem(itemId);
+         const logs = item.log.map((log, index) => {
+            return { id: index, value: log };
+         });
+         $$(ids.processLogs).clearAll();
+         $$(ids.processLogs).parse(logs);
+         $$(ids.detailView).setValues({
+            id: item.id,
+            created: new Date(item.created_at),
+            updated: new Date(item.updated_at),
+            jobId: item.jobID,
+            status: item.status,
+            triggeredBy: item.triggeredBy,
+         });
+         $$(ids.context).clearAll();
+         $$(ids.context).parse(this.processContext(item.context), "json");
+         $$(ids.context).refresh();
+         $$(ids.detailView).refresh();
+         // Only display the error tab if this instance has errors
+         $$(ids.tabGroup).removeView(ids.error);
+         if (item.errorTasks) {
+            const errors = [];
+            for (var key in item.errorTasks) {
+               errors.push({
+                  key,
+                  error: item.errorTasks[key],
+               });
+            }
+            $$(ids.tabGroup).addView({
+               header: "Errors",
+               body: {
+                  id: ids.error,
+                  view: "list",
+                  type: { height: "auto" },
+                  template: '<div style="color:black">#key# #error#</div>',
+                  data: errors,
+               },
+            });
+         }
+         // when you click an instance we need to know if
+         // we should show the reset button if it is an error
+         if (item.status == "error") {
+            $$(ids.resetButton).show();
+         } else {
+            $$(ids.resetButton).hide();
+         }
+         $$(ids.deleteButton).show();
+      }
+
+      async deleteInstance() {
+         const instance = this.instance;
+         const confirmed = await webix
+            .confirm({
+               title: L("Delete Instance"),
+               text: L("Are you sure? This can't be undone."),
+               type: "confirm-warning",
+            })
+            .catch(() => {}); //supress console.error
+         if (!confirmed) return;
+
+         const res = await this.model.delete(instance);
+
+         if (res.numRows > 0) {
+            const $taskList = $$(this.ids.taskList);
+            const nextInstance = $taskList.getNextId(this.instance);
+            $taskList.remove(this.instance);
+            this.showInstance(nextInstance);
+            webix.message({
+               text: `${L("Deleted Instance")} ${instance}`,
+               type: "success",
+            });
+         } else {
+            webix.messages({
+               text: L("No rows were effected.  This does not seem right."),
+               type: "warn",
+            });
+         }
+      }
+
+      async resetInstance() {
+         const item = $$(this.ids.taskList).getItem(this.instance);
+         const errorTasks = Object.keys(item.errorTasks);
+         if (errorTasks.length < 1) return;
+         const task = this.CurrentProcess.elements().filter((e) => {
+            return e.diagramID === errorTasks[0];
+         })[0];
+
+         const confirmed = await webix
+            .confirm({
+               title: L("Reset Instance"),
+               text: `${L("Restart from")} '${task.label}' (${task.key} ${L(
+                  "Task"
+               )})?`,
+            })
+            .catch(() => {}); //supress console.error
+         if (!confirmed) return;
+         const response = await this.AB.Network.put({
+            url: `/process/reset/${task.id}`,
+            params: { instanceID: this.instance },
+         });
+         if (response == 1) {
+            webix.message({
+               text: L("Instance Reset"),
+               type: "success",
+            });
+            this.processLoad(this.CurrentProcess);
+         }
+      }
+
+      // Convert context into a tree structure for webix display
+      processContext(data) {
+         const elements = [];
+         for (const key in data) {
+            if (
+               typeof data[key] === "object" &&
+               !Array.isArray(data[key]) &&
+               data[key] !== null
+            ) {
+               elements.push({
+                  key: key,
+                  open: true,
+                  data: this.processContext(data[key]),
+               });
+            } else {
+               elements.push({
+                  key: key,
+                  value: data[key],
+               });
+            }
+         }
+         return elements;
+      }
+
+      /**
+       * @function show()
+       *
+       * Show this component.
+       */
+      show() {
+         $$(this.ids.component).show();
+      }
+   }
+
+   return new UI_Work_Process_Workspace_Monitor();
 }
 
 
