@@ -68681,6 +68681,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/editors/views/ABViewGrid.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/editors/views/ABViewPage.js"),
       __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/editors/views/ABViewTab.js"),
+      __webpack_require__(/*! ./views/ABViewText */ "./src/rootPages/Designer/editors/views/ABViewText.js"),
    ].forEach((E) => {
       const Klass = E.default(AB);
 
@@ -69976,6 +69977,128 @@ let myClass = null;
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/editors/views/ABViewText.js":
+/*!************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewText.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewText
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewtext";
+
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+      myClass = class ABViewTabEditor extends UIClass {
+         static get key() {
+            return "text";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(base);
+
+            this.AB = AB;
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            const ids = this.ids;
+            const baseView = this.view;
+
+            return {
+               id: ids.component,
+               view: "tinymce-editor",
+               value: baseView.text,
+               config: {
+                  plugins: [
+                     "advlist autolink lists link image charmap print preview anchor",
+                     "searchreplace visualblocks code fullscreen",
+                     "insertdatetime media table contextmenu paste imagetools wordcount",
+                  ],
+                  toolbar:
+                     "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                  // menu: {
+                  // 	file: { title: 'File', items: 'newdocument' },
+                  // 	edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall' },
+                  // 	format: { title: 'Format', items: 'formats | removeformat' }
+                  // },
+                  init_instance_callback: (editor) => {
+                     const eventHandlerOnChange = () => {
+                        this.onChange();
+                     };
+
+                     editor.on("Change", eventHandlerOnChange);
+                  },
+               },
+            };
+         }
+
+         async init(AB) {
+            this.AB = AB;
+
+            webix.codebase = "/js/webix/extras/";
+
+            await this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         onChange() {
+            const ids = this.ids;
+            const baseView = this.view;
+
+            if (baseView._onChangeFunction) {
+               clearTimeout(baseView._onChangeFunction);
+
+               baseView._onChangeFunction = null;
+            }
+
+            const $component = $$(ids.component);
+
+            baseView._onChangeFunction = setTimeout(() => {
+               baseView.text = $component.getValue();
+
+               baseView.save();
+            }, 400);
+         }
+
+         detatch() {
+            this.component.detatch?.();
+         }
+
+         onShow() {
+            this.component.onShow();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/interface_common/ui_tab_form_popup.js":
 /*!**********************************************************************!*\
   !*** ./src/rootPages/Designer/interface_common/ui_tab_form_popup.js ***!
@@ -70285,6 +70408,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/properties/views/ABViewForm.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/properties/views/ABViewPage.js"),
       __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/properties/views/ABViewTab.js"),
+      __webpack_require__(/*! ./views/ABViewText */ "./src/rootPages/Designer/properties/views/ABViewText.js"),
    ].forEach((V) => {
       let Klass = V.default(AB);
       Views.push(Klass);
@@ -90237,6 +90361,230 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewTabProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewText.js":
+/*!***************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewText.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewText
+ * A Property manager for our ABViewTab definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_text";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABView.L();
+
+   class ABViewTextProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            dataviewID: "",
+            field: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "text";
+      }
+
+      ui() {
+         const ids = this.ids;
+         const self = this;
+
+         return super.ui([
+            {
+               view: "counter",
+               name: "height",
+               label: L("Height:"),
+               labelWidth: uiConfig.labelWidthLarge,
+            },
+            {
+               id: ids.dataviewID,
+               name: "dataviewID",
+               view: "richselect",
+               label: L("Data Source"),
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: (newValue) => {
+                     self.selectSource(newValue);
+                  },
+               },
+            },
+            {
+               id: ids.field,
+               name: "field",
+               view: "list",
+               maxHeight: 322,
+               template: "#label#",
+               on: {
+                  onItemClick: function (id) {
+                     const field = this.getItem(id);
+
+                     self.selectField(field);
+                  },
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      selectSource(dataviewID) {
+         const currentView = this.CurrentView;
+
+         // Update field options in property
+         this.updateFieldOptions(currentView, dataviewID);
+      }
+
+      selectField(field) {
+         const format = `{${field.label}}`;
+
+         // insert text to tinymce
+         tinymce.activeEditor.execCommand("mceInsertContent", false, format);
+      }
+
+      updateFieldOptions(view, dataviewID) {
+         const ids = this.ids;
+         const datacollection =
+            view.AB.datacollectionByID(dataviewID) ??
+            view.AB.datacollectionByID(view.parent.settings.dataviewID) ??
+            null;
+
+         if (view.parent.key === "dataview")
+            dataviewID = view.parent.settings.dataviewID;
+
+         const $dataviewID = $$(ids.dataviewID);
+         const $field = $$(ids.field);
+
+         $dataviewID.setValue(dataviewID);
+
+         if (!datacollection) {
+            $field.clearAll();
+
+            return;
+         }
+
+         const object = datacollection?.datasource ?? null;
+
+         // Pull field list
+         $field.clearAll();
+
+         if (object) $field.parse(object.fields());
+
+         $field.refresh();
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+
+         const dataviewID = view.settings.dataviewID ?? "none";
+
+         const $dataviewID = $$(ids.dataviewID);
+
+         // Pull data collections to options
+         const applicationLoad = this.CurrentApplication;
+
+         // / NOTE: only include System Objects if the user has permission
+         const datacollectionFilter = this.AB.Account.isSystemDesigner()
+            ? (obj) => !obj.isSystemObject
+            : () => true;
+
+         const datacollections =
+            applicationLoad.datacollectionsIncluded(datacollectionFilter);
+         const options = [
+            {
+               id: "none",
+               value: "None",
+            },
+            ...datacollections.map((e) => {
+               return {
+                  id: e.id,
+                  value: e.label,
+               };
+            }),
+         ];
+
+         $dataviewID.define("options", options);
+         $dataviewID.define("value", dataviewID);
+         $dataviewID.refresh();
+
+         this.updateFieldOptions(view, dataviewID);
+
+         const $component = $$(ids.component);
+
+         const values = $component.getValues();
+
+         for (const key in view.settings)
+            values[key] = values[key] || view.settings[key];
+
+         $component.setValues(values);
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = {};
+
+         values.settings = $component.getValues();
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("text");
+      }
+   }
+
+   return ABViewTextProperty;
 }
 
 
