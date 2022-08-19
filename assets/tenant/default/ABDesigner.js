@@ -68679,6 +68679,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/editors/views/ABViewDocxBuilder.js"),
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/editors/views/ABViewForm.js"),
       __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/editors/views/ABViewGrid.js"),
+      __webpack_require__(/*! ./views/ABViewLabel */ "./src/rootPages/Designer/editors/views/ABViewLabel.js"),
       __webpack_require__(/*! ./views/ABViewMenu */ "./src/rootPages/Designer/editors/views/ABViewMenu.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/editors/views/ABViewPage.js"),
       __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/editors/views/ABViewTab.js"),
@@ -69586,6 +69587,100 @@ var myClass = null;
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/editors/views/ABViewLabel.js":
+/*!*************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewLabel.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewLabel
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewlabel";
+
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+      myClass = class ABViewTextEditor extends UIClass {
+         static get key() {
+            return "label";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(base);
+
+            this.AB = AB;
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            const ids = this.ids;
+            const baseView = this.view;
+            const component = this.component;
+            const _ui = {
+               type: "form",
+               margin: 10,
+               padding: 10,
+               borderless: true,
+               rows: [
+                  {
+                     id: ids.component,
+                     view: "label",
+                     label: baseView.text || "",
+                     align: baseView.settings.alignment,
+                  },
+                  {},
+               ],
+            };
+
+            return component.uiFormatting(_ui);
+         }
+
+         async init(AB) {
+            this.AB = AB;
+
+            webix.codebase = "/js/webix/extras/";
+
+            await this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component.detatch?.();
+         }
+
+         onShow() {
+            this.component.onShow();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/editors/views/ABViewMenu.js":
 /*!************************************************************!*\
   !*** ./src/rootPages/Designer/editors/views/ABViewMenu.js ***!
@@ -70094,7 +70189,7 @@ let myClass = null;
 
       const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
 
-      myClass = class ABViewTabEditor extends UIClass {
+      myClass = class ABViewTextEditor extends UIClass {
          static get key() {
             return "text";
          }
@@ -70491,8 +70586,9 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/properties/views/ABViewDataview.js"),
       __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/properties/views/ABViewDetail.js"),
       __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/properties/views/ABViewDocxBuilder.js"),
-      __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/properties/views/ABViewGrid.js"),
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/properties/views/ABViewForm.js"),
+      __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/properties/views/ABViewGrid.js"),
+      __webpack_require__(/*! ./views/ABViewLabel */ "./src/rootPages/Designer/properties/views/ABViewLabel.js"),
       __webpack_require__(/*! ./views/ABViewMenu */ "./src/rootPages/Designer/properties/views/ABViewMenu.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/properties/views/ABViewPage.js"),
       __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/properties/views/ABViewTab.js"),
@@ -89937,6 +90033,207 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/properties/views/ABViewLabel.js":
+/*!****************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewLabel.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewLabel
+ * A Property manager for our ABViewLabel definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_label";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   class ABViewLabelProperty extends ABView {
+      constructor() {
+         super(BASE_ID);
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "label";
+      }
+
+      ui() {
+         const defaultValues = this.defaultValues();
+
+         return super.ui([
+            // .text :  The Text displayed for this label
+            {
+               view: "text",
+               name: "text",
+               label: L("Text"),
+               placeholder: L("Text Placeholder"),
+               // labelWidth: this.AB.UISettings.config().labelWidthMedium,
+               on: {
+                  onChange: (newValue, oldValue) => {
+                     if (newValue !== oldValue) {
+                        const baseView = this.CurrentView;
+
+                        baseView.text = newValue;
+
+                        baseView.save();
+                        this.onChange();
+                     }
+                  },
+               },
+            },
+            {
+               view: "fieldset",
+               label: L("Format Options:"),
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        view: "radio",
+                        name: "format",
+                        vertical: true,
+                        value: defaultValues.format,
+                        options: [
+                           {
+                              id: 0,
+                              value: L("normal"),
+                           },
+                           {
+                              id: 1,
+                              value: L("title"),
+                           },
+                           {
+                              id: 2,
+                              value: L("description"),
+                           },
+                        ],
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+                  ],
+               },
+            },
+            {
+               view: "fieldset",
+               label: L("Alignment:"),
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        view: "radio",
+                        name: "alignment",
+                        vertical: true,
+                        value: defaultValues.alignment,
+                        options: [
+                           {
+                              id: "left",
+                              value: L("Left"),
+                           },
+                           {
+                              id: "center",
+                              value: L("Center"),
+                           },
+                           {
+                              id: "right",
+                              value: L("Right"),
+                           },
+                        ],
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+                  ],
+               },
+            },
+            {},
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = $component.getValues();
+
+         for (const key in view.settings)
+            values[key] = values[key] || view.settings[key];
+
+         $component.setValues(values);
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = super.values();
+
+         values.settings = $component.getValues();
+         values.text = values.settings.text;
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("label");
+      }
+   }
+
+   return ABViewLabelProperty;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/views/ABViewMenu.js":
 /*!***************************************************************!*\
   !*** ./src/rootPages/Designer/properties/views/ABViewMenu.js ***!
@@ -91465,7 +91762,7 @@ __webpack_require__.r(__webpack_exports__);
 
          const $component = $$(ids.component);
 
-         const values = {};
+         const values = super.values();
 
          values.settings = $component.getValues();
 
