@@ -68673,6 +68673,7 @@ __webpack_require__.r(__webpack_exports__);
    // All the ABField Component Inerfaces available.
    [
       __webpack_require__(/*! ./views/ABViewCarousel */ "./src/rootPages/Designer/editors/views/ABViewCarousel.js"),
+      __webpack_require__(/*! ./views/ABViewComment */ "./src/rootPages/Designer/editors/views/ABViewComment.js"),
       __webpack_require__(/*! ./views/ABViewContainer */ "./src/rootPages/Designer/editors/views/ABViewContainer.js"),
       __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/editors/views/ABViewDataview.js"),
       __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/editors/views/ABViewDetail.js"),
@@ -68772,6 +68773,79 @@ var myClass = null;
 
          detatch() {
             this.component.detatch();
+         }
+
+         onShow() {
+            this.component.onShow();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewComment.js":
+/*!***************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewComment.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewComment
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewcomment";
+
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+      myClass = class ABViewCommentEditor extends UIClass {
+         static get key() {
+            return "comment";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(base);
+
+            this.AB = AB;
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            return this.component.ui();
+         }
+
+         async init(AB) {
+            this.AB = AB;
+
+            await this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component.detatch?.();
          }
 
          onShow() {
@@ -70749,6 +70823,7 @@ __webpack_require__.r(__webpack_exports__);
    // All the ABViewXXX Property Interfaces Available.
    [
       __webpack_require__(/*! ./views/ABViewCarousel */ "./src/rootPages/Designer/properties/views/ABViewCarousel.js"),
+      __webpack_require__(/*! ./views/ABViewComment */ "./src/rootPages/Designer/properties/views/ABViewComment.js"),
       __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/properties/views/ABViewDataview.js"),
       __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/properties/views/ABViewDetail.js"),
       __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/properties/views/ABViewDocxBuilder.js"),
@@ -87302,6 +87377,285 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewCarouselProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewComment.js":
+/*!******************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewComment.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewComment
+ * A Property manager for our ABViewTab definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_comment";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABView.L();
+
+   class ABViewCommentProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            dataviewID: "",
+            columnUser: "",
+            columnComment: "",
+            columnDate: "",
+            height: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "comment";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               id: ids.dataviewID,
+               view: "richselect",
+               name: "dataviewID",
+               label: L("Data Source"),
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: (newValue) => {
+                     this.selectSource(newValue);
+                  },
+               },
+            },
+            {
+               id: ids.columnUser,
+               view: "richselect",
+               name: "columnUser",
+               label: L("Select a user field"),
+               labelWidth: uiConfig.labelWidthLarge,
+            },
+            {
+               id: ids.columnComment,
+               view: "richselect",
+               name: "columnComment",
+               label: L("Select a comment field"),
+               labelWidth: uiConfig.labelWidthLarge,
+            },
+            {
+               id: ids.columnDate,
+               view: "richselect",
+               name: "columnDate",
+               label: L("Select a date field"),
+               labelWidth: uiConfig.labelWidthLarge,
+            },
+            {
+               id: ids.height,
+               view: "counter",
+               name: "height",
+               label: L("Height:"),
+               labelWidth: uiConfig.labelWidthLarge,
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      selectSource(datacollectionID) {
+         //  Update field options in property
+         this.updateUserFieldOptions(datacollectionID);
+         this.updateCommentFieldOptions(datacollectionID);
+         this.updateDateFieldOptions(datacollectionID);
+      }
+
+      updateDatacollectionOptions(datacollectionID) {
+         // Pull data collections to options
+         // Load in all the Available Datacollections:
+         const datacollections =
+            this.CurrentApplication.datacollectionsIncluded().map((e) => {
+               return {
+                  id: e.id,
+                  value: e.label,
+                  icon:
+                     e.sourceType === "query"
+                        ? "fa fa-filter"
+                        : "fa fa-database",
+               };
+            });
+
+         const ids = this.ids;
+
+         $$(ids.dataviewID).define("options", datacollections);
+         $$(ids.dataviewID).define("value", datacollectionID);
+         $$(ids.dataviewID).refresh();
+      }
+
+      updateUserFieldOptions(datacollectionID) {
+         const currentView = this.CurrentView;
+         const datacollection =
+            currentView.AB.datacollectionByID(datacollectionID);
+         const object = datacollection ? datacollection.datasource : null;
+
+         // Pull field list
+         const fieldOptions = object
+            ? object
+                 .fields((f) => f.key === "user")
+                 .map((f) => {
+                    return {
+                       id: f.id,
+                       value: f.label,
+                    };
+                 })
+            : [];
+
+         // Add a default option
+         const defaultOption = { id: null, value: "[Select]" };
+         fieldOptions.unshift(defaultOption);
+
+         const ids = this.ids;
+
+         $$(ids.columnUser).define("options", fieldOptions);
+         $$(ids.columnUser).refresh();
+      }
+
+      updateCommentFieldOptions(datacollectionID) {
+         const currentView = this.CurrentView;
+         const datacollection =
+            currentView.AB.datacollectionByID(datacollectionID);
+         const object = datacollection ? datacollection.datasource : null;
+
+         // Pull field list
+         const fieldOptions = object
+            ? object
+                 .fields((f) => f.key === "string" || f.key === "LongText")
+                 .map((f) => {
+                    return {
+                       id: f.id,
+                       value: f.label,
+                    };
+                 })
+            : [];
+
+         // Add a default option
+         const defaultOption = { id: null, value: "[Select]" };
+         fieldOptions.unshift(defaultOption);
+
+         const ids = this.ids;
+
+         $$(ids.columnComment).define("options", fieldOptions);
+         $$(ids.columnComment).refresh();
+      }
+
+      updateDateFieldOptions(datacollectionID) {
+         const currentView = this.CurrentView;
+         const datacollection =
+            currentView.AB.datacollectionByID(datacollectionID);
+         const object = datacollection ? datacollection.datasource : null;
+
+         // Pull field list
+         const fieldOptions = object
+            ? object
+                 .fields((f) => f.key === "date")
+                 .map((f) => {
+                    return {
+                       id: f.id,
+                       value: f.label,
+                    };
+                 })
+            : [];
+
+         // Add a default option
+         const defaultOption = { id: null, value: "[Select]" };
+         fieldOptions.unshift(defaultOption);
+
+         const ids = this.ids;
+
+         $$(ids.columnDate).define("options", fieldOptions);
+         $$(ids.columnDate).refresh();
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const datacollectionId = view.settings.dataviewID
+            ? view.settings.dataviewID
+            : null;
+
+         this.updateDatacollectionOptions(datacollectionId);
+         this.updateUserFieldOptions(datacollectionId);
+         this.updateCommentFieldOptions(datacollectionId);
+         this.updateDateFieldOptions(datacollectionId);
+
+         const $component = $$(ids.component);
+
+         const values = $component.getValues();
+
+         for (const key in view.settings)
+            values[key] = values[key] || view.settings[key];
+
+         $component.setValues(values);
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = super.values();
+
+         values.settings = $component.getValues();
+
+         // Retrive the values of your properties from Webix and store them in the view
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("comment");
+      }
+   }
+
+   return ABViewCommentProperty;
 }
 
 
