@@ -68680,6 +68680,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/editors/views/ABViewForm.js"),
       __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/editors/views/ABViewGrid.js"),
       __webpack_require__(/*! ./views/ABViewLabel */ "./src/rootPages/Designer/editors/views/ABViewLabel.js"),
+      __webpack_require__(/*! ./views/ABViewLayout */ "./src/rootPages/Designer/editors/views/ABViewLayout.js"),
       __webpack_require__(/*! ./views/ABViewMenu */ "./src/rootPages/Designer/editors/views/ABViewMenu.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/editors/views/ABViewPage.js"),
       __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/editors/views/ABViewTab.js"),
@@ -69681,6 +69682,171 @@ let myClass = null;
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/editors/views/ABViewLayout.js":
+/*!**************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewLayout.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewLayoutEditor
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      const L = (...params) => AB.Multilingual.label(...params);
+
+      myClass = class ABViewLayoutEditor extends UIClass {
+         static get key() {
+            return "layout";
+         }
+
+         constructor(view, base = "interface_editor_view_layout") {
+            // base: {string} unique base id reference
+
+            super(base);
+         }
+
+         get viewComponent() {
+            const currView = this.CurrentView;
+            if (currView) {
+               this._component = currView.component();
+            }
+
+            return this._component;
+         }
+
+         ui() {
+            const childViews = this.CurrentView.views();
+            const _ui = this.viewComponent.ui();
+            _ui.type = "form";
+
+            if (childViews.length) {
+               childViews.forEach((v, index) => {
+                  const vComponent = v.component();
+                  const vUI = vComponent.ui();
+
+                  _ui.cols[index] = {
+                     rows: [
+                        // Add action buttons
+                        {
+                           type: "template",
+                           css: "ab-layout-header",
+                           height: 30,
+                           template: this.templateButton({
+                              icon: v.icon,
+                              label: v.label,
+                           }),
+                           onClick: {
+                              "ab-component-edit": (e, id, trg) => {
+                                 this.viewEdit(e, v.id, trg);
+                              },
+                              "ab-component-remove": (e, id, trg) => {
+                                 this.viewDelete(e, v.id, trg);
+                              },
+                           },
+                        },
+                        // Preview display here
+                        vUI,
+                        {},
+                     ],
+                  };
+               });
+            } else {
+               _ui.cols[0] = {};
+            }
+
+            return _ui;
+         }
+
+         init(AB) {
+            this.AB = AB;
+
+            this.viewComponent.init();
+
+            // initial sub views
+            const childViews = this.CurrentView.views();
+            childViews.forEach((v) => {
+               const vComponent = v.component();
+               vComponent.init();
+            });
+         }
+
+         detatch() {
+            this.viewComponent?.detatch?.();
+         }
+
+         templateButton(obj) {
+            return `<div class="ab-widget-header ab-layout-header">
+               <i class="fa fa-${obj.icon} webix_icon_btn"></i> ${obj.label}
+               <div class="ab-component-tools">
+               <i class="fa fa-trash ab-component-remove"></i>
+               <i class="fa fa-edit ab-component-edit"></i>
+               </div></div>`;
+         }
+
+         viewEdit(e, id, trg) {
+            const view = this.CurrentView.views((v) => v.id == id)[0];
+            if (!view) return false;
+
+            // NOTE: let webix finish this onClick event, before
+            // calling .populateInterfaceWorkspace() which will replace
+            // the interface elements with the edited view.  (apparently
+            // that causes errors.)
+            setTimeout(() => {
+               try {
+                  this.emit("view.edit", view);
+               } catch (err) {
+                  console.error(err);
+               }
+            }, 50);
+
+            e.preventDefault();
+            return false;
+         }
+
+         viewDelete(e, id, trg) {
+            const view = this.CurrentView.views((v) => v.id == id)[0];
+            if (!view) return false;
+
+            this.AB.Webix.confirm({
+               title: L("Delete component"),
+               text: L("Do you want to delete <b>{0}</b>?", [view.label]),
+               callback: (result) => {
+                  if (result) {
+                     view.destroy().then(() => {
+                        view.emit("destroyed", view);
+                        this.emit("view.destroyed", view);
+                     });
+                  }
+               },
+            });
+            e.preventDefault();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/editors/views/ABViewMenu.js":
 /*!************************************************************!*\
   !*** ./src/rootPages/Designer/editors/views/ABViewMenu.js ***!
@@ -70589,6 +70755,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/properties/views/ABViewForm.js"),
       __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/properties/views/ABViewGrid.js"),
       __webpack_require__(/*! ./views/ABViewLabel */ "./src/rootPages/Designer/properties/views/ABViewLabel.js"),
+      __webpack_require__(/*! ./views/ABViewLayout */ "./src/rootPages/Designer/properties/views/ABViewLayout.js"),
       __webpack_require__(/*! ./views/ABViewMenu */ "./src/rootPages/Designer/properties/views/ABViewMenu.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/properties/views/ABViewPage.js"),
       __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/properties/views/ABViewTab.js"),
@@ -90234,6 +90401,106 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/properties/views/ABViewLayout.js":
+/*!*****************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewLayout.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewLayout
+ * A Property manager for our ABViewLayout definitions
+ */
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   const base = "properties_abview_layout";
+
+   class ABViewLayoutProperty extends ABView {
+      constructor() {
+         super(base, {
+            // Put our ids here
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "layout";
+      }
+
+      ui() {
+         return super.ui([
+            // [button] : add column
+            {
+               view: "button",
+               css: "webix_primary",
+               value: L("Add Column "),
+               click: () => this.addView(),
+            },
+         ]);
+      }
+
+      defaultValues() {
+         let values = {};
+         const ViewClass = this.ViewClass();
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+         return values;
+      }
+
+      /**
+       * @method ViewClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("layout");
+      }
+
+      /**
+       * @method addView
+       * called when the .propertyEditorDefaultElements() button is clicked.
+       * This method should find the current View instance and call it's .addColumn()
+       * method.
+       */
+      async addView() {
+         // get current instance and .addColumn()
+         const currView = this.CurrentView;
+         currView.addColumn();
+
+         // save child views
+         const addingTasks = [];
+         currView.views().forEach((v) => {
+            addingTasks.push(v.save());
+         });
+         await Promise.all(addingTasks);
+
+         // const includeSubViews = true; // we ask later on down the save if we should save subviews...we do this time
+
+         // trigger a save()
+         // this.propertyEditorSave(ids, currView, includeSubViews);
+
+         this.onChange();
+      }
+   }
+
+   return ABViewLayoutProperty;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/views/ABViewMenu.js":
 /*!***************************************************************!*\
   !*** ./src/rootPages/Designer/properties/views/ABViewMenu.js ***!
@@ -101839,13 +102106,13 @@ __webpack_require__.r(__webpack_exports__);
             // this.CurrentView.label = values.label;
 
             // to update the label (and other properties like .menuTextLeft, menuTextCenter, and .menuTextRight of the Menu widget), add it before we ask for .toObj():
-            Object.keys(values).forEach((k) => {
+            Object.keys(values ?? {}).forEach((k) => {
                if (k == "settings") return;
                this.CurrentView[k] = values[k];
             });
 
             var objVals = this.CurrentView.toObj();
-            Object.keys(values.settings).forEach((k) => {
+            Object.keys(values.settings ?? {}).forEach((k) => {
                objVals.settings[k] = values.settings[k];
             });
 
@@ -102767,6 +103034,7 @@ __webpack_require__.r(__webpack_exports__);
             let newEditor = this._editorsByType[view.key];
 
             editorComponent = new newEditor(view); // view.editorComponent(this.AB._App, "preview");
+            editorComponent.viewLoad(view);
             $$(ids.editAreaContainer).define({ width: 0 });
             $$(ids.editArea).define({ height: 0 });
             webix.html.removeCss(
