@@ -105194,11 +105194,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_work_object_workspace_popupNewDataField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ui_work_object_workspace_popupNewDataField */ "./src/rootPages/Designer/ui_work_object_workspace_popupNewDataField.js");
 /* harmony import */ var _ui_work_object_workspace_popupSortFields__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ui_work_object_workspace_popupSortFields */ "./src/rootPages/Designer/ui_work_object_workspace_popupSortFields.js");
 /* harmony import */ var _ui_work_object_workspace_popupViewSettings__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ui_work_object_workspace_popupViewSettings */ "./src/rootPages/Designer/ui_work_object_workspace_popupViewSettings.js");
-/* harmony import */ var _ui_work_object_workspace_workspaceviews__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ui_work_object_workspace_workspaceviews */ "./src/rootPages/Designer/ui_work_object_workspace_workspaceviews.js");
-/* harmony import */ var _ui_work_object_workspace_view_grid__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ui_work_object_workspace_view_grid */ "./src/rootPages/Designer/ui_work_object_workspace_view_grid.js");
-/* harmony import */ var _ui_work_object_workspace_view_gantt__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ui_work_object_workspace_view_gantt */ "./src/rootPages/Designer/ui_work_object_workspace_view_gantt.js");
-/* harmony import */ var _ui_work_object_workspace_view_kanban__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./ui_work_object_workspace_view_kanban */ "./src/rootPages/Designer/ui_work_object_workspace_view_kanban.js");
-/* harmony import */ var _ui_work_object_workspace_popupTrack__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./ui_work_object_workspace_popupTrack */ "./src/rootPages/Designer/ui_work_object_workspace_popupTrack.js");
+/* harmony import */ var _ui_work_object_workspace_popupFilter__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ui_work_object_workspace_popupFilter */ "./src/rootPages/Designer/ui_work_object_workspace_popupFilter.js");
+/* harmony import */ var _ui_work_object_workspace_workspaceviews__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ui_work_object_workspace_workspaceviews */ "./src/rootPages/Designer/ui_work_object_workspace_workspaceviews.js");
+/* harmony import */ var _ui_work_object_workspace_view_grid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ui_work_object_workspace_view_grid */ "./src/rootPages/Designer/ui_work_object_workspace_view_grid.js");
+/* harmony import */ var _ui_work_object_workspace_view_gantt__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./ui_work_object_workspace_view_gantt */ "./src/rootPages/Designer/ui_work_object_workspace_view_gantt.js");
+/* harmony import */ var _ui_work_object_workspace_view_kanban__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./ui_work_object_workspace_view_kanban */ "./src/rootPages/Designer/ui_work_object_workspace_view_kanban.js");
+/* harmony import */ var _ui_work_object_workspace_popupTrack__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./ui_work_object_workspace_popupTrack */ "./src/rootPages/Designer/ui_work_object_workspace_popupTrack.js");
 /*
  * ui_work_object_workspace
  *
@@ -105231,19 +105232,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB, ibase, init_settings) {
    ibase = ibase || "abd_work_object_workspace";
    const uiConfig = AB.Config.uiSettings();
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    var L = UIClass.L();
 
-   var Datatable = (0,_ui_work_object_workspace_view_grid__WEBPACK_IMPORTED_MODULE_13__["default"])(AB, `${ibase}_view_grid`, init_settings);
-   var Gantt = (0,_ui_work_object_workspace_view_gantt__WEBPACK_IMPORTED_MODULE_14__["default"])(AB, `${ibase}_view_gantt`);
-   var Kanban = (0,_ui_work_object_workspace_view_kanban__WEBPACK_IMPORTED_MODULE_15__["default"])(AB, `${ibase}_view_kanban`);
+   var Datatable = (0,_ui_work_object_workspace_view_grid__WEBPACK_IMPORTED_MODULE_14__["default"])(AB, `${ibase}_view_grid`, init_settings);
+   var Gantt = (0,_ui_work_object_workspace_view_gantt__WEBPACK_IMPORTED_MODULE_15__["default"])(AB, `${ibase}_view_gantt`);
+   var Kanban = (0,_ui_work_object_workspace_view_kanban__WEBPACK_IMPORTED_MODULE_16__["default"])(AB, `${ibase}_view_kanban`);
 
    var Warnings = (0,_ui_warnings__WEBPACK_IMPORTED_MODULE_1__["default"])(AB, `${ibase}_view_warnings`, init_settings);
 
-   var Track = (0,_ui_work_object_workspace_popupTrack__WEBPACK_IMPORTED_MODULE_16__["default"])(AB, `${ibase}_track`);
+   var Track = (0,_ui_work_object_workspace_popupTrack__WEBPACK_IMPORTED_MODULE_17__["default"])(AB, `${ibase}_track`);
 
    class UIWorkObjectWorkspace extends UIClass {
       /**
@@ -105314,7 +105316,7 @@ __webpack_require__.r(__webpack_exports__);
          // settings.isFieldAddable = settings.isFieldAddable ?? true;
          this.settings = settings;
 
-         this.workspaceViews = (0,_ui_work_object_workspace_workspaceviews__WEBPACK_IMPORTED_MODULE_12__["default"])(AB, `${base}_views`, {
+         this.workspaceViews = (0,_ui_work_object_workspace_workspaceviews__WEBPACK_IMPORTED_MODULE_13__["default"])(AB, `${base}_views`, {
             isReadOnly: this.settings.isReadOnly,
          });
 
@@ -105380,10 +105382,11 @@ __webpack_require__.r(__webpack_exports__);
                this.callbackDefineLabel();
             });
          }
-         // var PopupFilterDataTableComponent = new ABPopupFilterDataTable(
-         //    App,
-         //    idBase
-         // );
+
+         this.PopupFilterDataTableComponent = new _ui_work_object_workspace_popupFilter__WEBPACK_IMPORTED_MODULE_12__["default"](
+            AB,
+            `${base}_popupFilter`
+         );
 
          this.PopupFrozenColumnsComponent = new _ui_work_object_workspace_popupFrozenColumns__WEBPACK_IMPORTED_MODULE_5__["default"](
             AB,
@@ -105578,8 +105581,8 @@ __webpack_require__.r(__webpack_exports__);
                         icon: "fa fa-filter",
                         css: "webix_transparent",
                         type: "icon",
-                        // minWidth: 70,
-                        // autowidth: true,
+                        minWidth: 70,
+                        autowidth: true,
                         badge: null,
                         click: function () {
                            _logic.toolbarFilter(this.$view);
@@ -105888,9 +105891,10 @@ __webpack_require__.r(__webpack_exports__);
             allInits.push(this.PopupDefineLabelComponent.init(AB));
          }
 
-         // PopupFilterDataTableComponent.init({
-         //    onChange: _logic.callbackFilterDataTable, // be notified when there is a change in the filters
-         // });
+         allInits.push(this.PopupFilterDataTableComponent.init(AB));
+         this.PopupFilterDataTableComponent.on("save", (...params) => {
+            this.callbackFilterDataTable(...params);
+         });
 
          allInits.push(this.PopupFrozenColumnsComponent.init(AB));
 
@@ -105974,11 +105978,40 @@ __webpack_require__.r(__webpack_exports__);
        *
        * call back for when the Define Label popup is finished.
        */
-      callbackFilterDataTable() {
-         // Since we are making server side requests lets offload the badge count to another function so it can be called independently
-         _logic.getBadgeFilters();
-         // this will be handled by the server side request now
-         _logic.loadData();
+      async callbackFilterDataTable(filterData) {
+         this.mockDataCollection.filterCondition(filterData);
+
+         this.updateFilterButton(filterData);
+
+         var currentView = this.workspaceViews.getCurrentView();
+         currentView.filterConditions = filterData;
+
+         try {
+            await this.workspaceViews.save();
+         } catch (e) {
+            console.error(e);
+         }
+
+         this.mockDataCollection.reloadData();
+         this.refreshView();
+      }
+
+      /**
+       * @function updateFilterButton
+       *
+       * call back for when the Define Label popup is finished.
+       */
+      async updateFilterButton(filterData) {
+         var ids = this.ids;
+         var $ButtonFilter = $$(ids.buttonFilter);
+         if ($ButtonFilter) {
+            var badge = null;
+            if (filterData?.rules?.length) {
+               badge = 1;
+            }
+            $ButtonFilter.define("badge", badge);
+            $ButtonFilter.refresh();
+         }
       }
 
       /**
@@ -106476,7 +106509,7 @@ __webpack_require__.r(__webpack_exports__);
        * show the popup to add a filter to the datatable
        */
       toolbarFilter($view, fieldId) {
-         PopupFilterDataTableComponent.show($view, fieldId);
+         this.PopupFilterDataTableComponent.show($view, fieldId);
       }
 
       /**
@@ -106535,7 +106568,7 @@ __webpack_require__.r(__webpack_exports__);
             this.PopupNewDataFieldComponent.objectLoad(object);
             this.PopupDefineLabelComponent.objectLoad(object);
          }
-         // PopupFilterDataTableComponent.objectLoad(object);
+         this.PopupFilterDataTableComponent.objectLoad(object);
          this.PopupFrozenColumnsComponent.objectLoad(object);
 
          this.PopupHideFieldComponent.objectLoad(object);
@@ -106625,7 +106658,14 @@ __webpack_require__.r(__webpack_exports__);
             glue: "and",
             rules: [],
          };
-         if (this.workspaceViews?.filterConditions?.rules?.length > 0) {
+         // ! there is some strange data coming from the server
+         // TODO @achoobert fix it
+         if (this.workspaceViews?.filterConditions[0]?.rules?.length > 0) {
+            wheres = this.workspaceViews.filterConditions[0].rules;
+            // fix this so it can be used later
+            this.workspaceViews.filterConditions.rules =
+               this.workspaceViews.filterConditions[0].rules;
+         } else if (this.workspaceViews?.filterConditions?.rules?.length > 0) {
             wheres = this.workspaceViews.filterConditions;
          }
 
@@ -106646,6 +106686,10 @@ __webpack_require__.r(__webpack_exports__);
             },
          });
 
+         // update the DC with workspace filter conditions sent from the server
+         this.mockDataCollection.filterCondition(wheres);
+         this.updateFilterButton(wheres);
+
          this.mockDataCollection.refreshFilterConditions(wheres);
          this.mockDataCollection.clearAll();
 
@@ -106656,6 +106700,7 @@ __webpack_require__.r(__webpack_exports__);
             this.mockDataCollection.loadData(0);
          } else {
             this.mockDataCollection.loadData(0, 30).catch((err) => {
+               this.toolbarFilter(this.$view);
                var message = err.toString();
                if (typeof err == "string") {
                   try {
@@ -106698,6 +106743,7 @@ __webpack_require__.r(__webpack_exports__);
             this.refreshToolBarView();
 
             // make sure our Popups are updated:
+            this.PopupFilterDataTableComponent.setFilter(view.filterConditions);
             this.PopupFrozenColumnsComponent.setValue(
                view.frozenColumnID || ""
             );
@@ -107905,6 +107951,151 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return new UI_Work_Object_PopupExport(ibase);
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/ui_work_object_workspace_popupFilter.js":
+/*!************************************************************************!*\
+  !*** ./src/rootPages/Designer/ui_work_object_workspace_popupFilter.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
+/*
+ * ui_work_object_workspace_popupFilter
+ *
+ * Manage the Filter popup.
+ *
+ */
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB, ibase) {
+   ibase = ibase || "ui_work_object_workspace_popupHideFields";
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   // var L = UIClass.L();
+
+   class UI_Work_Object_Workspace_PopupFilter extends UIClass {
+      constructor(base) {
+         super(base, {});
+
+         this.AB = AB;
+         this.base = base;
+         this.object = null;
+
+         this.rowFilter = this.AB.filterComplexNew(
+            `${this.ids.component}_filter`
+         );
+         // {RowFilter}
+         // we use this RowFilter to
+         // display a form in a popup where the toolbar button is.
+      }
+
+      /**
+       * @method objectLoad
+       * A rule is based upon a Form that was working with an Object.
+       * Ready the Popup according to the current object
+       * .objectLoad() is how we specify which object we are working with.
+       *
+       * @param {ABObject} The object that will be used to evaluate the Rules
+       */
+      objectLoad(object) {
+         this.object = object;
+
+         if (this.rowFilter) {
+            this.rowFilter.fieldsLoad(object.fields(), object);
+
+            // Add event listener
+            this.rowFilter.on("save", (...params) => {
+               this.emit("save", ...params);
+               this.hide();
+            });
+         }
+      }
+
+      viewLoad(view) {
+         this.view = view;
+      }
+
+      /** == UI == */
+      ui() {
+         var ids = this.ids;
+
+         // Our webix UI definition:
+         return {
+            view: "popup",
+            id: ids.component,
+            autoheight: true,
+            minHeight: 275,
+            body: this.rowFilter.ui,
+            on: {
+               onShow: () => {
+                  this.show();
+               },
+               onHide: () => {
+                  this.hide();
+               },
+            },
+         };
+      }
+
+      init(AB) {
+         this.AB = AB;
+
+         webix.ui(this.ui());
+
+         // Quick Reference Helpers
+         this.$Component = $$(this.ids.component);
+         this.$List = $$(this.ids.list);
+      }
+
+      /**
+       * @method show()
+       * Show this component.
+       * Ready the Popup according to the current object each time it is
+       * shown (perhaps a field was created or delted)
+       * @param {obj} $view
+       *        the webix.$view to hover the popup around.
+       */
+      show($view, options = null) {
+         if (options != null) {
+            this.$Component.show($view, options);
+         } else {
+            this.$Component.show($view);
+         }
+      }
+
+      /**
+       * @method hide()
+       * Hide this component.
+       *
+       * @param {obj} $view
+       *        the webix.$view to hover the popup around.
+       */
+      hide($view, options = null) {
+         if (options != null) {
+            this.$Component.hide($view, options);
+         } else {
+            this.$Component.hide($view);
+         }
+      }
+      /*
+       * this runs on workspace switch
+       */
+      setFilter(filter) {
+         if (!filter.rules?.length) {
+            filter = filter[0] || [];
+         }
+         this.rowFilter.setValue(filter);
+      }
+   }
+
+   return new UI_Work_Object_Workspace_PopupFilter(ibase);
 }
 
 
