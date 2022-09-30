@@ -68673,6 +68673,11 @@ __webpack_require__.r(__webpack_exports__);
    // All the ABField Component Inerfaces available.
    [
       __webpack_require__(/*! ./views/ABViewCarousel */ "./src/rootPages/Designer/editors/views/ABViewCarousel.js"),
+      __webpack_require__(/*! ./views/ABViewChart */ "./src/rootPages/Designer/editors/views/ABViewChart.js"),
+      __webpack_require__(/*! ./views/ABViewChartArea */ "./src/rootPages/Designer/editors/views/ABViewChartArea.js"),
+      __webpack_require__(/*! ./views/ABViewChartBar */ "./src/rootPages/Designer/editors/views/ABViewChartBar.js"),
+      __webpack_require__(/*! ./views/ABViewChartLine */ "./src/rootPages/Designer/editors/views/ABViewChartLine.js"),
+      __webpack_require__(/*! ./views/ABViewChartPie */ "./src/rootPages/Designer/editors/views/ABViewChartPie.js"),
       __webpack_require__(/*! ./views/ABViewComment */ "./src/rootPages/Designer/editors/views/ABViewComment.js"),
       __webpack_require__(/*! ./views/ABViewConditionalContainer */ "./src/rootPages/Designer/editors/views/ABViewConditionalContainer.js"),
       __webpack_require__(/*! ./views/ABViewContainer */ "./src/rootPages/Designer/editors/views/ABViewContainer.js"),
@@ -68774,6 +68779,382 @@ var myClass = null;
 
          detatch() {
             this.component.detatch();
+         }
+
+         onShow() {
+            this.component.onShow();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewChart.js":
+/*!*************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewChart.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewContainer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewContainer */ "./src/rootPages/Designer/editors/views/ABViewContainer.js");
+/**
+ * ABViewChart
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewchart";
+      const ABViewContainer = (0,_ABViewContainer__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+      myClass = class ABViewChartEditor extends ABViewContainer {
+         static get key() {
+            return "chart";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(view, base);
+         }
+
+         ui() {
+            const _ui = super.ui();
+
+            _ui.rows[0].cellHeight = 400;
+
+            return _ui;
+         }
+
+         async init(AB) {
+            this.AB = AB;
+
+            await super.init(AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {}
+
+         onShow() {
+            super.onShow();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewChartArea.js":
+/*!*****************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewChartArea.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewChartArea
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewchart_area";
+
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+      myClass = class ABViewChartAreaEditor extends UIClass {
+         static get key() {
+            return "area";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(base, {
+               view: "",
+            });
+
+            this.AB = AB;
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            return {
+               id: this.ids.component,
+            };
+         }
+
+         async init(AB) {
+            this.AB = AB;
+
+            await this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component.detatch?.();
+         }
+
+         onShow() {
+            this.component.onShow();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewChartBar.js":
+/*!****************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewChartBar.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewChartArea
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewchart_bar";
+
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+      myClass = class ABViewChartBarEditor extends UIClass {
+         static get key() {
+            return "bar";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(base, {
+               view: "",
+            });
+
+            this.AB = AB;
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            return {
+               id: this.ids.component,
+            };
+         }
+
+         async init(AB) {
+            this.AB = AB;
+
+            await this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component.detatch?.();
+         }
+
+         onShow() {
+            this.component.onShow();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewChartLine.js":
+/*!*****************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewChartLine.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewChartArea
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewchart_line";
+
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+      myClass = class ABViewChartLineEditor extends UIClass {
+         static get key() {
+            return "line";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(base, {
+               view: "",
+            });
+
+            this.AB = AB;
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            return {
+               id: this.ids.component,
+            };
+         }
+
+         async init(AB) {
+            this.AB = AB;
+
+            await this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component.detatch?.();
+         }
+
+         onShow() {
+            this.component.onShow();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewChartPie.js":
+/*!****************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewChartPie.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewChartArea
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewchart_pie";
+
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+      myClass = class ABViewChartPieEditor extends UIClass {
+         static get key() {
+            return "pie";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(base, {
+               view: "",
+            });
+
+            this.AB = AB;
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            return this.component.ui();
+         }
+
+         async init(AB) {
+            this.AB = AB;
+
+            await this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component.detatch?.();
          }
 
          onShow() {
@@ -70870,6 +71251,11 @@ __webpack_require__.r(__webpack_exports__);
    // All the ABViewXXX Property Interfaces Available.
    [
       __webpack_require__(/*! ./views/ABViewCarousel */ "./src/rootPages/Designer/properties/views/ABViewCarousel.js"),
+      __webpack_require__(/*! ./views/ABViewChart */ "./src/rootPages/Designer/properties/views/ABViewChart.js"),
+      __webpack_require__(/*! ./views/ABViewChartArea */ "./src/rootPages/Designer/properties/views/ABViewChartArea.js"),
+      __webpack_require__(/*! ./views/ABViewChartBar */ "./src/rootPages/Designer/properties/views/ABViewChartBar.js"),
+      __webpack_require__(/*! ./views/ABViewChartLine */ "./src/rootPages/Designer/properties/views/ABViewChartLine.js"),
+      __webpack_require__(/*! ./views/ABViewChartPie */ "./src/rootPages/Designer/properties/views/ABViewChartPie.js"),
       __webpack_require__(/*! ./views/ABViewComment */ "./src/rootPages/Designer/properties/views/ABViewComment.js"),
       __webpack_require__(/*! ./views/ABViewConditionalContainer */ "./src/rootPages/Designer/properties/views/ABViewConditionalContainer.js"),
       __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/properties/views/ABViewDataview.js"),
@@ -87425,6 +87811,1183 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewCarouselProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewChart.js":
+/*!****************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewChart.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewContainer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewContainer */ "./src/rootPages/Designer/properties/views/ABViewContainer.js");
+/*
+ * ABViewChart
+ * A Property manager for our ABViewChart definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_chart";
+
+   const ABViewContainer = (0,_ABViewContainer__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABViewContainer.L();
+
+   class ABViewChartProperty extends ABViewContainer {
+      constructor() {
+         super(BASE_ID, {
+            dataviewID: "",
+            columnLabel: "",
+            columnValue: "",
+            multipleSeries: "",
+            columnValue2: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "chart";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               id: ids.dataviewID,
+               name: "dataviewID",
+               view: "richselect",
+               label: L("Chart Data"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                     this.populateFieldOptions();
+
+                     if ($$(ids.multipleSeries).getValue())
+                        this.populateFieldOptions2();
+                  },
+               },
+            },
+            {
+               id: ids.columnLabel,
+               name: "columnLabel",
+               view: "richselect",
+               label: L("Label Column"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.columnValue,
+               name: "columnValue",
+               view: "richselect",
+               label: L("Value Column"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.multipleSeries,
+               name: "multipleSeries",
+               view: "checkbox",
+               label: L("Multiple Series"),
+               labelWidth: uiConfig.labelWidthLarge,
+               value: 0,
+               on: {
+                  onChange: (newValue) => {
+                     const $columnValue2 = $$(ids.columnValue2);
+
+                     if (newValue) this.populateFieldOptions2();
+                     else {
+                        $columnValue2.setValue("");
+                        $columnValue2.disable();
+                     }
+
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.columnValue2,
+               name: "columnValue2",
+               view: "richselect",
+               label: L("Value Column 2"),
+               labelWidth: uiConfig.labelWidthLarge,
+               disabled: true,
+               options: [],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "isPercentage",
+               view: "checkbox",
+               labelRight: L("Percentage"),
+               labelWidth: uiConfig.labelWidthCheckbox,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "showLabel",
+               view: "checkbox",
+               label: L("Display Label"),
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "labelPosition",
+               view: "richselect",
+               label: L("Label Position"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [
+                  {
+                     id: "left",
+                     value: L("Left"),
+                  },
+                  {
+                     id: "top",
+                     value: L("Top"),
+                  },
+               ],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "labelWidth",
+               view: "counter",
+               label: L("Label Width"),
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               view: "counter",
+               name: "height",
+               label: `${L("Height")}: `,
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+
+         webix.extend($$(this.ids.component), webix.ProgressBar);
+      }
+
+      updateCharts() {
+         // UPDATE charts when parent properties are changed
+         this.CurrentView.refreshData();
+
+         // baseView.views().forEach((e) => {
+         //    e.parent.refreshData();
+         // });
+      }
+
+      populateDataview() {
+         // Pull data collections to options
+         // / NOTE: only include System Objects if the user has permission
+         const datacollectionFilter = this.AB.Account.isSystemDesigner()
+            ? (obj) => !obj.isSystemObject
+            : () => true;
+         const datacollections =
+            this.CurrentApplication.datacollectionsIncluded(
+               datacollectionFilter
+            );
+
+         // Set the objects you can choose from in the list
+         const $dataviewID = $$(this.ids.dataviewID);
+
+         $dataviewID.define(
+            "options",
+            datacollections.map((e) => {
+               return {
+                  id: e.id,
+                  value: e.label,
+               };
+            })
+         );
+         $dataviewID.refresh();
+      }
+
+      populateFieldOptions() {
+         const baseView = this.CurrentView;
+         const dc = baseView.datacollection;
+
+         if (!dc) return;
+
+         const obj = dc.datasource;
+
+         if (!obj) return;
+
+         const ids = this.ids;
+         const $columnLabel = $$(ids.columnLabel);
+         const $columnValue = $$(ids.columnValue);
+
+         $columnLabel.define(
+            "options",
+            obj.fields().map((e) => {
+               return {
+                  id: e.id,
+                  value: e.columnName,
+                  key: e.key,
+               };
+            })
+         );
+         $columnLabel.refresh();
+         $columnValue.define(
+            "options",
+            obj
+               .fields(
+                  (f) =>
+                     f.key === "number" ||
+                     f.key === "formula" ||
+                     f.key === "calculate"
+               )
+               .map((e) => {
+                  return {
+                     id: e.id,
+                     value: e.columnName,
+                     key: e.key,
+                  };
+               })
+         );
+         $columnValue.refresh();
+      }
+
+      populateFieldOptions2() {
+         const baseView = this.CurrentView;
+         const dc = baseView.datacollection;
+
+         if (!dc) return;
+
+         const obj = dc.datasource;
+
+         if (!obj) return;
+
+         const $columnValue2 = $$(this.ids.columnValue2);
+
+         $columnValue2.define(
+            "options",
+            obj
+               .fields(
+                  (f) =>
+                     f.key === "number" ||
+                     f.key === "formula" ||
+                     f.key === "calculate"
+               )
+               .map((e) => {
+                  return {
+                     id: e.id,
+                     value: e.columnName,
+                     key: e.key,
+                  };
+               })
+         );
+         $columnValue2.enable();
+         $columnValue2.refresh();
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const $component = $$(ids.component);
+         const defaultValues = this.defaultValues();
+         const values = Object.assign(
+            $component.getValues(),
+            Object.assign(defaultValues, view.settings)
+         );
+
+         this.populateDataview();
+         this.populateFieldOptions();
+
+         if (values.multipleSeries) this.populateFieldOptions2();
+
+         $component.setValues(values);
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const values = super.values();
+         const ids = this.ids;
+         const $component = $$(ids.component);
+
+         values.settings = Object.assign(
+            $component.getValues(),
+            values.settings
+         );
+
+         // Retrive the values of your properties from Webix and store them in the view
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("chart");
+      }
+   }
+
+   return ABViewChartProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewChartArea.js":
+/*!********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewChartArea.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewChartArea
+ * A Property manager for our ABViewChartArea definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_chart_area";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABView.L();
+
+   class ABViewChartAreaProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {});
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "area";
+      }
+
+      ui() {
+         return super.ui([
+            {
+               name: "areaType",
+               view: "richselect",
+               label: L("Chart Type"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [
+                  {
+                     id: "area",
+                     value: L("Area"),
+                  },
+                  {
+                     id: "stackedArea",
+                     value: L("Stacked Area"),
+                  },
+               ],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            // {
+            // 	name: 'chartWidth',
+            // 	view: 'counter',
+            // 	min: 1,
+            // 	label: L('ab.component.chart.area.chartWidth', '*Width')
+            // },
+            {
+               name: "chartHeight",
+               view: "counter",
+               min: 1,
+               label: L("Height"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "stepValue",
+               view: "counter",
+               min: 1,
+               label: L("Step"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "maxValue",
+               view: "counter",
+               min: 1,
+               label: L("Max Value"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "labelFontSize",
+               view: "counter",
+               min: 1,
+               label: L("Label Font Size"),
+               labelWidth: uiConfig.labelWidthXLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "isLegend",
+               view: "checkbox",
+               labelRight: L("Show Legend"),
+               labelWidth: uiConfig.labelWidthCheckbox,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const $component = $$(this.ids.component);
+         const defaultValues = this.defaultValues();
+         const values = Object.assign(
+            $component.getValues(),
+            Object.assign(defaultValues, view.settings)
+         );
+
+         $component.setValues(values);
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const values = super.values();
+
+         values.settings = Object.assign(
+            $$(this.ids.component).getValues(),
+            values.settings
+         );
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("area");
+      }
+   }
+
+   return ABViewChartAreaProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewChartBar.js":
+/*!*******************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewChartBar.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewChartArea
+ * A Property manager for our ABViewChartArea definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_chart_bar";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABView.L();
+
+   class ABViewChartBarProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {});
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "bar";
+      }
+
+      ui() {
+         return super.ui([
+            {
+               name: "barType",
+               view: "richselect",
+               label: L("Chart Type"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [
+                  {
+                     id: "bar",
+                     value: L("Vertical"),
+                  },
+                  {
+                     id: "barH",
+                     value: L("Horizontal"),
+                  },
+               ],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "barPreset",
+               view: "richselect",
+               label: L("Chart Preset"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [
+                  {
+                     id: "column",
+                     value: L("Column"),
+                  },
+                  {
+                     id: "stick",
+                     value: L("Stick"),
+                  },
+                  {
+                     id: "alpha",
+                     value: L("Alpha"),
+                  },
+               ],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            // {
+            // 	name: 'chartWidth',
+            // 	view: 'counter',
+            // 	min: 1,
+            // 	label: L('ab.component.chart.bar.chartWidth', '*Width')
+            // },
+            {
+               name: "height",
+               view: "counter",
+               min: 1,
+               label: L("Height"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "stepValue",
+               view: "counter",
+               min: 1,
+               label: L("Step"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "maxValue",
+               view: "counter",
+               min: 1,
+               label: L("Max Value"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "labelFontSize",
+               view: "counter",
+               min: 1,
+               label: L("Label Font Size"),
+               labelWidth: uiConfig.labelWidthXLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "isLegend",
+               view: "checkbox",
+               labelRight: L("Show Legend"),
+               labelWidth: uiConfig.labelWidthCheckbox,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const $component = $$(this.ids.component);
+         const defaultValues = this.defaultValues();
+         const values = Object.assign(
+            $component.getValues(),
+            Object.assign(defaultValues, view.settings)
+         );
+
+         $component.setValues(values);
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const values = super.values();
+
+         values.settings = Object.assign(
+            $$(this.ids.component).getValues(),
+            values.settings
+         );
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("bar");
+      }
+   }
+
+   return ABViewChartBarProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewChartLine.js":
+/*!********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewChartLine.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewChartline
+ * A Property manager for our ABViewChartLine definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_chart_line";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABView.L();
+
+   class ABViewChartLineProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {});
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "line";
+      }
+
+      ui() {
+         return super.ui([
+            {
+               name: "lineType",
+               view: "richselect",
+               label: L("Chart Type"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [
+                  {
+                     id: "line",
+                     value: L("Line"),
+                  },
+                  {
+                     id: "spline",
+                     value: L("Spline"),
+                  },
+               ],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "linePreset",
+               view: "richselect",
+               label: L("Chart Preset"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [
+                  {
+                     id: "plot",
+                     value: L("Plot"),
+                  },
+                  {
+                     id: "diamond",
+                     value: L("Diamond"),
+                  },
+                  {
+                     id: "simple",
+                     value: L("Simple"),
+                  },
+               ],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            // {
+            // 	name: 'chartWidth',
+            // 	view: 'counter',
+            // 	min: 1,
+            // 	label: L('ab.component.chart.line.chartWidth', '*Width')
+            // },
+            {
+               name: "chartHeight",
+               view: "counter",
+               min: 1,
+               label: L("Height"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "stepValue",
+               view: "counter",
+               min: 1,
+               label: L("Step"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "maxValue",
+               view: "counter",
+               min: 1,
+               label: L("Max Value"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "labelFontSize",
+               view: "counter",
+               min: 1,
+               label: L("Label Font Size"),
+               labelWidth: uiConfig.labelWidthXLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "isLegend",
+               view: "checkbox",
+               labelRight: L("Show Legend"),
+               labelWidth: uiConfig.labelWidthCheckbox,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const $component = $$(this.ids.component);
+         const defaultValues = this.defaultValues();
+         const values = Object.assign(
+            $component.getValues(),
+            Object.assign(defaultValues, view.settings)
+         );
+
+         $component.setValues(values);
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const values = super.values();
+
+         values.settings = Object.assign(
+            $$(this.ids.component).getValues(),
+            values.settings
+         );
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("line");
+      }
+   }
+
+   return ABViewChartLineProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewChartPie.js":
+/*!*******************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewChartPie.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewChartline
+ * A Property manager for our ABViewChartLine definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_chart_pie";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABView.L();
+
+   class ABViewChartPieProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {});
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "pie";
+      }
+
+      ui() {
+         return super.ui([
+            {
+               name: "pieType",
+               view: "richselect",
+               label: L("Chart Type"),
+               labelWidth: uiConfig.labelWidthLarge,
+               options: [
+                  {
+                     id: "pie",
+                     value: L("Standard"),
+                  },
+                  {
+                     id: "pie3D",
+                     value: L("Pie3D"),
+                  },
+                  {
+                     id: "donut",
+                     value: L("Donut"),
+                  },
+               ],
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            // {
+            // 	name: 'chartWidth',
+            // 	view: 'counter',
+            // 	min: 1,
+            // 	label: L('ab.component.chart.pie.chartWidth', '*Width')
+            // },
+            {
+               name: "height",
+               view: "counter",
+               min: 1,
+               label: L("Height"),
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "innerFontSize",
+               view: "counter",
+               min: 1,
+               label: L("Inner Font Size"),
+               labelWidth: uiConfig.labelWidthXLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "labelFontSize",
+               view: "counter",
+               min: 1,
+               label: L("Label Font Size"),
+               labelWidth: uiConfig.labelWidthXLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               name: "isLegend",
+               view: "checkbox",
+               labelRight: L("Show Legend"),
+               labelWidth: uiConfig.labelWidthCheckbox,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const $component = $$(this.ids.component);
+         const defaultValues = this.defaultValues();
+         const values = Object.assign(
+            $component.getValues(),
+            Object.assign(defaultValues, view.settings)
+         );
+
+         $component.setValues(values);
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const values = super.values();
+
+         values.settings = Object.assign(
+            $$(this.ids.component).getValues(),
+            values.settings
+         );
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("pie");
+      }
+   }
+
+   return ABViewChartPieProperty;
 }
 
 
