@@ -77997,7 +77997,10 @@ __webpack_require__.r(__webpack_exports__);
             role: "",
             useRole: "",
             useAccount: "",
+            useField: "", // bool on whether to use userFields from process
             account: "",
+            fields: "", // to\fromUsers.fields
+            userField: "",
          });
       }
 
@@ -78008,6 +78011,17 @@ __webpack_require__.r(__webpack_exports__);
          var __Users = AB.Account.userList().map((u) => {
             return { id: u.uuid, value: u.username };
          });
+         var __UserFields = [];
+         if (obj.userProcessFieldData) {
+            __UserFields = obj.userProcessFieldData.map((u) => {
+               return {
+                  uuid: u.field.id,
+                  id: u.key,
+                  value: u.label,
+                  key: u.key,
+               };
+            });
+         }
 
          var ids = this.ids;
 
@@ -78176,6 +78190,91 @@ __webpack_require__.r(__webpack_exports__);
                      },
                   ],
                },
+               {
+                  cols: [
+                     {
+                        view: "checkbox",
+                        id: this.ids.useField,
+                        labelRight: L("by Field"),
+                        labelWidth: 0,
+                        width: 120,
+                        value: obj.useField == "1" ? 1 : 0,
+                        click: function (id /*, event */) {
+                           if ($$(id).getValue()) {
+                              $$(ids.userField).enable();
+                           } else {
+                              $$(ids.userField).disable();
+                           }
+                        },
+                        on: {
+                           onAfterRender() {
+                              UIClass.CYPRESS_REF(this);
+                           },
+                        },
+                     },
+                     {
+                        // TODO @achoobert look these up
+                        id: this.ids.userField,
+                        view: "multicombo",
+                        value: obj.userFields ? obj.userFields : 0,
+                        disabled: obj.useField == "1" ? false : true,
+                        suggest: {
+                           body: {
+                              data: __UserFields,
+                              on: {
+                                 //
+                                 // TODO: looks like a Webix Bug that has us
+                                 // doing all this work.  Let's see if Webix
+                                 // can fix this for us.
+                                 onAfterRender() {
+                                    this.data.each((a) => {
+                                       UIClass.CYPRESS_REF(
+                                          this.getItemNode(a.id),
+                                          `${ids.userField}_${a.id}`
+                                       );
+                                    });
+                                 },
+                                 onItemClick: function (id) {
+                                    var $userFieldsCombo = $$(ids.userField);
+                                    var currentItems =
+                                       $userFieldsCombo.getValue();
+                                    var indOf = currentItems.indexOf(id);
+                                    if (indOf == -1) {
+                                       currentItems.push(id);
+                                    } else {
+                                       currentItems.splice(indOf, 1);
+                                    }
+                                    $userFieldsCombo.setValue(currentItems);
+                                    // var item = this.getItem(id);
+                                    // UIClass.CYPRESS_REF(
+                                    //    this.getItemNode(item.id),
+                                    //    `${ids.userField}_${item.id}`
+                                    // );
+                                 },
+                              },
+                           },
+                        },
+                        labelAlign: "left",
+                        placeholder: L("Click or type to add user..."),
+                        stringResult: false /* returns data as an array of [id] */,
+                        on: {
+                           onAfterRender: function () {
+                              // set data-cy for original field to track clicks to open option list
+                              UIClass.CYPRESS_REF(
+                                 this.getNode(),
+                                 ids.userField
+                              );
+                           },
+                           onChange: (/* newVal, oldVal */) => {
+                              // trigger the onAfterRender function from the list so we can add data-cy to dom
+                              $$(this.ids.userField)
+                                 .getList()
+                                 .callEvent("onAfterRender");
+                           },
+                        },
+                     },
+                  ],
+               },
             ],
          };
       }
@@ -78220,6 +78319,16 @@ __webpack_require__.r(__webpack_exports__);
             if (obj.account === "--") obj.account = null;
          } else {
             obj.account = null;
+         }
+
+         if ($$(ids.useField)) {
+            obj.useField = $$(ids.useField).getValue();
+         }
+
+         if ($$(ids.useField)) {
+            obj["userFields"] = $$(ids.userField).getValue();
+         } else {
+            obj.userFields = [];
          }
 
          return obj;
@@ -78273,7 +78382,12 @@ __webpack_require__.r(__webpack_exports__);
             toUser: "",
             message: "",
             toCustom: "",
+            toCustomFields: "",
             fromCustom: "",
+            fromCustomFields: "",
+            customFrom: "",
+            toEmailForm: "",
+            fromEmailForm: "",
          });
 
          this.toUser = new ABProcessParticipant(this.ids.component + "_to_");
@@ -78339,13 +78453,13 @@ __webpack_require__.r(__webpack_exports__);
                            onChange: (val) => {
                               if (parseInt(val) == 1) {
                                  $$(ids.toUser).show();
-                                 $$(ids.toCustom).hide();
+                                 $$(ids.toEmailForm).hide();
                               } else if (parseInt(val) == 2) {
                                  $$(ids.toUser).hide();
-                                 $$(ids.toCustom).show();
+                                 $$(ids.toEmailForm).show();
                               } else {
                                  $$(ids.toUser).hide();
-                                 $$(ids.toCustom).hide();
+                                 $$(ids.toEmailForm).hide();
                               }
                            },
                         },
@@ -78357,12 +78471,77 @@ __webpack_require__.r(__webpack_exports__);
                         hidden: parseInt(this.to) == 1 ? false : true,
                      },
                      {
-                        id: ids.toCustom,
-                        view: "text",
-                        label: L("Email"),
-                        placeholder: L("Type email address here..."),
-                        name: "toCustom",
-                        value: this.toCustom,
+                        id: ids.toEmailForm,
+                        name: "toEmailForm",
+                        type: "form",
+                        css: "no-margin",
+                        rows: [
+                           {
+                              id: ids.toCustom,
+                              view: "text",
+                              label: L("Email"),
+                              placeholder: L("Type email address here..."),
+                              name: "toCustom",
+                              value: this.toCustom,
+                           },
+                           {
+                              // process fields TO
+                              id: ids.toCustomFields,
+                              label: L("toCustomFields"),
+                              name: "toCustomFields",
+                              value: this.toCustomFields,
+                              view: "multicombo",
+                              placeholder: L("..."),
+                              suggest: {
+                                 body: {
+                                    data: [],
+                                    on: {
+                                       onAfterRender() {
+                                          this.data.each((a) => {
+                                             UIClass.CYPRESS_REF(
+                                                this.getItemNode(a.id),
+                                                `${ids.toCustomFields}_${a.id}`
+                                             );
+                                          });
+                                       },
+                                       onItemClick: function (id) {
+                                          var $toCustomFields = $$(
+                                             ids.toCustomFields
+                                          );
+                                          var currentItems =
+                                             $toCustomFields.getValue();
+                                          var indOf = currentItems.indexOf(id);
+                                          if (indOf == -1) {
+                                             currentItems.push(id);
+                                          } else {
+                                             currentItems.splice(indOf, 1);
+                                          }
+                                          $toCustomFields.setValue(
+                                             currentItems
+                                          );
+                                       },
+                                    },
+                                 },
+                              },
+                              labelAlign: "left",
+                              stringResult: false /* returns data as an array of [id] */,
+                              on: {
+                                 onAfterRender: function () {
+                                    // set data-cy for original field to track clicks to open option list
+                                    UIClass.CYPRESS_REF(
+                                       this.getNode(),
+                                       ids.toCustomFields
+                                    );
+                                 },
+                                 onChange: (/* newVal, oldVal */) => {
+                                    // trigger the onAfterRender function from the list so we can add data-cy to dom
+                                    $$(this.ids.toCustomFields)
+                                       .getList()
+                                       .callEvent("onAfterRender");
+                                 },
+                              },
+                           },
+                        ],
                         hidden: parseInt(this.to) == 2 ? false : true,
                      },
                      {
@@ -78389,13 +78568,13 @@ __webpack_require__.r(__webpack_exports__);
                            onChange: (val) => {
                               if (parseInt(val) == 1) {
                                  $$(ids.fromUser).show();
-                                 $$(ids.fromCustom).hide();
+                                 $$(ids.fromEmailForm).hide();
                               } else if (parseInt(val) == 2) {
                                  $$(ids.fromUser).hide();
-                                 $$(ids.fromCustom).show();
+                                 $$(ids.fromEmailForm).show();
                               } else {
                                  $$(ids.fromUser).hide();
-                                 $$(ids.fromCustom).hide();
+                                 $$(ids.fromEmailForm).hide();
                               }
                            },
                         },
@@ -78407,12 +78586,78 @@ __webpack_require__.r(__webpack_exports__);
                         hidden: parseInt(this.from) == 1 ? false : true,
                      },
                      {
-                        id: ids.fromCustom,
-                        view: "text",
-                        label: L("Email"),
-                        placeholder: L("Type email address here..."),
-                        name: "fromCustom",
-                        value: this.fromCustom,
+                        id: ids.fromEmailForm,
+                        name: "fromEmailForm",
+                        type: "form",
+                        css: "no-margin",
+                        rows: [
+                           {
+                              id: ids.fromCustom,
+                              view: "text",
+                              label: L("Email"),
+                              placeholder: L("Type email address here..."),
+                              name: "fromCustom",
+                              value: this.fromCustom,
+                              // hidden: parseInt(this.from) == 2 ? false : true,
+                           },
+                           {
+                              id: ids.fromCustomFields,
+                              view: "multicombo",
+                              label: L("Process"),
+                              placeholder: L("..."),
+                              name: "fromCustomFields",
+                              suggest: {
+                                 body: {
+                                    data: [],
+                                    on: {
+                                       onAfterRender() {
+                                          this.data.each((a) => {
+                                             UIClass.CYPRESS_REF(
+                                                this.getItemNode(a.id),
+                                                `${ids.fromCustomFields}_${a.id}`
+                                             );
+                                          });
+                                       },
+                                       onItemClick: function (id) {
+                                          var $fromCustomFields = $$(
+                                             ids.fromCustomFields
+                                          );
+                                          var currentItems =
+                                             $fromCustomFields.getValue();
+                                          var indOf = currentItems.indexOf(id);
+                                          if (indOf == -1) {
+                                             currentItems.push(id);
+                                          } else {
+                                             currentItems.splice(indOf, 1);
+                                          }
+                                          $fromCustomFields.setValue(
+                                             currentItems
+                                          );
+                                       },
+                                    },
+                                 },
+                              },
+                              labelAlign: "left",
+                              value: this.fromCustomFields,
+                              // hidden: parseInt(this.from) == 2 ? false : true,
+                              stringResult: false /* returns data as an array of [id] */,
+                              on: {
+                                 onAfterRender: function () {
+                                    // set data-cy for original field to track clicks to open option list
+                                    UIClass.CYPRESS_REF(
+                                       this.getNode(),
+                                       ids.fromCustomFields
+                                    );
+                                 },
+                                 onChange: (/* newVal, oldVal */) => {
+                                    // trigger the onAfterRender function from the list so we can add data-cy to dom
+                                    $$(this.ids.fromCustomFields)
+                                       .getList()
+                                       .callEvent("onAfterRender");
+                                 },
+                              },
+                           },
+                        ],
                         hidden: parseInt(this.from) == 2 ? false : true,
                      },
                      {
@@ -78465,12 +78710,18 @@ __webpack_require__.r(__webpack_exports__);
          return Promise.resolve();
       }
 
-      // applicationLoad(application) {
-      //    super.applicationLoad(application);
+      applicationLoad(application) {
+         //    super.applicationLoad(application);
+         super.applicationLoad(application);
 
-      //    $$(this.ids.objList).define("data", listObj);
-      //    $$(this.ids.objList).refresh();
-      // }
+         // $$(this.ids.objList).define("data", listObj);
+         // $$(this.ids.objList).refresh();
+      }
+
+      processLoad(process) {
+         super.processLoad(process);
+         this.process = process;
+      }
 
       // show() {
       //    super.show();
@@ -78480,6 +78731,26 @@ __webpack_require__.r(__webpack_exports__);
       populate(obj) {
          let ids = this.ids;
 
+         // get process data user-fields
+         let userProcessFieldData = obj.process
+            .processDataFields(obj)
+            .filter((e) => e.field?.key == "user");
+         obj.toUsers["userProcessFieldData"] = userProcessFieldData;
+         obj.fromUsers["userProcessFieldData"] = userProcessFieldData;
+
+         // get process data email-fields
+         let emailProcessFieldData = obj.process
+            .processDataFields(obj)
+            .filter((e) => e.field?.key == "email");
+         let __EmailFields = emailProcessFieldData.map((u) => {
+            return {
+               uuid: u.field.id,
+               id: u.key,
+               value: u.label,
+               key: u.key,
+            };
+         });
+
          $$(ids.name).setValue(obj.name);
          $$(ids.to).setValue(obj.to);
          $$(ids.from).setValue(obj.from);
@@ -78487,6 +78758,13 @@ __webpack_require__.r(__webpack_exports__);
          $$(ids.message).setValue(obj.message);
          $$(ids.toCustom).setValue(obj.toCustom);
          $$(ids.fromCustom).setValue(obj.fromCustom);
+
+         $$(ids.fromCustomFields).options_setter(__EmailFields);
+         $$(ids.fromCustomFields).refresh();
+         $$(ids.fromCustomFields).setValue(obj.fromCustomFields);
+         $$(ids.toCustomFields).options_setter(__EmailFields);
+         $$(ids.toCustomFields).refresh();
+         $$(ids.toCustomFields).setValue(obj.toCustomFields);
 
          let $toUser = this.toUser.ui(obj.toUsers ?? {});
          let $newToUser = {
@@ -78536,7 +78814,9 @@ __webpack_require__.r(__webpack_exports__);
          obj.subject = $$(ids.subject).getValue();
          obj.message = $$(ids.message).getValue();
          obj.toCustom = $$(ids.toCustom).getValue();
+         obj.toCustomFields = $$(ids.toCustomFields).getValue();
          obj.fromCustom = $$(ids.fromCustom).getValue();
+         obj.fromCustomFields = $$(ids.fromCustomFields).getValue();
          obj.toUsers = this.toUser.values();
          obj.fromUsers = this.fromUser.values();
 
@@ -116335,6 +116615,12 @@ function series(list, cb) {
          super.processLoad(process);
          var ids = this.ids;
 
+         Object.keys(this.panelsByType).forEach((k) => {
+            if (this.panelsByType[k].processLoad) {
+               this.panelsByType[k].processLoad(process);
+            }
+         });
+
          // initialize the BPMN Viewer if not already initialized:
          if (!this.viewer) {
             $$(ids.modelerBroken).hide();
@@ -116747,6 +117033,9 @@ function series(list, cb) {
        * stashed
        */
       propertiesSave() {
+         if (!this.CurrentPanel) {
+            return;
+         }
          var thisObj = this.CurrentPropertiesObj;
          var values = this.CurrentPanel.values();
          var objVals = thisObj.toObj();
