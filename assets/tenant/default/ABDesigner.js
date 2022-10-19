@@ -27737,7 +27737,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@keyframes pulseDark {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);\n   }\n}\n@keyframes pulseLight {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);\n   }\n}\n.pulseDark {\n   animation-name: pulseDark;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.pulseLight {\n   animation-name: pulseLight;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.smalltext {\n   font-size: small !important;\n}\n.ab-object-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-datacollection-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-interface-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.darkorange .webix_button {\n   background-color: darkorange !important;\n}\n.warningtext {\n   color: orange;\n}\n.warningslist {\n   list-style-type: none;\n   margin: 0;\n   padding: 0;\n   line-height: 28px;\n   background-color: transparent;\n   color: white;\n}\n.warningslist li {\n   border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n}\n.webix_theme_dark {\n   background-color: #4a4e58;\n}\n.lighten {\n   opacity: 0.4;\n}\n", "",{"version":3,"sources":["webpack://./styles/Designer.css"],"names":[],"mappings":"AAAA;GACG;MACG,uBAAuB;MACvB,mBAAmB;MACnB,uCAAuC;GAC1C;GACA;MACG,mBAAmB;GACtB;GACA;MACG,uBAAuB;MACvB,sBAAsB;MACtB,yCAAyC;GAC5C;AACH;AACA;GACG;MACG,uBAAuB;MACvB,mBAAmB;MACnB,uCAAuC;GAC1C;GACA;MACG,mBAAmB;GACtB;GACA;MACG,uBAAuB;MACvB,sBAAsB;MACtB,yCAAyC;GAC5C;AACH;AACA;GACG,yBAAyB;GACzB,sBAAsB;GACtB,mCAAmC;GACnC,8BAA8B;GAC9B,mCAAmC;GACnC,6BAA6B;GAC7B,wBAAwB;AAC3B;AACA;GACG,0BAA0B;GAC1B,sBAAsB;GACtB,mCAAmC;GACnC,8BAA8B;GAC9B,mCAAmC;GACnC,6BAA6B;GAC7B,wBAAwB;AAC3B;AACA;GACG,2BAA2B;AAC9B;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,uCAAuC;AAC1C;AACA;GACG,aAAa;AAChB;AACA;GACG,qBAAqB;GACrB,SAAS;GACT,UAAU;GACV,iBAAiB;GACjB,6BAA6B;GAC7B,YAAY;AACf;AACA;GACG,2CAA2C;AAC9C;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,YAAY;AACf","sourcesContent":["@keyframes pulseDark {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);\n   }\n}\n@keyframes pulseLight {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);\n   }\n}\n.pulseDark {\n   animation-name: pulseDark;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.pulseLight {\n   animation-name: pulseLight;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.smalltext {\n   font-size: small !important;\n}\n.ab-object-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-datacollection-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-interface-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.darkorange .webix_button {\n   background-color: darkorange !important;\n}\n.warningtext {\n   color: orange;\n}\n.warningslist {\n   list-style-type: none;\n   margin: 0;\n   padding: 0;\n   line-height: 28px;\n   background-color: transparent;\n   color: white;\n}\n.warningslist li {\n   border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n}\n.webix_theme_dark {\n   background-color: #4a4e58;\n}\n.lighten {\n   opacity: 0.4;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "@keyframes pulseDark {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);\n   }\n}\n@keyframes pulseLight {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);\n   }\n}\n.pulseDark {\n   animation-name: pulseDark;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.pulseLight {\n   animation-name: pulseLight;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.smalltext {\n   font-size: small !important;\n}\n.ab-object-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-datacollection-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-interface-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.darkorange .webix_button {\n   background-color: darkorange !important;\n}\n.warningtext {\n   color: orange;\n}\n.warningslist {\n   list-style-type: none;\n   margin: 0;\n   padding: 0;\n   line-height: 28px;\n   background-color: transparent;\n   color: white;\n}\n.warningslist li {\n   border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n}\n.webix_theme_dark {\n   background-color: #4a4e58;\n}\n.lighten {\n   opacity: 0.4;\n}\n.app_form_window {\n   border-radius: 8px;\n}\n.app_form_window .webix_win_head {\n   background-color: #B8B8B8;\n}\n.app_form_window div.webix_view.webix_control.webix_el_icon.alert {\n   padding: 0px;\n}\n/* main view background (transparent by default) */\n.app_form_window .alert {\n   background-color: transparent;\n}\n/* main font color */\n.app_form_window .alert .webix_icon {\n   color:#EED202;\n}\n/* circle background (hover) */\n.app_form_window .alert .webix_icon_button:hover:before {\n   opacity: 0.8;\n}\n/* hover: font color */\n.app_form_window .alert .webix_icon_button:hover .webix_icon {\n   color: #D6BD01;\n}\n.app_form_window .webix_template {\n   font-size: 18px;\n   background-color: #B8B8B8;\n}\n.app_form_window .webix_label_right {\n   font-weight: 500;\n   color: rgb(49, 49, 49);\n   width: 340px;\n   padding-left: 10px;\n}\n.app_form_window .webix_scroll_cont .npr_smallLabels .webix_el_box {\n   font-size: 16px;\n   font-weight: 500;\n   color: #33b5e5;\n   text-align: right;\n}\n.app_form_window .webix_multicombo {\n   border: 2px solid #eee;\n   border-radius: 6px;\n}\n.app_form_window .webix_view .webix_layout_form {\n   border: 1px solid #eee;\n   border-radius: 6px;\n}\n.app_form_window div.webix_view.webix_form.no-margin.webix_layout_form {\n   background-color: #eee;\n}\n.app_form_window .webix_button {\n   border-radius: 6px;\n}\n.app_form_window_2 {\n   border-radius: 6px;\n}\n.app_form_window_2 .webix_win_head {\n   background-color: #B8B8B8;\n}\n.app_form_window_2 .webix_template {\n   font-size: 18px;\n   background-color: #B8B8B8;\n}\n", "",{"version":3,"sources":["webpack://./styles/Designer.css"],"names":[],"mappings":"AAAA;GACG;MACG,uBAAuB;MACvB,mBAAmB;MACnB,uCAAuC;GAC1C;GACA;MACG,mBAAmB;GACtB;GACA;MACG,uBAAuB;MACvB,sBAAsB;MACtB,yCAAyC;GAC5C;AACH;AACA;GACG;MACG,uBAAuB;MACvB,mBAAmB;MACnB,uCAAuC;GAC1C;GACA;MACG,mBAAmB;GACtB;GACA;MACG,uBAAuB;MACvB,sBAAsB;MACtB,yCAAyC;GAC5C;AACH;AACA;GACG,yBAAyB;GACzB,sBAAsB;GACtB,mCAAmC;GACnC,8BAA8B;GAC9B,mCAAmC;GACnC,6BAA6B;GAC7B,wBAAwB;AAC3B;AACA;GACG,0BAA0B;GAC1B,sBAAsB;GACtB,mCAAmC;GACnC,8BAA8B;GAC9B,mCAAmC;GACnC,6BAA6B;GAC7B,wBAAwB;AAC3B;AACA;GACG,2BAA2B;AAC9B;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,uCAAuC;AAC1C;AACA;GACG,aAAa;AAChB;AACA;GACG,qBAAqB;GACrB,SAAS;GACT,UAAU;GACV,iBAAiB;GACjB,6BAA6B;GAC7B,YAAY;AACf;AACA;GACG,2CAA2C;AAC9C;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,YAAY;AACf;AACA;GACG,kBAAkB;AACrB;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,YAAY;AACf;AACA,kDAAkD;AAClD;GACG,6BAA6B;AAChC;AACA,oBAAoB;AACpB;GACG,aAAa;AAChB;AACA,8BAA8B;AAC9B;GACG,YAAY;AACf;AACA,sBAAsB;AACtB;GACG,cAAc;AACjB;AACA;GACG,eAAe;GACf,yBAAyB;AAC5B;AACA;GACG,gBAAgB;GAChB,sBAAsB;GACtB,YAAY;GACZ,kBAAkB;AACrB;AACA;GACG,eAAe;GACf,gBAAgB;GAChB,cAAc;GACd,iBAAiB;AACpB;AACA;GACG,sBAAsB;GACtB,kBAAkB;AACrB;AACA;GACG,sBAAsB;GACtB,kBAAkB;AACrB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,eAAe;GACf,yBAAyB;AAC5B","sourcesContent":["@keyframes pulseDark {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);\n   }\n}\n@keyframes pulseLight {\n   0% {\n      /* color: darkorange; */\n      transform: scale(1);\n      text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);\n   }\n   50% {\n      /* color: orange; */\n   }\n   100% {\n      /* color: darkorange; */\n      transform: scale(1.25);\n      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);\n   }\n}\n.pulseDark {\n   animation-name: pulseDark;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.pulseLight {\n   animation-name: pulseLight;\n   animation-duration: 1s;\n   animation-timing-function: ease-out;\n   animation-direction: alternate;\n   animation-iteration-count: infinite;\n   animation-play-state: running;\n   color: orange !important;\n}\n.smalltext {\n   font-size: small !important;\n}\n.ab-object-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-datacollection-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.ab-interface-list-item .webix_sidebar_dir_icon {\n   margin-right: 20px;\n}\n.darkorange .webix_button {\n   background-color: darkorange !important;\n}\n.warningtext {\n   color: orange;\n}\n.warningslist {\n   list-style-type: none;\n   margin: 0;\n   padding: 0;\n   line-height: 28px;\n   background-color: transparent;\n   color: white;\n}\n.warningslist li {\n   border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n}\n.webix_theme_dark {\n   background-color: #4a4e58;\n}\n.lighten {\n   opacity: 0.4;\n}\n.app_form_window {\n   border-radius: 8px;\n}\n.app_form_window .webix_win_head {\n   background-color: #B8B8B8;\n}\n.app_form_window div.webix_view.webix_control.webix_el_icon.alert {\n   padding: 0px;\n}\n/* main view background (transparent by default) */\n.app_form_window .alert {\n   background-color: transparent;\n}\n/* main font color */\n.app_form_window .alert .webix_icon {\n   color:#EED202;\n}\n/* circle background (hover) */\n.app_form_window .alert .webix_icon_button:hover:before {\n   opacity: 0.8;\n}\n/* hover: font color */\n.app_form_window .alert .webix_icon_button:hover .webix_icon {\n   color: #D6BD01;\n}\n.app_form_window .webix_template {\n   font-size: 18px;\n   background-color: #B8B8B8;\n}\n.app_form_window .webix_label_right {\n   font-weight: 500;\n   color: rgb(49, 49, 49);\n   width: 340px;\n   padding-left: 10px;\n}\n.app_form_window .webix_scroll_cont .npr_smallLabels .webix_el_box {\n   font-size: 16px;\n   font-weight: 500;\n   color: #33b5e5;\n   text-align: right;\n}\n.app_form_window .webix_multicombo {\n   border: 2px solid #eee;\n   border-radius: 6px;\n}\n.app_form_window .webix_view .webix_layout_form {\n   border: 1px solid #eee;\n   border-radius: 6px;\n}\n.app_form_window div.webix_view.webix_form.no-margin.webix_layout_form {\n   background-color: #eee;\n}\n.app_form_window .webix_button {\n   border-radius: 6px;\n}\n.app_form_window_2 {\n   border-radius: 6px;\n}\n.app_form_window_2 .webix_win_head {\n   background-color: #B8B8B8;\n}\n.app_form_window_2 .webix_template {\n   font-size: 18px;\n   background-color: #B8B8B8;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -78026,18 +78026,17 @@ __webpack_require__.r(__webpack_exports__);
          var ids = this.ids;
 
          return {
+            view: "form",
             id: this.ids.component,
-            type: "form",
             css: "no-margin",
-            rows: [
+            elements: [
                {
                   cols: [
                      {
                         view: "checkbox",
                         id: this.ids.useRole,
-                        labelRight: L("by Role"),
+                        width: 34,
                         labelWidth: 0,
-                        width: 120,
                         value: obj.useRole == "1" ? 1 : 0,
                         click: function (id /*, event */) {
                            if ($$(id).getValue()) {
@@ -78053,12 +78052,18 @@ __webpack_require__.r(__webpack_exports__);
                         },
                      },
                      {
-                        id: this.ids.role,
+                        view: "label",
+                        label: L("by Role"),
+                        width: 88,
+                     },
+                     {
                         view: "multicombo",
+                        id: this.ids.role,
                         value: obj.role ? obj.role : 0,
                         disabled: obj.useRole == "1" ? false : true,
                         suggest: {
                            body: {
+                              yCount: 4,
                               data: __Roles,
                               on: {
                                  //
@@ -78092,7 +78097,7 @@ __webpack_require__.r(__webpack_exports__);
                               },
                            },
                         },
-                        placeholder: L("Click or type to add role..."),
+                        placeholder: L("Click to add Role"),
                         labelAlign: "left",
                         stringResult: false /* returns data as an array of [id] */,
                         on: {
@@ -78110,14 +78115,14 @@ __webpack_require__.r(__webpack_exports__);
                      },
                   ],
                },
+               {},
                {
                   cols: [
                      {
                         view: "checkbox",
                         id: this.ids.useAccount,
-                        labelRight: L("by Account"),
+                        width: 34,
                         labelWidth: 0,
-                        width: 120,
                         value: obj.useAccount == "1" ? 1 : 0,
                         click: function (id /*, event */) {
                            if ($$(id).getValue()) {
@@ -78133,12 +78138,18 @@ __webpack_require__.r(__webpack_exports__);
                         },
                      },
                      {
-                        id: this.ids.account,
+                        view: "label",
+                        label: L("by Account"),
+                        width: 88,
+                     },
+                     {
                         view: "multicombo",
+                        id: this.ids.account,
                         value: obj.account ? obj.account : 0,
                         disabled: obj.useAccount == "1" ? false : true,
                         suggest: {
                            body: {
+                              yCount: 4,
                               data: __Users,
                               on: {
                                  //
@@ -78172,8 +78183,8 @@ __webpack_require__.r(__webpack_exports__);
                               },
                            },
                         },
+                        placeholder: L("Click to add User"),
                         labelAlign: "left",
-                        placeholder: L("Click or type to add user..."),
                         stringResult: false /* returns data as an array of [id] */,
                         on: {
                            onAfterRender: function () {
@@ -78190,14 +78201,14 @@ __webpack_require__.r(__webpack_exports__);
                      },
                   ],
                },
+               {},
                {
                   cols: [
                      {
                         view: "checkbox",
                         id: this.ids.useField,
-                        labelRight: L("by Field"),
+                        width: 34,
                         labelWidth: 0,
-                        width: 120,
                         value: obj.useField == "1" ? 1 : 0,
                         click: function (id /*, event */) {
                            if ($$(id).getValue()) {
@@ -78213,13 +78224,19 @@ __webpack_require__.r(__webpack_exports__);
                         },
                      },
                      {
+                        view: "label",
+                        label: L("by Field"),
+                        width: 88,
+                     },
+                     {
                         // TODO @achoobert look these up
-                        id: this.ids.userField,
                         view: "multicombo",
+                        id: this.ids.userField,
                         value: obj.userFields ? obj.userFields : 0,
                         disabled: obj.useField == "1" ? false : true,
                         suggest: {
                            body: {
+                              yCount: 4,
                               data: __UserFields,
                               on: {
                                  //
@@ -78254,8 +78271,8 @@ __webpack_require__.r(__webpack_exports__);
                               },
                            },
                         },
+                        placeholder: L("Click to add User"),
                         labelAlign: "left",
-                        placeholder: L("Click or type to add user..."),
                         stringResult: false /* returns data as an array of [id] */,
                         on: {
                            onAfterRender: function () {
@@ -96641,7 +96658,7 @@ __webpack_require__.r(__webpack_exports__);
             id: this.ids.component,
             view: "multiview",
             animate: false,
-            cells: [AppList.ui(), AppForm.ui()],
+            cells: [AppList.ui()],
          };
       }
 
@@ -96718,6 +96735,11 @@ __webpack_require__.r(__webpack_exports__);
 
    var Warnings = (0,_ui_warnings__WEBPACK_IMPORTED_MODULE_1__["default"])(AB, `view_warnings`, init_settings);
 
+   var issue_icon =
+      "<span class='webix_icon wxi-alert' style='font-size:18px; color:#EED202;'>&nbsp;</span>";
+
+   var richselect_icon = AB._App.icons.map((x) => `fa-${x}`);
+
    class ABChooseForm extends UIClass {
       // .extend(idBase, function(App) {
 
@@ -96732,6 +96754,9 @@ __webpack_require__.r(__webpack_exports__);
             accessManagerToolbar: "",
             translationManager: "",
             translationManagerToolbar: "",
+
+            issue_id: "",
+            issue_list: "",
          });
       }
 
@@ -96742,411 +96767,413 @@ __webpack_require__.r(__webpack_exports__);
          );
 
          return {
+            view: "window",
             id: this.ids.component,
-            view: "scrollview",
-            scroll: "y",
-            body: {
-               rows: [
+            css: "app_form_window",
+            height: 670,
+            width: 770,
+            position: "center",
+            move: true,
+            scroll: true,
+            resize: true,
+            modal: true,
+            head: {
+               type: "clean",
+               cols: [
+                  // Warnings.ui(),
                   {
-                     responsive: "hide",
-                     type: "space",
-                     cols: [
-                        {
-                           maxWidth: uiConfig.appListSpacerColMaxWidth,
-                           minWidth: uiConfig.appListSpacerColMinWidth,
-                           width: uiConfig.appListSpacerColMaxWidth,
-                        },
-                        {
-                           responsiveCell: false,
-                           rows: [
-                              {},
-                              Warnings.ui(),
-                              {
-                                 view: "toolbar",
-                                 css: "webix_dark",
-                                 cols: [
-                                    { view: "spacer", width: 10 },
-                                    {
-                                       view: "label",
-                                       label: L("Application Info"), //labels.component.formHeader,
-                                       fillspace: true,
-                                    },
-                                 ],
-                              },
-                              {
-                                 view: "form",
-                                 id: this.ids.form,
-                                 autoheight: true,
-                                 margin: 0,
-                                 rules: {
-                                    label: (value) => {
-                                       return (
-                                          0 < value.length && value.length <= 20
-                                       );
-                                    },
-                                 },
-                                 elements: [
-                                    {
-                                       name: "label",
-                                       view: "text",
-                                       label: L("Name"),
-                                       placeholder: L("Application name"),
-                                       invalidMessage: L(
-                                          "Name must be less than or equal to 20"
-                                       ),
-                                       labelWidth: 100,
-                                       on: {
-                                          onAfterRender() {
-                                             AB.ClassUI.CYPRESS_REF(
-                                                this,
-                                                "abd_choose_form_label"
-                                             );
-                                          },
-                                       },
-                                    },
-                                    {
-                                       name: "icon",
-                                       view: "text",
-                                       label: L("Icon"),
-                                       placeholder: L("Menu Icon"),
-                                       labelWidth: 100,
-                                       on: {
-                                          onAfterRender() {
-                                             AB.ClassUI.CYPRESS_REF(
-                                                this,
-                                                "abd_choose_form_icon"
-                                             );
-                                          },
-                                       },
-                                    },
-                                    { height: uiConfig.smallSpacer },
-                                    {
-                                       name: "description",
-                                       view: "textarea",
-                                       label: L("Description"),
-                                       labelAlign: "left",
-                                       labelWidth: 100,
-                                       placeholder: L(
-                                          "Application Description"
-                                       ),
-                                       height: 100,
-                                       on: {
-                                          onAfterRender() {
-                                             AB.ClassUI.CYPRESS_REF(
-                                                this,
-                                                "abd_choose_form_description"
-                                             );
-                                          },
-                                       },
-                                    },
-                                    { height: uiConfig.smallSpacer },
-                                    {
-                                       name: "isSystemObject",
-                                       view: "checkbox",
-                                       labelRight: L(
-                                          "is this a System Object?"
-                                       ),
-                                       labelWidth: 0,
-                                       on: {
-                                          onAfterRender() {
-                                             AB.ClassUI.CYPRESS_REF(
-                                                this,
-                                                "abd_choose_form_isSystemObj"
-                                             );
-                                          },
-                                       },
-                                    },
-                                    { height: uiConfig.smallSpacer },
-                                    {
-                                       view: "toolbar",
-                                       css: "ab-toolbar-submenu webix_dark",
-                                       cols: [
-                                          {
-                                             template: L(
-                                                "Who can use this app?"
-                                             ),
-                                             type: "header",
-                                             borderless: true,
-                                          },
-                                          {},
-                                          // {
-                                          //    view: "checkbox",
-                                          //    id: this.ids.appFormCreateRoleButton,
-                                          //    align: "right",
-                                          //    labelRight: L("Create new role"),
-                                          //    labelWidth: 0,
-                                          //    width: 150,
-                                          //    on: {
-                                          //       onItemClick: (/* id, e */) => {
-                                          //          this.createRoleButtonClick();
-                                          //       },
-                                          //    },
-                                          // },
-                                       ],
-                                    },
-                                    {
-                                       name: "permissions",
-                                       id: this.ids.appFormPermissionList,
-                                       view: "list",
-                                       autowidth: true,
-                                       height: 140,
-                                       margin: 0,
-                                       css: "ab-app-form-permission",
-                                       template:
-                                          "{common.markCheckbox()} #name#",
-                                       type: {
-                                          markCheckbox: function (obj) {
-                                             return `<span class="check webix_icon fa fa-fw fa-${
-                                                obj.markCheckbox ? "check-" : ""
-                                             }square-o" data-cy="check_${
-                                                obj.id
-                                             }"></span>`;
+                     view: "spacer",
+                     width: 4,
+                  },
+                  {
+                     view: "icon",
+                     icon: "wxi-alert",
+                     css: "alert",
+                     on: {
+                        onItemClick: () => {
+                           const $issueID = $$(this.ids.issue_id);
+                           const $issueList = $$(this.ids.issue_list);
 
-                                             // (
-                                             //    "<span class='check webix_icon fa fa-fw fa-" +
-                                             //    (obj.markCheckbox
-                                             //       ? "check-"
-                                             //       : "") +
-                                             //    "square-o' data-cy='check_"+obj.id+"'></span>"
-                                             // );
-                                          },
-                                       },
-                                       on: {
-                                          onAfterRender() {
-                                             this.data.each((a) => {
-                                                AB.ClassUI.CYPRESS_REF(
-                                                   this.getItemNode(a.id),
-                                                   `perm_role_${a.id}`
-                                                );
-                                             });
-                                          },
-                                          onItemClick: (id, e, node) => {
-                                             this.permissionClick(id, e, node);
-                                          },
-                                       },
-                                    },
-                                    { height: uiConfig.smallSpacer },
-                                    {
-                                       name: "isAccessManaged",
-                                       view: "checkbox",
-                                       labelRight: L(
-                                          "Enable Page/Tab Access Management"
-                                       ),
-                                       labelWidth: 0,
-                                       on: {
-                                          onAfterRender() {
-                                             AB.ClassUI.CYPRESS_REF(
-                                                this,
-                                                "abd_choose_form_isAccessManaged"
-                                             );
-                                          },
-                                          onChange: (newv /* , oldv */) => {
-                                             if (newv) {
-                                                $$(
-                                                   this.ids.accessManager
-                                                ).show();
-                                                $$(
-                                                   this.ids.accessManagerToolbar
-                                                ).show();
-                                             } else {
-                                                $$(
-                                                   this.ids.accessManager
-                                                ).hide();
-                                                $$(
-                                                   this.ids.accessManagerToolbar
-                                                ).hide();
-                                             }
-                                          },
-                                          onItemClick: (id /*, e */) => {
-                                             var enabled = $$(id).getValue();
-                                             if (enabled) {
-                                                $$(
-                                                   this.ids.accessManager
-                                                ).show();
-                                                $$(
-                                                   this.ids.accessManagerToolbar
-                                                ).show();
-                                             } else {
-                                                $$(
-                                                   this.ids.accessManager
-                                                ).hide();
-                                                $$(
-                                                   this.ids.accessManagerToolbar
-                                                ).hide();
-                                             }
-                                          },
-                                       },
-                                    },
-                                    { height: uiConfig.smallSpacer },
-                                    {
-                                       view: "toolbar",
-                                       id: this.ids.accessManagerToolbar,
-                                       css: "ab-toolbar-submenu webix_dark",
-                                       hidden:
-                                          parseInt(this.accessManagement) == 1
-                                             ? false
-                                             : true,
-                                       cols: [
-                                          {
-                                             template: L(
-                                                "Who can manage page/tab access for this app?"
-                                             ), //labels.component.managerHeader,
-                                             type: "header",
-                                             borderless: true,
-                                          },
-                                          {},
-                                       ],
-                                    },
-                                    {
-                                       id: this.ids.accessManager,
-                                       rows: [this.accessManagerUI.ui()],
-                                       paddingY: 10,
-                                       hidden:
-                                          parseInt(this.accessManagement) == 1
-                                             ? false
-                                             : true,
-                                    },
-                                    {
-                                       name: "isTranslationManaged",
-                                       view: "checkbox",
-                                       labelRight: L("Enable Translation Tool"), // labels.component.enableTranslationManagement,
-                                       labelWidth: 0,
-                                       on: {
-                                          onAfterRender() {
-                                             AB.ClassUI.CYPRESS_REF(
-                                                this,
-                                                "abd_choose_form_isTranslationManaged"
-                                             );
-                                          },
-                                          onChange: (newv /*, oldv */) => {
-                                             if (newv) {
-                                                $$(
-                                                   this.ids.translationManager
-                                                ).show();
-                                                $$(
-                                                   this.ids
-                                                      .translationManagerToolbar
-                                                ).show();
-                                             } else {
-                                                $$(
-                                                   this.ids.translationManager
-                                                ).hide();
-                                                $$(
-                                                   this.ids
-                                                      .translationManagerToolbar
-                                                ).hide();
-                                             }
-                                          },
-                                          onItemClick: (id /*, e*/) => {
-                                             var enabled = $$(id).getValue();
-                                             if (enabled) {
-                                                $$(
-                                                   this.ids.translationManager
-                                                ).show();
-                                                $$(
-                                                   this.ids
-                                                      .translationManagerToolbar
-                                                ).show();
-                                             } else {
-                                                $$(
-                                                   this.ids.translationManager
-                                                ).hide();
-                                                $$(
-                                                   this.ids
-                                                      .translationManagerToolbar
-                                                ).hide();
-                                             }
-                                          },
-                                       },
-                                    },
-                                    { height: uiConfig.smallSpacer },
-                                    {
-                                       view: "toolbar",
-                                       id: this.ids.translationManagerToolbar,
-                                       css: "ab-toolbar-submenu webix_dark",
-                                       hidden:
-                                          parseInt(
-                                             this.translationManagement
-                                          ) == 1
-                                             ? false
-                                             : true,
-                                       cols: [
-                                          {
-                                             template: L(
-                                                "Who can translate this app?"
-                                             ),
-                                             type: "header",
-                                             borderless: true,
-                                          },
-                                          {},
-                                       ],
-                                    },
-                                    {
-                                       id: this.ids.translationManager,
-                                       rows: [this.translationManagerUI.ui()],
-                                       paddingY: 10,
-                                       hidden:
-                                          parseInt(
-                                             this.translationManagement
-                                          ) == 1
-                                             ? false
-                                             : true,
-                                    },
-                                    { height: uiConfig.smallSpacer },
-                                    {
-                                       margin: 5,
-                                       cols: [
-                                          { fillspace: true },
-                                          {
-                                             view: "button",
-                                             value: L("Cancel"),
-                                             width: uiConfig.buttonWidthSmall,
-                                             css: "ab-cancel-button",
-                                             click: () => {
-                                                this.cancel();
-                                             },
-                                             on: {
-                                                onAfterRender() {
-                                                   AB.ClassUI.CYPRESS_REF(
-                                                      this,
-                                                      "abd_choose_form_cancel"
-                                                   );
-                                                },
-                                             },
-                                          },
-                                          {
-                                             id: this.ids.saveButton,
-                                             view: "button",
-                                             css: "webix_primary",
-                                             label: L("Save"),
-                                             type: "form",
-                                             width: uiConfig.buttonWidthSmall,
-                                             click: () => {
-                                                this.buttonSaveClick();
-                                             }, // end click()
-                                             on: {
-                                                onAfterRender() {
-                                                   AB.ClassUI.CYPRESS_REF(this);
-                                                },
-                                             },
-                                          },
-                                       ],
-                                    },
-                                 ],
-                              },
-                              {
-                                 view: "spacer",
-                              },
-                           ],
+                           $issueList.define("data", this.warningData());
+                           $issueList.refresh();
+                           $issueID.show();
                         },
-                        {
-                           maxWidth: uiConfig.appListSpacerColMaxWidth,
-                           minWidth: uiConfig.appListSpacerColMinWidth,
-                           width: uiConfig.appListSpacerColMaxWidth,
-                        },
-                     ],
+                     },
+                  },
+                  {
+                     template: L("Application Info"),
+                     type: "header",
+                     css: "webix_win_title",
+                  },
+                  {
+                     view: "icon",
+                     icon: "wxi-close",
+                     click() {
+                        this.getTopParentView().hide();
+                     },
+                  },
+                  {
+                     view: "spacer",
+                     width: 4,
                   },
                ],
+            },
+            body: {
+               view: "scrollview",
+               scroll: true,
+               body: {
+                  padding: 4,
+                  cols: [
+                     {
+                        view: "spacer",
+                        width: 2,
+                     },
+                     {
+                        rows: [
+                           {
+                              view: "form",
+                              id: this.ids.form,
+                              rules: {
+                                 label: (value) => {
+                                    return (
+                                       0 < value.length && value.length <= 20
+                                    );
+                                 },
+                              },
+                              borderless: true,
+                              elements: [
+                                 {
+                                    name: "label",
+                                    view: "text",
+                                    label: L("Name"),
+                                    labelWidth: 100,
+                                    placeholder: L("Application Name"),
+                                    invalidMessage: L(
+                                       "&nbsp; Name must be less than or equal to 20 letters."
+                                    ),
+                                    on: {
+                                       onAfterRender() {
+                                          AB.ClassUI.CYPRESS_REF(
+                                             this,
+                                             "abd_choose_form_label"
+                                          );
+                                       },
+                                    },
+                                 },
+                                 {
+                                    name: "icon",
+                                    view: "richselect",
+                                    id: "richselect1",
+                                    label: L("Icon"),
+                                    labelWidth: 100,
+                                    placeholder: L("Menu Icon"),
+                                    options: {
+                                       body: {
+                                          template:
+                                             "<span class='fa #value#' style='color: #33b5e5;'></span>&nbsp; #value#",
+                                          yCount: 3,
+                                          data: richselect_icon,
+                                       },
+                                    },
+                                    on: {
+                                       onAfterRender() {
+                                          AB.ClassUI.CYPRESS_REF(
+                                             this,
+                                             "abd_choose_form_icon"
+                                          );
+                                       },
+                                    },
+                                 },
+                                 { height: uiConfig.smallSpacer },
+                                 {
+                                    name: "description",
+                                    view: "textarea",
+                                    label: L("Description"),
+                                    labelWidth: 100,
+                                    height: 100,
+                                    placeholder: L("Application Description"),
+                                    on: {
+                                       onAfterRender() {
+                                          AB.ClassUI.CYPRESS_REF(
+                                             this,
+                                             "abd_choose_form_description"
+                                          );
+                                       },
+                                    },
+                                 },
+                                 {
+                                    view: "spacer",
+                                    height: 4,
+                                 },
+                                 {
+                                    name: "isSystemObject",
+                                    view: "checkbox",
+                                    labelRight: L("Is this a System Object?"),
+                                    labelWidth: 0,
+                                    on: {
+                                       onAfterRender() {
+                                          AB.ClassUI.CYPRESS_REF(
+                                             this,
+                                             "abd_choose_form_isSystemObj"
+                                          );
+                                       },
+                                    },
+                                 },
+                                 {
+                                    view: "label",
+                                    label: L("Who can use this app?"),
+                                    css: "npr_smallLabels",
+                                 },
+                                 // {
+                                 //    view: "checkbox",
+                                 //    id: this.ids.appFormCreateRoleButton,
+                                 //    align: "right",
+                                 //    labelRight: L("Create new role"),
+                                 //    labelWidth: 0,
+                                 //    width: 150,
+                                 //    on: {
+                                 //       onItemClick: (/* id, e */) => {
+                                 //          this.createRoleButtonClick();
+                                 //       },
+                                 //    },
+                                 // },
+                                 {
+                                    name: "roleAccess",
+                                    view: "multicombo",
+                                    id: this.ids.appFormPermissionList,
+                                    label: "",
+                                    labelPosition: "top",
+                                    placeholder: L("Click to add Role"),
+                                    button: true,
+                                    on: {
+                                       onAfterRender() {
+                                          this.data.value.forEach((a) => {
+                                             AB.ClassUI.CYPRESS_REF(
+                                                // this.getItemNode(a.id),
+                                                `perm_role_${a.id}`
+                                             );
+                                          });
+                                       },
+                                       // onItemClick: (id, e, node) => {
+                                       //    this.permissionClick(id, e, node);
+                                       // },
+                                       onChange: function () {
+                                          webix.message({
+                                             text: L("Data was changed"),
+                                             type: "success",
+                                          });
+                                       },
+                                    },
+                                 },
+                                 {
+                                    name: "isAccessManaged",
+                                    view: "checkbox",
+                                    labelRight: L(
+                                       "Enable Page / Tab Access Management"
+                                    ),
+                                    labelWidth: 0,
+                                    on: {
+                                       onAfterRender() {
+                                          AB.ClassUI.CYPRESS_REF(
+                                             this,
+                                             "abd_choose_form_isAccessManaged"
+                                          );
+                                       },
+                                       onChange: (newv /* , oldv */) => {
+                                          if (newv) {
+                                             $$(this.ids.accessManager).show();
+                                             $$(
+                                                this.ids.accessManagerToolbar
+                                             ).show();
+                                          } else {
+                                             $$(this.ids.accessManager).hide();
+                                             $$(
+                                                this.ids.accessManagerToolbar
+                                             ).hide();
+                                          }
+                                       },
+                                       onItemClick: (id /*, e */) => {
+                                          var enabled = $$(id).getValue();
+                                          if (enabled) {
+                                             $$(this.ids.accessManager).show();
+                                             $$(
+                                                this.ids.accessManagerToolbar
+                                             ).show();
+                                          } else {
+                                             $$(this.ids.accessManager).hide();
+                                             $$(
+                                                this.ids.accessManagerToolbar
+                                             ).hide();
+                                          }
+                                       },
+                                    },
+                                 },
+                                 {
+                                    view: "toolbar",
+                                    id: this.ids.accessManagerToolbar,
+                                    cols: [
+                                       {
+                                          view: "label",
+                                          label: L(
+                                             "Who can manage page / tab access for this app?"
+                                          ), // labels.component.managerHeader,
+                                          css: "npr_smallLabels",
+                                       },
+                                    ],
+                                    borderless: true,
+                                    hidden:
+                                       parseInt(this.accessManagement) == 1
+                                          ? false
+                                          : true,
+                                 },
+                                 {
+                                    id: this.ids.accessManager,
+                                    rows: [this.accessManagerUI.ui()],
+                                    paddingY: 10,
+                                    hidden:
+                                       parseInt(this.accessManagement) == 1
+                                          ? false
+                                          : true,
+                                 },
+                                 {
+                                    view: "spacer",
+                                    height: 6,
+                                 },
+                                 {
+                                    name: "isTranslationManaged",
+                                    view: "checkbox",
+                                    labelRight: L("Enable Translation Tool"), // labels.component.enableTranslationManagement,
+                                    labelWidth: 0,
+                                    on: {
+                                       onAfterRender() {
+                                          AB.ClassUI.CYPRESS_REF(
+                                             this,
+                                             "abd_choose_form_isTranslationManaged"
+                                          );
+                                       },
+                                       onChange: (newv /*, oldv */) => {
+                                          if (newv) {
+                                             $$(
+                                                this.ids.translationManager
+                                             ).show();
+                                             $$(
+                                                this.ids
+                                                   .translationManagerToolbar
+                                             ).show();
+                                          } else {
+                                             $$(
+                                                this.ids.translationManager
+                                             ).hide();
+                                             $$(
+                                                this.ids
+                                                   .translationManagerToolbar
+                                             ).hide();
+                                          }
+                                       },
+                                       onItemClick: (id /*, e*/) => {
+                                          var enabled = $$(id).getValue();
+                                          if (enabled) {
+                                             $$(
+                                                this.ids.translationManager
+                                             ).show();
+                                             $$(
+                                                this.ids
+                                                   .translationManagerToolbar
+                                             ).show();
+                                          } else {
+                                             $$(
+                                                this.ids.translationManager
+                                             ).hide();
+                                             $$(
+                                                this.ids
+                                                   .translationManagerToolbar
+                                             ).hide();
+                                          }
+                                       },
+                                    },
+                                 },
+                                 {
+                                    view: "toolbar",
+                                    id: this.ids.translationManagerToolbar,
+                                    cols: [
+                                       {
+                                          view: "label",
+                                          label: L(
+                                             "Who can translate this app?"
+                                          ),
+                                          css: "npr_smallLabels",
+                                       },
+                                    ],
+                                    borderless: true,
+                                    hidden:
+                                       parseInt(this.translationManagement) == 1
+                                          ? false
+                                          : true,
+                                 },
+                                 {
+                                    id: this.ids.translationManager,
+                                    rows: [this.translationManagerUI.ui()],
+                                    paddingY: 10,
+                                    hidden:
+                                       parseInt(this.translationManagement) == 1
+                                          ? false
+                                          : true,
+                                 },
+                                 {
+                                    view: "spacer",
+                                    height: 2,
+                                 },
+                                 {
+                                    view: "toolbar",
+                                    margin: 14,
+                                    paddingY: 20,
+                                    cols: [
+                                       {
+                                          view: "button",
+                                          value: L("Cancel"),
+                                          css: "ab-cancel-button",
+                                          inputWidth: 100,
+                                          align: "right",
+                                          click: () => {
+                                             this.cancel();
+                                          },
+                                          on: {
+                                             onAfterRender() {
+                                                AB.ClassUI.CYPRESS_REF(
+                                                   this,
+                                                   "abd_choose_form_cancel"
+                                                );
+                                             },
+                                          },
+                                       },
+                                       {
+                                          view: "button",
+                                          id: this.ids.saveButton,
+                                          value: L("Save"),
+                                          css: "webix_primary",
+                                          inputWidth: 100,
+                                          click: () => {
+                                             this.buttonSaveClick();
+                                          }, // end click()
+                                          on: {
+                                             onAfterRender() {
+                                                AB.ClassUI.CYPRESS_REF(this);
+                                             },
+                                          },
+                                       },
+                                    ],
+                                    borderless: true,
+                                 },
+                              ],
+                           },
+                        ],
+                     },
+                     {
+                        view: "spacer",
+                        width: 8,
+                     },
+                  ],
+               },
             },
          };
       } // ui()
@@ -97154,10 +97181,74 @@ __webpack_require__.r(__webpack_exports__);
       init(AB) {
          this.AB = AB;
 
-         this.$form = $$(this.ids.form);
+         this.AB.Webix.ui(this.ui());
 
-         webix.extend(this.$form, webix.ProgressBar);
-         webix.extend($$(this.ids.appFormPermissionList), webix.ProgressBar);
+         webix.extend($$(this.ids.form), this.AB.Webix.ProgressBar);
+         webix.extend(
+            $$(this.ids.appFormPermissionList),
+            this.AB.Webix.ProgressBar
+         );
+
+         // Warnings.init(AB);
+
+         // $$(Warnings.ids.buttonWarning).show();
+
+         const $warningsWindow = this.AB.Webix.ui({
+            view: "window",
+            id: this.ids.issue_id,
+            css: "app_form_window_2",
+            height: 222,
+            width: 700,
+            head: {
+               type: "clean",
+               cols: [
+                  {
+                     view: "spacer",
+                     width: 50,
+                  },
+                  {
+                     template: issue_icon + L(" Issues"),
+                     type: "header",
+                     css: "webix_win_title",
+                  },
+                  {
+                     view: "icon",
+                     icon: "wxi-close",
+                     click() {
+                        this.getTopParentView().hide();
+                     },
+                  },
+                  {
+                     view: "spacer",
+                     width: 4,
+                  },
+               ],
+            },
+            position: "center",
+            close: true,
+            modal: true,
+            move: true,
+            scroll: true,
+            body: {
+               rows: [
+                  {
+                     view: "list",
+                     id: this.ids.issue_list,
+                     template: issue_icon + " #issue#",
+                     scrollX: true,
+                     scrollY: true,
+                     select: true,
+                     editable: false,
+                     autoheight: false,
+                     autowidth: false,
+                     data: [],
+                     click() {
+                        this.getParentView().show();
+                     },
+                  },
+               ],
+            },
+         });
 
          // Make sure we listen for New/Updated Role information
 
@@ -97166,6 +97257,21 @@ __webpack_require__.r(__webpack_exports__);
 
       toList() {
          this.emit("view.list");
+      }
+
+      warningData() {
+         const apps = this.AB.applications();
+         const warnings = [];
+
+         apps.forEach((e) => {
+            warnings.push(...e.warningsAll());
+         });
+
+         return warnings?.length
+            ? warnings.map((e, i) => {
+                 return { id: i, issue: L(e.message) };
+              })
+            : [{ id: 1, issue: L("No Issues Found") }];
       }
 
       /**
@@ -97186,7 +97292,7 @@ __webpack_require__.r(__webpack_exports__);
             await app.save();
             webix.message({
                type: "success",
-               text: L("{0} successfully created.", [values.label]),
+               text: L("{0}&nbsp; Successfully Created", [values.label]),
             });
 
             // NOTE: the new App isn't actually stored in AB.applications()
@@ -97198,7 +97304,7 @@ __webpack_require__.r(__webpack_exports__);
          } catch (e) {
             webix.message({
                type: "error",
-               text: L("Error creating {0}", [values.label]),
+               text: L("Error Creating {0}", [values.label]),
             });
             this.AB.notify.developer(e, {
                plugin: "ABDesigner",
@@ -97232,12 +97338,12 @@ __webpack_require__.r(__webpack_exports__);
             await Application.save();
             webix.message({
                type: "success",
-               text: L("{0} successfully updated.", [Application.label]),
+               text: L("{0} Successfully Updated", [Application.label]),
             });
          } catch (e) {
             webix.message({
                type: "error",
-               text: L("Error updating {0}", [Application.label]),
+               text: L("Error Updating {0}", [Application.label]),
             });
             this.AB.notify.developer(e, {
                context: "ui_choose_form:applicationUpdate()",
@@ -97341,6 +97447,7 @@ __webpack_require__.r(__webpack_exports__);
 
                this.formReady();
                this.buttonSaveEnable();
+               $$(this.ids.component).hide();
             }
          } else {
             // else this is a Create
@@ -97354,6 +97461,7 @@ __webpack_require__.r(__webpack_exports__);
                }
                this.formReady();
                this.buttonSaveEnable();
+               $$(this.ids.component).hide();
             }
          }
       }
@@ -97381,6 +97489,7 @@ __webpack_require__.r(__webpack_exports__);
       cancel() {
          this.formReset();
          this.toList();
+         $$(this.ids.component).hide();
          // App.actions.transitionApplicationList();
       }
 
@@ -97409,7 +97518,7 @@ __webpack_require__.r(__webpack_exports__);
        * progress.
        */
       formBusy() {
-         this.$form.showProgress({ type: "icon" });
+         $$(this.ids.form).showProgress({ type: "icon" });
       }
 
       /**
@@ -97430,8 +97539,8 @@ __webpack_require__.r(__webpack_exports__);
                "isAccessManaged",
                "isTranslationManaged",
             ].forEach((f) => {
-               if (this.$form.elements[f]) {
-                  this.$form.elements[f].setValue(application[f]);
+               if ($$(this.ids.form).elements[f]) {
+                  $$(this.ids.form).elements[f].setValue(application[f]);
                }
             });
 
@@ -97465,7 +97574,7 @@ __webpack_require__.r(__webpack_exports__);
        * remove the busy indicator from the form.
        */
       formReady() {
-         this.$form.hideProgress();
+         $$(this.ids.form).hideProgress();
       }
 
       /**
@@ -97476,8 +97585,8 @@ __webpack_require__.r(__webpack_exports__);
       formReset() {
          super.applicationLoad(null);
 
-         this.$form.clear();
-         this.$form.clearValidation();
+         $$(this.ids.form).clear();
+         $$(this.ids.form).clearValidation();
 
          this.permissionPopulate(); // leave empty to clear selections.
 
@@ -97506,7 +97615,7 @@ __webpack_require__.r(__webpack_exports__);
       formValidate(op) {
          // op : ['add', 'update', 'destroy']
 
-         if (!this.$form.validate()) {
+         if (!$$(this.ids.form).validate()) {
             // TODO : Error message
 
             this.formReady();
@@ -97534,7 +97643,9 @@ __webpack_require__.r(__webpack_exports__);
                if (matchingApps.length > 0) {
                   errors.push({
                      attr: "label",
-                     msg: L("Name ({0}) is already in use.", [mockApp.label]),
+                     msg: L("&nbsp; Name ({0}) is already in use.", [
+                        mockApp.label,
+                     ]),
                   });
                }
                break;
@@ -97543,9 +97654,9 @@ __webpack_require__.r(__webpack_exports__);
          if (errors.length > 0) {
             var hasFocus = false;
             errors.forEach((e) => {
-               this.$form.markInvalid(e.attr, e.msg);
+               $$(this.ids.form).markInvalid(e.attr, e.msg);
                if (!hasFocus) {
-                  this.$form.elements[e.attr].focus();
+                  $$(this.ids.form).elements[e.attr].focus();
                   hasFocus = true;
                }
             });
@@ -97567,11 +97678,12 @@ __webpack_require__.r(__webpack_exports__);
        */
       formValues() {
          // return the current values of the Form elements.
-         var values = this.$form.getValues();
-         values.roleAccess = $$(this.ids.appFormPermissionList).getSelectedId();
-         if (!Array.isArray(values.roleAccess)) {
-            values.roleAccess = [values.roleAccess];
-         }
+         const values = $$(this.ids.form).getValues();
+         values.roleAccess = (values.roleAccess ?? "").split(","); // Convert to an array
+         // values.roleAccess = $$(this.ids.appFormPermissionList).getValue();
+         // if (!Array.isArray(values.roleAccess)) {
+         //    values.roleAccess = [values.roleAccess];
+         // }
          values.accessManagers = this.accessManagerUI.values();
          values.translationManagers = this.translationManagerUI.values();
          return values;
@@ -97611,33 +97723,33 @@ __webpack_require__.r(__webpack_exports__);
        *
        * Process when a permission entry in the list is clicked.
        */
-      permissionClick(id /*, e, node*/) {
-         var List = $$(this.ids.appFormPermissionList);
+      // permissionClick(id /*, e, node*/) {
+      //    var List = $$(this.ids.appFormPermissionList);
 
-         var item = List.getItem(id);
+      //    var item = List.getItem(id);
 
-         if (List.getItem(id).isApplicationRole) {
-            return;
-         }
+      //    if (List.getItem(id).isApplicationRole) {
+      //       return;
+      //    }
 
-         if (List.isSelected(id)) {
-            item.markCheckbox = 0;
-            List.unselect(id);
-         } else {
-            item.markCheckbox = 1;
-            var selectedIds = List.getSelectedId();
+      //    if (List.isSelected(id)) {
+      //       item.markCheckbox = 0;
+      //       List.unselect(id);
+      //    } else {
+      //       item.markCheckbox = 1;
+      //       var selectedIds = List.getSelectedId();
 
-            if (typeof selectedIds === "string" || !isNaN(selectedIds)) {
-               if (selectedIds) selectedIds = [selectedIds];
-               else selectedIds = [];
-            }
+      //       if (typeof selectedIds === "string" || !isNaN(selectedIds)) {
+      //          if (selectedIds) selectedIds = [selectedIds];
+      //          else selectedIds = [];
+      //       }
 
-            selectedIds.push(id);
+      //       selectedIds.push(id);
 
-            List.select(selectedIds);
-            List.updateItem(id, item);
-         }
-      }
+      //       List.select(selectedIds);
+      //       List.updateItem(id, item);
+      //    }
+      // }
 
       /**
        * @function permissionName
@@ -97657,13 +97769,13 @@ __webpack_require__.r(__webpack_exports__);
        * @param {ABApplication} application	the current ABApplication we are editing
        */
       permissionPopulate(application) {
-         var PermForm = $$(this.ids.appFormPermissionList);
-         // Get user's roles
-         PermForm.showProgress({ type: "icon" });
+         const PermForm = $$(this.ids.appFormPermissionList);
 
-         var availableRoles = this.AB.Account.rolesAll().map((r) => {
-            return { id: r.id, name: r.name };
+         // Get user's roles
+         const availableRoles = this.AB.Account.rolesAll().map((r) => {
+            return { id: r.id, value: r.name };
          });
+
          if (application) {
             availableRoles
                .filter((r) => application.roleAccess.indexOf(r.id) > -1)
@@ -97671,20 +97783,20 @@ __webpack_require__.r(__webpack_exports__);
                   r.markCheckbox = 1;
                });
          }
-         PermForm.clearAll();
-         PermForm.parse(availableRoles);
-         var selectedIDs = availableRoles
+
+         const selectedIDs = availableRoles
             .filter((r) => r.markCheckbox)
             .map((r) => r.id);
-         PermForm.select(selectedIDs);
-         availableRoles.forEach(function (r) {
-            if (selectedIDs.indexOf(r.id) > -1) {
-               var item = PermForm.getItem(r.id);
-               item.markCheckbox = 1;
-               PermForm.updateItem(r.id, item);
-            }
-         });
-         PermForm.hideProgress();
+
+         // availableRoles.forEach(function (r) {
+         //    if (selectedIDs.indexOf(r.id) > -1) {
+         //       const item = PermForm.getValue();
+         //       item.markCheckbox = 1;
+         //    }
+         // });
+
+         PermForm.define("suggest", availableRoles);
+         PermForm.refresh();
       }
 
       /**
@@ -97868,7 +97980,7 @@ __webpack_require__.r(__webpack_exports__);
        */
       show() {
          $$(this.ids.component).show();
-         Warnings.show(this.CurrentApplication);
+         // Warnings.show(this.CurrentApplication);
       }
 
       /*
@@ -98213,7 +98325,7 @@ __webpack_require__.r(__webpack_exports__);
                            this.refreshList();
                            webix.message({
                               type: "success",
-                              text: L("{0} successfully deleted.", [
+                              text: L("{0}&nbsp; Successfully Deleted", [
                                  selectedApp.label,
                               ]),
                            });
