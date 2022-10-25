@@ -79623,11 +79623,10 @@ __webpack_require__.r(__webpack_exports__);
             : [];
 
          // Pull object & fields of previous step
-         const prevElemObj = this.objectOfPrevElement;
-         let prevElemObjFields = [];
-         if (prevElemObj) {
-            prevElemObjFields = this.getFieldOptions(prevElemObj);
-         }
+         const prevElemObj = this.element.objectOfPrevElement;
+         const prevElemObjFields = prevElemObj
+            ? this.getFieldOptions(prevElemObj)
+            : [];
 
          const setOptions = [
             { id: 0, value: L("Not Set") },
