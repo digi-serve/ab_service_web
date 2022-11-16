@@ -79064,9 +79064,9 @@ __webpack_require__.r(__webpack_exports__);
          obj.fromUsers = obj.fromUsers ?? {};
 
          // get process data user-fields
-         let userProcessFieldData = obj.process
-            .processDataFields(obj)
-            .filter((e) => e.field?.key == "user");
+         let userProcessFieldData = (
+            obj.process.processDataFields(obj) || []
+         ).filter((e) => e.field?.key == "user");
          obj.toUsers["userProcessFieldData"] = userProcessFieldData;
          obj.fromUsers["userProcessFieldData"] = userProcessFieldData;
 
@@ -99460,8 +99460,8 @@ var myClass = null;
 
          /**
           * @method CurrentView()
-          * A helper to return the current ABObjectQuery we are working with.
-          * @return {ABObjectQuery}
+          * A helper to return the current ABView we are working with.
+          * @return {ABView}
           */
          get CurrentView() {
             return this.CurrentApplication?.views(
@@ -99482,7 +99482,7 @@ var myClass = null;
          }
 
          /**
-          * @method refreshWarnings()
+          * @method warningsRefresh()
           * reset the warnings on the provided ABObject and then start propogating
           * the "warnings" display updates.
           */
@@ -100134,7 +100134,7 @@ __webpack_require__.r(__webpack_exports__);
        *
        * Defines the template for each row of our ProcessList.
        *
-       * @param {obj} obj the current instance of ABProcess for the row.
+       * @param {obj} obj the current instance of ABxxxx for the row.
        * @param {?} common the webix.common icon data structure
        * @return {string}
        */
@@ -100703,6 +100703,8 @@ __webpack_require__.r(__webpack_exports__);
             app,
             "datacollectionsIncluded"
          );
+         let warnProcesses = this.scanTopic(app, "processes");
+
          // TODO
          // const warnInterfaces = this.scanTopic(app, "interfacesIncluded");
 
@@ -100729,6 +100731,7 @@ __webpack_require__.r(__webpack_exports__);
                id: this.ids.tab_processview,
                value: L("Process"),
                icon: "fa fa-fw fa-code-fork",
+               issues: warnProcesses,
             },
             {
                id: this.ids.tab_interface,
@@ -106713,6 +106716,11 @@ __webpack_require__.r(__webpack_exports__);
          AddForm.applicationLoad(application);
       }
 
+      /**
+       * @method warningRefresh()
+       * Perform a reload of our list, so the list can refresh the warnings
+       * listed.
+       */
       warningsRefresh() {
          if (this.CurrentApplication) {
             // NOTE: only include System Objects if the user has permission
@@ -111041,6 +111049,9 @@ __webpack_require__.r(__webpack_exports__);
        *        the webix.$view to hover the popup around.
        */
       show($view, options = null) {
+         // [fix] maximum call stack exceeded error!
+         if (this.$Component.isVisible()) return;
+
          if (options != null) {
             this.$Component?.show($view, options);
          } else {
@@ -115302,6 +115313,11 @@ __webpack_require__.r(__webpack_exports__);
       init(AB) {
          this.AB = AB;
 
+         this.warningsPropogate([this.ProcessList, this.ProcessWorkspace]);
+         this.on("warnings", () => {
+            this.ProcessList.warningsRefresh();
+         });
+
          // Our init() function for setting up our UI
          // the ProcessWorkspace can show an [add] button if there is
          // no Process selected. When that Add button is pressed,
@@ -115405,8 +115421,8 @@ __webpack_require__.r(__webpack_exports__);
                searchPlaceholder: "Process name",
             },
             // we can overrid the default template like this:
-            templateListItem:
-               "<div class='ab-object-list-item'>#label#{common.iconGear}</div>",
+            // templateListItem:
+            //    "<div class='ab-object-list-item'>#label#{common.iconGear}</div>",
             menu: {
                copy: false,
                exclude: true,
@@ -115542,6 +115558,25 @@ __webpack_require__.r(__webpack_exports__);
 
       ready() {
          this.ListComponent.ready();
+      }
+
+      /**
+       * @method warningRefresh()
+       * Perform a reload of our list, so the list can refresh the warnings
+       * listed.
+       */
+      warningsRefresh() {
+         if (this.CurrentApplication) {
+            // NOTE: only include System Objects if the user has permission
+            var f = (obj) => !obj.isSystemObject;
+            if (this.AB.Account.isSystemDesigner()) {
+               f = () => true;
+            }
+
+            let selectedItem = this.ListComponent.selectedItem();
+            this.ListComponent.dataLoad(this.CurrentApplication?.processes(f));
+            this.ListComponent.selectItem(selectedItem.id);
+         }
       }
    }
    return new UI_Work_Process_List();
@@ -115783,10 +115818,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
-/* harmony import */ var _ui_warnings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui_warnings */ "./src/rootPages/Designer/ui_warnings.js");
-/* harmony import */ var _ui_work_process_workspace_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui_work_process_workspace_model */ "./src/rootPages/Designer/ui_work_process_workspace_model.js");
-/* harmony import */ var _ui_work_process_workspace_monitor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ui_work_process_workspace_monitor */ "./src/rootPages/Designer/ui_work_process_workspace_monitor.js");
-
+/* harmony import */ var _ui_work_process_workspace_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui_work_process_workspace_model */ "./src/rootPages/Designer/ui_work_process_workspace_model.js");
+/* harmony import */ var _ui_work_process_workspace_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui_work_process_workspace_monitor */ "./src/rootPages/Designer/ui_work_process_workspace_monitor.js");
 
 
 
@@ -115807,11 +115840,9 @@ __webpack_require__.r(__webpack_exports__);
       clearWorkspace: () => {},
       processLoad: () => {},
    };
-   const ModelUI = (0,_ui_work_process_workspace_model__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
+   const ModelUI = (0,_ui_work_process_workspace_model__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
    const TestUI = mockUI;
-   const MonitorUI = (0,_ui_work_process_workspace_monitor__WEBPACK_IMPORTED_MODULE_3__["default"])(AB);
-
-   var Warnings = (0,_ui_warnings__WEBPACK_IMPORTED_MODULE_1__["default"])(AB, `${ibase}_view_warnings`);
+   const MonitorUI = (0,_ui_work_process_workspace_monitor__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
 
    class UI_Work_Process_Workspace extends UIClass {
       constructor() {
@@ -115943,7 +115974,6 @@ __webpack_require__.r(__webpack_exports__);
                            MonitorUI.ui(),
                         ],
                      },
-                     Warnings.ui(),
                   ],
                },
             ],
@@ -115953,10 +115983,7 @@ __webpack_require__.r(__webpack_exports__);
       async init(AB) {
          this.AB = AB;
 
-         // this.warningsPropogate([ModelUI, TestUI, MonitorUI]);
-         this.on("warnings", () => {
-            Warnings.show(this.CurrentProcess);
-         });
+         this.warningsPropogate([ModelUI, /* TestUI, */ MonitorUI]);
 
          $$(this.ids.noSelection).show();
          var allInits = [ModelUI.init(AB), TestUI.init(AB), MonitorUI.init(AB)];
@@ -116033,9 +116060,9 @@ __webpack_require__.r(__webpack_exports__);
 
          $$(this.ids.selectedItem).show();
 
-         ModelUI.processLoad(process);
-         TestUI.processLoad(process);
-         MonitorUI.processLoad(process);
+         ModelUI.processLoad(this.CurrentProcess);
+         TestUI.processLoad(this.CurrentProcess);
+         MonitorUI.processLoad(this.CurrentProcess);
       }
    }
 
@@ -116056,8 +116083,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _ui_work_process_workspace_customBPMN_paletteProvider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_work_process_workspace_customBPMN_paletteProvider */ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN_paletteProvider.js");
-/* harmony import */ var _ui_work_process_workspace_customBPMN_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui_work_process_workspace_customBPMN_replaceMenuProvider */ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN_replaceMenuProvider.js");
+/* harmony import */ var _ui_work_process_workspace_customBPMN_customRenderer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_work_process_workspace_customBPMN_customRenderer */ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN_customRenderer.js");
+/* harmony import */ var _ui_work_process_workspace_customBPMN_paletteProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui_work_process_workspace_customBPMN_paletteProvider */ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN_paletteProvider.js");
+/* harmony import */ var _ui_work_process_workspace_customBPMN_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui_work_process_workspace_customBPMN_replaceMenuProvider */ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN_replaceMenuProvider.js");
 /*
  * ui_work_process_workspace_customBPMN
  *
@@ -116067,12 +116095,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
-   const PaletteProvider = (0,_ui_work_process_workspace_customBPMN_paletteProvider__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   const ReplaceMenuProvider = (0,_ui_work_process_workspace_customBPMN_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+   const CustomRenderer = (0,_ui_work_process_workspace_customBPMN_customRenderer__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const PaletteProvider = (0,_ui_work_process_workspace_customBPMN_paletteProvider__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+   const ReplaceMenuProvider = (0,_ui_work_process_workspace_customBPMN_replaceMenuProvider__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
 
    return {
-      __init__: ["paletteProvider", "replaceMenuProvider"],
+      __init__: ["customRenderer", "paletteProvider", "replaceMenuProvider"],
+      customRenderer: ["type", CustomRenderer],
       paletteProvider: ["type", PaletteProvider],
       replaceMenuProvider: ["type", ReplaceMenuProvider],
    };
@@ -116128,6 +116159,140 @@ function customEvents() {
       emumerations: [],
       associations: [],
    };
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN_customRenderer.js":
+/*!***************************************************************************************!*\
+  !*** ./src/rootPages/Designer/ui_work_process_workspace_customBPMN_customRenderer.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! diagram-js/lib/draw/BaseRenderer */ "./node_modules/diagram-js/lib/draw/BaseRenderer.js");
+/* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tiny-svg */ "./node_modules/tiny-svg/dist/index.esm.js");
+/* harmony import */ var bpmn_js_lib_draw_BpmnRenderUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bpmn-js/lib/draw/BpmnRenderUtil */ "./node_modules/bpmn-js/lib/draw/BpmnRenderUtil.js");
+/* harmony import */ var bpmn_js_lib_features_modeling_util_ModelingUtil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bpmn-js/lib/features/modeling/util/ModelingUtil */ "./node_modules/bpmn-js/lib/util/ModelUtil.js");
+
+
+
+
+
+
+
+
+
+const HIGH_PRIORITY = 1500,
+   TASK_BORDER_RADIUS = 2;
+
+class CustomRenderer extends diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   constructor(eventBus, bpmnRenderer) {
+      super(eventBus, HIGH_PRIORITY);
+
+      this.bpmnRenderer = bpmnRenderer;
+   }
+
+   canRender(element) {
+      // only render tasks and events (ignore labels)
+      return (
+         (0,bpmn_js_lib_features_modeling_util_ModelingUtil__WEBPACK_IMPORTED_MODULE_1__.isAny)(element, ["bpmn:Task", "bpmn:Event"]) && !element.labelTarget
+      );
+   }
+
+   drawShape(parentNode, element) {
+      const shape = this.bpmnRenderer.drawShape(parentNode, element);
+
+      // NOTE: our ui_work_process_workspace_model.checkKnownElement()
+      // will mark an element with .___abwarnings if it should be
+      // marked with our warning symbol.
+      if (element.___abwarnings) {
+         const rect = drawTriangle(
+            parentNode,
+            20,
+            20
+            // TASK_BORDER_RADIUS,
+            // "#cc0000"
+         );
+
+         (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.attr)(rect, {
+            transform: "translate(-10, 10)",
+         });
+      }
+      return shape;
+   }
+
+   getShapePath(shape) {
+      if ((0,bpmn_js_lib_features_modeling_util_ModelingUtil__WEBPACK_IMPORTED_MODULE_1__.is)(shape, "bpmn:Task")) {
+         return (0,bpmn_js_lib_draw_BpmnRenderUtil__WEBPACK_IMPORTED_MODULE_3__.getRoundRectPath)(shape, TASK_BORDER_RADIUS);
+      }
+
+      return this.bpmnRenderer.getShapePath(shape);
+   }
+}
+
+CustomRenderer.$inject = ["eventBus", "bpmnRenderer"];
+
+// helpers //////////
+
+// copied from https://github.com/bpmn-io/bpmn-js/blob/master/lib/draw/BpmnRenderer.js
+function drawRect(parentNode, width, height, borderRadius, strokeColor) {
+   const rect = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.create)("rect");
+
+   (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.attr)(rect, {
+      width: width,
+      height: height,
+      rx: borderRadius,
+      ry: borderRadius,
+      stroke: strokeColor || "#000",
+      strokeWidth: 2,
+      fill: "#fff",
+   });
+
+   (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.append)(parentNode, rect);
+
+   return rect;
+}
+
+function drawTriangle(parentNode, width, height) {
+   let mid = width / 2;
+
+   let points = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: mid, y: -1 * height },
+   ];
+   let pointsString = points
+      .map(function (point) {
+         return point.x + "," + point.y;
+      })
+      .join(" ");
+
+   const tri = (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.create)("polygon");
+   (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.attr)(tri, {
+      points: pointsString,
+      stroke: "#f90",
+      strokeWidth: 2,
+      fill: "#f90",
+   });
+
+   (0,tiny_svg__WEBPACK_IMPORTED_MODULE_2__.append)(parentNode, tri);
+
+   return tri;
+}
+
+// copied from https://github.com/bpmn-io/diagram-js/blob/master/lib/core/GraphicsFactory.js
+function prependTo(newNode, parentNode, siblingNode) {
+   parentNode.insertBefore(newNode, siblingNode || parentNode.firstChild);
+}
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+   return CustomRenderer;
 }
 
 
@@ -117141,19 +117306,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
-/* harmony import */ var bpmn_js_lib_Modeler__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! bpmn-js/lib/Modeler */ "./node_modules/bpmn-js/lib/Modeler.js");
-/* harmony import */ var bpmn_js_dist_assets_bpmn_js_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bpmn-js/dist/assets/bpmn-js.css */ "./node_modules/bpmn-js/dist/assets/bpmn-js.css");
-/* harmony import */ var bpmn_js_dist_assets_diagram_js_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bpmn-js/dist/assets/diagram-js.css */ "./node_modules/bpmn-js/dist/assets/diagram-js.css");
-/* harmony import */ var bpmn_js_dist_assets_bpmn_font_css_bpmn_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bpmn-js/dist/assets/bpmn-font/css/bpmn.css */ "./node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn.css");
-/* harmony import */ var _ui_work_process_workspace_customBPMN__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ui_work_process_workspace_customBPMN */ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN.js");
-/* harmony import */ var _ui_work_process_workspace_customBPMN_customEvents__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ui_work_process_workspace_customBPMN_customEvents */ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN_customEvents.js");
-/* harmony import */ var _properties_PropertyManager__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./properties/PropertyManager */ "./src/rootPages/Designer/properties/PropertyManager.js");
+/* harmony import */ var _ui_warnings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui_warnings */ "./src/rootPages/Designer/ui_warnings.js");
+/* harmony import */ var bpmn_js_lib_Modeler__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! bpmn-js/lib/Modeler */ "./node_modules/bpmn-js/lib/Modeler.js");
+/* harmony import */ var bpmn_js_dist_assets_bpmn_js_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bpmn-js/dist/assets/bpmn-js.css */ "./node_modules/bpmn-js/dist/assets/bpmn-js.css");
+/* harmony import */ var bpmn_js_dist_assets_diagram_js_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bpmn-js/dist/assets/diagram-js.css */ "./node_modules/bpmn-js/dist/assets/diagram-js.css");
+/* harmony import */ var bpmn_js_dist_assets_bpmn_font_css_bpmn_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! bpmn-js/dist/assets/bpmn-font/css/bpmn.css */ "./node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn.css");
+/* harmony import */ var _ui_work_process_workspace_customBPMN__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ui_work_process_workspace_customBPMN */ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN.js");
+/* harmony import */ var _ui_work_process_workspace_customBPMN_customEvents__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ui_work_process_workspace_customBPMN_customEvents */ "./src/rootPages/Designer/ui_work_process_workspace_customBPMN_customEvents.js");
+/* harmony import */ var _properties_PropertyManager__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./properties/PropertyManager */ "./src/rootPages/Designer/properties/PropertyManager.js");
 /*
  * ui_work_process_workspace_model
  *
  * Manage the Object Workspace area.
  *
  */
+
 
 
 
@@ -117198,14 +117365,27 @@ function series(list, cb) {
    }
 }
 
+/**
+ * @function isInSubProcess()
+ * a helper fn() to determine if a provided BPMN:Element is contained in a
+ * Sub Process.
+ * @param {BPMNElement} element
+ * @return {bool}
+ */
+function isInSubProcess(element) {
+   return element.parent?.type == "bpmn:SubProcess";
+}
+
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const ibase = "ui_work_process_workspace_model";
    const uiConfig = AB.Config.uiSettings();
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    const L = UIClass.L();
 
-   const CustomBPMN = (0,_ui_work_process_workspace_customBPMN__WEBPACK_IMPORTED_MODULE_4__["default"])(AB);
-   const PropertyManager = (0,_properties_PropertyManager__WEBPACK_IMPORTED_MODULE_6__["default"])(AB);
+   const Warnings = (0,_ui_warnings__WEBPACK_IMPORTED_MODULE_1__["default"])(AB, `${ibase}_view_warnings`);
+
+   const CustomBPMN = (0,_ui_work_process_workspace_customBPMN__WEBPACK_IMPORTED_MODULE_5__["default"])(AB);
+   const PropertyManager = (0,_properties_PropertyManager__WEBPACK_IMPORTED_MODULE_7__["default"])(AB);
 
    class UI_Work_Process_Workspace_Model extends UIClass {
       /**
@@ -117345,6 +117525,7 @@ function series(list, cb) {
                //     maxHeight: App.config.xxxLargeSpacer,
                //     hidden: App.config.hideMobile
                // }
+               Warnings.ui(),
             ],
          };
       }
@@ -117386,6 +117567,52 @@ function series(list, cb) {
       }
 
       /**
+       * @method checkKnownElement()
+       * Given an element on the BPMN diagram, check to see if it is
+       * known by the process or not.  If not, it is most likely a generic
+       * element that needs to be assigned one of our specific tasks.
+       * This method will assign warnings to the element that will be
+       * noted on the diagram.
+       * @param {BPMNShape} shape
+       * @param {BPMNElement} parent
+       */
+      checkKnownElement(shape, parent) {
+         // if this is one of our generic types, and it isn't currently
+         // tracked by our CurrentProcess, then it should show a warning.
+         if (genericElementTypes.indexOf(shape.type) > -1) {
+            const currElement = this.CurrentProcess.elementForDiagramID(
+               shape.id
+            );
+            if (!currElement) {
+               // skip elements that are Start and End markers in a SubProcess
+
+               // we might get {Shape}s or {BPMNElement} objects. Referencing
+               // the parent type is different for the two objects.
+               let parentType = parent?.type ?? "unknown";
+               parentType =
+                  shape.parent?.type ??
+                  shape.businessObject?.$parent?.$type ??
+                  parentType;
+
+               if (
+                  parentType != "bpmn:SubProcess" ||
+                  ["bpmn:StartEvent", "bpmn:EndEvent"].indexOf(shape.type) == -1
+               ) {
+                  shape.___abwarnings = ["generic task"];
+                  // NOTE: this warning will be removed once the property
+                  // panel for this element has been saved.
+
+                  // make sure the process knows about it
+                  this.CurrentProcess.unknownShape(shape);
+                  this.emit("warnings");
+               } else {
+                  delete shape.___abwarnings;
+               }
+            }
+         }
+      }
+
+      /**
        * @method clearWorkspace()
        * Clear the object workspace.
        */
@@ -117415,6 +117642,9 @@ function series(list, cb) {
             _process.modelUpdate(xml);
             await _process.save();
             this.unsavedChanges = false;
+            // now we refresh our warnings.
+            this.warningsRefresh(this.CurrentProcess);
+            Warnings.show(this.CurrentProcess);
             $$(this.ids.button).hide();
          } catch (err) {
             this.AB.notify.developer(err, {
@@ -117430,7 +117660,9 @@ function series(list, cb) {
        *        current ABProcess instance we are working with.
        */
       processLoad(process) {
-         super.processLoad(process);
+         // NOTE: do not do super.processLoad() here!  Wait until we have saved
+         // any unsaved data below.
+         // super.processLoad(process);
          var ids = this.ids;
 
          Object.keys(this.panelsByType).forEach((k) => {
@@ -117444,11 +117676,11 @@ function series(list, cb) {
             $$(ids.modelerBroken).hide();
             $$(ids.modelerWorking).show();
             const container = document.getElementById(ids.modeler);
-            this.viewer = new bpmn_js_lib_Modeler__WEBPACK_IMPORTED_MODULE_7__["default"]({
+            this.viewer = new bpmn_js_lib_Modeler__WEBPACK_IMPORTED_MODULE_8__["default"]({
                container: container, // "#" + ids.modeler,
                additionalModules: [CustomBPMN],
                moddleExtensions: {
-                  ab: (0,_ui_work_process_workspace_customBPMN_customEvents__WEBPACK_IMPORTED_MODULE_5__["default"])(),
+                  ab: (0,_ui_work_process_workspace_customBPMN_customEvents__WEBPACK_IMPORTED_MODULE_6__["default"])(),
                },
             });
 
@@ -117471,6 +117703,8 @@ function series(list, cb) {
 
             // to find possible events:
             // do a file search on bpmn-js for ".fire(""
+            // or, put a breakpoint in diagram-js/lib/core/EventBus.js
+            //     in the .fire() method and look at: this._listeners
 
             this.viewer.on(["bpmnElement.added"], (event) => {
                // catch elements .added so we can initialize our
@@ -117502,13 +117736,19 @@ function series(list, cb) {
             //     //
             // });
 
+            // When a Shape is added to the diagram, decide if it should
+            // show a warning.
+            this.viewer.on("shape.add", (event) => {
+               this.checkKnownElement(event.element, event.parent);
+            });
+
             this.viewer.on("shape.remove", (event) => {
                // console.log("shape.remove:", event.element);
                if (this.CurrentProcess) {
                   // let isSubTask = false;
                   let processTask = this.CurrentProcess;
                   var element = event.element;
-                  if (element.parent?.type == "bpmn:SubProcess") {
+                  if (isInSubProcess(element)) {
                      processTask =
                         this.CurrentProcess.elementForDiagramID(
                            element.parent.id
@@ -117530,6 +117770,8 @@ function series(list, cb) {
                         currTask.destroy();
                      }
                   }
+
+                  this.CurrentProcess.unknownShapeRemove(element);
                }
             });
             this.viewer.on("element.changed", (event) => {
@@ -117541,7 +117783,7 @@ function series(list, cb) {
                }
 
                let processTask = this.CurrentProcess;
-               if (element.parent?.type == "bpmn:SubProcess") {
+               if (isInSubProcess(element)) {
                   processTask =
                      this.CurrentProcess.elementForDiagramID(
                         element.parent.id
@@ -117641,10 +117883,7 @@ function series(list, cb) {
                   var newObj = this.CurrentProcess.elementForDiagramID(
                      element.id
                   );
-                  if (
-                     element.parent?.type == "bpmn:SubProcess" &&
-                     newObj == null
-                  ) {
+                  if (isInSubProcess(element) && newObj == null) {
                      let subProcessTask =
                         this.CurrentProcess.elementForDiagramID(
                            element.parent.id
@@ -117683,9 +117922,6 @@ function series(list, cb) {
 
                      if (!this.CurrentPropertiesObj._handlerSave) {
                         this.CurrentPropertiesObj._handlerSave = () => {
-                           console.warn(
-                              "TEST: save <== are we overloading this?"
-                           );
                            this.saveProcess(this.CurrentProcess);
 
                            this.CurrentPropertiesObj?.propertiesShow(
@@ -117699,10 +117935,19 @@ function series(list, cb) {
                      }
                   } else {
                      this.CurrentPropertiesObj = null;
-                     console.warn(
-                        "Selected Element is unknown to this Process: " +
-                           event.newSelection[0].id
-                     );
+
+                     // don't show this warning if a SubProcess Start/End element.
+                     if (
+                        !isInSubProcess(element) ||
+                        ["bpmn:StartEvent", "bpmn:EndEvent"].indexOf(
+                           element.type
+                        ) == -1
+                     ) {
+                        console.warn(
+                           "Selected Element is unknown to this Process: " +
+                              event.newSelection[0].id
+                        );
+                     }
 
                      let genPanel = this.panelSelectElement;
                      switch (element.type) {
@@ -117760,8 +118005,8 @@ function series(list, cb) {
             processSequence.push((done) => {
                webix.confirm({
                   title: L("Save?"),
-                  message: L("Save your changes to {0}?", [
-                     this.CurrentProcess.name,
+                  text: L("Save your changes to {0}?", [
+                     this.CurrentProcess.label,
                   ]),
                   callback: (isOK) => {
                      if (isOK) {
@@ -117788,7 +118033,7 @@ function series(list, cb) {
             // process all the deletes triggered by the .clear()
             this.CurrentProcessID = null;
             this.viewer.clear();
-            this.CurrentProcessID = process.id;
+            super.processLoad(process);
 
             // new process, so let's clear our properties selection.
             this.CurrentPropertiesObj = null;
@@ -117842,6 +118087,9 @@ function series(list, cb) {
 
             $$(ids.modelerBroken).hide();
             $$(ids.modelerWorking).show();
+
+            this.warningsRefresh(this.CurrentProcess);
+            Warnings.show(this.CurrentProcess);
          });
       }
 
@@ -117860,7 +118108,7 @@ function series(list, cb) {
          webix.ui(newPanelUI, $$(this.ids.properties));
 
          // populate the panel with element data
-         newPanel.populate(element);
+         newPanel.populate?.(element);
          this.CurrentPanel = newPanel;
       }
 
@@ -117881,6 +118129,7 @@ function series(list, cb) {
          });
          if (!thisObj.name) objVals.name = values.label;
          thisObj.fromValues(objVals);
+         thisObj.warningsEval(); // resets the warnings
 
          // thisObj.save();
 
@@ -117890,12 +118139,14 @@ function series(list, cb) {
          // and we need to let that complete before trying to update the
          // diagram element properties.
          // an immediate timeout should let the other process complete.
-
          setTimeout(() => {
             var properties = thisObj.diagramProperties(this.viewer);
             properties.forEach((prop) => {
-               this.updateElementProperties(prop.id, prop.def);
+               this.updateElementProperties(prop.id, prop.def, prop.warn);
             });
+
+            this.warningsRefresh(this.CurrentProcess);
+            Warnings.show(this.CurrentProcess);
          }, 0);
       }
 
@@ -117916,13 +118167,34 @@ function series(list, cb) {
        * @param {obj} properies
        *        a { 'name':'value' } of the updated properties
        */
-      updateElementProperties(diagramID, values) {
+      updateElementProperties(diagramID, values, warnings) {
          var elementRegistry = this.viewer.get("elementRegistry");
          var elementShape = elementRegistry.get(diagramID);
+
          if (elementShape) {
+            if (warnings) {
+               elementShape.___abwarnings = warnings;
+            } else {
+               delete elementShape.___abwarnings;
+            }
+
             var modeling = this.viewer.get("modeling");
             modeling.updateProperties(elementShape, values);
          }
+      }
+
+      /**
+       * @method warningsRefresh()
+       * reset the warnings on the provided ABObject and then start propogating
+       * the "warnings" display updates.
+       */
+      warningsRefresh(process) {
+         // #HACK: .warningsRefresh() can cause a Process to reset it's
+         // current ._elements to what is in our definitions. This can loose
+         // any current  unsaved changes. So, lets restore our working copy:
+         let currElements = process.elements();
+         super.warningsRefresh(process);
+         currElements.forEach((e) => process.elementAdd(e));
       }
    }
 
