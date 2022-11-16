@@ -25,4 +25,4 @@ n=t.getChildViews();return webix.$$(t.addView(e,n.length-1))},_deleteRow:functio
 /***/ })
 
 }]);
-//# sourceMappingURL=js_webix_components_querybuilder_querybuilder_min_js.30630a66949c5fb570cf.js.map
+//# sourceMappingURL=js_webix_components_querybuilder_querybuilder_min_js.640aca1b55d908b6919a.js.map
