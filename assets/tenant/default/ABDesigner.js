@@ -68681,6 +68681,8 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewComment */ "./src/rootPages/Designer/editors/views/ABViewComment.js"),
       __webpack_require__(/*! ./views/ABViewConditionalContainer */ "./src/rootPages/Designer/editors/views/ABViewConditionalContainer.js"),
       __webpack_require__(/*! ./views/ABViewContainer */ "./src/rootPages/Designer/editors/views/ABViewContainer.js"),
+      __webpack_require__(/*! ./views/ABViewCSVExporter */ "./src/rootPages/Designer/editors/views/ABViewCSVExporter.js"),
+      __webpack_require__(/*! ./views/ABViewCSVImporter */ "./src/rootPages/Designer/editors/views/ABViewCSVImporter.js"),
       __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/editors/views/ABViewDataview.js"),
       __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/editors/views/ABViewDetail.js"),
       __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/editors/views/ABViewDocxBuilder.js"),
@@ -68711,6 +68713,152 @@ __webpack_require__.r(__webpack_exports__);
          return Editors.filter(f);
       },
    };
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewCSVExporter.js":
+/*!*******************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewCSVExporter.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewCSVExporterEditor
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      // var L = UIClass.L();
+      // var L = ABViewContainer.L();
+
+      myClass = class ABViewCSVExporterEditor extends UIClass {
+         static get key() {
+            return "csvExporter";
+         }
+
+         constructor(view, base = "interface_editor_csvExporter") {
+            // base: {string} unique base id reference
+
+            super(view, base);
+
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            return this.component.ui();
+         }
+
+         init(AB) {
+            this.AB = AB;
+
+            this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component?.detatch?.();
+         }
+
+         onShow() {
+            this.component?.onShow?.();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewCSVImporter.js":
+/*!*******************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewCSVImporter.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewCSVImporterEditor
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      // var L = UIClass.L();
+      // var L = ABViewContainer.L();
+
+      myClass = class ABViewCSVImporterEditor extends UIClass {
+         static get key() {
+            return "csvImporter";
+         }
+
+         constructor(view, base = "interface_editor_csvImporter") {
+            // base: {string} unique base id reference
+
+            super(view, base);
+
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            return this.component.ui();
+         }
+
+         init(AB) {
+            this.AB = AB;
+
+            this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component?.detatch?.();
+         }
+
+         onShow() {
+            this.component?.onShow?.();
+         }
+      };
+   }
+
+   return myClass;
 }
 
 
@@ -69402,7 +69550,15 @@ var myClass = null;
                // console.error("TODO: REMOVE THIS TESTING CODE:");
                // if (!child.componentOld) return;
 
-               var component = child.component();
+               let component;
+               try {
+                  component = child.component();
+               } catch (err) {
+                  // WORKAROUND: compatible old versions
+                  component = child.component(this.AB._App);
+                  let ui = component.ui;
+                  component.ui = (() => ui).bind(component);
+               }
 
                // store
                this.subComponents[child.id] = component;
@@ -71333,6 +71489,8 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewChartPie */ "./src/rootPages/Designer/properties/views/ABViewChartPie.js"),
       __webpack_require__(/*! ./views/ABViewComment */ "./src/rootPages/Designer/properties/views/ABViewComment.js"),
       __webpack_require__(/*! ./views/ABViewConditionalContainer */ "./src/rootPages/Designer/properties/views/ABViewConditionalContainer.js"),
+      __webpack_require__(/*! ./views/ABViewCSVExporter */ "./src/rootPages/Designer/properties/views/ABViewCSVExporter.js"),
+      __webpack_require__(/*! ./views/ABViewCSVImporter */ "./src/rootPages/Designer/properties/views/ABViewCSVImporter.js"),
       __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/properties/views/ABViewDataview.js"),
       __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/properties/views/ABViewDetail.js"),
       __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/properties/views/ABViewDocxBuilder.js"),
@@ -83350,7 +83508,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       toSettings() {
-         return this.updateComponent.toSettings();
+         return this.updateComponent?.toSettings() ?? {};
       }
    }
 
@@ -85350,7 +85508,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // const RowFilter = require("../../platform/RowFilter");
 
-var ABViewRuleActionObjectUpdaterDefaults = {
+const ABViewRuleActionObjectUpdaterDefaults = {
    filterConditions: {
       // array of filters to apply to the data table
       glue: "and",
@@ -85399,13 +85557,13 @@ var ABViewRuleActionObjectUpdaterDefaults = {
 
       removeAddRow() {
          // get our Form
-         var UpdateForm = this.formGet();
+         const UpdateForm = this.formGet();
          if (!UpdateForm) return;
 
          // check row that's unselect a field
-         var rows = UpdateForm.getChildViews();
+         const rows = UpdateForm.getChildViews();
 
-         var addRow = rows.filter((r) => {
+         const addRow = rows.filter((r) => {
             return r.queryView(function (view) {
                return view.config.name == "field" && !view.getValue();
             });
@@ -85423,11 +85581,11 @@ var ABViewRuleActionObjectUpdaterDefaults = {
        */
       addRow(data) {
          // get our Form
-         var UpdateForm = this.formGet();
+         const UpdateForm = this.formGet();
          if (!UpdateForm) return;
 
          // check row that's unselect a field
-         var rows = UpdateForm.getChildViews();
+         const rows = UpdateForm.getChildViews();
          if (
             data == null &&
             rows.filter((r) => {
@@ -85439,7 +85597,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
             return;
 
          // get a new Row Component
-         var row = new ABViewValueDisplayRow(this.base, this.Rule);
+         const row = new ABViewValueDisplayRow(this.base, this.Rule);
 
          // add row to Form
          UpdateForm.addView(row.ui());
@@ -85464,7 +85622,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          });
 
          // get our Form
-         var UpdateForm = this.formGet();
+         const UpdateForm = this.formGet();
          if (!UpdateForm) return;
 
          // remove UI
@@ -85472,10 +85630,10 @@ var ABViewRuleActionObjectUpdaterDefaults = {
       }
 
       formClear() {
-         var UpdateForm = this.formGet();
+         const UpdateForm = this.formGet();
          if (!UpdateForm) return;
 
-         var children = UpdateForm.getChildViews();
+         const children = UpdateForm.getChildViews();
 
          // NOTE: need to clone this array, because it is connected with the UpdatForm's
          // internal array of items.  Once we start .removeView() the element actually
@@ -85483,7 +85641,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          // properly iterating through the structure.  It results in missed items from
          // being sent to the .forEach().
          // So Clone it and use that for .forEach()
-         var cloneChildren = [];
+         const cloneChildren = [];
          children.forEach((c) => {
             cloneChildren.push(c);
          });
@@ -85496,7 +85654,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
       }
 
       formGet() {
-         var UpdateForm = $$(this.ids.updateForm);
+         const UpdateForm = $$(this.ids.updateForm);
          if (!UpdateForm) {
             // this is a problem!
             let message =
@@ -85523,7 +85681,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          valueRules.fieldOperations = valueRules.fieldOperations || [];
 
          // find the form
-         var UpdateForm = this.formGet();
+         const UpdateForm = this.formGet();
          if (!UpdateForm) return;
 
          // clear form:
@@ -85548,7 +85706,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
 
       fromSettings(settings) {
          // Note: we just want the { valueRules:[] } here:
-         var mySettings = settings.valueRules || settings;
+         const mySettings = settings.valueRules || settings;
 
          this.setValues(mySettings);
       }
@@ -85559,13 +85717,13 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          //    { fieldID:xxx, value:yyyy, type:zzz, op:aaa }
          // ]
          // }
-         var settings = { fieldOperations: [] };
+         const settings = { fieldOperations: [] };
 
          // for each of our formRows, decode the propery {}
          this.Rule.formRows.forEach((fr) => {
-            var rowSettings = fr.toSettings();
+            const rowSettings = fr.toSettings();
             if (rowSettings) {
-               settings.fieldOperations.push(fr.toSettings());
+               settings.fieldOperations.push(rowSettings);
             }
          });
 
@@ -85663,6 +85821,12 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          };
       }
 
+      datacollections(filter = () => true) {
+         return (
+            this.Rule.CurrentApplication?.datacollectionsIncluded(filter) ?? []
+         );
+      }
+
       buttonsToggle() {
          const $cols = $$(this.ids.row).getChildViews()[0].getChildViews();
          $cols[4].hide();
@@ -85670,7 +85834,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
       }
 
       getFieldList(shouldFilter) {
-         var options = [];
+         let options = [];
          if (this.Rule.CurrentObject) {
             options = (this.Rule.CurrentObject.fields() || []).map((f) => {
                return {
@@ -85706,11 +85870,13 @@ var ABViewRuleActionObjectUpdaterDefaults = {
             // Remove fields who are selected
             if (shouldFilter) {
                // store this row
-               var usedHash = {};
+               const usedHash = {};
                this.Rule.formRows.forEach((row) => {
-                  var rowView = $$(row.ids.row);
+                  const rowView = $$(row.ids.row);
                   if (rowView) {
-                     var field = rowView.getChildViews()[0].getChildViews()[1];
+                     const field = rowView
+                        .getChildViews()[0]
+                        .getChildViews()[1];
                      usedHash[field.getValue()] = true;
                   }
                });
@@ -85724,13 +85890,13 @@ var ABViewRuleActionObjectUpdaterDefaults = {
 
       isValid() {
          const ids = this.ids;
-         var validator = this.AB.Validation.validator();
-         var valueField = $$(ids.row).getChildViews()[0].getChildViews()[3];
-         var FormView = valueField.getParentView().getParentView();
+         const validator = this.AB.Validation.validator();
+         const valueField = $$(ids.row).getChildViews()[0].getChildViews()[3];
+         const FormView = valueField.getParentView().getParentView();
 
-         var field = this.Rule.getUpdateObjectField($$(ids.field).getValue());
+         const field = this.Rule.getUpdateObjectField($$(ids.field).getValue());
          if (field) {
-            var value = field.getValue(valueField, {});
+            const value = field.getValue(valueField, {});
 
             // // if a standard component that supports .getValue()
             // if (valueField.getValue) {
@@ -85741,7 +85907,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
             // }
 
             // our .isValidData() wants value in an object:
-            var obj = {};
+            const obj = {};
             obj[field.columnName] = value;
 
             field.isValidData(obj, validator);
@@ -85767,7 +85933,9 @@ var ABViewRuleActionObjectUpdaterDefaults = {
 
             //// TODO: display error for our field picker.  Note, it doesn't have a unique .name
             // field.
-            var fieldField = $$(ids.row).getChildViews()[0].getChildViews()[1];
+            const fieldField = $$(ids.row)
+               .getChildViews()[0]
+               .getChildViews()[1];
             fieldField.define("invalidMessage", L("A value is required"));
             fieldField.define("invalid", true);
             fieldField.refresh();
@@ -85778,14 +85946,14 @@ var ABViewRuleActionObjectUpdaterDefaults = {
 
       selectField(columnID) {
          const ids = this.ids;
-         var field = this.Rule.getUpdateObjectField(columnID);
+         const field = this.Rule.getUpdateObjectField(columnID);
          if (!field) return;
 
-         var fieldComponent = field.formComponent(),
+         const fieldComponent = field.formComponent(),
             abView = fieldComponent.newInstance(this.Rule.CurrentApplication),
-            formFieldComponent = abView.component(this.App),
-            $componentView,
-            $inputView;
+            formFieldComponent = abView.component(this.App);
+
+         let $componentView, $inputView;
 
          console.warn("TODO: remove this testing code:");
          if (typeof formFieldComponent.ui == "function") {
@@ -85798,12 +85966,10 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          $componentView.id = ids.value; // set our expected id
 
          // find all the DataSources
-         var datasources = this.Rule.CurrentApplication.datacollectionsIncluded(
-            (dc) => dc.datasource
-         );
+         let datasources = this.datacollections((dc) => dc.datasource);
 
          // create a droplist with those dataSources
-         var optionsDataSources = [];
+         let optionsDataSources = [];
          datasources.forEach((dc) => {
             optionsDataSources.push({
                id: dc.id,
@@ -85813,7 +85979,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          });
 
          // create a droplist with select options
-         var optionsSelectBy = [
+         const optionsSelectBy = [
             { id: "select-one", value: L("Current selection") },
             {
                id: "filter-select-one",
@@ -85821,7 +85987,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
             },
          ];
 
-         var $optionUpdateExsits = {
+         const $optionUpdateExsits = {
             type: "clean",
             rows: [
                {
@@ -85833,16 +85999,15 @@ var ABViewRuleActionObjectUpdaterDefaults = {
                         placeholder: L("Choose a data source"),
                         on: {
                            onChange: (newv /*, oldv */) => {
-                              var selectedDC =
-                                 this.Rule.CurrentApplication.datacollectionsIncluded(
-                                    (dc) => dc.id == newv
-                                 )[0];
+                              const selectedDC = this.datacollections(
+                                 (dc) => dc.id == newv
+                              )[0];
                               if (
                                  selectedDC &&
                                  (selectedDC.sourceType == "query" ||
                                     field.key != "connectObject")
                               ) {
-                                 var queryFieldOptions = [];
+                                 const queryFieldOptions = [];
                                  selectedDC.datasource.fields().forEach((f) => {
                                     queryFieldOptions.push({
                                        id: f.id,
@@ -85878,20 +86043,20 @@ var ABViewRuleActionObjectUpdaterDefaults = {
                   placeholder: L("Choose select option"),
                   on: {
                      onChange: (newv /*, oldv */) => {
-                        var $row = $$(ids.row);
+                        const $row = $$(ids.row);
                         $row.removeView($row.getChildViews()[1]);
                         if (newv == "select-one") {
                            $row.addView({}, 1);
                         } else {
-                           var options =
-                              this.Rule.CurrentView.datacollection.datasource
-                                 .fields()
-                                 .map(function (f) {
-                                    return {
-                                       id: f.id,
-                                       value: f.label,
-                                    };
-                                 });
+                           const options = (
+                              this.Rule.CurrentView?.datacollection?.datasource?.fields() ??
+                              []
+                           ).map(function (f) {
+                              return {
+                                 id: f.id,
+                                 value: f.label,
+                              };
+                           });
 
                            // TODO: Swtich to FilterComplex
                            this.FilterComponent = this.AB.filterComplexNew(
@@ -85918,11 +86083,10 @@ var ABViewRuleActionObjectUpdaterDefaults = {
                               $row.addView(this.FilterComponent.ui, 1);
                            }
 
-                           var dcId = $$(ids.selectDc).getValue();
-                           var dataCollection =
-                              this.Rule.CurrentApplication.datacollectionsIncluded(
-                                 (dc) => dc.id == dcId
-                              )[0];
+                           const dcId = $$(ids.selectDc).getValue();
+                           const dataCollection = this.datacollections(
+                              (dc) => dc.id == dcId
+                           )[0];
                            if (dataCollection) {
                               this.populateFilters(dataCollection);
                            }
@@ -85951,22 +86115,21 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          if (field.isConnection) {
             // key == "connectObject") {
             // find the ABObject this field connects to
-            var connectedObject = field.datasourceLink;
+            const connectedObject = field.datasourceLink;
 
             // find all the DataSources that are based upon this ABObject
             datasources = datasources.filter((dc) => {
                return dc.datasource.id == connectedObject.id;
             });
 
-            var dcQueries =
-               this.Rule.CurrentApplication.datacollectionsIncluded((dc) => {
-                  return (
-                     dc.sourceType == "query" &&
-                     dc.datasource &&
-                     dc.datasource.canFilterObject(connectedObject)
-                  );
-                  // return dc.datasource.id == connectedObject.id;
-               });
+            const dcQueries = this.datacollections((dc) => {
+               return (
+                  dc.sourceType == "query" &&
+                  dc.datasource &&
+                  dc.datasource.canFilterObject(connectedObject)
+               );
+               // return dc.datasource.id == connectedObject.id;
+            });
 
             datasources = datasources.concat(dcQueries);
 
@@ -86018,7 +86181,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
                            label: L("<a>Or exists value</a>"),
                            on: {
                               onItemClick: function () {
-                                 var $container = this.getParentView(),
+                                 const $container = this.getParentView(),
                                     $multiview = $container.getParentView();
 
                                  $multiview.showBatch("exist");
@@ -86037,7 +86200,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
                            label: L("<a>Or custom value</a>"),
                            on: {
                               onItemClick: function () {
-                                 var $container = this.getParentView(),
+                                 const $container = this.getParentView(),
                                     $multiview = $container.getParentView();
 
                                  // clear filter view
@@ -86054,7 +86217,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          }
 
          // Change component to display this field's form input
-         var $row = $$(ids.row).getChildViews()[0];
+         const $row = $$(ids.row).getChildViews()[0];
          $row.removeView($row.getChildViews()[3]);
          $row.addView($inputView, 3);
 
@@ -86064,7 +86227,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          if (!field.isConnection && field.customDisplay) {
             // field.customDisplay(field, this.App, $row.getChildViews()[3].$view, {
 
-            var compNodeView = $$($componentView.id).$view;
+            const compNodeView = $$($componentView.id).$view;
 
             // wait until render UI complete
             setTimeout(() => {
@@ -86078,7 +86241,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          }
 
          // Show the remove button
-         var $buttonRemove = $row.getChildViews()[4];
+         const $buttonRemove = $row.getChildViews()[4];
          $buttonRemove.show();
 
          // Add a new row
@@ -86089,22 +86252,22 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          const ids = this.ids;
          $$(ids.field).setValue(data.fieldID);
          // note: this triggers our _logic.selectField() fn.
-         var field = this.Rule.getUpdateObjectField(data.fieldID);
+         const field = this.Rule.getUpdateObjectField(data.fieldID);
          if (field) {
-            var setValueFn = () => {
+            const setValueFn = () => {
                $$(ids.selectDc).setValue(data.value);
                if (data.queryField) {
                   $$(ids.queryField).setValue(data.queryField);
                }
-               var selectBy = data.selectBy || "select-one";
+               const selectBy = data.selectBy || "select-one";
                $$(ids.selectBy).setValue(selectBy);
 
                if (selectBy != "select-one") {
-                  var collectionId = data.value;
-                  var dataCollection =
-                     this.currentForm.application.datacollectionsIncluded(
+                  const collectionId = data.value;
+                  const dataCollection =
+                     (this.currentForm.application?.datacollectionsIncluded(
                         (dc) => dc.id == collectionId
-                     )[0];
+                     ) ?? [])[0];
                   if (dataCollection && data.filterConditions) {
                      this.populateFilters(
                         dataCollection,
@@ -86128,7 +86291,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
                   // wait until render UI complete
                   setTimeout(function () {
                      // set value to custom field
-                     var rowData = {};
+                     const rowData = {};
                      rowData[field.columnName] = data.value;
                      field.setValue($$(ids.value), rowData);
                   }, 50);
@@ -86139,7 +86302,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
 
       populateFilters(dataView, filterConditions) {
          filterConditions =
-            filterConditions ||
+            filterConditions ??
             ABViewRuleActionObjectUpdaterDefaults.filterConditions;
 
          // Populate data to popups
@@ -86155,15 +86318,15 @@ var ABViewRuleActionObjectUpdaterDefaults = {
 
          // if this isn't the last entry row
          // * a row with valid data has the [delete] button showing.
-         var buttonDelete = $$(ids.buttonDelete);
+         const buttonDelete = $$(ids.buttonDelete);
          if (buttonDelete && buttonDelete.isVisible()) {
-            var data = {};
+            const data = {};
             data.fieldID = $$(ids.field).getValue();
 
-            var $valueField = $$(ids.value);
-            var field = this.Rule.getUpdateObjectField(data.fieldID);
+            const $valueField = $$(ids.value);
+            const field = this.Rule.getUpdateObjectField(data.fieldID);
 
-            var getValueFn = () => {
+            const getValueFn = () => {
                data.value = $$(ids.selectDc).getValue();
                data.queryField = $$(ids.queryField).getValue();
                data.op = "set"; // possible to create other types of operations.
@@ -87514,7 +87677,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          // make sure UI is updated:
          // set our updateObject
          if (settings.updateObjectID) {
-            var updateObject = this.AB.objectByID(settings.updateObjectID);
+            const updateObject = this.AB.objectByID(settings.updateObjectID);
             this.objectLoad(updateObject);
          }
 
@@ -87535,7 +87698,7 @@ var ABViewRuleActionObjectUpdaterDefaults = {
          // }
 
          // let our parent store our QB settings
-         var settings = super.toSettings();
+         const settings = super.toSettings();
 
          settings.valueRules = this._uiUpdater.toSettings();
          settings.updateObjectID = this.CurrentObject.id;
@@ -87825,6 +87988,297 @@ var myClass = null;
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/properties/views/ABViewCSVExporter.js":
+/*!**********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewCSVExporter.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewCSVExporter
+ * A Property manager for our ABViewCSVExporter widget
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_csvexporter";
+
+   const ABViewClassProperty = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABViewClassProperty.L();
+
+   class ABViewCSVExporterProperty extends ABViewClassProperty {
+      constructor(baseID) {
+         super(baseID ?? BASE_ID, {
+            datacollection: "",
+            buttonLabel: "",
+            hasHeader: "",
+            filename: "",
+            width: "",
+            buttonFilter: "",
+         });
+
+         this.AB = AB;
+         this.propertyFilter = this.AB.filterComplexNew(`${baseID}_filter`);
+      }
+
+      static get key() {
+         return "csvExporter";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               view: "fieldset",
+               label: L("Data:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  rows: [
+                     {
+                        id: ids.datacollection,
+                        name: "datacollection",
+                        view: "richselect",
+                        label: L("Data Source"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        skipAutoSave: true,
+                        on: {
+                           onChange: this.populateFilter.bind(this),
+                        },
+                     },
+                     {
+                        id: ids.hasHeader,
+                        name: "hasHeader",
+                        view: "checkbox",
+                        label: L("Header on first line"),
+                        labelWidth: uiConfig.labelWidthXLarge,
+                     },
+                     {
+                        cols: [
+                           {
+                              view: "label",
+                              label: L("Filter Option:"),
+                              css: "ab-text-bold",
+                              width: uiConfig.labelWidthLarge,
+                           },
+                           {
+                              id: ids.buttonFilter,
+                              view: "button",
+                              name: "buttonFilter",
+                              css: "webix_primary",
+                              label: L("Settings"),
+                              icon: "fa fa-gear",
+                              type: "icon",
+                              badge: 0,
+                              click: () => {
+                                 this.showFilterPopup();
+                              },
+                           },
+                        ],
+                     },
+                  ],
+               },
+            },
+            {
+               view: "fieldset",
+               label: L("Customize Display:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        id: ids.buttonLabel,
+                        name: "buttonLabel",
+                        view: "text",
+                        label: L("Label"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+                     {
+                        id: ids.filename,
+                        name: "filename",
+                        view: "text",
+                        label: L("File name"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                     },
+                     {
+                        id: ids.width,
+                        view: "counter",
+                        name: "width",
+                        label: L("Width:"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        on: {
+                           onChange: () => {
+                              this.onChange();
+                           },
+                        },
+                     },
+                  ],
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+
+         this.propertyFilter.init();
+         this.propertyFilter.on("save", (val) => {
+            this.onChange();
+            this.populateBadgeNumber();
+         });
+
+         this.filter_popup = webix.ui({
+            view: "popup",
+            width: 800,
+            hidden: true,
+            body: this.propertyFilter.ui,
+         });
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         view.settings = view.settings ?? {};
+
+         const ids = this.ids;
+         const FieldClass = this.ViewClass();
+         const ABViewCSVExporterPropertyComponentDefaults =
+            FieldClass.defaultValues();
+
+         this.populateDatacollections();
+
+         $$(ids.hasHeader).setValue(
+            view.settings.hasHeader ??
+               ABViewCSVExporterPropertyComponentDefaults.hasHeader
+         );
+         $$(ids.buttonLabel).setValue(
+            view.settings.buttonLabel ??
+               ABViewCSVExporterPropertyComponentDefaults.buttonLabel
+         );
+         $$(ids.filename).setValue(
+            view.settings.filename ??
+               ABViewCSVExporterPropertyComponentDefaults.filename
+         );
+         $$(ids.width).setValue(
+            view.settings.width ??
+               ABViewCSVExporterPropertyComponentDefaults.width
+         );
+
+         this.populateFilter();
+
+         this.populateBadgeNumber();
+      }
+
+      populateDatacollections() {
+         // Pull data views to options
+         const dcOptions = this.AB.datacollections().map((dc) => {
+            return {
+               id: dc.id,
+               value: dc.label,
+            };
+         });
+
+         const $DcSelector = $$(this.ids.datacollection);
+         $DcSelector.define("options", dcOptions);
+         $DcSelector.define(
+            "value",
+            this.CurrentView?.settings?.dataviewID ?? null
+         );
+         $DcSelector.refresh();
+      }
+
+      populateBadgeNumber() {
+         const ids = this.ids;
+         const view = this.CurrentView;
+
+         $$(ids.buttonFilter).define(
+            "badge",
+            view?.settings?.where?.rules?.length ?? null
+         );
+         $$(ids.buttonFilter).refresh();
+      }
+
+      populateFilter() {
+         const view = this.CurrentView;
+         const dc = view.datacollection;
+         const obj = dc?.datasource;
+
+         // Populate data to popups
+         // PropertyFilter.applicationLoad(view.application);
+         this.propertyFilter.fieldsLoad(obj?.fields() ?? []);
+         this.propertyFilter.setValue(view.settings.where);
+      }
+
+      showFilterPopup() {
+         const $buttonFilter = $$(this.ids.buttonFilter);
+         this.propertyFilter.popUp($buttonFilter?.$view);
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+         const FieldClass = this.ViewClass();
+         const ABViewCSVExporterPropertyComponentDefaults =
+            FieldClass.defaultValues();
+
+         const values = super.values();
+         values.settings = values.settings ?? {};
+
+         values.settings.dataviewID = $$(ids.datacollection).getValue();
+         values.settings.hasHeader = $$(ids.hasHeader).getValue();
+         values.settings.where = this.propertyFilter.getValue();
+
+         values.settings.buttonLabel =
+            $$(ids.buttonLabel).getValue() ??
+            ABViewCSVExporterPropertyComponentDefaults.buttonLabel;
+
+         values.settings.filename =
+            $$(ids.filename).getValue() ??
+            ABViewCSVExporterPropertyComponentDefaults.filename;
+
+         values.settings.width =
+            $$(ids.width).getValue() ??
+            ABViewCSVExporterPropertyComponentDefaults.width;
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("csvExporter");
+      }
+   }
+
+   return ABViewCSVExporterProperty;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/views/ABViewCSVImporter.js":
 /*!**********************************************************************!*\
   !*** ./src/rootPages/Designer/properties/views/ABViewCSVImporter.js ***!
@@ -87837,6 +88291,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/* harmony import */ var _rules_ABViewRuleListFormRecordRules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../rules/ABViewRuleListFormRecordRules */ "./src/rootPages/Designer/properties/rules/ABViewRuleListFormRecordRules.js");
 /*
  * ABViewCSVImporter
  * A Property manager for our ABViewCSVImporter widget
@@ -87844,221 +88299,335 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+let PopupRecordRule = null;
+
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_csvimporter";
+
    const ABViewClassProperty = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   // const L = ABViewClassProperty.L();
+   const uiConfig = AB.Config.uiSettings();
+   const L = ABViewClassProperty.L();
 
    class ABViewCSVImporterProperty extends ABViewClassProperty {
-      constructor() {
-         super("properties_abview", {
-            // Put our ids here
+      constructor(baseID) {
+         super(baseID ?? BASE_ID, {
+            datacollection: "",
+            fields: "",
+            buttonLabel: "",
+            width: "",
          });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "csvImporter";
       }
 
       ui() {
-         /*
-// TODO: this is still from ABField.js
+         const ids = this.ids;
+         PopupRecordRule = (0,_rules_ABViewRuleListFormRecordRules__WEBPACK_IMPORTED_MODULE_1__["default"])(this.AB, this.base);
+         // PopupRecordRule.component(`${this.base}_recordrule`);
 
-            var ids = this.ids;
-
-            var FC = this.FieldClass();
-
-            var _ui = {
-               view: "form",
-               id: ids.component,
-               autoheight: true,
-               borderless: true,
-               elements: [
-                  // {
-                  //    view: "label",
-                  //    label: "<span class='webix_icon fa fa-{0}'></span>{1}".replace('{0}', Field.icon).replace('{1}', Field.menuName)
-                  // },
-                  {
-                     view: "text",
-                     id: ids.label,
-                     name: "label",
-                     label: L("Label"),
-                     placeholder: L("Label"),
-                     labelWidth: uiConfig.labelWidthLarge,
-                     css: "ab-new-label-name",
-                     on: {
-                        onChange: function (newVal, oldVal = "") {
-                           // update columnName when appropriate
-                           if (
-                              newVal != oldVal &&
-                              oldVal == $$(ids.columnName).getValue() &&
-                              $$(ids.columnName).isEnabled()
-                           ) {
-                              $$(ids.columnName).setValue(newVal);
-                           }
-                        },
-                        onAfterRender() {
-                           AB.ClassUI.CYPRESS_REF(this);
-                        },
-                     },
+         return super.ui([
+            {
+               view: "fieldset",
+               label: L("Data:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  id: ids.datacollection,
+                  name: "datacollection",
+                  view: "richselect",
+                  label: L("Data Source"),
+                  labelWidth: uiConfig.labelWidthLarge,
+                  skipAutoSave: true,
+                  on: {
+                     onChange: (newVal) => this.selectSource(newVal),
                   },
-                  {
-                     view: "text",
-                     id: ids.columnName,
-                     name: "columnName",
-                     disallowEdit: true,
-                     label: L("Field Name"),
-                     labelWidth: uiConfig.labelWidthLarge,
-                     placeholder: L("Database field name"),
-                     on: {
-                        onAfterRender() {
-                           AB.ClassUI.CYPRESS_REF(this);
-                        },
-                     },
-                  },
-                  {
-                     view: "label",
-                     id: ids.fieldDescription,
-                     label: L("Description"), // Field.description,
-                     align: "right",
-                     on: {
-                        onAfterRender() {
-                           AB.ClassUI.CYPRESS_REF(this);
-                        },
-                     },
-                  },
-                  {
-                     view: "checkbox",
-                     id: ids.showIcon,
-                     name: "showIcon",
-                     labelRight: L("show icon?"),
-                     labelWidth: uiConfig.labelWidthCheckbox,
-                     value: true,
-                     on: {
-                        onAfterRender() {
-                           AB.ClassUI.CYPRESS_REF(this);
-                        },
-                     },
-                  },
-                  {
-                     view: "checkbox",
-                     id: ids.required,
-                     name: "required",
-                     hidden: !FC.defaults().supportRequire,
-                     labelRight: L("Required"),
-                     // disallowEdit: true,
-                     labelWidth: uiConfig.labelWidthCheckbox,
-                     on: {
-                        onChange: (newVal, oldVal) => {
-                           this.requiredOnChange(newVal, oldVal, ids);
-
-                           // If check require on edit field, then show warning message
-                           this.getNumberOfNullValue(newVal);
-                        },
-                        onAfterRender() {
-                           AB.ClassUI.CYPRESS_REF(this);
-                        },
-                     },
-                  },
-                  // warning message: number of null value rows
-                  {
-                     view: "label",
-                     id: ids.numberOfNull,
-                     css: { color: "#f00" },
-                     label: "",
-                     hidden: true,
-                     on: {
-                        onAfterRender() {
-                           AB.ClassUI.CYPRESS_REF(this);
-                        },
-                     },
-                  },
-                  {
-                     view: "checkbox",
-                     id: ids.unique,
-                     name: "unique",
-                     hidden: !FC.defaults().supportUnique,
-                     labelRight: L("Unique"),
-                     disallowEdit: true,
-                     labelWidth: uiConfig.labelWidthCheckbox,
-                     on: {
-                        onAfterRender() {
-                           AB.ClassUI.CYPRESS_REF(this);
-                        },
-                     },
-                  },
-                  {
-                     id: ids.filterComplex,
-                     rows: [],
-                  },
-                  {
-                     id: ids.addValidation,
-                     view: "button",
-                     label: L("Add Field Validation"),
-                     css: "webix_primary",
-                     click: () => {
-                        this.addValidation();
-                     },
-                     on: {
-                        onAfterRender() {
-                           AB.ClassUI.CYPRESS_REF(this);
-                        },
-                     },
-                  },
-                  // have a hidden field to contain the validationRules
-                  // value we will parse out later
-                  {
-                     id: ids.validationRules,
-                     view: "text",
-                     hidden: true,
-                     name: "validationRules",
-                     on: {
-                        onAfterRender() {
-                           AB.ClassUI.CYPRESS_REF(this);
-                        },
-                     },
-                  },
-               ],
-
-               rules: {
-                  label: webix.rules.isNotEmpty,
-                  columnName: webix.rules.isNotEmpty,
                },
-            };
-
-            // Add our passed in elements:
-            elements.forEach((e) => {
-               // passed in elements might not have their .id
-               // set, but have a .name. Let's default id =
-               if (!e.id && e.name) {
-                  if (!this.ids[e.name]) {
-                     this.ids[e.name] = `${this.base}_${e.name}`;
-                  }
-                  e.id = this.ids[e.name];
-               }
-               _ui.elements.push(e);
-            });
-
-            return _ui;
-*/
-
-         return super.ui([]);
+            },
+            {
+               view: "fieldset",
+               label: L("Available Fields:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        id: ids.fields,
+                        name: "fields",
+                        view: "list",
+                        select: false,
+                        minHeight: 250,
+                        template: this.listTemplate.bind(this),
+                        type: {
+                           markCheckbox: function (item) {
+                              return `<span class='check webix_icon fa fa-${
+                                 item.selected ? "check-" : ""
+                              }square-o'></span>`;
+                           },
+                        },
+                        onClick: {
+                           check: this.check.bind(this),
+                        },
+                     },
+                  ],
+               },
+            },
+            {
+               view: "fieldset",
+               label: L("Rules:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        cols: [
+                           {
+                              view: "label",
+                              label: L("Record Rules:"),
+                              width: uiConfig.labelWidthLarge,
+                           },
+                           {
+                              view: "button",
+                              name: "buttonRecordRules",
+                              css: "webix_primary",
+                              label: L("Settings"),
+                              icon: "fa fa-gear",
+                              type: "icon",
+                              badge: 0,
+                              click: this.recordRuleShow.bind(this),
+                           },
+                        ],
+                     },
+                  ],
+               },
+            },
+            {
+               view: "fieldset",
+               label: L("Customize Display:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        id: ids.buttonLabel,
+                        name: "buttonLabel",
+                        view: "text",
+                        label: L("Label"),
+                        labelWidth: uiConfig.labelWidthXLarge,
+                        on: {
+                           onChange: () => this.onChange(),
+                        },
+                     },
+                     {
+                        id: ids.width,
+                        view: "counter",
+                        name: "width",
+                        label: L("Width:"),
+                        labelWidth: uiConfig.labelWidthXLarge,
+                        on: {
+                           onChange: () => this.onChange(),
+                        },
+                     },
+                  ],
+               },
+            },
+         ]);
       }
 
       async init(AB) {
-         return super.init(AB);
+         this.AB = AB;
+
+         await super.init(AB);
+
+         PopupRecordRule.init(AB);
+         PopupRecordRule.on("save", () => {
+            this.populateBadgeNumber();
+         });
+      }
+
+      selectSource(dcId) {
+         const view = this.CurrentView;
+         view.settings = view.settings ?? {};
+         view.settings.dataviewID = dcId;
+
+         this.updateRules();
+         this.populateAvailableFields({ selectAll: true });
+      }
+
+      updateRules() {
+         // Populate values to rules
+         const selectedDv = this.CurrentView.datacollection;
+         if (selectedDv?.datasource) {
+            PopupRecordRule.objectLoad(selectedDv.datasource);
+         }
+
+         PopupRecordRule.fromSettings(
+            this.CurrentView?.settings?.recordRules ?? []
+         );
+      }
+
+      populateAvailableFields(options = {}) {
+         const ids = this.ids;
+         const view = this.CurrentView;
+
+         const datacollection = this.AB.datacollectionByID(
+            view.settings.dataviewID
+         );
+         const object = datacollection?.datasource;
+
+         view.settings = view.settings ?? {};
+         const availableFields = view.settings.availableFieldIds ?? [];
+
+         // Pull field list
+         const fieldOptions = object?.fields()?.map((f) => {
+            f.selected = options.selectAll
+               ? true
+               : availableFields.filter((fieldId) => f.id == fieldId).length >
+                 0;
+
+            return f;
+         });
+
+         $$(ids.fields).clearAll();
+         $$(ids.fields).parse(fieldOptions);
+      }
+
+      populateBadgeNumber() {
+         const ids = this.ids;
+         const view = this.CurrentView;
+         if (!view) return;
+
+         $$(ids.buttonRecordRules).define(
+            "badge",
+            view.settings?.recordRules?.length ?? null
+         );
+         $$(ids.buttonRecordRules).refresh();
+      }
+
+      listTemplate(field, $common) {
+         const fieldComponent = field.formComponent();
+         if (fieldComponent == null)
+            return `<i class='fa fa-times'></i>  ${field.label} <div class='ab-component-form-fields-component-info'> Disable </div>`;
+
+         const componentKey = fieldComponent.common().key;
+         const formComponent = this.CurrentApplication.viewAll(
+            (v) => v.common().key == componentKey
+         )[0];
+
+         return `${$common.markCheckbox(field)} ${
+            field.label
+         } <div class='ab-component-form-fields-component-info'> <i class='fa fa-${
+            formComponent?.common()?.icon ?? "fw"
+         }'></i> ${
+            formComponent ? L(formComponent.common().labelKey ?? "Label") : ""
+         } </div>`;
+      }
+
+      check(e, fieldId) {
+         const ids = this.ids;
+
+         // update UI list
+         let item = $$(ids.fields).getItem(fieldId);
+         item.selected = item.selected ? 0 : 1;
+         $$(ids.fields).updateItem(fieldId, item);
+      }
+
+      recordRuleShow() {
+         this.updateRules();
+         if (PopupRecordRule.CurrentObject) PopupRecordRule.show();
+
+         // Workaround
+         PopupRecordRule.qbFixAfterShow();
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+
+         view.settings = view.settings ?? {};
+
+         this.populateDataCollections();
+         this.populateAvailableFields();
+
+         $$(ids.buttonLabel).setValue(view.settings.buttonLabel);
+         $$(ids.width).setValue(view.settings.width);
+
+         view.settings.availableFieldIds = [];
+         let fields = $$(ids.fields).find({ selected: true });
+         (fields || []).forEach((f) => {
+            view.settings.availableFieldIds.push(f.id);
+         });
+      }
+
+      populateDataCollections() {
+         const ids = this.ids;
+         const view = this.CurrentView;
+
+         const datacollections =
+            this.CurrentApplication.datacollectionsIncluded().map((dc) => {
+               return {
+                  id: dc.id,
+                  value: dc.label,
+                  icon:
+                     dc.sourceType === "query"
+                        ? "fa fa-filter"
+                        : "fa fa-database",
+               };
+            });
+
+         $$(ids.datacollection).define("options", datacollections);
+         $$(ids.datacollection).define("value", view.settings.dataviewID);
+         $$(ids.datacollection).refresh();
       }
 
       defaultValues() {
-         var values = {
+         const values = {
             dataviewID: null,
             buttonLabel: "Upload CSV",
             width: 0,
             recordRules: [],
+            availableFieldIds: [],
          };
 
-         var FieldClass = this.ViewClass();
+         const FieldClass = this.ViewClass();
          if (FieldClass) {
-            var fcValues = FieldClass.defaultValues();
+            const fcValues = FieldClass.defaultValues();
             Object.keys(fcValues).forEach((k) => {
                values[k] = fcValues[k];
             });
          }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+         const values = super.values();
+
+         values.settings = values.settings ?? {};
+         values.settings.dataviewID = $$(ids.datacollection).getValue();
+         values.settings.recordRules = PopupRecordRule.toSettings();
+         values.settings.buttonLabel = $$(ids.buttonLabel).getValue();
+         values.settings.width = $$(ids.width).getValue();
+
+         values.settings.availableFieldIds = [];
+         $$(ids.fields)
+            .find({ selected: true })
+            .forEach((f) => {
+               values.settings.availableFieldIds.push(f.id);
+            });
 
          return values;
       }
@@ -88079,7 +88648,7 @@ __webpack_require__.r(__webpack_exports__);
       }
    }
 
-   return new ABViewCSVImporterProperty();
+   return ABViewCSVImporterProperty;
 }
 
 
@@ -91962,7 +92531,7 @@ __webpack_require__.r(__webpack_exports__);
 
          // update properties when a field component is deleted
          view.views().forEach((v) => {
-            if (v instanceof this.AB.Class.ABViewFormComponent)
+            if (v instanceof this.AB.Class.ABViewFormItem)
                v.once("destroyed", () => this.populate(view));
          });
 
@@ -92228,10 +92797,12 @@ __webpack_require__.r(__webpack_exports__);
 
       refreshDefaultButton() {
          const ids = this.ids;
+         const ABViewFormButton =
+            this.AB.Class.ABViewManager.viewClass("button");
 
          // If default button is not exists, then skip this
          let defaultButton = this.views(
-            (v) => v instanceof this.ABViewFormButton && v.settings.isDefault
+            (v) => v instanceof ABViewFormButton && v.settings.isDefault
          )[0];
 
          // Add a default button
@@ -92355,7 +92926,7 @@ __webpack_require__.r(__webpack_exports__);
                   formView.emit("properties.updated", currView);
 
                   // Update field options in property
-                  this.propertyUpdateRules(ids, currView, dcId);
+                  // this.propertyUpdateRules(ids, currView, dcId);
 
                   this.ready();
                   this.onChange();
@@ -99905,11 +100476,13 @@ __webpack_require__.r(__webpack_exports__);
 
          // clear our list and display our objects:
          var List = this.$list;
-         List.clearAll();
-         List.data.unsync();
-         List.data.sync(this.itemList);
-         List.refresh();
-         List.unselectAll();
+         if (List) {
+            List.clearAll();
+            List.data.unsync();
+            List.data.sync(this.itemList);
+            List.refresh();
+            List.unselectAll();
+         }
 
          // sort objects
          this.listSort(this._settings.objectlistSortDirection);
@@ -111879,6 +112452,7 @@ __webpack_require__.r(__webpack_exports__);
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    // var L = UIClass.L();
    const ViewProperties = (0,_properties_views_ABViewCSVImporter__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+   const viewProperties = new ViewProperties();
 
    class UI_Work_Object_Workspace_PopupImport extends UIClass {
       constructor(base) {
@@ -111897,7 +112471,7 @@ __webpack_require__.r(__webpack_exports__);
       init(AB) {
          this.AB = AB;
 
-         var defaultSettings = ViewProperties.toSettings();
+         var defaultSettings = viewProperties.toSettings();
          var defaultView = this.AB.viewNewDetatched(defaultSettings);
 
          this.popup = defaultView.component();
