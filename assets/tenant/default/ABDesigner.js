@@ -103107,7 +103107,8 @@ __webpack_require__.r(__webpack_exports__);
             fixSelect: "",
 
             filterPanel: "",
-            preventPopulate: "",
+            populate: "",
+            populateOptions: "",
             sortPanel: "",
 
             buttonFilter: "",
@@ -103303,15 +103304,68 @@ __webpack_require__.r(__webpack_exports__);
                                     ],
                                  },
                                  {
-                                    id: ids.preventPopulate,
-                                    view: "checkbox",
-                                    name: "preventPopulate",
-                                    label: L("Do not populate related data:"),
-                                    labelWidth: 210,
-                                    on: {
-                                       onChange: () => {
-                                          this.save();
+                                    id: ids.populate,
+                                    view: "radio",
+                                    name: "populate",
+                                    label: L("Load Connections:"),
+                                    labelWidth: uiConfig.labelWidthXLarge,
+                                    labelPosition: "top",
+                                    value: "all",
+                                    tooltip: "#value# - #description#<br>#tip#",
+                                    options: [
+                                       {
+                                          id: "all",
+                                          value: L("All"),
+                                          description: L(
+                                             "Load all the connected data"
+                                          ),
+                                          tip: L(
+                                             "Will impact perfomance if your object has many connections"
+                                          ),
                                        },
+                                       {
+                                          id: "none",
+                                          value: L("None"),
+                                          description: L(
+                                             "Don't load any connected data"
+                                          ),
+                                          tip: L(
+                                             "Will load fast, but won't work with linked data collections"
+                                          ),
+                                       },
+                                       {
+                                          id: "custom",
+                                          value: L("Custom"),
+                                          description: L(
+                                             "Select the relevant connections to load"
+                                          ),
+                                          tip: "",
+                                       },
+                                    ],
+                                    on: {
+                                       onItemClick: () => {
+                                          if (
+                                             $$(ids.populate).getValue() ==
+                                             "custom"
+                                          ) {
+                                             $$(ids.populateOptions).show();
+                                          } else {
+                                             this.save();
+                                             $$(ids.populateOptions).hide();
+                                          }
+                                       },
+                                    },
+                                 },
+                                 {
+                                    id: ids.populateOptions,
+                                    view: "multicombo",
+                                    name: "populateOptions",
+                                    hidden: true,
+                                    placeholder: L(
+                                       "Select connections to load"
+                                    ),
+                                    on: {
+                                       onChange: () => this.save(),
                                     },
                                  },
                                  {
@@ -103523,7 +103577,7 @@ __webpack_require__.r(__webpack_exports__);
          const $linkField = $$(ids.linkField);
          const $loadAll = $$(ids.loadAll);
          const $fixSelect = $$(ids.fixSelect);
-         const $preventPopulate = $$(ids.preventPopulate);
+         const $populate = $$(ids.populate);
          const $list = $$(ids.list);
 
          if (this.CurrentDatacollection) {
@@ -103564,15 +103618,49 @@ __webpack_require__.r(__webpack_exports__);
          $linkField.define("value", settings.linkFieldID);
          $loadAll.define("value", settings.loadAll);
          $fixSelect.define("value", settings.fixSelect);
-         $preventPopulate.define("value", settings.preventPopulate);
+         const populateChoice = Array.isArray(settings.populate)
+            ? "custom"
+            : settings.populate
+            ? "all"
+            : "none";
+         /**
+          * @const {string} populateChoice - webix value for $populate based on
+          * settings.populate, which can be a boolean or an array
+          */
+         $populate.define("value", populateChoice);
+         if (populateChoice == "custom") {
+            $$(ids.populateOptions).define("value", settings.populate);
+            $$(ids.populateOptions).refresh();
+            $$(ids.populateOptions).show();
+         } else {
+            $$(ids.populateOptions).hide();
+         }
+         this.initPopulateOptions();
 
          $dataSource.refresh();
          $linkDatacollection.refresh();
          $linkField.refresh();
          $loadAll.refresh();
          $fixSelect.refresh();
-         $preventPopulate.refresh();
+         $populate.refresh();
          $list.openAll();
+      }
+
+      initPopulateOptions() {
+         const ids = this.ids;
+         // get linked data collection list
+         const objSource = this.CurrentDatacollection?.datasource ?? null;
+         const linkFields = objSource?.connectFields() ?? [];
+         if (objSource && linkFields.length > 0) {
+            $$(ids.populate).enable();
+            $$(ids.populateOptions).define(
+               "options",
+               linkFields.map((f) => ({ id: f.columnName, value: f.label }))
+            );
+            $$(ids.populateOptions).refresh();
+         } else {
+            $$(ids.populate).disable();
+         }
       }
 
       refreshDataSourceOptions() {
@@ -103656,31 +103744,22 @@ __webpack_require__.r(__webpack_exports__);
 
          const ids = this.ids;
 
-         this.CurrentDatacollection.settings =
-            this.CurrentDatacollection.settings || {};
-         this.CurrentDatacollection.settings.datasourceID = $$(
-            ids.dataSource
-         ).getValue();
-         this.CurrentDatacollection.settings.linkDatacollectionID = $$(
-            ids.linkDatacollection
-         ).getValue();
-         this.CurrentDatacollection.settings.linkFieldID = $$(
-            ids.linkField
-         ).getValue();
-         this.CurrentDatacollection.settings.objectWorkspace = {};
-         this.CurrentDatacollection.settings.objectWorkspace.filterConditions =
+         const settings = this.CurrentDatacollection.settings || {};
+         settings.datasourceID = $$(ids.dataSource).getValue();
+         settings.linkDatacollectionID = $$(ids.linkDatacollection).getValue();
+         settings.linkFieldID = $$(ids.linkField).getValue();
+         settings.objectWorkspace = {};
+         settings.objectWorkspace.filterConditions =
             this.FilterComponent.getValue();
-         this.CurrentDatacollection.settings.objectWorkspace.sortFields =
+         settings.objectWorkspace.sortFields =
             this.PopupSortFieldComponent.getSettings();
-         this.CurrentDatacollection.settings.loadAll = $$(
-            ids.loadAll
-         ).getValue();
-         this.CurrentDatacollection.settings.preventPopulate = $$(
-            ids.preventPopulate
-         ).getValue();
-         this.CurrentDatacollection.settings.fixSelect = $$(
-            ids.fixSelect
-         ).getValue();
+         settings.loadAll = $$(ids.loadAll).getValue();
+         settings.fixSelect = $$(ids.fixSelect).getValue();
+         const populateChoice = $$(ids.populate).getValue();
+         if (populateChoice == "all") settings.populate = true;
+         else if (populateChoice == "none") settings.populate = false;
+         else settings.populate = $$(ids.populateOptions).getValue().split(",");
+         this.CurrentDatacollection.settings = settings;
 
          const selectedDS = $$(ids.dataSource)
             .getPopup()
@@ -104012,7 +104091,7 @@ __webpack_require__.r(__webpack_exports__);
          this.populateBadgeNumber();
       }
 
-      switchTab(viewObj) {
+      switchTab(/*viewObj*/) {
          // Interface.populateWorkspace(viewObj);
       }
 
