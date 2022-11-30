@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 // var EventEmitter = require("events").EventEmitter;
 
 
-var divConfigDefaults = {
+const settingsDefault = {
    "appbuilder-portal-autoenter": true,
    // {bool} autoenter
    // open up the portal as soon as we load.
@@ -94,10 +94,10 @@ class Config {
    }
 
    settingsFromDiv(div) {
-      Object.keys(divConfigDefaults).forEach((d) => {
+      Object.keys(settingsDefault).forEach((d) => {
          var val = div.getAttribute(d);
          if (!val) {
-            val = divConfigDefaults[d];
+            val = settingsDefault[d];
          }
          if (val === "false") val = false;
          if (val === "true") val = true;
@@ -105,6 +105,13 @@ class Config {
          var key = d.split("-").pop();
          this.setting(key, val);
       });
+   }
+
+   settings(json = {}) {
+      for (let key in settingsDefault) {
+         const val = json[key] ?? settingsDefault[key];
+         this.setting(key.split("-").pop(), val);
+      }
    }
 
    /**
@@ -796,7 +803,9 @@ __webpack_require__.r(__webpack_exports__);
                BS.error(`Error communicating with Server: ${response.status}`);
             }
          }
-         console.log({ configData });
+         // Hotfix 11/30/22, Since we no longer send settings on the div including in config.
+         BS.Config.settings(configData.settings);
+         delete configData.settings;
          BS.Config.config(configData);
       } catch (err) {
          BS.error("initConfig: GET /config:", err);
@@ -22680,4 +22689,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.07ee464928d764e78a0f.js.map
+//# sourceMappingURL=app.4eeb428aaffb1c0c160e.js.map
