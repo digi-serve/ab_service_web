@@ -98204,12 +98204,12 @@ __webpack_require__.r(__webpack_exports__);
                                        // onItemClick: (id, e, node) => {
                                        //    this.permissionClick(id, e, node);
                                        // },
-                                       onChange: function () {
-                                          webix.message({
-                                             text: L("Data was changed"),
-                                             type: "success",
-                                          });
-                                       },
+                                       // onChange: function () {
+                                       //    webix.message({
+                                       //       text: L("Data was changed"),
+                                       //       type: "success",
+                                       //    });
+                                       // },
                                     },
                                  },
                                  {
@@ -99059,6 +99059,7 @@ __webpack_require__.r(__webpack_exports__);
          // });
 
          PermForm.define("suggest", availableRoles);
+         PermForm.setValue(selectedIDs);
          PermForm.refresh();
       }
 
