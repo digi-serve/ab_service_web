@@ -137,7 +137,7 @@
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "." + {"js_webix_components_querybuilder_querybuilder_min_js":"640aca1b55d908b6919a","AppBuilder_ABFactory_js-node_modules_moment_locale_sync_recursive_":"6c590d5ed8a08e3e4930"}[chunkId] + ".js";
+/******/ 			return "" + chunkId + "." + {"js_webix_components_querybuilder_querybuilder_min_js":"640aca1b55d908b6919a","AppBuilder_ABFactory_js-node_modules_moment_locale_sync_recursive_":"b1615cc30e9c85a374ab"}[chunkId] + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -344,4 +344,4 @@
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=runtime.734dcd803a68f79615dc.js.map
+//# sourceMappingURL=runtime.e3c01eea15a12ce94966.js.map

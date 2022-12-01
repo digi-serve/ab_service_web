@@ -714,8 +714,9 @@ class Bootstrap extends EventEmitter {
       return this._div;
    }
 
-   error(message) {
-      console.error(message);
+   error(...params) {
+      console.error(...params);
+      let message = params[0];
       this.emit(message);
    }
 
@@ -856,7 +857,7 @@ __webpack_require__.r(__webpack_exports__);
             updated = res.data;
          }
       } catch (err) {
-         BS.Error("initDefinitions: GET /definition/check-update", err);
+         BS.error("initDefinitions: GET /definition/check-update", err);
          return;
       }
       await new Promise((resolve, reject) => {
@@ -22689,4 +22690,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.4eeb428aaffb1c0c160e.js.map
+//# sourceMappingURL=app.ea31436b99093286bcf7.js.map
