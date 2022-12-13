@@ -18,6 +18,6 @@
   "homepage": "https://github.com/digi-serve/ab_web#readme",
   "dependencies": {
     "bpmn-js": "^9.0.3",
-    "tinymce": "^5.8.1"
+    "tinymce": "^5.10.7"
   }
 }
