@@ -78525,6 +78525,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/* harmony import */ var _ui_common_participant_selectManager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../ui_common_participant_selectManager */ "./src/rootPages/Designer/ui_common_participant_selectManager.js");
 /*
  * ABProcessParticipant_selectManagersUI
  *
@@ -78535,32 +78536,23 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    var L = UIClass.L();
 
-   class UIProcessParticipant_selectManagersUI extends UIClass {
+   class UIProcessParticipant_selectManagersUI extends _ui_common_participant_selectManager__WEBPACK_IMPORTED_MODULE_1__["default"] {
       constructor(id) {
          super(id, {
-            form: "",
-            name: "",
-            role: "",
-            useRole: "",
-            useAccount: "",
             useField: "", // bool on whether to use userFields from process
-            account: "",
             fields: "", // to\fromUsers.fields
             userField: "",
          });
       }
 
       ui(obj = {}) {
-         var __Roles = AB.Account.rolesAll().map((r) => {
-            return { id: r.id, value: r.name };
-         });
-         var __Users = AB.Account.userList().map((u) => {
-            return { id: u.uuid, value: u.username };
-         });
+         const baseUI = super.ui(obj);
+
          var __UserFields = [];
          if (obj.userProcessFieldData) {
             __UserFields = obj.userProcessFieldData.map((u) => {
@@ -78575,275 +78567,97 @@ __webpack_require__.r(__webpack_exports__);
 
          var ids = this.ids;
 
-         return {
-            view: "form",
-            id: this.ids.component,
-            css: "no-margin",
-            elements: [
-               {
-                  cols: [
-                     {
-                        view: "checkbox",
-                        id: this.ids.useRole,
-                        width: 34,
-                        labelWidth: 0,
-                        value: obj.useRole == "1" ? 1 : 0,
-                        click: function (id /*, event */) {
-                           if ($$(id).getValue()) {
-                              $$(ids.role).enable();
-                           } else {
-                              $$(ids.role).disable();
-                           }
-                        },
-                        on: {
-                           onAfterRender() {
-                              UIClass.CYPRESS_REF(this);
-                           },
+         const userFieldElements = [
+            {},
+            {
+               cols: [
+                  {
+                     view: "checkbox",
+                     id: this.ids.useField,
+                     width: 34,
+                     labelWidth: 0,
+                     value: obj.useField == "1" ? 1 : 0,
+                     click: function (id /*, event */) {
+                        if ($$(id).getValue()) {
+                           $$(ids.userField).enable();
+                        } else {
+                           $$(ids.userField).disable();
+                        }
+                     },
+                     on: {
+                        onAfterRender() {
+                           UIClass.CYPRESS_REF(this);
                         },
                      },
-                     {
-                        view: "label",
-                        label: L("by Role"),
-                        width: 88,
-                     },
-                     {
-                        view: "multicombo",
-                        id: this.ids.role,
-                        value: obj.role ? obj.role : 0,
-                        disabled: obj.useRole == "1" ? false : true,
-                        suggest: {
-                           body: {
-                              yCount: 4,
-                              data: __Roles,
-                              on: {
-                                 //
-                                 // TODO: looks like a Webix Bug that has us
-                                 // doing all this work.  Let's see if Webix
-                                 // can fix this for us.
-                                 onAfterRender() {
-                                    this.data.each((a) => {
-                                       UIClass.CYPRESS_REF(
-                                          this.getItemNode(a.id),
-                                          `${ids.role}_${a.id}`
-                                       );
-                                    });
-                                 },
-                                 onItemClick: function (id) {
-                                    var $roleCombo = $$(ids.role);
-                                    var currentItems = $roleCombo.getValue();
-                                    var indOf = currentItems.indexOf(id);
-                                    if (indOf == -1) {
-                                       currentItems.push(id);
-                                    } else {
-                                       currentItems.splice(indOf, 1);
-                                    }
-                                    $roleCombo.setValue(currentItems);
-                                    // var item = this.getItem(id);
-                                    // UIClass.CYPRESS_REF(
-                                    //    this.getItemNode(item.id),
-                                    //    `${ids.role}_${item.id}`
-                                    // );
-                                 },
+                  },
+                  {
+                     view: "label",
+                     label: L("by Field"),
+                     width: 88,
+                  },
+                  {
+                     // TODO @achoobert look these up
+                     view: "multicombo",
+                     id: this.ids.userField,
+                     value: obj.userFields ? obj.userFields : 0,
+                     disabled: obj.useField == "1" ? false : true,
+                     suggest: {
+                        body: {
+                           yCount: 4,
+                           data: __UserFields,
+                           on: {
+                              //
+                              // TODO: looks like a Webix Bug that has us
+                              // doing all this work.  Let's see if Webix
+                              // can fix this for us.
+                              onAfterRender() {
+                                 this.data.each((a) => {
+                                    UIClass.CYPRESS_REF(
+                                       this.getItemNode(a.id),
+                                       `${ids.userField}_${a.id}`
+                                    );
+                                 });
+                              },
+                              onItemClick: function (id) {
+                                 var $userFieldsCombo = $$(ids.userField);
+                                 var currentItems = $userFieldsCombo.getValue();
+                                 var indOf = currentItems.indexOf(id);
+                                 if (indOf == -1) {
+                                    currentItems.push(id);
+                                 } else {
+                                    currentItems.splice(indOf, 1);
+                                 }
+                                 $userFieldsCombo.setValue(currentItems);
+                                 // var item = this.getItem(id);
+                                 // UIClass.CYPRESS_REF(
+                                 //    this.getItemNode(item.id),
+                                 //    `${ids.userField}_${item.id}`
+                                 // );
                               },
                            },
                         },
-                        placeholder: L("Click to add Role"),
-                        labelAlign: "left",
-                        stringResult: false /* returns data as an array of [id] */,
-                        on: {
-                           onAfterRender: function () {
-                              // set data-cy for original field to track clicks to open option list
-                              UIClass.CYPRESS_REF(this.getNode(), ids.role);
-                           },
-                           onChange: (/* newVal, oldVal */) => {
-                              // trigger the onAfterRender function from the list so we can add data-cy to dom
-                              $$(this.ids.role)
-                                 .getList()
-                                 .callEvent("onAfterRender");
-                           },
+                     },
+                     placeholder: L("Click to add User"),
+                     labelAlign: "left",
+                     stringResult: false /* returns data as an array of [id] */,
+                     on: {
+                        onAfterRender: function () {
+                           // set data-cy for original field to track clicks to open option list
+                           UIClass.CYPRESS_REF(this.getNode(), ids.userField);
+                        },
+                        onChange: (/* newVal, oldVal */) => {
+                           // trigger the onAfterRender function from the list so we can add data-cy to dom
+                           $$(this.ids.userField)
+                              .getList()
+                              .callEvent("onAfterRender");
                         },
                      },
-                  ],
-               },
-               {},
-               {
-                  cols: [
-                     {
-                        view: "checkbox",
-                        id: this.ids.useAccount,
-                        width: 34,
-                        labelWidth: 0,
-                        value: obj.useAccount == "1" ? 1 : 0,
-                        click: function (id /*, event */) {
-                           if ($$(id).getValue()) {
-                              $$(ids.account).enable();
-                           } else {
-                              $$(ids.account).disable();
-                           }
-                        },
-                        on: {
-                           onAfterRender() {
-                              UIClass.CYPRESS_REF(this);
-                           },
-                        },
-                     },
-                     {
-                        view: "label",
-                        label: L("by Account"),
-                        width: 88,
-                     },
-                     {
-                        view: "multicombo",
-                        id: this.ids.account,
-                        value: obj.account ? obj.account : 0,
-                        disabled: obj.useAccount == "1" ? false : true,
-                        suggest: {
-                           body: {
-                              yCount: 4,
-                              data: __Users,
-                              on: {
-                                 //
-                                 // TODO: looks like a Webix Bug that has us
-                                 // doing all this work.  Let's see if Webix
-                                 // can fix this for us.
-                                 onAfterRender() {
-                                    this.data.each((a) => {
-                                       UIClass.CYPRESS_REF(
-                                          this.getItemNode(a.id),
-                                          `${ids.account}_${a.id}`
-                                       );
-                                    });
-                                 },
-                                 onItemClick: function (id) {
-                                    var $accountCombo = $$(ids.account);
-                                    var currentItems = $accountCombo.getValue();
-                                    var indOf = currentItems.indexOf(id);
-                                    if (indOf == -1) {
-                                       currentItems.push(id);
-                                    } else {
-                                       currentItems.splice(indOf, 1);
-                                    }
-                                    $accountCombo.setValue(currentItems);
-                                    // var item = this.getItem(id);
-                                    // UIClass.CYPRESS_REF(
-                                    //    this.getItemNode(item.id),
-                                    //    `${ids.account}_${item.id}`
-                                    // );
-                                 },
-                              },
-                           },
-                        },
-                        placeholder: L("Click to add User"),
-                        labelAlign: "left",
-                        stringResult: false /* returns data as an array of [id] */,
-                        on: {
-                           onAfterRender: function () {
-                              // set data-cy for original field to track clicks to open option list
-                              UIClass.CYPRESS_REF(this.getNode(), ids.account);
-                           },
-                           onChange: (/* newVal, oldVal */) => {
-                              // trigger the onAfterRender function from the list so we can add data-cy to dom
-                              $$(this.ids.account)
-                                 .getList()
-                                 .callEvent("onAfterRender");
-                           },
-                        },
-                     },
-                  ],
-               },
-               {},
-               {
-                  cols: [
-                     {
-                        view: "checkbox",
-                        id: this.ids.useField,
-                        width: 34,
-                        labelWidth: 0,
-                        value: obj.useField == "1" ? 1 : 0,
-                        click: function (id /*, event */) {
-                           if ($$(id).getValue()) {
-                              $$(ids.userField).enable();
-                           } else {
-                              $$(ids.userField).disable();
-                           }
-                        },
-                        on: {
-                           onAfterRender() {
-                              UIClass.CYPRESS_REF(this);
-                           },
-                        },
-                     },
-                     {
-                        view: "label",
-                        label: L("by Field"),
-                        width: 88,
-                     },
-                     {
-                        // TODO @achoobert look these up
-                        view: "multicombo",
-                        id: this.ids.userField,
-                        value: obj.userFields ? obj.userFields : 0,
-                        disabled: obj.useField == "1" ? false : true,
-                        suggest: {
-                           body: {
-                              yCount: 4,
-                              data: __UserFields,
-                              on: {
-                                 //
-                                 // TODO: looks like a Webix Bug that has us
-                                 // doing all this work.  Let's see if Webix
-                                 // can fix this for us.
-                                 onAfterRender() {
-                                    this.data.each((a) => {
-                                       UIClass.CYPRESS_REF(
-                                          this.getItemNode(a.id),
-                                          `${ids.userField}_${a.id}`
-                                       );
-                                    });
-                                 },
-                                 onItemClick: function (id) {
-                                    var $userFieldsCombo = $$(ids.userField);
-                                    var currentItems =
-                                       $userFieldsCombo.getValue();
-                                    var indOf = currentItems.indexOf(id);
-                                    if (indOf == -1) {
-                                       currentItems.push(id);
-                                    } else {
-                                       currentItems.splice(indOf, 1);
-                                    }
-                                    $userFieldsCombo.setValue(currentItems);
-                                    // var item = this.getItem(id);
-                                    // UIClass.CYPRESS_REF(
-                                    //    this.getItemNode(item.id),
-                                    //    `${ids.userField}_${item.id}`
-                                    // );
-                                 },
-                              },
-                           },
-                        },
-                        placeholder: L("Click to add User"),
-                        labelAlign: "left",
-                        stringResult: false /* returns data as an array of [id] */,
-                        on: {
-                           onAfterRender: function () {
-                              // set data-cy for original field to track clicks to open option list
-                              UIClass.CYPRESS_REF(
-                                 this.getNode(),
-                                 ids.userField
-                              );
-                           },
-                           onChange: (/* newVal, oldVal */) => {
-                              // trigger the onAfterRender function from the list so we can add data-cy to dom
-                              $$(this.ids.userField)
-                                 .getList()
-                                 .callEvent("onAfterRender");
-                           },
-                        },
-                     },
-                  ],
-               },
-            ],
-         };
+                  },
+               ],
+            },
+         ];
+
+         return baseUI.elements.push(...userFieldElements);
       }
 
       async init(AB) {
@@ -78863,30 +78677,8 @@ __webpack_require__.r(__webpack_exports__);
        * @return {json}
        */
       values() {
-         var obj = {};
+         var obj = super.values();
          var ids = this.ids;
-
-         if ($$(ids.useRole)) {
-            obj.useRole = $$(ids.useRole).getValue();
-         }
-
-         if ($$(ids.role) && obj.useRole) {
-            obj.role = $$(ids.role).getValue();
-            if (obj.role === "--") obj.role = null;
-         } else {
-            obj.role = null;
-         }
-
-         if ($$(ids.useAccount)) {
-            obj.useAccount = $$(ids.useAccount).getValue();
-         }
-
-         if ($$(ids.account) && obj.useAccount) {
-            obj.account = $$(ids.account).getValue(/*{ options: true }*/);
-            if (obj.account === "--") obj.account = null;
-         } else {
-            obj.account = null;
-         }
 
          if ($$(ids.useField)) {
             obj.useField = $$(ids.useField).getValue();
@@ -81245,8 +81037,8 @@ __webpack_require__.r(__webpack_exports__);
                   value: "",
                   highlight: (string) => {
                      return string.replace(/{%=[^%]*%}/g, (x) => {
-                        return `<span style="font-weight:500;background-color:#ebedf0;">${x}</span>`
-                     })
+                        return `<span style="font-weight:500;background-color:#ebedf0;">${x}</span>`;
+                     });
                   },
                },
             ],
@@ -99134,7 +98926,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
 /* harmony import */ var _ui_warnings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui_warnings */ "./src/rootPages/Designer/ui_warnings.js");
-/* harmony import */ var _properties_process_ABProcessParticipant_selectManagersUI_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./properties/process/ABProcessParticipant_selectManagersUI.js */ "./src/rootPages/Designer/properties/process/ABProcessParticipant_selectManagersUI.js");
+/* harmony import */ var _Designer_ui_common_participant_selectManager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Designer/ui_common_participant_selectManager */ "./src/rootPages/Designer/ui_common_participant_selectManager.js");
 /*
  * AB Choose Form
  *
@@ -99151,7 +98943,7 @@ __webpack_require__.r(__webpack_exports__);
    const uiConfig = AB.Config.uiSettings();
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    var L = UIClass.L();
-   const ClassSelectManagersUI = (0,_properties_process_ABProcessParticipant_selectManagersUI_js__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
+   const ClassSelectManagersUI = (0,_Designer_ui_common_participant_selectManager__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
 
    var Warnings = (0,_ui_warnings__WEBPACK_IMPORTED_MODULE_1__["default"])(AB, `view_warnings`, init_settings);
 
@@ -99208,13 +99000,16 @@ __webpack_require__.r(__webpack_exports__);
                   },
                   {
                      view: "icon",
-                     id: this.ids.icon,
                      icon: "wxi-alert",
                      css: "alert",
-                     hidden: true,
                      on: {
                         onItemClick: () => {
-                           this.showWarningList();
+                           const $issueID = $$(this.ids.issue_id);
+                           const $issueList = $$(this.ids.issue_list);
+
+                           $issueList.define("data", this.warningData());
+                           $issueList.refresh();
+                           $issueID.show();
                         },
                      },
                   },
@@ -99652,7 +99447,7 @@ __webpack_require__.r(__webpack_exports__);
                   {
                      view: "list",
                      id: this.ids.issue_list,
-                     template: `${issue_icon} #message#`,
+                     template: issue_icon + " #issue#",
                      scrollX: true,
                      scrollY: true,
                      select: true,
@@ -99677,34 +99472,19 @@ __webpack_require__.r(__webpack_exports__);
          this.emit("view.list");
       }
 
-      warningPopulate() {
-         const $warningButton = $$(this.ids.icon);
-         const warnings = this.warningData();
-
-         warnings?.length ? $warningButton.show() : $warningButton.hide();
-      }
-
       warningData() {
-         const apps = this.AB.applications(
-            (app) => app.id == this.CurrentApplicationID
-         );
+         const apps = this.AB.applications();
          const warnings = [];
 
          apps.forEach((e) => {
             warnings.push(...e.warningsAll());
          });
 
-         return warnings;
-      }
-
-      showWarningList() {
-         const $issueID = $$(this.ids.issue_id);
-         const $issueList = $$(this.ids.issue_list);
-
-         $issueList?.clearAll();
-         $issueList?.define("data", this.warningData());
-         $issueList?.refresh();
-         $issueID?.show();
+         return warnings?.length
+            ? warnings.map((e, i) => {
+                 return { id: i, issue: L(e.message) };
+              })
+            : [{ id: 1, issue: L("No Issues Found") }];
       }
 
       /**
@@ -99998,7 +99778,6 @@ __webpack_require__.r(__webpack_exports__);
             );
          }
 
-         this.warningPopulate();
          this.permissionPopulate(application);
       }
 
@@ -102042,6 +101821,289 @@ __webpack_require__.r(__webpack_exports__);
 
    // NOTE: We are returning the Class here, not an instance:
    return new UI_Common_List(options);
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/ui_common_participant_selectManager.js":
+/*!***********************************************************************!*\
+  !*** ./src/rootPages/Designer/ui_common_participant_selectManager.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
+/*
+ * ab_common_participant_selectManager
+ *
+ * Display the form for entering how to select "managers".
+ * this form allows you to choose Roles, or Users directly.
+ *
+ * @return {ClassUI} The Class Definition for this UI widget.
+ */
+
+// import ui_choose_list from "./ui_choose_list";
+// import ABProcessTaskCore from "../../../../../ab_platform_web/AppBuilder/core/process/tasks/ABProcessElementCore";
+// import ABProcessTaskUser from "./properties/process/ABProcessTaskUser";
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   var L = UIClass.L();
+
+   class UI_Common_Participant_SelectManager extends UIClass {
+      constructor(base) {
+         super(base, {
+            form: "",
+            name: "",
+            role: "",
+            useRole: "",
+            useAccount: "",
+            account: "",
+         });
+      }
+
+      ui(obj = {}) {
+         var __Roles = AB.Account.rolesAll().map((r) => {
+            return { id: r.id, value: r.name };
+         });
+         var __Users = AB.Account.userList().map((u) => {
+            return { id: u.uuid, value: u.username };
+         });
+
+         var ids = this.ids;
+
+         return {
+            view: "form",
+            id: this.ids.component,
+            css: "no-margin",
+            elements: [
+               {
+                  cols: [
+                     {
+                        view: "checkbox",
+                        id: this.ids.useRole,
+                        width: 34,
+                        labelWidth: 0,
+                        value: obj.useRole == "1" ? 1 : 0,
+                        click: function (id /*, event */) {
+                           if ($$(id).getValue()) {
+                              $$(ids.role).enable();
+                           } else {
+                              $$(ids.role).disable();
+                           }
+                        },
+                        on: {
+                           onAfterRender() {
+                              UIClass.CYPRESS_REF(this);
+                           },
+                        },
+                     },
+                     {
+                        view: "label",
+                        label: L("by Role"),
+                        width: 88,
+                     },
+                     {
+                        view: "multicombo",
+                        id: this.ids.role,
+                        value: obj.role ? obj.role : 0,
+                        disabled: obj.useRole == "1" ? false : true,
+                        suggest: {
+                           body: {
+                              yCount: 4,
+                              data: __Roles,
+                              on: {
+                                 //
+                                 // TODO: looks like a Webix Bug that has us
+                                 // doing all this work.  Let's see if Webix
+                                 // can fix this for us.
+                                 onAfterRender() {
+                                    this.data.each((a) => {
+                                       UIClass.CYPRESS_REF(
+                                          this.getItemNode(a.id),
+                                          `${ids.role}_${a.id}`
+                                       );
+                                    });
+                                 },
+                                 onItemClick: function (id) {
+                                    var $roleCombo = $$(ids.role);
+                                    var currentItems = $roleCombo.getValue();
+                                    var indOf = currentItems.indexOf(id);
+                                    if (indOf == -1) {
+                                       currentItems.push(id);
+                                    } else {
+                                       currentItems.splice(indOf, 1);
+                                    }
+                                    $roleCombo.setValue(currentItems);
+                                    // var item = this.getItem(id);
+                                    // UIClass.CYPRESS_REF(
+                                    //    this.getItemNode(item.id),
+                                    //    `${ids.role}_${item.id}`
+                                    // );
+                                 },
+                              },
+                           },
+                        },
+                        placeholder: L("Click to add Role"),
+                        labelAlign: "left",
+                        stringResult: false /* returns data as an array of [id] */,
+                        on: {
+                           onAfterRender: function () {
+                              // set data-cy for original field to track clicks to open option list
+                              UIClass.CYPRESS_REF(this.getNode(), ids.role);
+                           },
+                           onChange: (/* newVal, oldVal */) => {
+                              // trigger the onAfterRender function from the list so we can add data-cy to dom
+                              $$(this.ids.role)
+                                 .getList()
+                                 .callEvent("onAfterRender");
+                           },
+                        },
+                     },
+                  ],
+               },
+               {},
+               {
+                  cols: [
+                     {
+                        view: "checkbox",
+                        id: this.ids.useAccount,
+                        width: 34,
+                        labelWidth: 0,
+                        value: obj.useAccount == "1" ? 1 : 0,
+                        click: function (id /*, event */) {
+                           if ($$(id).getValue()) {
+                              $$(ids.account).enable();
+                           } else {
+                              $$(ids.account).disable();
+                           }
+                        },
+                        on: {
+                           onAfterRender() {
+                              UIClass.CYPRESS_REF(this);
+                           },
+                        },
+                     },
+                     {
+                        view: "label",
+                        label: L("by Account"),
+                        width: 88,
+                     },
+                     {
+                        view: "multicombo",
+                        id: this.ids.account,
+                        value: obj.account ? obj.account : 0,
+                        disabled: obj.useAccount == "1" ? false : true,
+                        suggest: {
+                           body: {
+                              yCount: 4,
+                              data: __Users,
+                              on: {
+                                 //
+                                 // TODO: looks like a Webix Bug that has us
+                                 // doing all this work.  Let's see if Webix
+                                 // can fix this for us.
+                                 onAfterRender() {
+                                    this.data.each((a) => {
+                                       UIClass.CYPRESS_REF(
+                                          this.getItemNode(a.id),
+                                          `${ids.account}_${a.id}`
+                                       );
+                                    });
+                                 },
+                                 onItemClick: function (id) {
+                                    var $accountCombo = $$(ids.account);
+                                    var currentItems = $accountCombo.getValue();
+                                    var indOf = currentItems.indexOf(id);
+                                    if (indOf == -1) {
+                                       currentItems.push(id);
+                                    } else {
+                                       currentItems.splice(indOf, 1);
+                                    }
+                                    $accountCombo.setValue(currentItems);
+                                    // var item = this.getItem(id);
+                                    // UIClass.CYPRESS_REF(
+                                    //    this.getItemNode(item.id),
+                                    //    `${ids.account}_${item.id}`
+                                    // );
+                                 },
+                              },
+                           },
+                        },
+                        placeholder: L("Click to add User"),
+                        labelAlign: "left",
+                        stringResult: false /* returns data as an array of [id] */,
+                        on: {
+                           onAfterRender: function () {
+                              // set data-cy for original field to track clicks to open option list
+                              UIClass.CYPRESS_REF(this.getNode(), ids.account);
+                           },
+                           onChange: (/* newVal, oldVal */) => {
+                              // trigger the onAfterRender function from the list so we can add data-cy to dom
+                              $$(this.ids.account)
+                                 .getList()
+                                 .callEvent("onAfterRender");
+                           },
+                        },
+                     },
+                  ],
+               },
+            ],
+         };
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         return Promise.resolve();
+      }
+
+      // show() {
+      //    super.show();
+      //    AppList.show();
+      // }
+
+      /**
+       * values()
+       * return an object hash representing the values for this component.
+       * @return {json}
+       */
+      values() {
+         var obj = {};
+         var ids = this.ids;
+
+         if ($$(ids.useRole)) {
+            obj.useRole = $$(ids.useRole).getValue();
+         }
+
+         if ($$(ids.role) && obj.useRole) {
+            obj.role = $$(ids.role).getValue();
+            if (obj.role === "--") obj.role = null;
+         } else {
+            obj.role = null;
+         }
+
+         if ($$(ids.useAccount)) {
+            obj.useAccount = $$(ids.useAccount).getValue();
+         }
+
+         if ($$(ids.account) && obj.useAccount) {
+            obj.account = $$(ids.account).getValue(/*{ options: true }*/);
+            if (obj.account === "--") obj.account = null;
+         } else {
+            obj.account = null;
+         }
+
+         return obj;
+      }
+   }
+
+   return UI_Common_Participant_SelectManager;
 }
 
 
