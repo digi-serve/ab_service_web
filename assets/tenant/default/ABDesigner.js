@@ -68672,6 +68672,7 @@ __webpack_require__.r(__webpack_exports__);
    // {array}
    // All the ABField Component Inerfaces available.
    [
+      __webpack_require__(/*! ./views/_ABViewDefault */ "./src/rootPages/Designer/editors/views/_ABViewDefault.js"),
       __webpack_require__(/*! ./views/ABViewCarousel */ "./src/rootPages/Designer/editors/views/ABViewCarousel.js"),
       __webpack_require__(/*! ./views/ABViewChart */ "./src/rootPages/Designer/editors/views/ABViewChart.js"),
       __webpack_require__(/*! ./views/ABViewChartArea */ "./src/rootPages/Designer/editors/views/ABViewChartArea.js"),
@@ -71178,6 +71179,84 @@ let myClass = null;
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/editors/views/_ABViewDefault.js":
+/*!****************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/_ABViewDefault.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewDefault
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      // var L = UIClass.L();
+      // var L = ABViewContainer.L();
+
+      myClass = class ABViewDefaultEditor extends UIClass {
+         static get key() {
+            return "_default";
+         }
+
+         constructor(view, base = "interface_editor_viewdefault") {
+            // base: {string} unique base id reference
+
+            super(base, {
+               label: "",
+            });
+
+            this.view = view;
+            this.settings = view.settings;
+            // shortcut to reference the settings
+
+            this.base = base;
+            this.AB = AB;
+
+            this.component = this.view.component();
+         }
+
+         ui() {
+            return this.component.ui();
+         }
+
+         init(AB) {
+            this.AB = AB;
+            return this.component.init?.(AB, 2);
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component.detatch?.();
+         }
+
+         onShow() {
+            this.component.onShow?.();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/interface_common/ui_tab_form_popup.js":
 /*!**********************************************************************!*\
   !*** ./src/rootPages/Designer/interface_common/ui_tab_form_popup.js ***!
@@ -71495,6 +71574,8 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/properties/views/ABViewDetail.js"),
       __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/properties/views/ABViewDocxBuilder.js"),
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/properties/views/ABViewForm.js"),
+      __webpack_require__(/*! ./views/ABViewFormButton */ "./src/rootPages/Designer/properties/views/ABViewFormButton.js"),
+      __webpack_require__(/*! ./views/ABViewFormConnect */ "./src/rootPages/Designer/properties/views/ABViewFormConnect.js"),
       __webpack_require__(/*! ./views/ABViewGantt */ "./src/rootPages/Designer/properties/views/ABViewGantt.js"),
       __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/properties/views/ABViewGrid.js"),
       __webpack_require__(/*! ./views/ABViewLabel */ "./src/rootPages/Designer/properties/views/ABViewLabel.js"),
@@ -83254,7 +83335,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ABViewRuleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewRuleList */ "./src/rootPages/Designer/properties/rules/ABViewRuleList.js");
 /* harmony import */ var _ABViewRule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ABViewRule */ "./src/rootPages/Designer/properties/rules/ABViewRule.js");
 /* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleConfirmMessage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleConfirmMessage */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleConfirmMessage.js");
-/* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleEmail__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleEmail */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleEmail.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleExistPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleExistPage */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleExistPage.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleEmail__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleEmail */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleEmail.js");
 //
 // ABViewRuleListFormSubmitRules
 //
@@ -83265,7 +83347,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// const RuleExistPage = require("./ruleActions/ABViewRuleActionFormSubmitRuleExistPage");
+
 // const RuleParentPage = require("./ruleActions/ABViewRuleActionFormSubmitRuleParentPage");
 // const RuleClosePopup = require("./ruleActions/ABViewRuleActionFormSubmitRuleClosePopup");
 // const RuleWebsite = require("./ruleActions/ABViewRuleActionFormSubmitRuleWebsite");
@@ -83277,7 +83359,8 @@ __webpack_require__.r(__webpack_exports__);
    const L = ABViewRuleList.L();
 
    const RuleConfirmMessage = (0,_ruleActions_ABViewRuleActionFormSubmitRuleConfirmMessage__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
-   const RuleEmail = (0,_ruleActions_ABViewRuleActionFormSubmitRuleEmail__WEBPACK_IMPORTED_MODULE_3__["default"])(AB);
+   const RuleExistPage = (0,_ruleActions_ABViewRuleActionFormSubmitRuleExistPage__WEBPACK_IMPORTED_MODULE_3__["default"])(AB);
+   const RuleEmail = (0,_ruleActions_ABViewRuleActionFormSubmitRuleEmail__WEBPACK_IMPORTED_MODULE_4__["default"])(AB);
 
    class ABViewRuleListFormSubmitRules extends ABViewRuleList {
       constructor(base = `ABViewRuleListFormSubmitRules`) {
@@ -83295,7 +83378,7 @@ __webpack_require__.r(__webpack_exports__);
       getRule() {
          var listActions = [
             new RuleConfirmMessage(`${this.idBase}_ruleActionConfirmMessage`),
-            // new RuleExistPage(this.App, `${this.idBase}_ruleActionExistPage`),
+            new RuleExistPage(`${this.idBase}_ruleActionExistPage`),
             // new RuleParentPage(this.App, `${this.idBase}_ruleActionParentPage`),
             // new RuleClosePopup(this.App, `${this.idBase}_ruleActionClosePopup`),
             // new RuleWebsite(this.App, `${this.idBase}_ruleActionWebsite`),
@@ -85480,6 +85563,155 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewRuleActionFormSubmitRuleEmail;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleExistPage.js":
+/*!********************************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleExistPage.js ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewRuleAction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ABViewRuleAction */ "./src/rootPages/Designer/properties/rules/ABViewRuleAction.js");
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ABViewRuleAction = (0,_ABViewRuleAction__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABViewRuleAction.L();
+
+   class ABViewRuleActionFormSubmitRuleExistPage extends ABViewRuleAction {
+      /**
+       * @param {object} App
+       *      The shared App object that is created in OP.Component
+       * @param {string} idBase
+       *      Identifier for this component
+       */
+      constructor(idBase) {
+         super(idBase, {
+            pagesAndTabs: "",
+         });
+
+         this.key = "ABViewRuleActionFormSubmitRuleExistPage";
+         this.label = L("Redirect to an existing page");
+
+         this.formRows = []; // keep track of the Value Components being set
+         // [
+         //		{ fieldId: xxx, value:yyy, type:key['string', 'number', 'date',...]}
+         // ]
+      }
+
+      ui() {
+         return {
+            id: this.ids.pagesAndTabs,
+            view: "richselect",
+            options: [],
+         };
+      }
+
+      init(AB) {
+         this.AB = AB;
+
+         this.refreshUI();
+      }
+
+      fromSettings(settings) {
+         super.fromSettings(settings); // let the parent handle the QB
+
+         const valueRules = settings.valueRules || {};
+
+         $$(this.ids.pagesAndTabs).setValue(
+            valueRules.tabId ?? valueRules.pageId ?? ""
+         );
+      }
+
+      toSettings() {
+         const ids = this.ids;
+         const settings = super.toSettings();
+
+         const selectedId = $$(ids.pagesAndTabs).getValue();
+         const selectedItem = $$(ids.pagesAndTabs)
+            .getPopup()
+            .getList()
+            .config.data.filter((opt) => opt.id == selectedId)[0];
+
+         if (selectedItem) {
+            if (selectedItem.type == "tab") {
+               // store page id and tab id
+               settings.valueRules = {
+                  pageId: selectedItem.pageId,
+                  tabId: selectedId,
+               };
+            } else {
+               // store only page id
+               settings.valueRules = {
+                  pageId: selectedId,
+               };
+            }
+         }
+
+         return settings;
+      }
+
+      refreshUI() {
+         const ids = this.ids;
+
+         // Pull page list to "Redirect to an existing page"
+         const _pageOptions = [];
+
+         /**
+          * @param pageOrTab	{Object}	- ABViewPage or ABViewTab
+          * @param indent	{integer}
+          * @param type		{string}	- 'page' or 'tab'
+          * @param pageId	{uuid}		- the id of page (only tab)
+          */
+         const addPage = (pageOrTab, indent, type, pageId) => {
+            indent = indent || "";
+
+            const icon =
+               type == "tab" ? "fa fa-window-maximize" : "fa fa-file-o";
+
+            const pageParent = pageOrTab.pageParent();
+
+            _pageOptions.push({
+               id: pageOrTab.id,
+               value: `${indent}${pageOrTab.label}`,
+               type: type,
+               pageId: pageParent?.id,
+               icon: icon,
+            });
+
+            if (type == "page" || type == "tab") {
+               (pageOrTab?.pages?.() ?? []).forEach(function (p) {
+                  addPage(p, `${indent}-`, "page");
+               });
+
+               // add 'tab' options
+               (pageOrTab?.views?.((v) => v.key == "tab") ?? []).forEach(
+                  (tab) => {
+                     // add 'tab view' to options
+                     tab.views().forEach((tabView) => {
+                        addPage(tabView, `${indent}-`, "tab", pageOrTab.id);
+                     });
+                  }
+               );
+            }
+         };
+
+         addPage(this.currentForm.pageRoot(), "", "page");
+
+         $$(ids.pagesAndTabs).define("options", _pageOptions);
+         $$(ids.pagesAndTabs).refresh();
+      }
+   }
+
+   return ABViewRuleActionFormSubmitRuleExistPage;
 }
 
 
@@ -92942,6 +93174,695 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/properties/views/ABViewFormButton.js":
+/*!*********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewFormButton.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewButton
+ * A Property manager for our ABViewButton definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_button";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   class ABViewButtonProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            // Put our ids here
+            includeSave: "",
+            saveLabel: "",
+            includeCancel: "",
+            cancelLabel: "",
+            includeReset: "",
+            resetLabel: "",
+            afterCancel: "",
+            alignment: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "button";
+      }
+
+      ui() {
+         const ids = this.ids;
+         const uiConfig = this.AB.UISettings.config();
+
+         return super.ui([
+            {
+               id: ids.includeSave,
+               name: "includeSave",
+               view: "checkbox",
+               label: L("Save"),
+            },
+            {
+               id: ids.saveLabel,
+               name: "saveLabel",
+               view: "text",
+               labelWidth: uiConfig.labelWidthLarge,
+               label: L("Save Label"),
+               placeholder: L("Save Placeholder"),
+            },
+            {
+               id: ids.includeCancel,
+               name: "includeCancel",
+               view: "checkbox",
+               label: L("Cancel"),
+            },
+            {
+               id: ids.cancelLabel,
+               name: "cancelLabel",
+               view: "text",
+               labelWidth: uiConfig.labelWidthLarge,
+               label: L("Cancel Label"),
+               placeholder: L("Cancel Placeholder"),
+            },
+            {
+               id: ids.includeReset,
+               name: "includeReset",
+               view: "checkbox",
+               label: L("Reset"),
+            },
+            {
+               id: ids.resetLabel,
+               name: "resetLabel",
+               view: "text",
+               labelWidth: uiConfig.labelWidthLarge,
+               label: L("Reset Label"),
+               placeholder: L("Reset Placeholder"),
+            },
+            {
+               id: ids.afterCancel,
+               name: "afterCancel",
+               view: "richselect",
+               labelWidth: uiConfig.labelWidthLarge,
+               label: L("After Cancel"),
+               // options: []
+            },
+            {
+               id: ids.alignment,
+               name: "alignment",
+               view: "richselect",
+               labelWidth: uiConfig.labelWidthLarge,
+               label: L("Alignment"),
+               options: [
+                  {
+                     id: "left",
+                     value: L("Left"),
+                  },
+                  {
+                     id: "center",
+                     value: L("Center"),
+                  },
+                  {
+                     id: "right",
+                     value: L("Right"),
+                  },
+               ],
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const ABViewFormButtonPropertyComponentDefaults = this.defaultValues();
+
+         const pagesList = [];
+         this.addPagesToList(pagesList, view.application, view.pageRoot().id);
+
+         const opts = pagesList.map((opt) => {
+            return {
+               id: opt.id,
+               value: opt.value,
+            };
+         });
+         $$(ids.afterCancel).define("options", opts);
+
+         $$(ids.includeSave).setValue(
+            view.settings.includeSave != null
+               ? view.settings.includeSave
+               : ABViewFormButtonPropertyComponentDefaults.includeSave
+         );
+         $$(ids.includeCancel).setValue(
+            view.settings.includeCancel != null
+               ? view.settings.includeCancel
+               : ABViewFormButtonPropertyComponentDefaults.includeCancel
+         );
+         $$(ids.includeReset).setValue(
+            view.settings.includeReset != null
+               ? view.settings.includeReset
+               : ABViewFormButtonPropertyComponentDefaults.includeReset
+         );
+
+         $$(ids.saveLabel).setValue(view.settings.saveLabel ?? "");
+         $$(ids.cancelLabel).setValue(view.settings.cancelLabel ?? "");
+         $$(ids.resetLabel).setValue(view.settings.resetLabel ?? "");
+
+         $$(ids.afterCancel).setValue(
+            view.settings.afterCancel ??
+               ABViewFormButtonPropertyComponentDefaults.afterCancel
+         );
+         $$(ids.alignment).setValue(
+            view.settings.alignment ??
+               ABViewFormButtonPropertyComponentDefaults.alignment
+         );
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = super.values() ?? {};
+         values.settings = $component.getValues() ?? {};
+         values.settings.includeSave = $$(ids.includeSave).getValue();
+         values.settings.saveLabel = $$(ids.saveLabel).getValue();
+         values.settings.includeCancel = $$(ids.includeCancel).getValue();
+         values.settings.cancelLabel = $$(ids.cancelLabel).getValue();
+         values.settings.includeReset = $$(ids.includeReset).getValue();
+         values.settings.resetLabel = $$(ids.resetLabel).getValue();
+         values.settings.afterCancel = $$(ids.afterCancel).getValue();
+         values.settings.alignment = $$(ids.alignment).getValue();
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("button");
+      }
+
+      addPagesToList(pagesList, parent, rootPageId) {
+         if (!parent || !parent.pages || !pagesList) return;
+
+         (parent.pages() ?? []).forEach((page) => {
+            if (page.parent != null || page.id == rootPageId) {
+               pagesList.push({
+                  id: page.id,
+                  value: page.label,
+               });
+
+               this.addPagesToList(pagesList, page, page.id);
+            }
+         });
+      }
+   }
+
+   return ABViewButtonProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewFormConnect.js":
+/*!**********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewFormConnect.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/* harmony import */ var _ui_work_object_workspace_popupSortFields__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../ui_work_object_workspace_popupSortFields */ "./src/rootPages/Designer/ui_work_object_workspace_popupSortFields.js");
+/* harmony import */ var _viewProperties_ABViewPropertyAddPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./viewProperties/ABViewPropertyAddPage */ "./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyAddPage.js");
+/* harmony import */ var _viewProperties_ABViewPropertyEditPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./viewProperties/ABViewPropertyEditPage */ "./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyEditPage.js");
+/*
+ * ABViewConnect
+ * A Property manager for our ABViewConnect definitions
+ */
+
+
+
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_connect";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const ABAddPage = (0,_viewProperties_ABViewPropertyAddPage__WEBPACK_IMPORTED_MODULE_2__["default"])(AB, BASE_ID);
+   const ABEditPage = (0,_viewProperties_ABViewPropertyEditPage__WEBPACK_IMPORTED_MODULE_3__["default"])(AB, BASE_ID);
+   const L = ABView.L();
+
+   let FilterComponent = null;
+   let SortComponent = null;
+
+   class ABViewConnectProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            // Put our ids here
+            addNewSettings: "",
+            popupWidth: "",
+            popupHeight: "",
+            advancedOption: "",
+            buttonFilter: "",
+            filterConnectedValue: "",
+            buttonSort: "",
+         });
+
+         this.AB = AB;
+         FilterComponent = this.AB.filterComplexNew(`${BASE_ID}_filter`);
+         SortComponent = (0,_ui_work_object_workspace_popupSortFields__WEBPACK_IMPORTED_MODULE_1__["default"])(this.AB, `${BASE_ID}_sort`);
+      }
+
+      static get key() {
+         return "connect";
+      }
+
+      ui() {
+         const self = this;
+         const ids = this.ids;
+         const uiConfig = this.AB.UISettings.config();
+
+         return super.ui([
+            this.addPageProperty.ui(),
+            this.editPageProperty.ui(),
+            {
+               id: ids.addNewSettings,
+               view: "fieldset",
+               name: "addNewSettings",
+               label: L("Add New Popup Settings:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        id: ids.popupWidth,
+                        view: "text",
+                        name: "popupWidth",
+                        placeholder: L("Set popup width"),
+                        label: L("Width:"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        validate: this.AB.Webix.rules.isNumber,
+                     },
+                     {
+                        id: ids.popupHeight,
+                        view: "text",
+                        name: "popupHeight",
+                        placeholder: L("Set popup height"),
+                        label: L("Height:"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        validate: this.AB.Webix.rules.isNumber,
+                     },
+                  ],
+               },
+            },
+            {
+               id: ids.advancedOption,
+               view: "fieldset",
+               name: "advancedOption",
+               label: L("Advanced Options:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        cols: [
+                           {
+                              view: "label",
+                              label: L("Filter Options:"),
+                              width: uiConfig.labelWidthLarge,
+                           },
+                           {
+                              id: ids.buttonFilter,
+                              view: "button",
+                              name: "buttonFilter",
+                              css: "webix_primary",
+                              label: L("Settings"),
+                              icon: "fa fa-gear",
+                              type: "icon",
+                              badge: 0,
+                              click: function () {
+                                 self.showFilterPopup(this.$view);
+                              },
+                           },
+                        ],
+                     },
+                     {
+                        rows: [
+                           {
+                              view: "label",
+                              label: L("Filter by Connected Field Value:"),
+                           },
+                           {
+                              id: ids.filterConnectedValue,
+                              view: "combo",
+                              name: "filterConnectedValue",
+                              options: [], // we will add these in propertyEditorPopulate
+                           },
+                        ],
+                     },
+                     {
+                        height: 30,
+                     },
+                     {
+                        rows: [
+                           {
+                              cols: [
+                                 {
+                                    view: "label",
+                                    label: L("Sort Options:"),
+                                    width: uiConfig.labelWidthLarge,
+                                 },
+                                 {
+                                    id: ids.buttonSort,
+                                    view: "button",
+                                    name: "buttonSort",
+                                    css: "webix_primary",
+                                    label: L("Settings"),
+                                    icon: "fa fa-gear",
+                                    type: "icon",
+                                    badge: 0,
+                                    click: function () {
+                                       self.showSortPopup(this.$view);
+                                    },
+                                 },
+                              ],
+                           },
+                        ],
+                     },
+                  ],
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+
+         FilterComponent.init();
+         // when we make a change in the popups we want to make sure we save the new workspace to the properties to do so just fire an onChange event
+         //  FilterComponent.on("change", (val) => {
+         //     _logic.onFilterChange(val);
+         //  });
+
+         SortComponent.init(AB);
+
+         if (this.filter_popup == null) {
+            this.filter_popup = this.AB.Webix.ui({
+               view: "popup",
+               width: 800,
+               hidden: true,
+               body: FilterComponent.ui,
+            });
+         }
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const ABViewFormConnectPropertyComponentDefaults =
+            this.defaultValues();
+
+         // Default set of options for filter connected combo
+         const filterConnectedOptions = [{ id: "", value: "" }];
+
+         // get the definitions for the connected field
+         const fieldDefs = this.AB.definitionByID(view.settings.fieldId);
+
+         // get the definition for the object that the field is related to
+         const objectDefs = this.AB.definitionByID(
+            fieldDefs.settings.linkObject
+         );
+
+         // we need these definitions later as we check to find out which field
+         // we are filtering by so push them into an array for later
+         const fieldsDefs = [];
+         objectDefs.fieldIDs.forEach((fld) => {
+            fieldsDefs.push(this.AB.definitionByID(fld));
+         });
+
+         // find out what connected objects this field has
+         const connectedObjs = view.application.connectedObjects(
+            fieldDefs.settings.linkObject
+         );
+
+         // loop through the form's elements (need to ensure that just looking at parent is okay in all cases)
+         view.parent.views().forEach((element) => {
+            // identify if element is a connected field
+            if (element.key == "connect") {
+               // we need to get the fields defs to find out what it is connected to
+               const formElementsDefs = this.AB.definitionByID(
+                  element.settings.fieldId
+               );
+
+               // loop through the connected objects discovered above
+               connectedObjs.forEach((connObj) => {
+                  // see if the connected object matches the connected object of the form element
+                  if (connObj.id == formElementsDefs.settings.linkObject) {
+                     // get the ui id of this component that matches the link Object
+                     let fieldToCheck;
+                     fieldsDefs.forEach((fdefs) => {
+                        // if the field has a custom foreign key we need to store it
+                        // so selectivity later can know what value to get, otherwise
+                        // we just get the uuid of the record
+                        if (
+                           fdefs.settings.isCustomFK &&
+                           fdefs.settings.indexField != "" &&
+                           fdefs.settings.linkObject &&
+                           fdefs.settings.linkType == "one" &&
+                           fdefs.settings.linkObject ==
+                              formElementsDefs.settings.linkObject
+                        ) {
+                           fieldToCheck = fdefs.id;
+                           let customFK = this.AB.definitionByID(
+                              fdefs.settings.indexField
+                           );
+
+                           // if the index definitions were found
+                           if (customFK) {
+                              fieldToCheck = `${fdefs.id}:${customFK.columnName}`;
+                           }
+                        } else if (
+                           fdefs.settings.linkObject &&
+                           fdefs.settings.linkType == "one" &&
+                           fdefs.settings.linkObject ==
+                              formElementsDefs.settings.linkObject
+                        ) {
+                           fieldToCheck = `${fdefs.id}:uuid`;
+                        }
+                     });
+
+                     // only add optinos that have a fieldToCheck
+                     if (fieldToCheck) {
+                        // get the component we are referencing so we can display its label
+                        const formComponent =
+                           view.parent.viewComponents[element.id]; // need to ensure that just looking at parent is okay in all cases
+                        filterConnectedOptions.push({
+                           id: `${formComponent.ui.name}:${fieldToCheck}`, // store the columnName name because the ui id changes on each load
+                           value: formComponent.ui.label, // should be the translated field label
+                        });
+                     }
+                  }
+               });
+            }
+         });
+
+         // Set the options of the possible edit forms
+         this.addPageProperty.setSettings(view, view.settingsAddPage);
+         this.editPageProperty.setSettings(view, view.settingsEditPage);
+         $$(ids.filterConnectedValue).define("options", filterConnectedOptions);
+         $$(ids.filterConnectedValue).setValue(
+            view.settings.filterConnectedValue
+         );
+
+         $$(ids.popupWidth).setValue(
+            view.settings.popupWidth ||
+               ABViewFormConnectPropertyComponentDefaults.popupWidth
+         );
+         $$(ids.popupHeight).setValue(
+            view.settings.popupHeight ||
+               ABViewFormConnectPropertyComponentDefaults.popupHeight
+         );
+
+         // initial populate of popups
+         this.populatePopupEditors(view);
+
+         // inform the user that some advanced settings have been set
+         this.populateBadgeNumber(ids, view);
+      }
+
+      populatePopupEditors(view) {
+         const filterConditions =
+            view?.settings?.filterConditions ??
+            this.defaultValues().filterConditions;
+
+         // Populate data to popups
+         // FilterComponent.objectLoad(objectCopy);
+         let linkedObj;
+         const field = view.field();
+         if (field) {
+            linkedObj = field.datasourceLink;
+            if (linkedObj)
+               FilterComponent.fieldsLoad(linkedObj.fields(), linkedObj);
+         }
+
+         FilterComponent.setValue(filterConditions);
+
+         if (linkedObj) SortComponent.objectLoad(linkedObj);
+         SortComponent.setSettings(view.settings.sortFields);
+      }
+
+      populateBadgeNumber(ids, view) {
+         const $buttonFilter = $$(ids.buttonFilter);
+         if (view?.settings?.filterConditions?.rules) {
+            $buttonFilter.define(
+               "badge",
+               view.settings.filterConditions.rules.length || null
+            );
+            $buttonFilter.refresh();
+         } else {
+            $buttonFilter.define("badge", null);
+            $buttonFilter.refresh();
+         }
+
+         const $buttonSort = $$(ids.buttonSort);
+         if (view?.settings?.sortFields?.length) {
+            $buttonSort.define(
+               "badge",
+               view.settings.sortFields.length || null
+            );
+            $buttonSort.refresh();
+         } else {
+            $buttonSort.define("badge", null);
+            $buttonSort.refresh();
+         }
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+         const view = this.CurrentView;
+
+         const $component = $$(ids.component);
+
+         const values = super.values() ?? {};
+         values.settings = $component.getValues() ?? {};
+         values.settings.popupWidth = $$(ids.popupWidth).getValue();
+         values.settings.popupHeight = $$(ids.popupHeight).getValue();
+         values.settings.filterConnectedValue = $$(
+            ids.filterConnectedValue
+         ).getValue();
+         values.settings.filterConditions = FilterComponent.getValue();
+         values.settings.sortFields = SortComponent.getSettings();
+
+         values.settingsAddPage = this.addPageProperty.getSettings(view);
+         values.settingsEditPage = this.editPageProperty.getSettings(view);
+
+         // refresh settings of app page tool
+         this.addPageProperty.setSettings(view, values.settingsAddPage);
+         this.editPageProperty.setSettings(view, values.settingsEditPage);
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("connect");
+      }
+
+      get addPageProperty() {
+         if (!this._addPage) this._addPage = new ABAddPage();
+
+         return this._addPage;
+      }
+
+      get editPageProperty() {
+         if (!this._editPage) this._editPage = new ABEditPage();
+
+         return this._editPage;
+      }
+
+      showFilterPopup($view) {
+         this.filter_popup.show($view, null, { pos: "top" });
+      }
+
+      showSortPopup($button) {
+         SortComponent.show($button, null, {
+            pos: "top",
+         });
+      }
+   }
+
+   return ABViewConnectProperty;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/views/ABViewGantt.js":
 /*!****************************************************************!*\
   !*** ./src/rootPages/Designer/properties/views/ABViewGantt.js ***!
@@ -95813,6 +96734,256 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewTextProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyAddPage.js":
+/*!*****************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyAddPage.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+
+
+let myClass = null;
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB, idBase) {
+   if (!myClass) {
+      const base = `${idBase}_viewpropertyaddpage`;
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      const L = UIClass.L();
+
+      myClass = class ABViewPropertyAddPage extends UIClass {
+         /**
+          * @property default
+          * return default settings
+          *
+          * @return {Object}
+          */
+         static get default() {
+            return {
+               formView: "none", // id of form to add new data
+            };
+         }
+
+         constructor() {
+            // base: {string} unique base id reference
+
+            super(base, {
+               formView: "",
+            });
+
+            this.AB = AB;
+         }
+
+         ui() {
+            const ids = this.ids;
+
+            return {
+               id: ids.formView,
+               name: "formView",
+               view: "richselect",
+               label: L("Add New Form"),
+               labelWidth: this.AB.UISettings.config().labelWidthXLarge,
+               on: {
+                  onChange: (newVal, oldVal) => {
+                     if (newVal == L("No add new option")) {
+                        $$(ids.formView).setValue("");
+                     }
+                  },
+               },
+            };
+         }
+
+         setSettings(view, settings = {}) {
+            if (view == null) return;
+
+            // Set the options of the possible edit forms
+            let editForms = [
+               {
+                  id: "none",
+                  value: L("No add new option"),
+               },
+            ];
+
+            const pagesHasForm = view
+               .pageRoot()
+               .pages(
+                  (p) =>
+                     p.views(
+                        (v) =>
+                           v?.key == "form" &&
+                           v?.datacollection?.datasource?.id ==
+                              view.field().settings.linkObject,
+                        true
+                     ).length,
+                  true
+               )
+               .map((p) => {
+                  return {
+                     id: p.id,
+                     value: p.label,
+                  };
+               });
+
+            editForms = editForms.concat(pagesHasForm);
+
+            const $selector = $$(this.ids.formView);
+            if ($selector) {
+               $selector.define("options", editForms);
+               $selector.define(
+                  "value",
+                  settings.formView ?? this.constructor.default.formView
+               );
+               $selector.refresh();
+            }
+         }
+
+         getSettings(view) {
+            const settings = view.settings ?? {};
+
+            settings.formView = $$(this.ids.formView).getValue();
+
+            return settings;
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyEditPage.js":
+/*!******************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyEditPage.js ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+
+
+let myClass = null;
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB, idBase) {
+   if (!myClass) {
+      const base = `${idBase}_viewpropertyeditpage`;
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      const L = UIClass.L();
+
+      myClass = class ABViewPropertyEditPage extends UIClass {
+         /**
+          * @property default
+          * return default settings
+          *
+          * @return {Object}
+          */
+         static get default() {
+            return {
+               editForm: "none", // The url pointer of ABViewForm
+            };
+         }
+
+         constructor() {
+            // base: {string} unique base id reference
+
+            super(base, {
+               formEdit: "",
+            });
+
+            this.AB = AB;
+         }
+
+         ui() {
+            const ids = this.ids;
+
+            return {
+               id: ids.formEdit,
+               name: "editForm",
+               view: "richselect",
+               label: L("Edit Form"),
+               labelWidth: this.AB.UISettings.config().labelWidthXLarge,
+               on: {
+                  onChange: (newVal, oldVal) => {
+                     if (newVal == L("No add new option")) {
+                        $$(ids.formEdit).setValue("");
+                     }
+                  },
+               },
+            };
+         }
+
+         setSettings(view, settings = {}) {
+            if (view == null) return;
+
+            // Set the options of the possible edit forms
+            const editForms = [
+               {
+                  id: "none",
+                  value: L("No add new option"),
+               },
+            ];
+
+            (view.pageRoot().pages(() => true, true) ?? []).forEach((p) => {
+               if (!p) return;
+
+               p.views(() => true, true).forEach((v) => {
+                  if (
+                     v?.key == "form" &&
+                     v?.datacollection?.datasource?.id ==
+                        view.field().settings.linkObject
+                  ) {
+                     editForms.push({
+                        id: v.urlPointer(),
+                        value: `${p.label} - ${v.label}`,
+                     });
+                  }
+               });
+            });
+
+            const $selector = $$(this.ids.formEdit);
+            if ($selector) {
+               $selector.define("options", editForms);
+               $selector.define(
+                  "value",
+                  settings.editForm ?? this.constructor.default.editForm
+               );
+               $selector.refresh();
+            }
+         }
+
+         getSettings(view) {
+            const settings = view.settings || {};
+
+            const $selector = $$(this.ids.formEdit);
+            const $selectPopup = $selector.getPopup();
+            const selectedItem = ($selectPopup.config.body.data ?? []).filter(
+               (opt) => opt.id == $selector.getValue()
+            )[0];
+            if (selectedItem) {
+               settings.editForm = selectedItem.id; // The url pointer of ABViewForm
+            }
+
+            return settings;
+         }
+      };
+   }
+
+   return myClass;
 }
 
 
@@ -106088,6 +107259,10 @@ __webpack_require__.r(__webpack_exports__);
           * want to save the current one.
           */
          this._handler_onChange = (waitDuration = 3000, skipEmit = false) => {
+            if (!this.CurrentView) return;
+
+            this.busy();
+
             let values = this.currentPanel.values();
 
             // to update the label, add it before we ask for .toObj():
@@ -106112,9 +107287,18 @@ __webpack_require__.r(__webpack_exports__);
             if (view.__timedSave) {
                clearTimeout(view.__timedSave);
             }
-            view.__timedSave = setTimeout(() => {
-               view.save();
-               delete view.__timedSave;
+            view.__timedSave = setTimeout(async () => {
+               try {
+                  await view.save();
+                  delete view.__timedSave;
+                  this.ready();
+               } catch (err) {
+                  this.AB.notify.developer(err, {
+                     message: "Error trying to save the View:",
+                     view: view.toObj(),
+                  });
+                  this.ready();
+               }
             }, waitDuration);
 
             if (!skipEmit) {
@@ -106168,6 +107352,12 @@ __webpack_require__.r(__webpack_exports__);
          PropertyManager.views().forEach((V) => {
             this._editorsByType[V.key] = V;
          });
+
+         // Implement loading cursor
+         const $component = $$(this.ids.component);
+         if ($component) {
+            this.AB.Webix.extend($component, this.AB.Webix.ProgressBar);
+         }
       }
 
       infoAlert() {
@@ -106223,6 +107413,18 @@ __webpack_require__.r(__webpack_exports__);
             this.currentPanel = newPanel;
             // newPanel.show();
          }
+      }
+
+      ready() {
+         const $component = $$(this.ids.component);
+         $component?.enable?.();
+         $component?.hideProgress?.();
+      }
+
+      busy() {
+         const $component = $$(this.ids.component);
+         $component?.showProgress?.({ type: "icon" });
+         $component?.disable?.();
       }
    }
 
@@ -107020,6 +108222,9 @@ __webpack_require__.r(__webpack_exports__);
             }
          } else {
             let newEditor = this._editorsByType[view.key];
+            if (newEditor == null) {
+               newEditor = this._editorsByType["_default"];
+            }
 
             editorComponent = new newEditor(view); // view.editorComponent(this.AB._App, "preview");
             editorComponent.viewLoad(view);
