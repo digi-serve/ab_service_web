@@ -78060,7 +78060,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    class UIProcessEnd extends UIClass {
       constructor() {
@@ -78093,6 +78094,7 @@ __webpack_require__.r(__webpack_exports__);
                         id: ids.name,
                         view: "text",
                         label: L("Name"),
+                        labelWidth: uiConfig.labelWidthLarge,
                         name: "name",
                         value: "",
                      },
@@ -78119,8 +78121,8 @@ __webpack_require__.r(__webpack_exports__);
        * @return {json}
        */
       values() {
-         var obj = {};
-         var ids = this.ids;
+         const obj = {};
+         const ids = this.ids;
          obj.label = $$(ids.name)?.getValue();
          return obj;
       }
@@ -78155,7 +78157,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    class UIProcessGatewayExclusive extends UIClass {
       constructor() {
@@ -78182,6 +78185,7 @@ __webpack_require__.r(__webpack_exports__);
                   id: ids.name,
                   view: "text",
                   label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
                   name: "name",
                   // value: this.name,
                },
@@ -78214,18 +78218,20 @@ __webpack_require__.r(__webpack_exports__);
             return f.field;
          });
 
-         var myOutgoingConnections = element.process.connectionsOutgoing(
+         const myOutgoingConnections = element.process.connectionsOutgoing(
             element.diagramID
          );
 
          this.__dfLookup = {};
          this.conditions = element.conditions || this.conditions || {};
          myOutgoingConnections.forEach((conn) => {
-            var condition = this.conditions[conn.id] || {};
+            const condition = this.conditions[conn.id] || {};
 
-            var connectedElement = element.process.elementForDiagramID(conn.to);
+            const connectedElement = element.process.elementForDiagramID(
+               conn.to
+            );
 
-            var DF;
+            let DF;
             if (!this.__dfLookup[conn.id]) {
                DF = this.AB.filterComplexNew(
                   `${ids.component}_${conn.id}_filter`
@@ -78243,7 +78249,7 @@ __webpack_require__.r(__webpack_exports__);
                DF.init();
 
                DF.on("save", () => {
-                  var value = DF.getValue();
+                  const value = DF.getValue();
                   const $buttonFilter = $$(`${ids.buttonFilter}_${conn.id}`);
                   $buttonFilter.define("badge", value.rules?.length || null);
                   $buttonFilter.refresh();
@@ -78253,7 +78259,7 @@ __webpack_require__.r(__webpack_exports__);
             }
             DF = this.__dfLookup[conn.id];
 
-            var connUI = {
+            const connUI = {
                view: "fieldset",
                label: L("to {0}", [
                   connectedElement
@@ -78297,8 +78303,8 @@ __webpack_require__.r(__webpack_exports__);
 
          // update the filters after they have been .show()n
          myOutgoingConnections.forEach((conn) => {
-            var condition = this.conditions[conn.id] || {};
-            var DF = this.__dfLookup[conn.id];
+            const condition = this.conditions[conn.id] || {};
+            const DF = this.__dfLookup[conn.id];
 
             // NOTE: keep the DF.fieldsLoad() AFTER the ui is built.
             DF.fieldsLoad(abFields);
@@ -78331,7 +78337,7 @@ __webpack_require__.r(__webpack_exports__);
                `${ids.component}_${conn.id}_label`
             ).getValue();
             if (this.__dfLookup && this.__dfLookup[conn.id]) {
-               var DF = this.__dfLookup[conn.id];
+               const DF = this.__dfLookup[conn.id];
                obj.conditions[conn.id].filterValue = DF.getValue();
             }
          });
@@ -78372,7 +78378,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    const ABProcessParticipantUsers = (0,_ABProcessParticipant_selectManagersUI__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
 
@@ -78395,7 +78402,7 @@ __webpack_require__.r(__webpack_exports__);
       // This should match the ABProcessParticipant.defaults().key value.
 
       uiUser(obj) {
-         var usersUI = this.users.ui(obj ?? {});
+         const usersUI = this.users.ui(obj ?? {});
          return {
             id: this.ids.users,
             rows: [usersUI],
@@ -78427,6 +78434,7 @@ __webpack_require__.r(__webpack_exports__);
                         id: ids.name,
                         view: "text",
                         label: L("Name"),
+                        labelWidth: uiConfig.labelWidthLarge,
                         name: "name",
                         value: this.name,
                      },
@@ -78469,7 +78477,7 @@ __webpack_require__.r(__webpack_exports__);
          $$(ids.name).setValue(obj.name);
 
          if (obj.laneIDs && obj.laneIDs.length == 0) {
-            var usersUI = this.uiUser(obj ?? {});
+            const usersUI = this.uiUser(obj ?? {});
             webix.ui(usersUI, $$(ids.users));
          }
       }
@@ -78480,8 +78488,8 @@ __webpack_require__.r(__webpack_exports__);
        * @return {json}
        */
       // values() {
-      //    var obj = {};
-      //    var ids = this.ids;
+      //    const obj = {};
+      //    const ids = this.ids;
 
       //    obj.label = $$(ids.name)?.getValue();
       //    obj.objectID = $$(ids.objList)?.getValue();
@@ -78492,13 +78500,13 @@ __webpack_require__.r(__webpack_exports__);
       // }
 
       values() {
-         var obj = {};
-         var ids = this.ids;
+         const obj = {};
+         const ids = this.ids;
 
          obj.label = $$(ids.name).getValue();
 
          // if (obj.laneIDs.length == 0) {
-         var userDef = this.users.values();
+         const userDef = this.users.values();
          Object.keys(userDef).forEach((k) => {
             obj[k] = userDef[k];
          });
@@ -78726,7 +78734,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    const ABProcessParticipant = (0,_ABProcessParticipant_selectManagersUI__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
 
@@ -78765,8 +78774,8 @@ __webpack_require__.r(__webpack_exports__);
          // we are creating these on the fly, and should have CurrentApplication
          // defined already.
 
-         var toUserUI = this.toUser.ui(obj?.toUsers ?? {});
-         var fromUserUI = this.fromUser.ui(obj?.fromUsers ?? {});
+         const toUserUI = this.toUser.ui(obj?.toUsers ?? {});
+         const fromUserUI = this.fromUser.ui(obj?.fromUsers ?? {});
 
          let ids = this.ids;
          return {
@@ -78785,6 +78794,7 @@ __webpack_require__.r(__webpack_exports__);
                         id: ids.name,
                         view: "text",
                         label: L("Name"),
+                        labelWidth: uiConfig.labelWidthLarge,
                         name: "name",
                         value: this.name,
                      },
@@ -78864,12 +78874,13 @@ __webpack_require__.r(__webpack_exports__);
                                           });
                                        },
                                        onItemClick: function (id) {
-                                          var $toCustomFields = $$(
+                                          const $toCustomFields = $$(
                                              ids.toCustomFields
                                           );
-                                          var currentItems =
+                                          const currentItems =
                                              $toCustomFields.getValue();
-                                          var indOf = currentItems.indexOf(id);
+                                          const indOf =
+                                             currentItems.indexOf(id);
                                           if (indOf == -1) {
                                              currentItems.push(id);
                                           } else {
@@ -78978,12 +78989,13 @@ __webpack_require__.r(__webpack_exports__);
                                           });
                                        },
                                        onItemClick: function (id) {
-                                          var $fromCustomFields = $$(
+                                          const $fromCustomFields = $$(
                                              ids.fromCustomFields
                                           );
-                                          var currentItems =
+                                          const currentItems =
                                              $fromCustomFields.getValue();
-                                          var indOf = currentItems.indexOf(id);
+                                          const indOf =
+                                             currentItems.indexOf(id);
                                           if (indOf == -1) {
                                              currentItems.push(id);
                                           } else {
@@ -79156,8 +79168,8 @@ __webpack_require__.r(__webpack_exports__);
        * @return {json}
        */
       // values() {
-      //    var obj = {};
-      //    var ids = this.ids;
+      //    const obj = {};
+      //    const ids = this.ids;
 
       //    obj.label = $$(ids.name)?.getValue();
       //    obj.objectID = $$(ids.objList)?.getValue();
@@ -79168,8 +79180,8 @@ __webpack_require__.r(__webpack_exports__);
       // }
 
       values() {
-         var obj = {};
-         var ids = this.ids;
+         const obj = {};
+         const ids = this.ids;
 
          obj.label = $$(ids.name).getValue();
          obj.to = $$(ids.to).getValue();
@@ -79210,6 +79222,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    const ProcessTaskManager = AB.Class.ABProcessTaskManager;
 
@@ -79241,6 +79254,7 @@ __webpack_require__.r(__webpack_exports__);
                   id: ids.name,
                   view: "text",
                   label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
                   name: "name",
                   value: "",
                },
@@ -79408,7 +79422,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    class UIProcessServiceCalculate extends UIClass {
       constructor() {
@@ -79444,7 +79459,7 @@ __webpack_require__.r(__webpack_exports__);
                data: "",
                on: {
                   onItemClick: function (id) {
-                     var component = this.getItem(id);
+                     const component = this.getItem(id);
 
                      insertFormula(`{${component.value}}`);
 
@@ -79468,7 +79483,7 @@ __webpack_require__.r(__webpack_exports__);
             body: {
                view: "list",
                template: (item) => {
-                  var template = "";
+                  let template = "";
 
                   if (item.icon) {
                      template += `<i class="fa fa-${item.icon}" aria-hidden="true"></i> `;
@@ -79507,8 +79522,8 @@ __webpack_require__.r(__webpack_exports__);
                   },
                ],
                on: {
-                  onItemClick: function (id, e, node) {
-                     var component = this.getItem(id);
+                  onItemClick: function (id) {
+                     const component = this.getItem(id);
 
                      insertFormula(component.symbol);
 
@@ -79531,6 +79546,7 @@ __webpack_require__.r(__webpack_exports__);
                         id: ids.name,
                         view: "text",
                         label: L("Name"),
+                        labelWidth: uiConfig.labelWidthLarge,
                         name: "name",
                         value: this.name,
                      },
@@ -79654,7 +79670,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    class UIProcessServiceGetResetPasswordUrl extends UIClass {
       constructor() {
@@ -79684,6 +79701,7 @@ __webpack_require__.r(__webpack_exports__);
                   id: ids.name,
                   view: "text",
                   label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
                   name: "name",
                   value: "",
                },
@@ -79716,15 +79734,14 @@ __webpack_require__.r(__webpack_exports__);
       // }
 
       populate(element) {
-         const processData = (
-            element.process.processDataFields(element) ?? []
-         ).filter((item) => item.field?.key == "email").map((item) => {
-            return {
-               id: item.key,
-               value: item.label,
-            };
-         });
-
+         const processData = (element.process.processDataFields(element) ?? [])
+            .filter((item) => item.field?.key == "email")
+            .map((item) => {
+               return {
+                  id: item.key,
+                  value: item.label,
+               };
+            });
 
          const ids = this.ids;
 
@@ -79735,7 +79752,6 @@ __webpack_require__.r(__webpack_exports__);
          $email.setValue(element.email);
          $email.define("options", processData);
          $email.refresh();
-
       }
 
       /**
@@ -79789,7 +79805,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    class UIProcessServiceInsertRecord extends UIClass {
       constructor() {
@@ -79833,6 +79850,7 @@ __webpack_require__.r(__webpack_exports__);
                   id: ids.name,
                   view: "text",
                   label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
                   name: "name",
                   value: "",
                },
@@ -80245,6 +80263,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    class UIProcessServiceQuery extends UIClass {
       constructor() {
@@ -80266,7 +80285,6 @@ __webpack_require__.r(__webpack_exports__);
          // defined already.
 
          const ids = this.ids;
-
          return {
             id: ids.component,
             view: "form",
@@ -80275,6 +80293,7 @@ __webpack_require__.r(__webpack_exports__);
                   id: ids.name,
                   view: "text",
                   label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
                   name: "name",
                   value: this.name,
                },
@@ -80372,7 +80391,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    class ABProcessTaskSubProcess extends UIClass {
       constructor() {
@@ -80403,6 +80423,7 @@ __webpack_require__.r(__webpack_exports__);
                   id: ids.name,
                   view: "text",
                   label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
                   name: "name",
                   value: "",
                },
@@ -80464,8 +80485,8 @@ __webpack_require__.r(__webpack_exports__);
        * @return {json}
        */
       values() {
-         var obj = {};
-         var ids = this.ids;
+         const obj = {};
+         const ids = this.ids;
          obj.name = $$(ids.name)?.getValue();
          obj.label = obj.name;
          obj.isEnable = $$(ids.isEnable)?.getValue();
@@ -80498,6 +80519,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    const ProcessTaskManager = AB.Class.ABProcessTaskManager;
 
@@ -80529,6 +80551,7 @@ __webpack_require__.r(__webpack_exports__);
                   id: ids.name,
                   view: "text",
                   label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
                   name: "name",
                   value: "",
                },
@@ -80650,7 +80673,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    const ABProcessParticipantUsers = (0,_ABProcessParticipant_selectManagersUI__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
 
@@ -80680,7 +80704,7 @@ __webpack_require__.r(__webpack_exports__);
       // This should match the ABProcessTaskServiceGetResetPasswordUrlCore.defaults().key value.
 
       uiUser(obj) {
-         var usersUI = this.users.ui(obj ?? {});
+         const usersUI = this.users.ui(obj ?? {});
          return {
             id: this.ids.users,
             rows: [usersUI],
@@ -80788,6 +80812,7 @@ __webpack_require__.r(__webpack_exports__);
                   id: ids.name,
                   view: "text",
                   label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
                   name: "name",
                   value: "",
                },
@@ -80970,6 +80995,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    const ABProcessParticipantUsers = (0,_ABProcessParticipant_selectManagersUI__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
 
@@ -80998,6 +81024,7 @@ __webpack_require__.r(__webpack_exports__);
                {
                   view: "text",
                   label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
                   name: "name",
                   value: "",
                },
@@ -81127,7 +81154,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
 
    class UIProcessTriggerLifecycle extends UIClass {
       constructor() {
@@ -81147,14 +81175,15 @@ __webpack_require__.r(__webpack_exports__);
       ui() {
          // we are creating these on the fly, and should have CurrentApplication
          // defined already.
+         const allObjects = this.CurrentApplication.objectsIncluded();
+         const listObj = [];
 
-         var allObjects = this.CurrentApplication.objectsIncluded();
-         var listObj = [];
          allObjects.forEach((obj) => {
             listObj.push({ id: obj.id, value: obj.label });
          });
 
-         let ids = this.ids;
+         const ids = this.ids;
+
          return {
             id: ids.component,
             rows: [
@@ -81173,6 +81202,7 @@ __webpack_require__.r(__webpack_exports__);
                         id: ids.name,
                         view: "text",
                         label: L("Name"),
+                        labelWidth: uiConfig.labelWidthLarge,
                         name: "name",
                         value: "",
                      },
@@ -81202,8 +81232,6 @@ __webpack_require__.r(__webpack_exports__);
 
       async init(AB) {
          this.AB = AB;
-
-         return Promise.resolve();
       }
 
       // applicationLoad(application) {
@@ -81219,8 +81247,9 @@ __webpack_require__.r(__webpack_exports__);
       // }
 
       populate(element) {
-         let ids = this.ids;
-         $$(ids.name).setValue(element.name);
+         const ids = this.ids;
+
+         $$(ids.name).setValue(element.label);
          $$(ids.objList).setValue(element.objectID);
          $$(ids.lifecycleList).setValue(element.lifecycleKey);
       }
@@ -81231,8 +81260,8 @@ __webpack_require__.r(__webpack_exports__);
        * @return {json}
        */
       values() {
-         var obj = {};
-         var ids = this.ids;
+         const obj = {};
+         const ids = this.ids;
 
          obj.label = $$(ids.name)?.getValue();
          obj.objectID = $$(ids.objList)?.getValue();
