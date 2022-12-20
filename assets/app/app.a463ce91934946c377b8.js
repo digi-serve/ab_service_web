@@ -810,6 +810,12 @@ __webpack_require__.r(__webpack_exports__);
          BS.Config.config(configData);
       } catch (err) {
          BS.error("initConfig: GET /config:", err);
+         // HOTFIX: (12/15/2022) If the user visits /home directly /config is
+         // the first request made to sails and if we're not authenticated but
+         // using OKTA or CAS, we get a CORS error when trying to authenticate.
+         // Send the user to / to get authenticated correctly.
+         if (err.message == "Failed to fetch")
+            window.location.replace(window.location.origin);
       }
    },
 });
@@ -22690,4 +22696,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.ea31436b99093286bcf7.js.map
+//# sourceMappingURL=app.a463ce91934946c377b8.js.map
