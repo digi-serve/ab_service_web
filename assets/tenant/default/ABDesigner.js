@@ -70456,7 +70456,7 @@ let myClass = null;
 
          get viewComponent() {
             const currView = this.CurrentView;
-            if (currView) {
+            if (currView && !this._component) {
                this._component = currView.component();
             }
 
@@ -70506,16 +70506,18 @@ let myClass = null;
             return _ui;
          }
 
-         init(AB) {
+         init(AB, accessLevel) {
             this.AB = AB;
 
-            this.viewComponent.init();
+            this.viewComponent.init(AB, accessLevel);
+            this.viewComponent.onShow?.();
 
             // initial sub views
             const childViews = this.CurrentView.views();
             childViews.forEach((v) => {
                const vComponent = v.component();
-               vComponent.init();
+               vComponent.init(AB, accessLevel);
+               vComponent.onShow?.();
             });
          }
 
@@ -71228,11 +71230,13 @@ let myClass = null;
             this.base = base;
             this.AB = AB;
 
-            this.component = this.view.component();
+            this.component = this.view.component(this.AB._App);
          }
 
          ui() {
-            return this.component.ui();
+            return typeof this.component.ui == "function"
+               ? this.component.ui()
+               : this.component.ui;
          }
 
          init(AB) {
@@ -81322,7 +81326,9 @@ __webpack_require__.r(__webpack_exports__);
          });
          this.label = label;
 
-         this.FilterComplex = AB.filterComplexNew(`${this.ids.component}_fc`);
+         this.FilterComplex = AB.filterComplexNew(`${this.ids.component}_fc`, {
+            isSaveHidden: true,
+         });
       }
 
       /**
@@ -81415,6 +81421,7 @@ __webpack_require__.r(__webpack_exports__);
                         autowidth: true,
                         click: () => {
                            $$(ids.queryBuilderContainer).show();
+                           $$(ids.queryBuilderContainer).resize();
                            $$(ids.showQBButton).hide();
                            // _logic.buttonCancel();
                            // Timing Wise, this needs to be called when the
@@ -81431,7 +81438,13 @@ __webpack_require__.r(__webpack_exports__);
                {
                   hidden: true,
                   id: ids.queryBuilderContainer,
-                  cols: [this.FilterComplex.ui],
+                  cols: [
+                     {
+                        view: "layout",
+                        height: 200,
+                        rows: [this.FilterComplex.ui],
+                     },
+                  ],
                },
             ],
          };
@@ -83081,7 +83094,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ABViewRuleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewRuleList */ "./src/rootPages/Designer/properties/rules/ABViewRuleList.js");
 /* harmony import */ var _ABViewRule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ABViewRule */ "./src/rootPages/Designer/properties/rules/ABViewRule.js");
-/* harmony import */ var _ruleActions_ABViewRuleActionFormRecordRuleUpdateConnected__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormRecordRuleUpdateConnected */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleUpdateConnected.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormRecordRuleUpdate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormRecordRuleUpdate */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleUpdate.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormRecordRuleInsertConnected__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormRecordRuleInsertConnected */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleInsertConnected.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormRecordRuleUpdateConnected__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormRecordRuleUpdateConnected */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleUpdateConnected.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormRecordRuleRemoveConnected__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormRecordRuleRemoveConnected */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleRemoveConnected.js");
 //
 // ABViewRuleListFormRecordRules
 //
@@ -83091,19 +83107,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import FRuleConfirmMessage from "./ruleActions/ABViewRuleActionFormSubmitRuleConfirmMessage";
-// const RoleUpdateExisting = require("./ruleActions/ABViewRuleActionFormRecordRuleUpdate");
-// const RoleInsertConnected = require("./ruleActions/ABViewRuleActionFormRecordRuleInsertConnected");
 
-// const RoleUpdateConnected = require("./ruleActions/ABViewRuleActionFormRecordRuleUpdateConnected");
-// const RoleRemoveConnected = require("./ruleActions/ABViewRuleActionFormRecordRuleRemoveConnected");
+
+
+
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB, iBase) {
    const ABViewRuleList = (0,_ABViewRuleList__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    const ABViewRule = (0,_ABViewRule__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
    const L = ABViewRuleList.L();
 
-   const RuleUpdateConnected = (0,_ruleActions_ABViewRuleActionFormRecordRuleUpdateConnected__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
+   const RuleUpdate = (0,_ruleActions_ABViewRuleActionFormRecordRuleUpdate__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
+   const RuleInsertConnected = (0,_ruleActions_ABViewRuleActionFormRecordRuleInsertConnected__WEBPACK_IMPORTED_MODULE_3__["default"])(AB);
+   const RuleUpdateConnected = (0,_ruleActions_ABViewRuleActionFormRecordRuleUpdateConnected__WEBPACK_IMPORTED_MODULE_4__["default"])(AB);
+   const RuleRemoveConnected = (0,_ruleActions_ABViewRuleActionFormRecordRuleRemoveConnected__WEBPACK_IMPORTED_MODULE_5__["default"])(AB);
    // const RuleEmail = FRuleEmail(AB);
 
    class ABViewRuleListFormRecordRules extends ABViewRuleList {
@@ -83121,7 +83138,10 @@ __webpack_require__.r(__webpack_exports__);
       // must return the actual Rule object.
       getRule() {
          var listActions = [
+            new RuleUpdate(`${this.base}_ruleActionUpdate`),
+            new RuleInsertConnected(`${this.base}_ruleActionInsertConnected`),
             new RuleUpdateConnected(`${this.base}_ruleActionUpdateConnected`),
+            new RuleRemoveConnected(`${this.base}_ruleActionRemoveConnected`),
             // new RuleExistPage(this.App, `${this.idBase}_ruleActionExistPage`),
             // new RuleParentPage(this.App, `${this.idBase}_ruleActionParentPage`),
             // new RuleClosePopup(this.App, `${this.idBase}_ruleActionClosePopup`),
@@ -83157,7 +83177,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ABViewRule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ABViewRule */ "./src/rootPages/Designer/properties/rules/ABViewRule.js");
 /* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleConfirmMessage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleConfirmMessage */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleConfirmMessage.js");
 /* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleExistPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleExistPage */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleExistPage.js");
-/* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleEmail__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleEmail */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleEmail.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleParentPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleParentPage */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleParentPage.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleClosePopup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleClosePopup */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleClosePopup.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleWebsite__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleWebsite */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleWebsite.js");
+/* harmony import */ var _ruleActions_ABViewRuleActionFormSubmitRuleEmail__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ruleActions/ABViewRuleActionFormSubmitRuleEmail */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleEmail.js");
 //
 // ABViewRuleListFormSubmitRules
 //
@@ -83169,9 +83192,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// const RuleParentPage = require("./ruleActions/ABViewRuleActionFormSubmitRuleParentPage");
-// const RuleClosePopup = require("./ruleActions/ABViewRuleActionFormSubmitRuleClosePopup");
-// const RuleWebsite = require("./ruleActions/ABViewRuleActionFormSubmitRuleWebsite");
+
+
+
 
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB, iBase) {
@@ -83181,7 +83204,10 @@ __webpack_require__.r(__webpack_exports__);
 
    const RuleConfirmMessage = (0,_ruleActions_ABViewRuleActionFormSubmitRuleConfirmMessage__WEBPACK_IMPORTED_MODULE_2__["default"])(AB);
    const RuleExistPage = (0,_ruleActions_ABViewRuleActionFormSubmitRuleExistPage__WEBPACK_IMPORTED_MODULE_3__["default"])(AB);
-   const RuleEmail = (0,_ruleActions_ABViewRuleActionFormSubmitRuleEmail__WEBPACK_IMPORTED_MODULE_4__["default"])(AB);
+   const RuleParentPage = (0,_ruleActions_ABViewRuleActionFormSubmitRuleParentPage__WEBPACK_IMPORTED_MODULE_4__["default"])(AB);
+   const RuleClosePopup = (0,_ruleActions_ABViewRuleActionFormSubmitRuleClosePopup__WEBPACK_IMPORTED_MODULE_5__["default"])(AB);
+   const RuleWebsite = (0,_ruleActions_ABViewRuleActionFormSubmitRuleWebsite__WEBPACK_IMPORTED_MODULE_6__["default"])(AB);
+   const RuleEmail = (0,_ruleActions_ABViewRuleActionFormSubmitRuleEmail__WEBPACK_IMPORTED_MODULE_7__["default"])(AB);
 
    class ABViewRuleListFormSubmitRules extends ABViewRuleList {
       constructor(base = `ABViewRuleListFormSubmitRules`) {
@@ -83200,9 +83226,9 @@ __webpack_require__.r(__webpack_exports__);
          var listActions = [
             new RuleConfirmMessage(`${this.idBase}_ruleActionConfirmMessage`),
             new RuleExistPage(`${this.idBase}_ruleActionExistPage`),
-            // new RuleParentPage(this.App, `${this.idBase}_ruleActionParentPage`),
-            // new RuleClosePopup(this.App, `${this.idBase}_ruleActionClosePopup`),
-            // new RuleWebsite(this.App, `${this.idBase}_ruleActionWebsite`),
+            new RuleParentPage(`${this.idBase}_ruleActionParentPage`),
+            new RuleClosePopup(`${this.idBase}_ruleActionClosePopup`),
+            new RuleWebsite(`${this.idBase}_ruleActionWebsite`),
             new RuleEmail(`${this.idBase}_ruleActionEmail`),
          ];
 
@@ -83215,6 +83241,130 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return new ABViewRuleListFormSubmitRules(iBase);
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleInsertConnected.js":
+/*!**************************************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleInsertConnected.js ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewRuleActionFormRecordRuleUpdateConnected__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewRuleActionFormRecordRuleUpdateConnected */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleUpdateConnected.js");
+//
+// ABViewRuleActionFormRecordRuleInsertConnected
+//
+// An action that allows you to insert a connected object.
+//
+// NOTE: this is very similar to the Update Connected Rule, so we subclass that one and
+// modify it to only Insert data.
+//
+//
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UpdateConnected = (0,_ABViewRuleActionFormRecordRuleUpdateConnected__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = (...params) => AB.Multilingual.label(...params);
+
+   class ABViewRuleActionFormRecordRuleInsertConnected extends UpdateConnected {
+      constructor(idBase) {
+         super(idBase, {});
+
+         this.key = "ABViewRuleActionFormRecordRuleInsertConnected";
+         this.label = L("Insert Connected Object");
+      }
+   }
+
+   return ABViewRuleActionFormRecordRuleInsertConnected;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleRemoveConnected.js":
+/*!**************************************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleRemoveConnected.js ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewRuleActionFormRecordRuleUpdateConnected__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewRuleActionFormRecordRuleUpdateConnected */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleUpdateConnected.js");
+//
+// ABViewRuleActionFormRecordRuleRemoveConnected
+//
+// An action that allows you to update fields on an object that is connected to
+// the current object we just Added/Updated
+//
+//
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UpdateConnected = (0,_ABViewRuleActionFormRecordRuleUpdateConnected__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = (...params) => AB.Multilingual.label(...params);
+
+   class ABViewRuleActionFormRecordRuleRemoveConnected extends UpdateConnected {
+      constructor(idBase) {
+         super(idBase, {});
+
+         this.key = "ABViewRuleActionFormRecordRuleRemoveConnected";
+         this.label = L("Remove Connected Record");
+
+         this.isUpdateValueDisabled = true; // disable update data of each fields
+      }
+   }
+
+   return ABViewRuleActionFormRecordRuleRemoveConnected;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleUpdate.js":
+/*!*****************************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormRecordRuleUpdate.js ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewRuleActionObjectUpdater__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewRuleActionObjectUpdater */ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionObjectUpdater.js");
+//
+// ABViewRuleActionFormRecordRuleUpdate
+//
+// An action that allows you to update fields on an object that was currently
+// Added/Updated.
+//
+//
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ObjectUpdate = (0,_ABViewRuleActionObjectUpdater__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = (...params) => AB.Multilingual.label(...params);
+
+   class ABViewRuleActionFormRecordRuleUpdate extends ObjectUpdate {
+      constructor(idBase) {
+         super(idBase, {});
+
+         this.key = "ABViewRuleActionFormRecordRuleUpdate";
+         this.label = L("Update Record");
+      }
+   }
+
+   return ABViewRuleActionFormRecordRuleUpdate;
 }
 
 
@@ -83258,7 +83408,7 @@ __webpack_require__.r(__webpack_exports__);
    const ObjectQueryBuilder = (0,_ABViewQueryBuilderObjectFieldConditions__WEBPACK_IMPORTED_MODULE_3__["default"])(AB);
 
    class ABViewValueDisplayChooser extends UIClass {
-      constructor(base, RuleAction) {
+      constructor(base, RuleAction, options) {
          super(base, {
             updateForm: "",
             selectConnectedField: "",
@@ -83271,6 +83421,8 @@ __webpack_require__.r(__webpack_exports__);
          // {ABViewRuleActionFormRecordRuleUpdateConnected}
          // the parent RuleAction that created this display.
          // We need to reference it to display the QueryBuilder.
+
+         this.options = options ?? {};
 
          this.uniqueIDs();
 
@@ -83358,7 +83510,7 @@ __webpack_require__.r(__webpack_exports__);
             this.addDisplay(this.updateComponent.ui());
             this.updateComponent.init(this.AB);
 
-            if (this.isUpdateValueDisabled) {
+            if (this.options?.isUpdateValueDisabled) {
                let $updateForm = this.updateComponent.formGet();
                if ($updateForm) {
                   $updateForm.disable();
@@ -83518,7 +83670,9 @@ __webpack_require__.r(__webpack_exports__);
        */
       valueDisplayComponent(idBase) {
          if (this._uiChooser == null) {
-            this._uiChooser = new ABViewValueDisplayChooser(idBase, this); // this.valueDisplayChooser(idBase);
+            this._uiChooser = new ABViewValueDisplayChooser(idBase, this, {
+               isUpdateValueDisabled: this.isUpdateValueDisabled,
+            }); // this.valueDisplayChooser(idBase);
 
             // this._uiChooser.on("selected", (newVal) => {});
          }
@@ -83949,6 +84103,57 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewRuleActionFormRecordRuleUpdateConnected;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleClosePopup.js":
+/*!*********************************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleClosePopup.js ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewRuleAction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ABViewRuleAction */ "./src/rootPages/Designer/properties/rules/ABViewRuleAction.js");
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ABViewRuleAction = (0,_ABViewRuleAction__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABViewRuleAction.L();
+
+   class ABViewRuleActionFormSubmitRuleClosePopup extends ABViewRuleAction {
+      /**
+       * @param {object} App
+       *      The shared App object that is created in OP.Component
+       * @param {string} idBase
+       *      Identifier for this component
+       */
+      constructor(idBase) {
+         super(idBase, {});
+
+         this.key = "ABViewRuleActionFormSubmitRuleClosePopup";
+         this.label = L("Close the current popup");
+
+         this.formRows = []; // keep track of the Value Components being set
+         // [
+         //		{ fieldId: xxx, value:yyy, type:key['string', 'number', 'date',...]}
+         // ]
+      }
+
+      ui() {
+         return {
+            view: "layout",
+            rows: [],
+         };
+      }
+   }
+
+   return ABViewRuleActionFormSubmitRuleClosePopup;
 }
 
 
@@ -85538,6 +85743,129 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleParentPage.js":
+/*!*********************************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleParentPage.js ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewRuleAction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ABViewRuleAction */ "./src/rootPages/Designer/properties/rules/ABViewRuleAction.js");
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ABViewRuleAction = (0,_ABViewRuleAction__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABViewRuleAction.L();
+
+   class ABViewRuleActionFormSubmitRuleParentPage extends ABViewRuleAction {
+      /**
+       * @param {object} App
+       *      The shared App object that is created in OP.Component
+       * @param {string} idBase
+       *      Identifier for this component
+       */
+      constructor(idBase) {
+         super(idBase, {});
+
+         this.key = "ABViewRuleActionFormSubmitRuleParentPage";
+         this.label = L("Redirect to the parent page");
+
+         this.formRows = []; // keep track of the Value Components being set
+         // [
+         //		{ fieldId: xxx, value:yyy, type:key['string', 'number', 'date',...]}
+         // ]
+      }
+
+      ui() {
+         return {
+            view: "label",
+            label: this.label,
+         };
+      }
+   }
+
+   return ABViewRuleActionFormSubmitRuleParentPage;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleWebsite.js":
+/*!******************************************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionFormSubmitRuleWebsite.js ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewRuleAction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ABViewRuleAction */ "./src/rootPages/Designer/properties/rules/ABViewRuleAction.js");
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ABViewRuleAction = (0,_ABViewRuleAction__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABViewRuleAction.L();
+
+   class ABViewRuleActionFormSubmitRuleWebsite extends ABViewRuleAction {
+      /**
+       * @param {object} App
+       *      The shared App object that is created in OP.Component
+       * @param {string} idBase
+       *      Identifier for this component
+       */
+      constructor(idBase) {
+         super(idBase, {
+            website: "",
+         });
+
+         this.key = "ABViewRuleActionFormSubmitRuleWebsite";
+         this.label = L("Redirect to another website URL");
+
+         this.formRows = []; // keep track of the Value Components being set
+         // [
+         //		{ fieldId: xxx, value:yyy, type:key['string', 'number', 'date',...]}
+         // ]
+      }
+
+      ui() {
+         return {
+            id: this.ids.website,
+            view: "text",
+         };
+      }
+
+      fromSettings(settings) {
+         super.fromSettings(settings); // let the parent handle the QB
+
+         const valueRules = settings.valueRules || {};
+
+         $$(this.ids.website).setValue(valueRules.website ?? "");
+      }
+
+      toSettings() {
+         const ids = this.ids;
+         const settings = super.toSettings();
+
+         settings.valueRules = {
+            website: $$(ids.website).getValue() ?? "",
+         };
+
+         return settings;
+      }
+   }
+
+   return ABViewRuleActionFormSubmitRuleWebsite;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionObjectUpdater.js":
 /*!**********************************************************************************************!*\
   !*** ./src/rootPages/Designer/properties/rules/ruleActions/ABViewRuleActionObjectUpdater.js ***!
@@ -86003,9 +86331,8 @@ const ABViewRuleActionObjectUpdaterDefaults = {
          if (!field) return;
 
          const fieldComponent = field.formComponent(),
-            abView = fieldComponent.newInstance(this.Rule.CurrentApplication),
-            formFieldComponent = abView.component(this.App);
-
+            abView = fieldComponent.newInstance(this.Rule.CurrentApplication);
+         let formFieldComponent = abView.component(this.AB._App);
          let $componentView, $inputView;
 
          console.warn("TODO: remove this testing code:");
@@ -86284,7 +86611,7 @@ const ABViewRuleActionObjectUpdaterDefaults = {
 
             // wait until render UI complete
             setTimeout(() => {
-               field.customDisplay(field, this.App, compNodeView, {
+               field.customDisplay(field, this.AB._App, compNodeView, {
                   editable: true,
 
                   // tree
@@ -86335,11 +86662,11 @@ const ABViewRuleActionObjectUpdaterDefaults = {
                setValueFn();
             } else {
                if (data.valueType == "exist") {
-                  $$(ids.multiview).showBatch("exist");
+                  $$(ids.multiview)?.showBatch("exist");
 
                   setValueFn();
                } else {
-                  $$(ids.multiview).showBatch("custom");
+                  $$(ids.multiview)?.showBatch("custom");
 
                   // wait until render UI complete
                   setTimeout(function () {
@@ -86476,11 +86803,15 @@ const ABViewRuleActionObjectUpdaterDefaults = {
       }
 
       ui() {
-         if (!this._uiChooser) {
-            this.valueDisplayComponent(this.base);
+         if (!this._uiUpdater) {
+            this.valueDisplayComponent();
          }
 
-         return this._uiChooser.ui();
+         return this._uiUpdater.ui();
+      }
+
+      init() {
+         this._uiUpdater?.init(AB, this.valueRules);
       }
 
       // valueDisplayComponent
@@ -86488,7 +86819,10 @@ const ABViewRuleActionObjectUpdaterDefaults = {
       //
       valueDisplayComponent(idBase) {
          if (this._uiUpdater == null) {
-            this._uiUpdater = new ABViewValueDisplayList(idBase, this);
+            this._uiUpdater = new ABViewValueDisplayList(
+               idBase ?? this.ids.component,
+               this
+            );
          }
 
          return this._uiUpdater;
@@ -87711,7 +88045,7 @@ const ABViewRuleActionObjectUpdaterDefaults = {
          super.objectLoad(object);
 
          // with a new CurrentObject, then reset our UI
-         this._uiUpdater = null;
+         // this._uiUpdater = null;
 
          // reload any stashed rules, or set to {}
          if (object) {
@@ -87753,7 +88087,7 @@ const ABViewRuleActionObjectUpdaterDefaults = {
          // let our parent store our QB settings
          const settings = super.toSettings();
 
-         settings.valueRules = this._uiUpdater.toSettings();
+         settings.valueRules = this._uiUpdater?.toSettings();
          settings.updateObjectID = this.CurrentObject.id;
 
          return settings;
@@ -96256,8 +96590,10 @@ __webpack_require__.r(__webpack_exports__);
             baseView.tabPopup = new TabPopup(baseView);
 
             await baseView.tabPopup.init(AB);
+         }
 
-            baseView.tabPopup.on("saved", () => {
+         if (!this.__tabPopupSave) {
+            this.__tabPopupSave = baseView.tabPopup.on("saved", () => {
                this.onChange();
             });
          }
