@@ -71580,6 +71580,10 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/properties/views/ABViewForm.js"),
       __webpack_require__(/*! ./views/ABViewFormButton */ "./src/rootPages/Designer/properties/views/ABViewFormButton.js"),
       __webpack_require__(/*! ./views/ABViewFormConnect */ "./src/rootPages/Designer/properties/views/ABViewFormConnect.js"),
+      __webpack_require__(/*! ./views/ABViewFormNumber */ "./src/rootPages/Designer/properties/views/ABViewFormNumber.js"),
+      __webpack_require__(/*! ./views/ABViewFormSelectMultiple */ "./src/rootPages/Designer/properties/views/ABViewFormSelectMultiple.js"),
+      __webpack_require__(/*! ./views/ABViewFormSelectSingle */ "./src/rootPages/Designer/properties/views/ABViewFormSelectSingle.js"),
+      __webpack_require__(/*! ./views/ABViewFormTextbox */ "./src/rootPages/Designer/properties/views/ABViewFormTextbox.js"),
       __webpack_require__(/*! ./views/ABViewGantt */ "./src/rootPages/Designer/properties/views/ABViewGantt.js"),
       __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/properties/views/ABViewGrid.js"),
       __webpack_require__(/*! ./views/ABViewLabel */ "./src/rootPages/Designer/properties/views/ABViewLabel.js"),
@@ -94013,6 +94017,507 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewConnectProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewFormNumber.js":
+/*!*********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewFormNumber.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewFormNumber
+ * A Property manager for our ABViewFormNumber definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_form_number";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   class ABViewFormNumberProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            // Put our ids here
+            isStepper: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "numberbox";
+      }
+
+      ui() {
+         const ids = this.ids;
+         const uiConfig = this.AB.UISettings.config();
+
+         return super.ui([
+            {
+               id: ids.isStepper,
+               name: "isStepper",
+               view: "checkbox",
+               labelWidth: uiConfig.labelWidthCheckbox,
+               labelRight: L("Plus/Minus Buttons"),
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const ABViewFormNumberPropertyComponentDefaults = this.defaultValues();
+
+         $$(ids.isStepper).setValue(
+            view.settings.isStepper != null
+               ? view.settings.isStepper
+               : ABViewFormNumberPropertyComponentDefaults.isStepper
+         );
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = super.values() ?? {};
+         values.settings = $component.getValues() ?? {};
+         values.settings.isStepper = $$(ids.isStepper).getValue();
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("numberbox");
+      }
+   }
+
+   return ABViewFormNumberProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewFormSelectMultiple.js":
+/*!*****************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewFormSelectMultiple.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewFormSelectMultiple
+ * A Property manager for our ABViewFormSelectMultiple definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_form_select_multiple";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   class ABViewFormSelectMultipleProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            // Put our ids here
+            type: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "selectmultiple";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               id: ids.type,
+               name: "type",
+               view: "richselect",
+               label: L("Type"),
+               options: [
+                  {
+                     id: "multicombo",
+                     value: L("Multi Combo"),
+                  },
+                  {
+                     id: "checkbox",
+                     value: L("Checkboxes"),
+                  },
+               ],
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const ABViewFormSelectMultiplePropertyComponentDefaults =
+            this.defaultValues();
+
+         $$(ids.type).setValue(
+            view.settings.type ||
+               ABViewFormSelectMultiplePropertyComponentDefaults.type
+         );
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = super.values() ?? {};
+         values.settings = $component.getValues() ?? {};
+         values.settings.type = $$(ids.type).getValue();
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("selectmultiple");
+      }
+   }
+
+   return ABViewFormSelectMultipleProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewFormSelectSingle.js":
+/*!***************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewFormSelectSingle.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewFormSelectSingle
+ * A Property manager for our ABViewFormSelectSingle definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_form_select_single";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   class ABViewFormSelectSingleProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            // Put our ids here
+            type: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "selectsingle";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               id: ids.type,
+               name: "type",
+               view: "richselect",
+               label: L("Type"),
+               options: [
+                  {
+                     id: "richselect",
+                     value: L("Select list"),
+                  },
+                  {
+                     id: "radio",
+                     value: L("Radio"),
+                  },
+               ],
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const ABViewFormSelectSinglePropertyComponentDefaults =
+            this.defaultValues();
+
+         $$(ids.type).setValue(
+            view.settings.type ||
+               ABViewFormSelectSinglePropertyComponentDefaults.type
+         );
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = super.values() ?? {};
+         values.settings = $component.getValues() ?? {};
+         values.settings.type = $$(ids.type).getValue();
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("selectsingle");
+      }
+   }
+
+   return ABViewFormSelectSingleProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewFormTextbox.js":
+/*!**********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewFormTextbox.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewFormTextbox
+ * A Property manager for our ABViewFormTextbox definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_form_textbox";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   class ABViewFormTextboxProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            // Put our ids here
+            type: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "textbox";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               id: ids.type,
+               name: "type",
+               view: "radio",
+               label: L("Type"),
+               vertical: true,
+               options: [
+                  {
+                     id: "single",
+                     value: L("Single line"),
+                  },
+                  {
+                     id: "multiple",
+                     value: L("Multiple lines"),
+                  },
+                  {
+                     id: "rich",
+                     value: L("Rich editor"),
+                  },
+               ],
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const ABViewFormTextboxPropertyComponentDefaults =
+            this.defaultValues();
+
+         $$(ids.type).setValue(
+            view.settings.type ||
+               ABViewFormTextboxPropertyComponentDefaults.type
+         );
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = super.values() ?? {};
+         values.settings = $component.getValues() ?? {};
+         values.settings.type = $$(ids.type).getValue();
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("textbox");
+      }
+   }
+
+   return ABViewFormTextboxProperty;
 }
 
 
