@@ -1323,18 +1323,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getDi": () => (/* reexport safe */ _util_ModelUtil__WEBPACK_IMPORTED_MODULE_0__.getDi),
-/* harmony export */   "isTypedEvent": () => (/* binding */ isTypedEvent),
-/* harmony export */   "isThrowEvent": () => (/* binding */ isThrowEvent),
-/* harmony export */   "isCollection": () => (/* binding */ isCollection),
-/* harmony export */   "getSemantic": () => (/* binding */ getSemantic),
-/* harmony export */   "getFillColor": () => (/* binding */ getFillColor),
-/* harmony export */   "getStrokeColor": () => (/* binding */ getStrokeColor),
-/* harmony export */   "getLabelColor": () => (/* binding */ getLabelColor),
 /* harmony export */   "getCirclePath": () => (/* binding */ getCirclePath),
-/* harmony export */   "getRoundRectPath": () => (/* binding */ getRoundRectPath),
+/* harmony export */   "getDi": () => (/* reexport safe */ _util_ModelUtil__WEBPACK_IMPORTED_MODULE_0__.getDi),
 /* harmony export */   "getDiamondPath": () => (/* binding */ getDiamondPath),
-/* harmony export */   "getRectPath": () => (/* binding */ getRectPath)
+/* harmony export */   "getFillColor": () => (/* binding */ getFillColor),
+/* harmony export */   "getLabelColor": () => (/* binding */ getLabelColor),
+/* harmony export */   "getRectPath": () => (/* binding */ getRectPath),
+/* harmony export */   "getRoundRectPath": () => (/* binding */ getRoundRectPath),
+/* harmony export */   "getSemantic": () => (/* binding */ getSemantic),
+/* harmony export */   "getStrokeColor": () => (/* binding */ getStrokeColor),
+/* harmony export */   "isCollection": () => (/* binding */ isCollection),
+/* harmony export */   "isThrowEvent": () => (/* binding */ isThrowEvent),
+/* harmony export */   "isTypedEvent": () => (/* binding */ isTypedEvent)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 /* harmony import */ var _util_ModelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/ModelUtil */ "./node_modules/bpmn-js/lib/util/ModelUtil.js");
@@ -4098,10 +4098,10 @@ AutoPlace.$inject = [ 'eventBus' ];
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getNewShapePosition": () => (/* binding */ getNewShapePosition),
+/* harmony export */   "getDataElementPosition": () => (/* binding */ getDataElementPosition),
 /* harmony export */   "getFlowNodePosition": () => (/* binding */ getFlowNodePosition),
-/* harmony export */   "getTextAnnotationPosition": () => (/* binding */ getTextAnnotationPosition),
-/* harmony export */   "getDataElementPosition": () => (/* binding */ getDataElementPosition)
+/* harmony export */   "getNewShapePosition": () => (/* binding */ getNewShapePosition),
+/* harmony export */   "getTextAnnotationPosition": () => (/* binding */ getTextAnnotationPosition)
 /* harmony export */ });
 /* harmony import */ var _util_ModelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modeling/util/ModelingUtil */ "./node_modules/bpmn-js/lib/util/ModelUtil.js");
 /* harmony import */ var diagram_js_lib_layout_LayoutUtil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! diagram-js/lib/layout/LayoutUtil */ "./node_modules/diagram-js/lib/layout/LayoutUtil.js");
@@ -12454,10 +12454,10 @@ inherits__WEBPACK_IMPORTED_MODULE_0___default()(IsHorizontalFix, diagram_js_lib_
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "asEdges": () => (/* binding */ asEdges),
 /* harmony export */   "default": () => (/* binding */ LabelBehavior),
-/* harmony export */   "getReferencePointDelta": () => (/* binding */ getReferencePointDelta),
 /* harmony export */   "getReferencePoint": () => (/* binding */ getReferencePoint),
-/* harmony export */   "asEdges": () => (/* binding */ asEdges)
+/* harmony export */   "getReferencePointDelta": () => (/* binding */ getReferencePointDelta)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 /* harmony import */ var inherits__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inherits */ "./node_modules/bpmn-js/node_modules/inherits/inherits_browser.js");
@@ -15621,12 +15621,12 @@ function createCategoryValue(definitions, bpmnFactory) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "vectorLength": () => (/* binding */ vectorLength),
 /* harmony export */   "getAngle": () => (/* binding */ getAngle),
-/* harmony export */   "rotateVector": () => (/* binding */ rotateVector),
-/* harmony export */   "perpendicularFoot": () => (/* binding */ perpendicularFoot),
 /* harmony export */   "getDistancePointLine": () => (/* binding */ getDistancePointLine),
-/* harmony export */   "getDistancePointPoint": () => (/* binding */ getDistancePointPoint)
+/* harmony export */   "getDistancePointPoint": () => (/* binding */ getDistancePointPoint),
+/* harmony export */   "perpendicularFoot": () => (/* binding */ perpendicularFoot),
+/* harmony export */   "rotateVector": () => (/* binding */ rotateVector),
+/* harmony export */   "vectorLength": () => (/* binding */ vectorLength)
 /* harmony export */ });
 /**
  * Returns the length of a vector
@@ -17625,9 +17625,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LANE_INDENTATION": () => (/* binding */ LANE_INDENTATION),
 /* harmony export */   "collectLanes": () => (/* binding */ collectLanes),
+/* harmony export */   "computeLanesResize": () => (/* binding */ computeLanesResize),
 /* harmony export */   "getChildLanes": () => (/* binding */ getChildLanes),
-/* harmony export */   "getLanesRoot": () => (/* binding */ getLanesRoot),
-/* harmony export */   "computeLanesResize": () => (/* binding */ computeLanesResize)
+/* harmony export */   "getLanesRoot": () => (/* binding */ getLanesRoot)
 /* harmony export */ });
 /* harmony import */ var _util_ModelUtil__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../util/ModelUtil */ "./node_modules/bpmn-js/lib/util/ModelUtil.js");
 /* harmony import */ var _ModelingUtil__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ModelingUtil */ "./node_modules/bpmn-js/lib/features/modeling/util/ModelingUtil.js");
@@ -17792,9 +17792,9 @@ function computeLanesResize(shape, newBounds) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getParent": () => (/* binding */ getParent),
 /* harmony export */   "is": () => (/* reexport safe */ _util_ModelUtil__WEBPACK_IMPORTED_MODULE_0__.is),
-/* harmony export */   "isAny": () => (/* reexport safe */ _util_ModelUtil__WEBPACK_IMPORTED_MODULE_0__.isAny),
-/* harmony export */   "getParent": () => (/* binding */ getParent)
+/* harmony export */   "isAny": () => (/* reexport safe */ _util_ModelUtil__WEBPACK_IMPORTED_MODULE_0__.isAny)
 /* harmony export */ });
 /* harmony import */ var _util_ModelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../util/ModelUtil */ "./node_modules/bpmn-js/lib/util/ModelUtil.js");
 
@@ -19508,21 +19508,21 @@ function intersection(a1, a2) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "START_EVENT": () => (/* binding */ START_EVENT),
-/* harmony export */   "START_EVENT_SUB_PROCESS": () => (/* binding */ START_EVENT_SUB_PROCESS),
-/* harmony export */   "INTERMEDIATE_EVENT": () => (/* binding */ INTERMEDIATE_EVENT),
-/* harmony export */   "END_EVENT": () => (/* binding */ END_EVENT),
-/* harmony export */   "GATEWAY": () => (/* binding */ GATEWAY),
-/* harmony export */   "SUBPROCESS_EXPANDED": () => (/* binding */ SUBPROCESS_EXPANDED),
-/* harmony export */   "TRANSACTION": () => (/* binding */ TRANSACTION),
-/* harmony export */   "EVENT_SUB_PROCESS": () => (/* binding */ EVENT_SUB_PROCESS),
-/* harmony export */   "TASK": () => (/* binding */ TASK),
+/* harmony export */   "BOUNDARY_EVENT": () => (/* binding */ BOUNDARY_EVENT),
 /* harmony export */   "DATA_OBJECT_REFERENCE": () => (/* binding */ DATA_OBJECT_REFERENCE),
 /* harmony export */   "DATA_STORE_REFERENCE": () => (/* binding */ DATA_STORE_REFERENCE),
-/* harmony export */   "BOUNDARY_EVENT": () => (/* binding */ BOUNDARY_EVENT),
+/* harmony export */   "END_EVENT": () => (/* binding */ END_EVENT),
+/* harmony export */   "EVENT_SUB_PROCESS": () => (/* binding */ EVENT_SUB_PROCESS),
 /* harmony export */   "EVENT_SUB_PROCESS_START_EVENT": () => (/* binding */ EVENT_SUB_PROCESS_START_EVENT),
+/* harmony export */   "GATEWAY": () => (/* binding */ GATEWAY),
+/* harmony export */   "INTERMEDIATE_EVENT": () => (/* binding */ INTERMEDIATE_EVENT),
+/* harmony export */   "PARTICIPANT": () => (/* binding */ PARTICIPANT),
 /* harmony export */   "SEQUENCE_FLOW": () => (/* binding */ SEQUENCE_FLOW),
-/* harmony export */   "PARTICIPANT": () => (/* binding */ PARTICIPANT)
+/* harmony export */   "START_EVENT": () => (/* binding */ START_EVENT),
+/* harmony export */   "START_EVENT_SUB_PROCESS": () => (/* binding */ START_EVENT_SUB_PROCESS),
+/* harmony export */   "SUBPROCESS_EXPANDED": () => (/* binding */ SUBPROCESS_EXPANDED),
+/* harmony export */   "TASK": () => (/* binding */ TASK),
+/* harmony export */   "TRANSACTION": () => (/* binding */ TRANSACTION)
 /* harmony export */ });
 var START_EVENT = [
   {
@@ -23238,8 +23238,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "wrapForCompatibility": () => (/* binding */ wrapForCompatibility),
-/* harmony export */   "ensureCompatDiRef": () => (/* binding */ ensureCompatDiRef)
+/* harmony export */   "ensureCompatDiRef": () => (/* binding */ ensureCompatDiRef),
+/* harmony export */   "wrapForCompatibility": () => (/* binding */ wrapForCompatibility)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 
@@ -23324,13 +23324,13 @@ function ensureCompatDiRef(businessObject) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isExpanded": () => (/* binding */ isExpanded),
-/* harmony export */   "isInterrupting": () => (/* binding */ isInterrupting),
-/* harmony export */   "isEventSubProcess": () => (/* binding */ isEventSubProcess),
-/* harmony export */   "hasEventDefinition": () => (/* binding */ hasEventDefinition),
+/* harmony export */   "hasCompensateEventDefinition": () => (/* binding */ hasCompensateEventDefinition),
 /* harmony export */   "hasErrorEventDefinition": () => (/* binding */ hasErrorEventDefinition),
 /* harmony export */   "hasEscalationEventDefinition": () => (/* binding */ hasEscalationEventDefinition),
-/* harmony export */   "hasCompensateEventDefinition": () => (/* binding */ hasCompensateEventDefinition)
+/* harmony export */   "hasEventDefinition": () => (/* binding */ hasEventDefinition),
+/* harmony export */   "isEventSubProcess": () => (/* binding */ isEventSubProcess),
+/* harmony export */   "isExpanded": () => (/* binding */ isExpanded),
+/* harmony export */   "isInterrupting": () => (/* binding */ isInterrupting)
 /* harmony export */ });
 /* harmony import */ var _ModelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModelUtil */ "./node_modules/bpmn-js/lib/util/ModelUtil.js");
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
@@ -23409,11 +23409,11 @@ function hasCompensateEventDefinition(element) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "planeSuffix": () => (/* binding */ planeSuffix),
-/* harmony export */   "getShapeIdFromPlane": () => (/* binding */ getShapeIdFromPlane),
 /* harmony export */   "getPlaneIdFromShape": () => (/* binding */ getPlaneIdFromShape),
-/* harmony export */   "toPlaneId": () => (/* binding */ toPlaneId),
-/* harmony export */   "isPlane": () => (/* binding */ isPlane)
+/* harmony export */   "getShapeIdFromPlane": () => (/* binding */ getShapeIdFromPlane),
+/* harmony export */   "isPlane": () => (/* binding */ isPlane),
+/* harmony export */   "planeSuffix": () => (/* binding */ planeSuffix),
+/* harmony export */   "toPlaneId": () => (/* binding */ toPlaneId)
 /* harmony export */ });
 /* harmony import */ var _ModelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModelUtil */ "./node_modules/bpmn-js/lib/util/ModelUtil.js");
 
@@ -23496,13 +23496,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "DEFAULT_LABEL_SIZE": () => (/* binding */ DEFAULT_LABEL_SIZE),
 /* harmony export */   "FLOW_LABEL_INDENT": () => (/* binding */ FLOW_LABEL_INDENT),
-/* harmony export */   "isLabelExternal": () => (/* binding */ isLabelExternal),
-/* harmony export */   "hasExternalLabel": () => (/* binding */ hasExternalLabel),
+/* harmony export */   "getExternalLabelBounds": () => (/* binding */ getExternalLabelBounds),
+/* harmony export */   "getExternalLabelMid": () => (/* binding */ getExternalLabelMid),
 /* harmony export */   "getFlowLabelPosition": () => (/* binding */ getFlowLabelPosition),
 /* harmony export */   "getWaypointsMid": () => (/* binding */ getWaypointsMid),
-/* harmony export */   "getExternalLabelMid": () => (/* binding */ getExternalLabelMid),
-/* harmony export */   "getExternalLabelBounds": () => (/* binding */ getExternalLabelBounds),
-/* harmony export */   "isLabel": () => (/* binding */ isLabel)
+/* harmony export */   "hasExternalLabel": () => (/* binding */ hasExternalLabel),
+/* harmony export */   "isLabel": () => (/* binding */ isLabel),
+/* harmony export */   "isLabelExternal": () => (/* binding */ isLabelExternal)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 /* harmony import */ var _ModelUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModelUtil */ "./node_modules/bpmn-js/lib/util/ModelUtil.js");
@@ -23673,10 +23673,10 @@ function isLabel(element) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "is": () => (/* binding */ is),
-/* harmony export */   "isAny": () => (/* binding */ isAny),
 /* harmony export */   "getBusinessObject": () => (/* binding */ getBusinessObject),
-/* harmony export */   "getDi": () => (/* binding */ getDi)
+/* harmony export */   "getDi": () => (/* binding */ getDi),
+/* harmony export */   "is": () => (/* binding */ is),
+/* harmony export */   "isAny": () => (/* binding */ isAny)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 
@@ -34864,11 +34864,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "BENDPOINT_CLS": () => (/* binding */ BENDPOINT_CLS),
 /* harmony export */   "SEGMENT_DRAGGER_CLS": () => (/* binding */ SEGMENT_DRAGGER_CLS),
-/* harmony export */   "toCanvasCoordinates": () => (/* binding */ toCanvasCoordinates),
-/* harmony export */   "getConnectionIntersection": () => (/* binding */ getConnectionIntersection),
 /* harmony export */   "addBendpoint": () => (/* binding */ addBendpoint),
 /* harmony export */   "addSegmentDragger": () => (/* binding */ addSegmentDragger),
-/* harmony export */   "calculateSegmentMoveRegion": () => (/* binding */ calculateSegmentMoveRegion)
+/* harmony export */   "calculateSegmentMoveRegion": () => (/* binding */ calculateSegmentMoveRegion),
+/* harmony export */   "getConnectionIntersection": () => (/* binding */ getConnectionIntersection),
+/* harmony export */   "toCanvasCoordinates": () => (/* binding */ toCanvasCoordinates)
 /* harmony export */ });
 /* harmony import */ var _util_Event__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../util/Event */ "./node_modules/diagram-js/lib/util/Event.js");
 /* harmony import */ var _util_Geometry__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/Geometry */ "./node_modules/diagram-js/lib/util/Geometry.js");
@@ -45097,10 +45097,10 @@ UpdateWaypointsHandler.prototype.revert = function(context) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getResizedSourceAnchor": () => (/* binding */ getResizedSourceAnchor),
-/* harmony export */   "getResizedTargetAnchor": () => (/* binding */ getResizedTargetAnchor),
 /* harmony export */   "getMovedSourceAnchor": () => (/* binding */ getMovedSourceAnchor),
-/* harmony export */   "getMovedTargetAnchor": () => (/* binding */ getMovedTargetAnchor)
+/* harmony export */   "getMovedTargetAnchor": () => (/* binding */ getMovedTargetAnchor),
+/* harmony export */   "getResizedSourceAnchor": () => (/* binding */ getResizedSourceAnchor),
+/* harmony export */   "getResizedTargetAnchor": () => (/* binding */ getResizedTargetAnchor)
 /* harmony export */ });
 /* harmony import */ var _util_AttachUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../util/AttachUtil */ "./node_modules/diagram-js/lib/util/AttachUtil.js");
 /* harmony import */ var _layout_LayoutUtil__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../layout/LayoutUtil */ "./node_modules/diagram-js/lib/layout/LayoutUtil.js");
@@ -45383,8 +45383,8 @@ MoveHelper.prototype.getClosure = function(elements) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Mouse),
-/* harmony export */   "createMoveEvent": () => (/* binding */ createMoveEvent)
+/* harmony export */   "createMoveEvent": () => (/* binding */ createMoveEvent),
+/* harmony export */   "default": () => (/* binding */ Mouse)
 /* harmony export */ });
 function Mouse(eventBus) {
   var self = this;
@@ -49067,14 +49067,14 @@ ResizePreview.$inject = [
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "substractTRBL": () => (/* binding */ substractTRBL),
-/* harmony export */   "resizeBounds": () => (/* binding */ resizeBounds),
-/* harmony export */   "resizeTRBL": () => (/* binding */ resizeTRBL),
-/* harmony export */   "reattachPoint": () => (/* binding */ reattachPoint),
+/* harmony export */   "addPadding": () => (/* binding */ addPadding),
+/* harmony export */   "computeChildrenBBox": () => (/* binding */ computeChildrenBBox),
 /* harmony export */   "ensureConstraints": () => (/* binding */ ensureConstraints),
 /* harmony export */   "getMinResizeBounds": () => (/* binding */ getMinResizeBounds),
-/* harmony export */   "addPadding": () => (/* binding */ addPadding),
-/* harmony export */   "computeChildrenBBox": () => (/* binding */ computeChildrenBBox)
+/* harmony export */   "reattachPoint": () => (/* binding */ reattachPoint),
+/* harmony export */   "resizeBounds": () => (/* binding */ resizeBounds),
+/* harmony export */   "resizeTRBL": () => (/* binding */ resizeTRBL),
+/* harmony export */   "substractTRBL": () => (/* binding */ substractTRBL)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 /* harmony import */ var _util_Elements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/Elements */ "./node_modules/diagram-js/lib/util/Elements.js");
@@ -50975,8 +50975,8 @@ function isVertical(direction) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ SnapContext),
-/* harmony export */   "SnapPoints": () => (/* binding */ SnapPoints)
+/* harmony export */   "SnapPoints": () => (/* binding */ SnapPoints),
+/* harmony export */   "default": () => (/* binding */ SnapContext)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 /* harmony import */ var _SnapUtil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SnapUtil */ "./node_modules/diagram-js/lib/features/snapping/SnapUtil.js");
@@ -51158,15 +51158,15 @@ SnapPoints.prototype.initDefaults = function(defaultSnaps) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "snapTo": () => (/* binding */ snapTo),
-/* harmony export */   "topLeft": () => (/* binding */ topLeft),
-/* harmony export */   "topRight": () => (/* binding */ topRight),
 /* harmony export */   "bottomLeft": () => (/* binding */ bottomLeft),
 /* harmony export */   "bottomRight": () => (/* binding */ bottomRight),
-/* harmony export */   "mid": () => (/* binding */ mid),
+/* harmony export */   "getChildren": () => (/* binding */ getChildren),
 /* harmony export */   "isSnapped": () => (/* binding */ isSnapped),
+/* harmony export */   "mid": () => (/* binding */ mid),
 /* harmony export */   "setSnapped": () => (/* binding */ setSnapped),
-/* harmony export */   "getChildren": () => (/* binding */ getChildren)
+/* harmony export */   "snapTo": () => (/* binding */ snapTo),
+/* harmony export */   "topLeft": () => (/* binding */ topLeft),
+/* harmony export */   "topRight": () => (/* binding */ topRight)
 /* harmony export */ });
 var abs = Math.abs,
     round = Math.round;
@@ -53758,15 +53758,15 @@ CroppingConnectionDocking.prototype._getGfx = function(element) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "roundBounds": () => (/* binding */ roundBounds),
-/* harmony export */   "roundPoint": () => (/* binding */ roundPoint),
-/* harmony export */   "asTRBL": () => (/* binding */ asTRBL),
 /* harmony export */   "asBounds": () => (/* binding */ asBounds),
-/* harmony export */   "getMid": () => (/* binding */ getMid),
-/* harmony export */   "getOrientation": () => (/* binding */ getOrientation),
+/* harmony export */   "asTRBL": () => (/* binding */ asTRBL),
+/* harmony export */   "filterRedundantWaypoints": () => (/* binding */ filterRedundantWaypoints),
 /* harmony export */   "getElementLineIntersection": () => (/* binding */ getElementLineIntersection),
 /* harmony export */   "getIntersections": () => (/* binding */ getIntersections),
-/* harmony export */   "filterRedundantWaypoints": () => (/* binding */ filterRedundantWaypoints)
+/* harmony export */   "getMid": () => (/* binding */ getMid),
+/* harmony export */   "getOrientation": () => (/* binding */ getOrientation),
+/* harmony export */   "roundBounds": () => (/* binding */ roundBounds),
+/* harmony export */   "roundPoint": () => (/* binding */ roundPoint)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 /* harmony import */ var _util_Geometry__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/Geometry */ "./node_modules/diagram-js/lib/util/Geometry.js");
@@ -54743,10 +54743,10 @@ function withoutRedundantPoints(waypoints) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Base": () => (/* binding */ Base),
-/* harmony export */   "Shape": () => (/* binding */ Shape),
-/* harmony export */   "Root": () => (/* binding */ Root),
-/* harmony export */   "Label": () => (/* binding */ Label),
 /* harmony export */   "Connection": () => (/* binding */ Connection),
+/* harmony export */   "Label": () => (/* binding */ Label),
+/* harmony export */   "Root": () => (/* binding */ Root),
+/* harmony export */   "Shape": () => (/* binding */ Shape),
 /* harmony export */   "create": () => (/* binding */ create)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
@@ -55601,8 +55601,8 @@ ZoomScroll.prototype._init = function(newEnabled) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getStepSize": () => (/* binding */ getStepSize),
-/* harmony export */   "cap": () => (/* binding */ cap)
+/* harmony export */   "cap": () => (/* binding */ cap),
+/* harmony export */   "getStepSize": () => (/* binding */ getStepSize)
 /* harmony export */ });
 /* harmony import */ var _util_Math__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../util/Math */ "./node_modules/diagram-js/lib/util/Math.js");
 
@@ -55849,9 +55849,9 @@ function install(eventBus, eventName) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "remove": () => (/* binding */ remove),
 /* harmony export */   "add": () => (/* binding */ add),
-/* harmony export */   "indexOf": () => (/* binding */ indexOf)
+/* harmony export */   "indexOf": () => (/* binding */ indexOf),
+/* harmony export */   "remove": () => (/* binding */ remove)
 /* harmony export */ });
 /**
  * Failsafe remove an element from a collection
@@ -55958,9 +55958,9 @@ function indexOf(collection, element) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "has": () => (/* binding */ has),
 /* harmony export */   "set": () => (/* binding */ set),
-/* harmony export */   "unset": () => (/* binding */ unset),
-/* harmony export */   "has": () => (/* binding */ has)
+/* harmony export */   "unset": () => (/* binding */ unset)
 /* harmony export */ });
 /* harmony import */ var min_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dom */ "./node_modules/min-dom/dist/index.esm.js");
 
@@ -56000,17 +56000,17 @@ function has(mode) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getParents": () => (/* binding */ getParents),
 /* harmony export */   "add": () => (/* binding */ add),
 /* harmony export */   "eachElement": () => (/* binding */ eachElement),
-/* harmony export */   "selfAndChildren": () => (/* binding */ selfAndChildren),
-/* harmony export */   "selfAndDirectChildren": () => (/* binding */ selfAndDirectChildren),
-/* harmony export */   "selfAndAllChildren": () => (/* binding */ selfAndAllChildren),
-/* harmony export */   "getClosure": () => (/* binding */ getClosure),
 /* harmony export */   "getBBox": () => (/* binding */ getBBox),
+/* harmony export */   "getClosure": () => (/* binding */ getClosure),
 /* harmony export */   "getEnclosedElements": () => (/* binding */ getEnclosedElements),
+/* harmony export */   "getParents": () => (/* binding */ getParents),
 /* harmony export */   "getType": () => (/* binding */ getType),
-/* harmony export */   "isFrameElement": () => (/* binding */ isFrameElement)
+/* harmony export */   "isFrameElement": () => (/* binding */ isFrameElement),
+/* harmony export */   "selfAndAllChildren": () => (/* binding */ selfAndAllChildren),
+/* harmony export */   "selfAndChildren": () => (/* binding */ selfAndChildren),
+/* harmony export */   "selfAndDirectChildren": () => (/* binding */ selfAndDirectChildren)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 
@@ -56462,13 +56462,13 @@ function toPoint(event) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getMidPoint": () => (/* binding */ getMidPoint),
 /* harmony export */   "pointDistance": () => (/* binding */ pointDistance),
-/* harmony export */   "pointsOnLine": () => (/* binding */ pointsOnLine),
+/* harmony export */   "pointInRect": () => (/* binding */ pointInRect),
 /* harmony export */   "pointsAligned": () => (/* binding */ pointsAligned),
 /* harmony export */   "pointsAlignedHorizontally": () => (/* binding */ pointsAlignedHorizontally),
 /* harmony export */   "pointsAlignedVertically": () => (/* binding */ pointsAlignedVertically),
-/* harmony export */   "pointInRect": () => (/* binding */ pointInRect),
-/* harmony export */   "getMidPoint": () => (/* binding */ getMidPoint)
+/* harmony export */   "pointsOnLine": () => (/* binding */ pointsOnLine)
 /* harmony export */ });
 /* harmony import */ var min_dash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! min-dash */ "./node_modules/min-dash/dist/index.esm.js");
 
@@ -56630,8 +56630,8 @@ function getMidPoint(p, q) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getVisual": () => (/* binding */ getVisual),
-/* harmony export */   "getChildren": () => (/* binding */ getChildren)
+/* harmony export */   "getChildren": () => (/* binding */ getChildren),
+/* harmony export */   "getVisual": () => (/* binding */ getVisual)
 /* harmony export */ });
 /**
  * SVGs for elements are generated by the {@link GraphicsFactory}.
@@ -56869,13 +56869,13 @@ function log10(x) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isMac": () => (/* reexport safe */ _Platform__WEBPACK_IMPORTED_MODULE_0__.isMac),
-/* harmony export */   "isButton": () => (/* binding */ isButton),
-/* harmony export */   "isPrimaryButton": () => (/* binding */ isPrimaryButton),
-/* harmony export */   "isAuxiliaryButton": () => (/* binding */ isAuxiliaryButton),
-/* harmony export */   "isSecondaryButton": () => (/* binding */ isSecondaryButton),
 /* harmony export */   "hasPrimaryModifier": () => (/* binding */ hasPrimaryModifier),
-/* harmony export */   "hasSecondaryModifier": () => (/* binding */ hasSecondaryModifier)
+/* harmony export */   "hasSecondaryModifier": () => (/* binding */ hasSecondaryModifier),
+/* harmony export */   "isAuxiliaryButton": () => (/* binding */ isAuxiliaryButton),
+/* harmony export */   "isButton": () => (/* binding */ isButton),
+/* harmony export */   "isMac": () => (/* reexport safe */ _Platform__WEBPACK_IMPORTED_MODULE_0__.isMac),
+/* harmony export */   "isPrimaryButton": () => (/* binding */ isPrimaryButton),
+/* harmony export */   "isSecondaryButton": () => (/* binding */ isSecondaryButton)
 /* harmony export */ });
 /* harmony import */ var _Event__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Event */ "./node_modules/diagram-js/lib/util/Event.js");
 /* harmony import */ var _Platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Platform */ "./node_modules/diagram-js/lib/util/Platform.js");
@@ -57037,8 +57037,8 @@ function saveClear(collection, removeFn) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "componentsToPath": () => (/* binding */ componentsToPath),
-/* harmony export */   "toSVGPoints": () => (/* binding */ toSVGPoints),
 /* harmony export */   "createLine": () => (/* binding */ createLine),
+/* harmony export */   "toSVGPoints": () => (/* binding */ toSVGPoints),
 /* harmony export */   "updateLine": () => (/* binding */ updateLine)
 /* harmony export */ });
 /* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tiny-svg */ "./node_modules/tiny-svg/dist/index.esm.js");
@@ -57089,10 +57089,10 @@ function updateLine(gfx, points) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "transform": () => (/* binding */ transform),
-/* harmony export */   "translate": () => (/* binding */ translate),
 /* harmony export */   "rotate": () => (/* binding */ rotate),
-/* harmony export */   "scale": () => (/* binding */ scale)
+/* harmony export */   "scale": () => (/* binding */ scale),
+/* harmony export */   "transform": () => (/* binding */ transform),
+/* harmony export */   "translate": () => (/* binding */ translate)
 /* harmony export */ });
 /* harmony import */ var tiny_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tiny-svg */ "./node_modules/tiny-svg/dist/index.esm.js");
 
@@ -57585,10 +57585,10 @@ if (typeof Object.create === 'function') {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "annotate": () => (/* binding */ annotate),
-/* harmony export */   "parseAnnotations": () => (/* binding */ parseAnnotations),
+/* harmony export */   "Injector": () => (/* binding */ Injector),
 /* harmony export */   "Module": () => (/* binding */ Module),
-/* harmony export */   "Injector": () => (/* binding */ Injector)
+/* harmony export */   "annotate": () => (/* binding */ annotate),
+/* harmony export */   "parseAnnotations": () => (/* binding */ parseAnnotations)
 /* harmony export */ });
 var CLASS_PATTERN = /^class /;
 
@@ -67706,19 +67706,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "clear": () => (/* binding */ clear),
 /* harmony export */   "clone": () => (/* binding */ clone),
 /* harmony export */   "create": () => (/* binding */ create),
+/* harmony export */   "createMatrix": () => (/* binding */ createMatrix),
+/* harmony export */   "createPoint": () => (/* binding */ createPoint),
+/* harmony export */   "createTransform": () => (/* binding */ createTransform),
 /* harmony export */   "innerSVG": () => (/* binding */ innerSVG),
+/* harmony export */   "off": () => (/* binding */ off),
+/* harmony export */   "on": () => (/* binding */ on),
 /* harmony export */   "prepend": () => (/* binding */ prepend),
 /* harmony export */   "prependTo": () => (/* binding */ prependTo),
 /* harmony export */   "remove": () => (/* binding */ remove),
 /* harmony export */   "replace": () => (/* binding */ replace),
-/* harmony export */   "transform": () => (/* binding */ transform),
-/* harmony export */   "on": () => (/* binding */ on),
-/* harmony export */   "off": () => (/* binding */ off),
-/* harmony export */   "createPoint": () => (/* binding */ createPoint),
-/* harmony export */   "createMatrix": () => (/* binding */ createMatrix),
-/* harmony export */   "createTransform": () => (/* binding */ createTransform),
 /* harmony export */   "select": () => (/* binding */ select),
-/* harmony export */   "selectAll": () => (/* binding */ selectAll)
+/* harmony export */   "selectAll": () => (/* binding */ selectAll),
+/* harmony export */   "transform": () => (/* binding */ transform)
 /* harmony export */ });
 function ensureImported(element, target) {
 
@@ -124217,6 +124217,11 @@ module.exports = class CSVImporter {
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/nonce */
+/******/ 	(() => {
+/******/ 		__webpack_require__.nc = undefined;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
