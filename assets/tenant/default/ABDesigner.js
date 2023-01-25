@@ -108218,7 +108218,7 @@ __webpack_require__.r(__webpack_exports__);
          this._handler_onChange = (waitDuration = 3000, skipEmit = false) => {
             if (!this.CurrentView) return;
 
-            this.busy();
+            // this.busy();
 
             let values = this.currentPanel.values();
 
@@ -108245,6 +108245,7 @@ __webpack_require__.r(__webpack_exports__);
                clearTimeout(view.__timedSave);
             }
             view.__timedSave = setTimeout(async () => {
+               this.busy();
                try {
                   await view.save();
                   delete view.__timedSave;
