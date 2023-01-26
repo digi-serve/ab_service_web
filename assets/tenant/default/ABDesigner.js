@@ -93791,20 +93791,11 @@ __webpack_require__.r(__webpack_exports__);
 
          FilterComponent.init();
          // when we make a change in the popups we want to make sure we save the new workspace to the properties to do so just fire an onChange event
-         //  FilterComponent.on("change", (val) => {
-         //     _logic.onFilterChange(val);
-         //  });
+         // FilterComponent.on("change", (val) => {
+         //    this.onChange();
+         // });
 
          SortComponent.init(AB);
-
-         if (this.filter_popup == null) {
-            this.filter_popup = this.AB.Webix.ui({
-               view: "popup",
-               width: 800,
-               hidden: true,
-               body: FilterComponent.ui,
-            });
-         }
       }
 
       populate(view) {
@@ -94034,7 +94025,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       showFilterPopup($view) {
-         this.filter_popup.show($view, null, { pos: "top" });
+         FilterComponent.popUp($view, null, { pos: "top" });
       }
 
       showSortPopup($button) {
@@ -94798,7 +94789,7 @@ __webpack_require__.r(__webpack_exports__);
 
    const base = "properties_abview_grid";
    const ABViewPropertyFilterData = (0,_viewProperties_ABViewPropertyFilterData__WEBPACK_IMPORTED_MODULE_5__["default"])(AB, base);
-   const PopupFilterMenu = new ABViewPropertyFilterData();
+   const PopupFilterMenu = new ABViewPropertyFilterData({ isGrid: true });
 
    const LinkPageHelper = new _viewProperties_ABViewPropertyLinkPage__WEBPACK_IMPORTED_MODULE_6__["default"](AB, base);
 
@@ -95407,7 +95398,8 @@ __webpack_require__.r(__webpack_exports__);
          let selectedDv = this.datacollection;
          if (selectedDv) {
             PopupFilterMenu.objectLoad(selectedDv.datasource);
-            PopupFilterMenu.setSettings(view.settings.filter);
+            PopupFilterMenu.setSettings(view.settings.gridFilter);
+            // PopupFilterMenu.setSettings(view.settings.filter);
 
             this.PopupCountColumnsComponent.objectLoad(selectedDv.datasource);
             this.PopupCountColumnsComponent.setValue(
