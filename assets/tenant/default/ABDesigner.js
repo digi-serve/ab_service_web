@@ -86673,10 +86673,9 @@ const ABViewRuleActionObjectUpdaterDefaults = {
 
                if (selectBy != "select-one") {
                   const collectionId = data.value;
-                  const dataCollection =
-                     (this.currentForm.application?.datacollectionsIncluded(
-                        (dc) => dc.id == collectionId
-                     ) ?? [])[0];
+                  const dataCollection = this.datacollections(
+                     (dc) => dc.id == collectionId
+                  )[0];
                   if (dataCollection && data.filterConditions) {
                      this.populateFilters(
                         dataCollection,
