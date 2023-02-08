@@ -86486,9 +86486,9 @@ const ABViewRuleActionObjectUpdaterDefaults = {
                               fieldOptions: options,
                            });
 
-                           this.FilterComponent.on("changed", (...params) => {
-                              return this.onFilterChange(...params);
-                           });
+                           // this.FilterComponent.on("changed", (...params) => {
+                           //    return this.onFilterChange(...params);
+                           // });
 
                            // Transition v1 to v2:
                            console.warn("TODO: remove this transition Code:");
