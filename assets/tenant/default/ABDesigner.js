@@ -93616,7 +93616,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/* harmony import */ var _ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewFormItem */ "./src/rootPages/Designer/properties/views/ABViewFormItem.js");
 /* harmony import */ var _ui_work_object_workspace_popupSortFields__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../ui_work_object_workspace_popupSortFields */ "./src/rootPages/Designer/ui_work_object_workspace_popupSortFields.js");
 /* harmony import */ var _viewProperties_ABViewPropertyAddPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./viewProperties/ABViewPropertyAddPage */ "./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyAddPage.js");
 /* harmony import */ var _viewProperties_ABViewPropertyEditPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./viewProperties/ABViewPropertyEditPage */ "./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyEditPage.js");
@@ -93633,15 +93633,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const BASE_ID = "properties_abview_connect";
 
-   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const ABViewFormItem = (0,_ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    const ABAddPage = (0,_viewProperties_ABViewPropertyAddPage__WEBPACK_IMPORTED_MODULE_2__["default"])(AB, BASE_ID);
    const ABEditPage = (0,_viewProperties_ABViewPropertyEditPage__WEBPACK_IMPORTED_MODULE_3__["default"])(AB, BASE_ID);
-   const L = ABView.L();
+   const L = ABViewFormItem.L();
 
    let FilterComponent = null;
    let SortComponent = null;
 
-   class ABViewConnectProperty extends ABView {
+   class ABViewConnectProperty extends ABViewFormItem {
       constructor() {
          super(BASE_ID, {
             // Put our ids here
@@ -94040,6 +94040,131 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/properties/views/ABViewFormItem.js":
+/*!*******************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewFormItem.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewFormItem
+ * A Property manager for our ABViewFormItem definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   class ABViewFormItemProperty extends ABView {
+      constructor(BASE_ID, ids = {}) {
+         super(
+            BASE_ID,
+            Object.assign(ids, {
+               // Put our ids here
+               field: "",
+               required: "",
+               disable: "",
+            })
+         );
+
+         this.AB = AB;
+      }
+
+      ui(elements = [], rules = {}) {
+         const ids = this.ids;
+         const uiSettings = this.AB.UISettings.config();
+         const _ui = [
+            {
+               id: ids.field,
+               name: "fieldLabel",
+               view: "text",
+               disabled: true,
+               label: L("Field"),
+            },
+            {
+               id: ids.required,
+               name: "required",
+               view: "checkbox",
+               labelWidth: uiSettings.labelWidthCheckbox,
+               labelRight: L("Required"),
+            },
+            {
+               id: ids.disable,
+               name: "disable",
+               view: "checkbox",
+               labelWidth: uiSettings.labelWidthCheckbox,
+               labelRight: L("Disable"),
+            },
+         ].concat(elements);
+
+         return super.ui(_ui, rules);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const ABViewFormItemPropertyDefaults = this.defaultValues();
+         const field = view.field();
+
+         $$(ids.field).setValue(field ? field.label : "");
+
+         if (field?.settings?.required == 1) {
+            $$(ids.required).setValue(field.settings.required);
+            $$(ids.required).disable();
+         } else {
+            $$(ids.required).setValue(
+               view.settings?.required != null
+                  ? view.settings.required
+                  : ABViewFormItemPropertyDefaults.required
+            );
+         }
+
+         if (view.settings?.disable == 1) {
+            $$(ids.disable).setValue(view.settings.disable);
+         } else {
+            $$(ids.disable).setValue(ABViewFormItemPropertyDefaults.disable);
+         }
+      }
+
+      defaultValues() {
+         return {
+            required: 0,
+            disable: 0,
+         };
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const values = super.values() ?? {};
+         values.settings = values.settings ?? {};
+         values.settings.required = $$(ids.required).getValue();
+         values.settings.disable = $$(ids.disable).getValue();
+
+         return values;
+      }
+   }
+
+   return ABViewFormItemProperty;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/properties/views/ABViewFormNumber.js":
 /*!*********************************************************************!*\
   !*** ./src/rootPages/Designer/properties/views/ABViewFormNumber.js ***!
@@ -94051,7 +94176,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/* harmony import */ var _ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewFormItem */ "./src/rootPages/Designer/properties/views/ABViewFormItem.js");
 /*
  * ABViewFormNumber
  * A Property manager for our ABViewFormNumber definitions
@@ -94062,10 +94187,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const BASE_ID = "properties_abview_form_number";
 
-   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   const L = ABView.L();
+   const ABViewFormItem = (0,_ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABViewFormItem.L();
 
-   class ABViewFormNumberProperty extends ABView {
+   class ABViewFormNumberProperty extends ABViewFormItem {
       constructor() {
          super(BASE_ID, {
             // Put our ids here
@@ -94169,7 +94294,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/* harmony import */ var _ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewFormItem */ "./src/rootPages/Designer/properties/views/ABViewFormItem.js");
 /*
  * ABViewFormSelectMultiple
  * A Property manager for our ABViewFormSelectMultiple definitions
@@ -94180,10 +94305,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const BASE_ID = "properties_abview_form_select_multiple";
 
-   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   const L = ABView.L();
+   const ABViewFormItem = (0,_ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABViewFormItem.L();
 
-   class ABViewFormSelectMultipleProperty extends ABView {
+   class ABViewFormSelectMultipleProperty extends ABViewFormItem {
       constructor() {
          super(BASE_ID, {
             // Put our ids here
@@ -94295,7 +94420,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/* harmony import */ var _ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewFormItem */ "./src/rootPages/Designer/properties/views/ABViewFormItem.js");
 /*
  * ABViewFormSelectSingle
  * A Property manager for our ABViewFormSelectSingle definitions
@@ -94306,10 +94431,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const BASE_ID = "properties_abview_form_select_single";
 
-   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   const L = ABView.L();
+   const ABViewFormItem = (0,_ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABViewFormItem.L();
 
-   class ABViewFormSelectSingleProperty extends ABView {
+   class ABViewFormSelectSingleProperty extends ABViewFormItem {
       constructor() {
          super(BASE_ID, {
             // Put our ids here
@@ -94421,7 +94546,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/* harmony import */ var _ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewFormItem */ "./src/rootPages/Designer/properties/views/ABViewFormItem.js");
 /*
  * ABViewFormTextbox
  * A Property manager for our ABViewFormTextbox definitions
@@ -94432,10 +94557,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const BASE_ID = "properties_abview_form_textbox";
 
-   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   const L = ABView.L();
+   const ABViewFormItem = (0,_ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABViewFormItem.L();
 
-   class ABViewFormTextboxProperty extends ABView {
+   class ABViewFormTextboxProperty extends ABViewFormItem {
       constructor() {
          super(BASE_ID, {
             // Put our ids here
