@@ -80207,10 +80207,10 @@ __webpack_require__.r(__webpack_exports__);
          $repeatColumn.define("options", repeatColumnList);
          $repeatColumn.refresh();
 
+         if (element.isRepeat) $repeatLayout.show();
+
          this.refreshFieldValues();
          this.setFieldValues();
-
-         if (element.isRepeat) $repeatLayout.show();
       }
 
       /**
