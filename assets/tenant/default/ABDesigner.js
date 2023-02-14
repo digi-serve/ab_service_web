@@ -69698,7 +69698,7 @@ var myClass = null;
             } catch (err) {
                this.AB.notify.developer(err, {
                   message: "Error trying to save selected View:",
-                  view: this.toObj(),
+                  view: this.CurrentView.toObj(),
                });
                this.ready();
             }
@@ -70465,7 +70465,10 @@ let myClass = null;
 
          ui() {
             const childViews = this.CurrentView.views();
-            const _ui = this.viewComponent.ui();
+            const _ui = this.viewComponent
+               .ui()
+               .rows.find((v) => v.view === "layout");
+
             _ui.type = "form";
 
             if (childViews.length) {
@@ -70534,7 +70537,7 @@ let myClass = null;
                </div></div>`;
          }
 
-         viewEdit(e, id, trg) {
+         viewEdit(e, id /*, trg*/) {
             const view = this.CurrentView.views((v) => v.id == id)[0];
             if (!view) return false;
 
@@ -70554,7 +70557,7 @@ let myClass = null;
             return false;
          }
 
-         viewDelete(e, id, trg) {
+         viewDelete(e, id /*, trg*/) {
             const view = this.CurrentView.views((v) => v.id == id)[0];
             if (!view) return false;
 
@@ -70767,7 +70770,7 @@ let myClass = null;
             const ids = this.ids;
             const baseView = this.view;
             const component = this.component;
-            const componentUI = this.component.ui();
+            const componentUI = this.component.ui()?.rows[0];
 
             if (componentUI.rows) {
                componentUI.rows[0].id = ids.component;
@@ -80028,7 +80031,7 @@ __webpack_require__.r(__webpack_exports__);
             setOptions.push({
                id: 5,
                value: L("Set by the instance [{0}]", [
-                  this.fieldRepeat ? this.element.fieldRepeat.label : "",
+                  fieldRepeat?.label ?? "",
                ]),
             });
 
