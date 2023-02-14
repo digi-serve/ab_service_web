@@ -78560,7 +78560,10 @@ __webpack_require__.r(__webpack_exports__);
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
    var L = UIClass.L();
 
-   class UIProcessParticipant_selectManagersUI extends _ui_common_participant_selectManager__WEBPACK_IMPORTED_MODULE_1__["default"] {
+   const UI_Common_Participant_SelectManager =
+      (0,_ui_common_participant_selectManager__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+
+   class UIProcessParticipant_selectManagersUI extends UI_Common_Participant_SelectManager {
       constructor(id) {
          super(id, {
             useField: "", // bool on whether to use userFields from process
@@ -78676,7 +78679,9 @@ __webpack_require__.r(__webpack_exports__);
             },
          ];
 
-         return baseUI.elements.push(...userFieldElements);
+         baseUI.elements.push(...userFieldElements);
+
+         return baseUI;
       }
 
       async init(AB) {
@@ -80031,7 +80036,7 @@ __webpack_require__.r(__webpack_exports__);
             setOptions.push({
                id: 5,
                value: L("Set by the instance [{0}]", [
-                  this.fieldRepeat ? this.element.fieldRepeat.label : "",
+                  fieldRepeat?.label ?? "",
                ]),
             });
 
