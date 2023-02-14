@@ -80031,7 +80031,7 @@ __webpack_require__.r(__webpack_exports__);
             setOptions.push({
                id: 5,
                value: L("Set by the instance [{0}]", [
-                  fieldRepeat?.label ?? "",
+                  this.fieldRepeat ? this.element.fieldRepeat.label : "",
                ]),
             });
 
