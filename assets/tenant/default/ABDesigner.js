@@ -71548,16 +71548,16 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./process/ABProcessGatewayExclusive.js */ "./src/rootPages/Designer/properties/process/ABProcessGatewayExclusive.js"),
       __webpack_require__(/*! ./process/ABProcessParticipant.js */ "./src/rootPages/Designer/properties/process/ABProcessParticipant.js"),
       __webpack_require__(/*! ./process/ABProcessTaskEmail.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskEmail.js"),
-      __webpack_require__(/*! ./process/ABProcessTriggerLifecycle.js */ "./src/rootPages/Designer/properties/process/ABProcessTriggerLifecycle.js"),
       __webpack_require__(/*! ./process/ABProcessTaskService.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskService.js"),
-      __webpack_require__(/*! ./process/ABProcessTaskServiceInsertRecord.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceInsertRecord.js"),
       __webpack_require__(/*! ./process/ABProcessTaskServiceCalculate.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceCalculate.js"),
       __webpack_require__(/*! ./process/ABProcessTaskServiceGetResetPasswordUrl.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceGetResetPasswordUrl.js"),
+      __webpack_require__(/*! ./process/ABProcessTaskServiceInsertRecord.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceInsertRecord.js"),
       __webpack_require__(/*! ./process/ABProcessTaskServiceQuery.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskServiceQuery.js"),
       __webpack_require__(/*! ./process/ABProcessTaskSubProcess.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskSubProcess.js"),
       __webpack_require__(/*! ./process/ABProcessTaskUser.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskUser.js"),
       __webpack_require__(/*! ./process/ABProcessTaskUserApproval.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskUserApproval.js"),
       __webpack_require__(/*! ./process/ABProcessTaskUserExternal.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskUserExternal.js"),
+      __webpack_require__(/*! ./process/ABProcessTriggerLifecycle.js */ "./src/rootPages/Designer/properties/process/ABProcessTriggerLifecycle.js"),
    ].forEach((P) => {
       let Klass = P.default(AB);
       Processes.push(Klass);
@@ -78229,9 +78229,11 @@ __webpack_require__.r(__webpack_exports__);
          // fields are available to this task:
          //   returns an [{ key:'{uuid}', label:"" field:{ABDataField} }, {}, ...]
          const listDataFields = element.process.processDataFields(element);
-         const abFields = (listDataFields || []).map((f) => {
-            return f.field;
-         });
+         const abFields = (listDataFields || [])
+            .map((f) => {
+               return f.field;
+            })
+            .filter((f) => f);
 
          const myOutgoingConnections = element.process.connectionsOutgoing(
             element.diagramID
@@ -78562,10 +78564,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-   var L = UIClass.L();
-
    const UI_Common_Participant_SelectManager =
       (0,_ui_common_participant_selectManager__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+   var L = UIClass.L();
 
    class UIProcessParticipant_selectManagersUI extends UI_Common_Participant_SelectManager {
       constructor(id) {
@@ -79632,7 +79633,7 @@ __webpack_require__.r(__webpack_exports__);
             }
          );
 
-         $$(ids.name).setValue(element.name);
+         $$(ids.name).setValue(element.label);
          $$(ids.formulaText).setValue(element.formulaText);
          $$(ids.variableList).define("data", list);
          $$(ids.variableList).refresh();
@@ -79642,7 +79643,7 @@ __webpack_require__.r(__webpack_exports__);
          const obj = {};
          const ids = this.ids;
 
-         obj.name = $$(ids.name)?.getValue();
+         obj.label = $$(ids.name)?.getValue();
          obj.formulaText = $$(ids.formulaText).getValue();
 
          return obj;
@@ -79654,12 +79655,12 @@ __webpack_require__.r(__webpack_exports__);
        * @param {string} id
        *        the webix $$(id) of the properties panel area.
        */
-      propertiesStash(id) {
-         const ids = this.propertyIDs(id);
+      // propertiesStash(id) {
+      //    const ids = this.propertyIDs(id);
 
-         this.name = this.property(ids.name);
-         this.formulaText = this.property(ids.formulaText);
-      }
+      //    this.name = this.property(ids.name);
+      //    this.formulaText = this.property(ids.formulaText);
+      // }
    } //End
 
    return UIProcessServiceCalculate;
@@ -91154,9 +91155,13 @@ __webpack_require__.r(__webpack_exports__);
          const dcOptions = view.application
             .datacollectionsIncluded()
             .map((dc) => {
+               let icon = "fa-database";
+               if (dc.sourceType === "query") {
+                  icon = "fa-filter";
+               }
                return {
                   id: dc.id,
-                  value: dc.label,
+                  value: `<i class="fa ${icon}"></i> ${dc.label}`,
                };
             });
          SourceSelector.define("options", dcOptions);
@@ -101417,6 +101422,12 @@ __webpack_require__.r(__webpack_exports__);
             exporter: "",
             list: "",
          });
+
+         this.cacheTemplate = {};
+         // {json} hash { obj.id : template display }
+         // a temporary cache of an items template
+         // this is to prevent multiple template generations
+         // in rapid succession.
       }
 
       ui() {
@@ -101946,15 +101957,16 @@ __webpack_require__.r(__webpack_exports__);
          //    this object and any of it's sub objects.
          //
          //
-         var warnings = {
-            icon: "",
-            count: 0,
-         };
-         if (obj.warningsAll().length) {
-            warnings.icon = `<span class="webix_icon fa fa-warning pulseLight smalltext"></span>`;
-            warnings.count = obj.warningsAll().length;
-         }
-         return `<div class='ab-app-list-item'>
+         if (!this.cacheTemplate[obj.id]) {
+            var warnings = {
+               icon: "",
+               count: 0,
+            };
+            if (obj.warningsAll().length) {
+               warnings.icon = `<span class="webix_icon fa fa-warning pulseLight smalltext"></span>`;
+               warnings.count = obj.warningsAll().length;
+            }
+            this.cacheTemplate[obj.id] = `<div class='ab-app-list-item'>
    <div class='ab-app-list-info'>
       <div class='ab-app-list-name'><i class="lighten fa-fw fa ${
          obj.icon
@@ -101966,6 +101978,12 @@ __webpack_require__.r(__webpack_exports__);
       ${common.iconGear(obj)}
    </div>
 </div>`;
+
+            setTimeout(() => {
+               delete this.cacheTemplate[obj.id];
+            }, 400);
+         }
+         return this.cacheTemplate[obj.id];
       }
 
       toolTipListItem(obj) {
@@ -102277,6 +102295,12 @@ __webpack_require__.r(__webpack_exports__);
                "{common.iconGear}",
                "</div>",
             ].join("");
+
+         this.cacheTemplate = {};
+         // {json} hash { obj.id : template display }
+         // a temporary cache of an items template
+         // this is to prevent multiple template generations
+         // in rapid succession.
 
          this.CurrentApplication = null;
          this.itemList = null;
@@ -102811,21 +102835,33 @@ __webpack_require__.r(__webpack_exports__);
        * @return {string}
        */
       templateListItem(obj, common) {
-         var warnings = obj.warningsAll();
+         if (!this.cacheTemplate[obj.id]) {
+            var warnings = obj.warningsAll();
 
-         if (typeof this._templateListItem == "string") {
-            var warnText = "";
-            if (warnings.length > 0) {
-               warnText = `<span class="webix_sidebar_dir_icon webix_icon fa fa-warning pulseLight smalltext"></span>`;
+            if (typeof this._templateListItem == "string") {
+               var warnText = "";
+               if (warnings.length > 0) {
+                  warnText = `<span class="webix_sidebar_dir_icon webix_icon fa fa-warning pulseLight smalltext"></span>`;
+               }
+
+               this.cacheTemplate[obj.id] = this._templateListItem
+                  .replace("#label#", obj.label || "??label??")
+                  .replace("{common.iconGear}", common.iconGear(obj))
+                  .replace("#warnings#", warnText);
+            } else {
+               // else they sent in a function()
+               this.cacheTemplate[obj.id] = this._templateListItem(
+                  obj,
+                  common,
+                  warnings
+               );
             }
 
-            return this._templateListItem
-               .replace("#label#", obj.label || "??label??")
-               .replace("{common.iconGear}", common.iconGear(obj))
-               .replace("#warnings#", warnText);
+            setTimeout(() => {
+               delete this.cacheTemplate[obj.id];
+            }, 400);
          }
-         // else they sent in a function()
-         return this._templateListItem(obj, common, warnings);
+         return this.cacheTemplate[obj.id];
       }
 
       /**
@@ -103544,11 +103580,13 @@ __webpack_require__.r(__webpack_exports__);
 
          var ids = this.ids;
 
-         let warningsAll = currentObject?.warningsAll();
+         let warningsAll = currentObject?.warningsAll().map((w) => w.message);
+         warningsAll = this.AB.uniq(warningsAll); // prevent duplicates
          if (warningsAll?.length) {
             let message = "<ul class='warningslist'>";
             warningsAll.forEach((issue) => {
-               message += `<li><i class="warningtext fa fa-warning"></i> ${issue.message}</li>`;
+               if (issue)
+                  message += `<li><i class="warningtext fa fa-warning"></i> ${issue}</li>`;
             });
             message += `</ul>`;
             $$(ids.warningsScroll).setHTML(message);
@@ -103632,6 +103670,11 @@ __webpack_require__.r(__webpack_exports__);
 
          this.options = options;
 
+         this.cacheSidebarItems = {};
+         // {json} hash { app.id : sidebar display }
+         // a temporary cache of the generate sidebar display
+         // to prevent multiple calls in rapid succession.
+
          this.selectedItem = this.ids.tab_object;
          // {string} {this.ids.xxx}
          // Keep track of the currently selected Tab Item (Object, Query, etc)
@@ -103652,52 +103695,59 @@ __webpack_require__.r(__webpack_exports__);
          return warnObjects;
       }
       sidebarItems(app) {
-         let warnObjects = this.scanTopic(app, "objectsIncluded");
-         let warnQueries = this.scanTopic(app, "queriesIncluded");
-         const warnDatacollections = this.scanTopic(
-            app,
-            "datacollectionsIncluded"
-         );
-         let warnProcesses = this.scanTopic(app, "processes");
+         let ID = app?.id ?? null;
+         if (!this.cacheSidebarItems[ID]) {
+            let warnObjects = this.scanTopic(app, "objectsIncluded");
+            let warnQueries = this.scanTopic(app, "queriesIncluded");
+            const warnDatacollections = this.scanTopic(
+               app,
+               "datacollectionsIncluded"
+            );
+            let warnProcesses = this.scanTopic(app, "processes");
 
-         // TODO
-         // const warnInterfaces = this.scanTopic(app, "interfacesIncluded");
+            // TODO
+            // const warnInterfaces = this.scanTopic(app, "interfacesIncluded");
 
-         var sidebarItems = [
-            {
-               id: this.ids.tab_object,
-               value: `${L("Objects")}`,
-               icon: "fa fa-fw fa-database",
-               issues: warnObjects,
-            },
-            {
-               id: this.ids.tab_query,
-               value: `${L("Queries")}`,
-               icon: "fa fa-fw fa-filter",
-               issues: warnQueries,
-            },
-            {
-               id: this.ids.tab_datacollection,
-               value: L("Data Collections"),
-               icon: "fa fa-fw fa-table",
-               issues: warnDatacollections,
-            },
-            {
-               id: this.ids.tab_processview,
-               value: L("Process"),
-               icon: "fa fa-fw fa-code-fork",
-               issues: warnProcesses,
-            },
-            {
-               id: this.ids.tab_interface,
-               value: L("Interface"),
-               icon: "fa fa-fw fa-id-card-o",
-               // TODO
-               // issues: warnInterfaces,
-            },
-         ];
+            this.cacheSidebarItems[ID] = [
+               {
+                  id: this.ids.tab_object,
+                  value: `${L("Objects")}`,
+                  icon: "fa fa-fw fa-database",
+                  issues: warnObjects,
+               },
+               {
+                  id: this.ids.tab_query,
+                  value: `${L("Queries")}`,
+                  icon: "fa fa-fw fa-filter",
+                  issues: warnQueries,
+               },
+               {
+                  id: this.ids.tab_datacollection,
+                  value: L("Data Collections"),
+                  icon: "fa fa-fw fa-table",
+                  issues: warnDatacollections,
+               },
+               {
+                  id: this.ids.tab_processview,
+                  value: L("Process"),
+                  icon: "fa fa-fw fa-code-fork",
+                  issues: warnProcesses,
+               },
+               {
+                  id: this.ids.tab_interface,
+                  value: L("Interface"),
+                  icon: "fa fa-fw fa-id-card-o",
+                  // TODO
+                  // issues: warnInterfaces,
+               },
+            ];
 
-         return sidebarItems;
+            setTimeout(() => {
+               this.cacheSidebarItems[ID] = null;
+            }, 500);
+         }
+
+         return this.cacheSidebarItems[ID];
       }
 
       /**
@@ -119288,7 +119338,8 @@ class CustomRenderer extends diagram_js_lib_draw_BaseRenderer__WEBPACK_IMPORTED_
    canRender(element) {
       // only render tasks and events (ignore labels)
       return (
-         (0,bpmn_js_lib_features_modeling_util_ModelingUtil__WEBPACK_IMPORTED_MODULE_1__.isAny)(element, ["bpmn:Task", "bpmn:Event"]) && !element.labelTarget
+         (0,bpmn_js_lib_features_modeling_util_ModelingUtil__WEBPACK_IMPORTED_MODULE_1__.isAny)(element, ["bpmn:Task", "bpmn:Event", "bpmn:ExclusiveGateway"]) &&
+         !element.labelTarget
       );
    }
 
@@ -120664,12 +120715,11 @@ function isInSubProcess(element) {
        * @param {BPMNElement} parent
        */
       checkKnownElement(shape, parent) {
+         const currElement = this.CurrentProcess.elementForDiagramID(shape.id);
+
          // if this is one of our generic types, and it isn't currently
          // tracked by our CurrentProcess, then it should show a warning.
          if (genericElementTypes.indexOf(shape.type) > -1) {
-            const currElement = this.CurrentProcess.elementForDiagramID(
-               shape.id
-            );
             if (!currElement) {
                // skip elements that are Start and End markers in a SubProcess
 
@@ -120695,6 +120745,15 @@ function isInSubProcess(element) {
                } else {
                   delete shape.___abwarnings;
                }
+            }
+         }
+
+         // Case 2: An element that already knows it has warnings should
+         // default display the warning symbol.
+         if (currElement) {
+            const warnings = currElement.warnings();
+            if (warnings.length > 0) {
+               shape.___abwarnings = warnings;
             }
          }
       }
@@ -120856,6 +120915,24 @@ function isInSubProcess(element) {
                      if (currTask) {
                         currTask.destroy();
                      }
+
+                     // NOTE: Gateways need to be re-evaluated if their next task
+                     // is removed:
+                     let connectionsIN =
+                        this.CurrentProcess.connectionsIncoming(element.id);
+                     connectionsIN.forEach((c) => {
+                        // remove this connection:
+                        this.CurrentProcess.connectionRemove(c);
+
+                        // tell the previous task to re-eval it's warnings:
+                        var prevTask = this.CurrentProcess.elementForDiagramID(
+                           c.from
+                        );
+                        if (prevTask) {
+                           prevTask.warningsEval();
+                           this.timedUpdate(prevTask);
+                        }
+                     });
                   }
 
                   this.CurrentProcess.unknownShapeRemove(element);
@@ -120956,6 +121033,47 @@ function isInSubProcess(element) {
                } else {
                   // this is a connection update:
                   processTask.connectionUpsert(element);
+
+                  // NOTE: if this is adding a new connection, we need the previous
+                  // element to have a chance to update it's warnings.
+                  let connection = this.CurrentProcess.connectionForDiagramID(
+                     element.id
+                  );
+                  if (connection) {
+                     let prevTask = this.CurrentProcess.elementForDiagramID(
+                        connection.from
+                     );
+                     if (prevTask) {
+                        // NOTE: timedUpdate() is necessary for the BPMN diagram to
+                        // display the new state of the warnings. BUT it also triggers
+                        // another "element.changed" event, so we need to not trigger
+                        // it again if the current call was a result of a previous
+                        // timedUpdate(). (otherwise you get an infinit loop)
+                        if (!prevTask.___pendingUpdate) {
+                           let properties = prevTask.diagramProperties(
+                              this.viewer
+                           );
+                           // NOTE: this section of the "element.changed" handler only
+                           // looks at connections, so we only need to skip the updates
+                           // that are for connections:
+                           properties = properties.filter(
+                              (p) => p.id.indexOf("Flow") > -1
+                           );
+
+                           if (properties.length > 0) {
+                              prevTask.___pendingUpdate = properties.length;
+                           }
+                           prevTask.warningsEval();
+                           this.timedUpdate(prevTask);
+                        } else {
+                           prevTask.___pendingUpdate--;
+                           if (prevTask.___pendingUpdate == 0) {
+                              delete prevTask.___pendingUpdate;
+                           }
+                           // event.cancelBubble = true;
+                        }
+                     }
+                  }
                }
             });
 
@@ -121218,23 +121336,11 @@ function isInSubProcess(element) {
          thisObj.fromValues(objVals);
          thisObj.warningsEval(); // resets the warnings
 
-         // thisObj.save();
-
-         // thisObj.propertiesStash(this.ids.properties);
-
          // NOTE: this can get called during a BPMN event phase,
          // and we need to let that complete before trying to update the
          // diagram element properties.
          // an immediate timeout should let the other process complete.
-         setTimeout(() => {
-            var properties = thisObj.diagramProperties(this.viewer);
-            properties.forEach((prop) => {
-               this.updateElementProperties(prop.id, prop.def, prop.warn);
-            });
-
-            this.warningsRefresh(this.CurrentProcess);
-            Warnings.show(this.CurrentProcess);
-         }, 0);
+         this.timedUpdate(thisObj);
       }
 
       /**
@@ -121244,6 +121350,18 @@ function isInSubProcess(element) {
        */
       show() {
          $$(this.ids.component).show();
+      }
+
+      timedUpdate(thisObj) {
+         setTimeout(() => {
+            var properties = thisObj.diagramProperties(this.viewer);
+            properties.forEach((prop) => {
+               this.updateElementProperties(prop.id, prop.def, prop.warn);
+            });
+
+            this.warningsRefresh(this.CurrentProcess);
+            Warnings.show(this.CurrentProcess);
+         }, 0);
       }
 
       /**
