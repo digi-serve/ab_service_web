@@ -17359,10 +17359,10 @@ class PreloadUI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       };
    }
    preloadMessage(text) {
-      $$("preload-text").setValues({ text });
+      $$("preload-text")?.setValues({ text });
    }
    destroy() {
-      $$("preloader").destructor();
+      $$("preloader")?.destructor();
    }
 }
 
@@ -23207,4 +23207,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.824d568a069507121742.js.map
+//# sourceMappingURL=app.b75c58d7bddc888235fa.js.map
