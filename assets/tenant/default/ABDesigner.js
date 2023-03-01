@@ -69900,56 +69900,56 @@ __webpack_require__.r(__webpack_exports__);
  * The widget that displays the UI Editor Component on the screen
  * when designing the UI.
  */
- let myClass = null;
- // {singleton}
- // we will want to call this factory fn() repeatedly in our imports,
- // but we only want to define 1 Class reference.
- 
- 
- 
- /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
-    if (!myClass) {
-       const ABViewContainer = (0,_ABViewContainer__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
-       // var L = UIClass.L();
-       // var L = ABViewContainer.L();
- 
-       myClass = class ABViewDataviewEditor extends ABViewContainer {
-          static get key() {
-             return "dataview";
-          }
- 
-          constructor(view, base = "interface_editor_viewdataview") {
-             // base: {string} unique base id reference
- 
-             super(view, base);
- 
-             // this.component = this.view.component();
-          }
- 
-          ui() {
-             let _ui = super.ui();
-             _ui.rows[0].cellHeight = 75;
-             return _ui;
-          }
- 
-          init(AB) {
-             this.AB = AB;
-             return super.init(AB);
-          }
- 
-          detatch() {
-             this.component?.detatch?.();
-          }
- 
-          onShow() {
-             this.component?.onShow?.();
-          }
-       };
-    }
- 
-    return myClass;
- }
- 
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const ABViewContainer = (0,_ABViewContainer__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      // var L = UIClass.L();
+      // var L = ABViewContainer.L();
+
+      myClass = class ABViewDataviewEditor extends ABViewContainer {
+         static get key() {
+            return "dataview";
+         }
+
+         constructor(view, base = "interface_editor_viewdataview") {
+            // base: {string} unique base id reference
+
+            super(view, base);
+
+            // this.component = this.view.component();
+         }
+
+         ui() {
+            let _ui = super.ui();
+            _ui.rows[0].cellHeight = 75;
+            return _ui;
+         }
+
+         init(AB) {
+            this.AB = AB;
+            return super.init(AB);
+         }
+
+         detatch() {
+            this.component?.detatch?.();
+         }
+
+         onShow() {
+            this.component?.onShow?.();
+         }
+      };
+   }
+
+   return myClass;
+}
+
 
 /***/ }),
 
@@ -71558,6 +71558,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./process/ABProcessTaskUserApproval.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskUserApproval.js"),
       __webpack_require__(/*! ./process/ABProcessTaskUserExternal.js */ "./src/rootPages/Designer/properties/process/ABProcessTaskUserExternal.js"),
       __webpack_require__(/*! ./process/ABProcessTriggerLifecycle.js */ "./src/rootPages/Designer/properties/process/ABProcessTriggerLifecycle.js"),
+      __webpack_require__(/*! ./process/ABProcessTriggerTimer.js */ "./src/rootPages/Designer/properties/process/ABProcessTriggerTimer.js"),
    ].forEach((P) => {
       let Klass = P.default(AB);
       Processes.push(Klass);
@@ -71577,6 +71578,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewConditionalContainer */ "./src/rootPages/Designer/properties/views/ABViewConditionalContainer.js"),
       __webpack_require__(/*! ./views/ABViewCSVExporter */ "./src/rootPages/Designer/properties/views/ABViewCSVExporter.js"),
       __webpack_require__(/*! ./views/ABViewCSVImporter */ "./src/rootPages/Designer/properties/views/ABViewCSVImporter.js"),
+      __webpack_require__(/*! ./views/ABViewDataFilter */ "./src/rootPages/Designer/properties/views/ABViewDataFilter.js"),
       __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/properties/views/ABViewDataview.js"),
       __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/properties/views/ABViewDetail.js"),
       __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/properties/views/ABViewDocxBuilder.js"),
@@ -81296,6 +81298,277 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return UIProcessTriggerLifecycle;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/process/ABProcessTriggerTimer.js":
+/*!****************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/process/ABProcessTriggerTimer.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/*
+ * UIProcessTriggerTimer
+ *
+ * Display the form for entering the properties for a new
+ * Timer Trigger.
+ *
+ * @return {ClassUI} The Class Definition for this UI widget.
+ */
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = UIClass.L();
+   const uiConfig = AB.Config.uiSettings();
+
+   class UIProcessTriggerTimer extends UIClass {
+      constructor() {
+         super("properties_process_trigger_lifecycle", {
+            name: "",
+            repeatEvery: "",
+            repeatTime: "",
+            repeatOnPanel: "",
+            repeatDaily: "",
+            repeatWeekly: "",
+            repeatMonthly: "",
+            isEnabled: "",
+            triggerKey: "",
+         });
+      }
+
+      static get key() {
+         return "TimerStartEvent";
+      }
+      // {string}
+      // This should match the ABProcessTriggerTimerCore.defaults().key value.
+
+      ui() {
+         let ids = this.ids;
+
+         let dayOptions = [];
+         for (let day = 1; day <= 31; day++) {
+            dayOptions.push({
+               id: day,
+               value: day,
+            });
+         }
+         // dayOptions.push({
+         //    id: "L",
+         //    value: "Last"
+         // });
+
+         return {
+            view: "form",
+            id: ids.component,
+            elements: [
+               {
+                  id: ids.name,
+                  view: "text",
+                  label: L("Name"),
+                  labelWidth: uiConfig.labelWidthLarge,
+                  name: "name",
+                  value: "",
+               },
+               {
+                  id: ids.repeatEvery,
+                  view: "richselect",
+                  name: "repeatEvery",
+                  label: L("Repeat every"),
+                  labelWidth: uiConfig.labelWidthLarge,
+                  value: defaultValues.repeatEvery,
+                  options: [
+                     { id: "daily", value: L("Daily") },
+                     {
+                        id: "weekly",
+                        value: L("Weekly"),
+                     },
+                     {
+                        id: "monthly",
+                        value: L("Monthly"),
+                     },
+                  ],
+                  on: {
+                     onChange: (repeatEvery) => {
+                        $$(ids.repeatOnPanel).showBatch(repeatEvery);
+                     },
+                  },
+               },
+               {
+                  id: ids.repeatTime,
+                  view: "datepicker",
+                  name: "repeatTime",
+                  label: L("Time"),
+                  labelWidth: uiConfig.labelWidthLarge,
+                  value: defaultValues.repeatTime,
+                  timepicker: true,
+                  type: "time",
+                  multiselect: false,
+               },
+               {
+                  view: "multiview",
+                  id: ids.repeatOnPanel,
+                  cells: [
+                     {
+                        view: "radio",
+                        id: ids.repeatDaily,
+                        label: " ",
+                        labelWidth: uiConfig.labelWidthLarge,
+                        batch: "daily",
+                        vertical: true,
+                        value: defaultValues.repeatDaily,
+                        options: [
+                           { id: "day", value: L("Day") },
+                           { id: "weekday", value: L("Weekday") },
+                        ],
+                     },
+                     {
+                        view: "multiselect",
+                        id: ids.repeatWeekly,
+                        labelWidth: uiConfig.labelWidthLarge,
+                        label: L("Every week on:"),
+                        batch: "weekly",
+                        value: defaultValues.repeatWeekly,
+                        options: [
+                           {
+                              id: "SUN",
+                              value: L("Sunday"),
+                           },
+                           {
+                              id: "MON",
+                              value: L("Monday"),
+                           },
+                           {
+                              id: "TUE",
+                              value: L("Tuesday"),
+                           },
+                           {
+                              id: "WED",
+                              value: L("Wednesday"),
+                           },
+                           {
+                              id: "THU",
+                              value: L("Thursday"),
+                           },
+                           {
+                              id: "FRI",
+                              value: L("Friday"),
+                           },
+                           {
+                              id: "SAT",
+                              value: L("Saturday"),
+                           },
+                        ],
+                     },
+                     {
+                        view: "layout",
+                        batch: "monthly",
+                        rows: [
+                           {
+                              id: ids.repeatMonthly,
+                              view: "richselect",
+                              labelWidth: uiConfig.labelWidthLarge,
+                              label: L("Monthly on day"),
+                              options: dayOptions,
+                              value: defaultValues.repeatMonthly,
+                           },
+                        ],
+                     },
+                  ],
+               },
+               {
+                  id: ids.isEnabled,
+                  view: "switch",
+                  label: L("Enable"),
+                  labelWidth: uiConfig.labelWidthLarge,
+                  value: defaultValues.isEnabled,
+               },
+               {
+                  id: ids.triggerKey,
+                  view: "text",
+                  hidden: true,
+                  value: "triggerKey.??",
+               },
+            ],
+         };
+      }
+
+      async init(AB) {
+         this.AB = AB;
+      }
+
+      // applicationLoad(application) {
+      //    super.applicationLoad(application);
+
+      //    $$(this.ids.objList).define("data", listObj);
+      //    $$(this.ids.objList).refresh();
+      // }
+
+      // show() {
+      //    super.show();
+      //    AppList.show();
+      // }
+
+      populate(element) {
+         const ids = this.ids;
+
+         $$(ids.name).setValue(element.label);
+         $$(ids.repeatEvery).setValue(element.repeatEvery);
+         $$(ids.repeatTime).setValue(element.repeatTime);
+         $$(ids.repeatDaily).setValue(element.repeatDaily);
+         $$(ids.repeatWeekly).setValue(element.repeatWeekly);
+         $$(ids.repeatMonthly).setValue(element.repeatMonthly);
+         $$(ids.isEnabled).setValue(element.isEnabled);
+
+         $$(ids.triggerKey).setValue(element.triggerKey);
+         if (
+            element.triggerKey == null ||
+            element.triggerKey == "triggerKey.??"
+         ) {
+            $$(ids.triggerKey).setValue(
+               `timer.${element.id || this.AB.uuid()}`
+            );
+         }
+      }
+
+      /**
+       * values()
+       * return an object hash representing the values for this component.
+       * @return {json}
+       */
+      values() {
+         const obj = {};
+         const ids = this.ids;
+
+         obj.label = $$(ids.name).getValue();
+         obj.repeatEvery = $$(ids.repeatEvery).getValue();
+         obj.repeatTime = $$(ids.repeatTime).getValue().toLocaleTimeString();
+         obj.repeatDaily = $$(ids.repeatDaily).getValue();
+         obj.repeatWeekly = $$(ids.repeatWeekly).getValue();
+         obj.repeatMonthly = $$(ids.repeatMonthly).getValue();
+         obj.isEnabled = $$(ids.isEnabled).getValue();
+
+         obj.triggerKey = $$(ids.triggerKey)?.getValue();
+
+         return obj;
+      }
+   }
+
+   const defaultValues = AB.Class.ABProcessTaskManager.allTasks()
+      .filter((e) => e.defaults().key == UIProcessTriggerTimer.key)[0]
+      .defaults();
+   // {json} The default Values from the ABProcessTriggerTimerCore
+   // class definition.
+
+   return UIProcessTriggerTimer;
 }
 
 
@@ -91673,6 +91946,257 @@ const ABViewContainerDefaults = {
       };
    }
    return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewDataFilter.js":
+/*!*********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDataFilter.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewDataFilter
+ * A Property manager for our ABViewDataFilter definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const uiConfig = AB.Config.uiSettings();
+   const BASE_ID = "properties_abview_data_filter";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   class ABViewDataFilterProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            // Put our ids here
+            datacollection: "",
+            fields: "",
+            custom_filters: "",
+            custom_sort: "",
+            batch: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "data-filter";
+      }
+
+      ui() {
+         let ids = this.ids;
+
+         return super.ui([
+            {
+               id: ids.batch,
+               visibleBatch: "advanced",
+               rows: [
+                  {
+                     id: ids.viewtype,
+                     name: "viewType",
+                     view: "combo",
+                     label: L("Display as"),
+                     labelWidth: uiConfig.labelWidthLarge,
+                     on: {
+                        onChange: (newVal, oldVal) => {
+                           if (newVal != oldVal) {
+                              $$(ids.batch).showBatch(newVal);
+                              this.onChange();
+                           }
+                        },
+                     },
+                     options: [
+                        { id: "advanced", value: "Search & filter" },
+                        { id: "connected", value: "Connected field" },
+                     ],
+                  },
+                  {
+                     id: ids.datacollection,
+                     name: "dataviewID",
+                     view: "combo",
+                     label: L("Datacollection"),
+                     labelWidth: uiConfig.labelWidthLarge,
+                     on: {
+                        onChange: (newVal, oldVal) => {
+                           if (newVal != oldVal) {
+                              this.populateFields(newVal);
+                              this.onChange();
+                           }
+                        },
+                     },
+                  },
+                  {
+                     id: ids.fields,
+                     batch: "connected",
+                     name: "field",
+                     view: "combo",
+                     label: L("Field"),
+                     labelWidth: uiConfig.labelWidthLarge,
+                     on: {
+                        onChange: () => {
+                           this.onChange();
+                        },
+                     },
+                  },
+                  {
+                     view: "checkbox",
+                     batch: "advanced",
+                     id: ids.custom_filters,
+                     label: "Show Filters",
+                     labelWidth: uiConfig.labelWidthLarge,
+                     name: "showFilter",
+                     on: {
+                        onChange: () => {
+                           this.onChange();
+                        },
+                     },
+                  },
+                  {
+                     view: "checkbox",
+                     batch: "advanced",
+                     id: ids.custom_sort,
+                     label: "Show Sort",
+                     labelWidth: uiConfig.labelWidthLarge,
+                     name: "showSort",
+                     on: {
+                        onChange: () => {
+                           this.onChange();
+                        },
+                     },
+                  },
+                  {},
+               ],
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+         let ids = this.ids;
+         if (!view) return;
+
+         const $component = $$(ids.component);
+
+         const defaultValues = this.defaultValues();
+         let values = $component.getValues();
+
+         // set default values
+         for (const key in defaultValues)
+            values[key] = defaultValues[key] || values[key];
+
+         // set values saved on server
+         for (const key in view.settings)
+            values[key] = view.settings[key] || values[key];
+
+         let datacollectionId = values.dataviewID ? values.dataviewID : null;
+         var SourceSelector = $$(ids.datacollection);
+
+         // Pull data collections to options
+         var dcOptions = view.application
+            .datacollectionsIncluded()
+            .filter((dc) => {
+               var obj = dc.datasource;
+               return dc.sourceType == "object" && obj && !obj.isImported;
+            })
+            .map((d) => {
+               let entry = { id: d.id, value: d.label };
+               if (d.sourceType == "query") {
+                  entry.icon = "fa fa-filter";
+               } else {
+                  entry.icon = "fa fa-database";
+               }
+               return entry;
+            });
+         SourceSelector.define("options", dcOptions);
+         SourceSelector.define("value", view.datacollection);
+         SourceSelector.refresh();
+
+         // if there is a data collection we want to get all connected fields
+         if (datacollectionId) {
+            this.populateFields(datacollectionId);
+         }
+         // debugger;
+         // $$(ids.labelPosition).setValue(
+         //    view.settings.labelPosition ||
+         //       ABViewFormPropertyComponentDefaults.labelPosition
+         // );
+         $component.setValues(values);
+      }
+
+      populateFields(datacollectionId) {
+         let ids = this.ids;
+         // get data collection
+         let datacollection = this.AB.datacollectionByID(datacollectionId);
+         let object = datacollection ? datacollection.datasource : null;
+         // Pull connected fields to options
+         var fieldOptions = [];
+         fieldOptions = object.connectFields().map((f) => {
+            return { id: f.columnName, value: f.label };
+         });
+
+         $$(ids.fields).define("options", fieldOptions);
+         $$(ids.fields).refresh();
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = null;
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = super.values();
+
+         values.settings = $component.getValues();
+         values.text = values.settings.text;
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("data-filter");
+      }
+   }
+
+   return ABViewDataFilterProperty;
 }
 
 
