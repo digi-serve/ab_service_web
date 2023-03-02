@@ -68567,6 +68567,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _rootPages_Designer_ui_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rootPages/Designer/ui.js */ "./src/rootPages/Designer/ui.js");
+/* harmony import */ var _webix_custom_components_customComponentManager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./webix_custom_components/customComponentManager.js */ "./src/webix_custom_components/customComponentManager.js");
+
 
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
@@ -68597,6 +68599,7 @@ __webpack_require__.r(__webpack_exports__);
       },
    };
    Designer.application = application;
+   (0,_webix_custom_components_customComponentManager_js__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
    return application;
 }
 
@@ -80913,8 +80916,7 @@ __webpack_require__.r(__webpack_exports__);
 
       async init(AB) {
          this.AB = AB;
-
-         return Promise.resolve();
+         return;
       }
 
       /**
@@ -125077,6 +125079,292 @@ module.exports = class CSVImporter {
       return str.trim().replace(/"/g, "").replace(/'/g, "");
    }
 };
+
+
+/***/ }),
+
+/***/ "./src/webix_custom_components/customComponentManager.js":
+/*!***************************************************************!*\
+  !*** ./src/webix_custom_components/customComponentManager.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ initCustomWebix)
+/* harmony export */ });
+/*
+ * Custom Component Manager
+ * Initialize our custom Webix Components.
+ */
+
+// Import our Custom Components here:
+const componentList = [(__webpack_require__(/*! ./formioBuilder */ "./src/webix_custom_components/formioBuilder.js")["default"])];
+
+function initCustomWebix(AB) {
+   componentList.forEach((Component) => {
+      new Component(AB);
+   });
+}
+
+
+/***/ }),
+
+/***/ "./src/webix_custom_components/formioBuilder.js":
+/*!******************************************************!*\
+  !*** ./src/webix_custom_components/formioBuilder.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ABCustomFormIOBuilder)
+/* harmony export */ });
+/*
+ * formioBuilder
+ *
+ * Create a custom webix component.
+ *
+ */
+
+class ABCustomFormIOBuilder {
+   get key() {
+      return "formiobuilder";
+   }
+
+   constructor(AB) {
+      this.AB = AB;
+      this.label = this.AB.Label();
+      this.view = this.key;
+
+      // Tell Webix to create an INSTANCE of our custom component:
+      this.AB.Webix.protoUI(this.ui(), this.AB.Webix.ui.popup);
+   }
+
+   /**
+    * Generate the custom webix ui
+    * @method ui
+    * @returns {Object} custom webix ui
+    */
+   ui() {
+      return {
+         name: this.key,
+         defaults: {
+            css: "scrolly forceOpen",
+            hidden: false,
+            autofit: true,
+         },
+         $init: async function (config) {
+            const comp = this.parseDataFields(config.dataFields);
+            const formComponents = config.formComponents
+               ? config.formComponents
+               : { components: [comp.approveButton.schema] };
+            /* global Formio */
+            try {
+               this.builder = await Formio.builder(this.$view, formComponents, {
+                  noDefaultSubmitButton: true,
+                  noNewEdit: true,
+                  builder: {
+                     basic: false,
+                     advanced: false,
+                     customBasic: false,
+                     premium: false,
+                     custom: {
+                        title: this.label("Fields"),
+                        weight: 0,
+                        default: true,
+                        components: comp,
+                     },
+                     layout: {
+                        components: {
+                           table: true,
+                        },
+                     },
+                  },
+               });
+            } catch (err) {
+               this.notify("Error initializing formio builder", err);
+            }
+         },
+         // set up a function that can be called to request the form schema
+         getFormData: function () {
+            return this.builder.schema;
+         },
+         // Pass functions into the Webix component to be use in $init
+         label: this.label,
+         parseDataFields: this.parseDataFields,
+         notify: this.AB.notify.developer,
+      };
+   }
+
+   /**
+    * Generate the formio custom components based on the fields.
+    * Used internally in the webix component.
+    * @method parseDataFields
+    * @param {object[]} fields {field: ABField, key, label, object: ABObject}
+    * @returns {object} each key is a formio component
+    */
+   parseDataFields(fields) {
+      const components = {};
+      fields.forEach(({ field, key, label }) => {
+         if (!field) return;
+
+         const schema = {
+            abFieldID: field.id,
+            label: field.label,
+            disabled: true,
+            key,
+            _key: key,
+            type: "textfield",
+            input: true,
+         };
+
+         switch (field.key) {
+            case "boolean":
+               schema.type = "checkbox";
+               break;
+            case "calculate":
+               schema.inputType = "text";
+               schema.calculateValue = `value = ${field.settings.formula
+                  .replace(/{/g, "data['")
+                  .replace(/}/g, "']")}`;
+               break;
+            case "connectObject":
+               schema.inputType = "text";
+               schema.calculateValue = `value = data['${key}.format']`;
+               break;
+            case "date":
+               schema.type = "datetime";
+               schema.format = "MMMM d, yyyy";
+               break;
+            case "datetime":
+               schema.type = "datetime";
+               schema.format = "MMMM d, yyyy h:mm a";
+               break;
+            case "email":
+               schema.type = "email";
+               break;
+            case "file":
+               schema.type = "htmlelement";
+               schema.tag = "a";
+               schema.className = "btn btn-primary btn-block";
+               schema.content = `<i class='fa fa-paperclip'></i> {{data['${key}']?.filename ?? "No File"}}`;
+               schema.attrs = [
+                  {
+                     attr: "href",
+                     value: field.urlFile(`{{data['${key}'].uuid}}`),
+                  },
+                  {
+                     attr: "target",
+                     value: "_blank",
+                  },
+               ];
+               schema.refreshOnChange = true;
+               schema.input = false;
+               break;
+            case "image":
+               schema.type = "htmlelement";
+               schema.tag = "img";
+               schema.className = "img-thumbnail max100";
+               schema.content = "";
+               (schema.attrs = [
+                  {
+                     attr: "src",
+                     value: field.urlImage(`{{data['${key}']}}`),
+                  },
+               ]),
+                  (schema.refreshOnChange = true);
+               schema.input = false;
+               break;
+            case "list":
+               var values = [];
+               field.settings.options.forEach((opt) => {
+                  values.push({
+                     label: opt.text,
+                     value: opt.id,
+                  });
+               });
+               schema.type = "select";
+               schema.data = { values };
+               schema.multiple = field.settings.isMultiple;
+               break;
+            case "LongText":
+               schema.type = "textarea";
+               break;
+            case "number":
+               schema.type = "number";
+               break;
+            case "TextFormula":
+               schema.inputType = "text";
+               schema.calculateValue = `value = '${field.settings.textFormula}'`;
+               break;
+            default:
+               break;
+         }
+         components[key] = {
+            title: label,
+            key,
+            icon: field.icon,
+            schema,
+         };
+      });
+
+      components["approveButton"] = {
+         title: this.label("Approve Button"),
+         key: "approve",
+         icon: "check-square",
+         schema: {
+            label: this.label("Approve"),
+            type: "button",
+            key: "approve",
+            event: "approve",
+            block: true,
+            size: "lg",
+            input: false,
+            leftIcon: "fa fa-thumbs-up",
+            action: "event",
+            theme: "success",
+         },
+      };
+      components["denyButton"] = {
+         title: this.label("Deny Button"),
+         key: "deny",
+         icon: "ban",
+         schema: {
+            label: this.label("Deny"),
+            type: "button",
+            key: "deny",
+            event: "deny",
+            block: true,
+            size: "lg",
+            input: false,
+            leftIcon: "fa fa-thumbs-down",
+            action: "event",
+            theme: "danger",
+         },
+      };
+      components["customButton"] = {
+         title: this.label("Custom Action Button"),
+         key: "custom",
+         icon: "cog",
+         schema: {
+            label: this.label("Custom Name"),
+            type: "button",
+            key: "custom",
+            event: "yourEvent",
+            block: true,
+            size: "lg",
+            input: false,
+            leftIcon: "fa fa-cog",
+            action: "event",
+            theme: "primary",
+         },
+      };
+      return components;
+   }
+}
 
 
 /***/ })
