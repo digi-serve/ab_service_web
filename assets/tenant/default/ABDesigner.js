@@ -93967,6 +93967,7 @@ __webpack_require__.r(__webpack_exports__);
                name: "includeSave",
                view: "checkbox",
                label: L("Save"),
+               click: () => this.onChange(),
             },
             {
                id: ids.saveLabel,
@@ -93975,12 +93976,16 @@ __webpack_require__.r(__webpack_exports__);
                labelWidth: uiConfig.labelWidthLarge,
                label: L("Save Label"),
                placeholder: L("Save Placeholder"),
+               on: {
+                  onChange: () => this.onChange(),
+               },
             },
             {
                id: ids.includeCancel,
                name: "includeCancel",
                view: "checkbox",
                label: L("Cancel"),
+               click: () => this.onChange(),
             },
             {
                id: ids.cancelLabel,
@@ -93989,12 +93994,16 @@ __webpack_require__.r(__webpack_exports__);
                labelWidth: uiConfig.labelWidthLarge,
                label: L("Cancel Label"),
                placeholder: L("Cancel Placeholder"),
+               on: {
+                  onChange: () => this.onChange(),
+               },
             },
             {
                id: ids.includeReset,
                name: "includeReset",
                view: "checkbox",
                label: L("Reset"),
+               click: () => this.onChange(),
             },
             {
                id: ids.resetLabel,
@@ -94003,6 +94012,9 @@ __webpack_require__.r(__webpack_exports__);
                labelWidth: uiConfig.labelWidthLarge,
                label: L("Reset Label"),
                placeholder: L("Reset Placeholder"),
+               on: {
+                  onChange: () => this.onChange(),
+               },
             },
             {
                id: ids.afterCancel,
@@ -94010,6 +94022,9 @@ __webpack_require__.r(__webpack_exports__);
                view: "richselect",
                labelWidth: uiConfig.labelWidthLarge,
                label: L("After Cancel"),
+               on: {
+                  onChange: () => this.onChange(),
+               },
                // options: []
             },
             {
@@ -94032,6 +94047,9 @@ __webpack_require__.r(__webpack_exports__);
                      value: L("Right"),
                   },
                ],
+               on: {
+                  onChange: () => this.onChange(),
+               },
             },
          ]);
       }
@@ -94249,7 +94267,9 @@ __webpack_require__.r(__webpack_exports__);
 
          this.AB = AB;
          FilterComponent = this.AB.filterComplexNew(`${BASE_ID}_filter`);
+         FilterComponent.on("save", () => this.onChange());
          SortComponent = (0,_ui_work_object_workspace_popupSortFields__WEBPACK_IMPORTED_MODULE_1__["default"])(this.AB, `${BASE_ID}_sort`);
+         SortComponent.on("changed", () => this.onChange());
       }
 
       static get key() {
@@ -94282,6 +94302,9 @@ __webpack_require__.r(__webpack_exports__);
                         label: L("Width:"),
                         labelWidth: uiConfig.labelWidthLarge,
                         validate: this.AB.Webix.rules.isNumber,
+                        on: {
+                           onChange: () => this.onChange(),
+                        },
                      },
                      {
                         id: ids.popupHeight,
@@ -94291,6 +94314,9 @@ __webpack_require__.r(__webpack_exports__);
                         label: L("Height:"),
                         labelWidth: uiConfig.labelWidthLarge,
                         validate: this.AB.Webix.rules.isNumber,
+                        on: {
+                           onChange: () => this.onChange(),
+                        },
                      },
                   ],
                },
@@ -94338,6 +94364,9 @@ __webpack_require__.r(__webpack_exports__);
                               view: "combo",
                               name: "filterConnectedValue",
                               options: [], // we will add these in propertyEditorPopulate
+                              on: {
+                                 onChange: () => this.onChange(),
+                              },
                            },
                         ],
                      },
@@ -94388,6 +94417,14 @@ __webpack_require__.r(__webpack_exports__);
          // });
 
          SortComponent.init(AB);
+
+         this.addPageProperty.on("change", () => {
+            this.onChange();
+         });
+
+         this.editPageProperty.on("change", () => {
+            this.onChange();
+         });
       }
 
       populate(view) {
@@ -94482,8 +94519,12 @@ __webpack_require__.r(__webpack_exports__);
          });
 
          // Set the options of the possible edit forms
-         this.addPageProperty.setSettings(view, view.settingsAddPage);
-         this.editPageProperty.setSettings(view, view.settingsEditPage);
+         this.addPageProperty.setSettings(view, {
+            formView: view.settings.formView,
+         });
+         this.editPageProperty.setSettings(view, {
+            editForm: view.settings.editForm,
+         });
          $$(ids.filterConnectedValue).define("options", filterConnectedOptions);
          $$(ids.filterConnectedValue).setValue(
             view.settings.filterConnectedValue
@@ -94573,12 +94614,14 @@ __webpack_require__.r(__webpack_exports__);
          values.settings.filterConditions = FilterComponent.getValue();
          values.settings.sortFields = SortComponent.getSettings();
 
-         values.settingsAddPage = this.addPageProperty.getSettings(view);
-         values.settingsEditPage = this.editPageProperty.getSettings(view);
+         const settingsAddPage = this.addPageProperty.getSettings(view) ?? {};
+         const settingsEditPage = this.editPageProperty.getSettings(view) ?? {};
+         values.settings.formView = settingsAddPage.formView;
+         values.settings.editForm = settingsEditPage.editForm;
 
          // refresh settings of app page tool
-         this.addPageProperty.setSettings(view, values.settingsAddPage);
-         this.editPageProperty.setSettings(view, values.settingsEditPage);
+         // this.addPageProperty.setSettings(view, values.settingsAddPage);
+         // this.editPageProperty.setSettings(view, values.settingsEditPage);
 
          return values;
       }
@@ -94764,6 +94807,7 @@ __webpack_require__.r(__webpack_exports__);
                view: "checkbox",
                labelWidth: uiSettings.labelWidthCheckbox,
                labelRight: L("Required"),
+               click: () => this.onChange(),
             },
             {
                id: ids.disable,
@@ -94771,6 +94815,7 @@ __webpack_require__.r(__webpack_exports__);
                view: "checkbox",
                labelWidth: uiSettings.labelWidthCheckbox,
                labelRight: L("Disable"),
+               click: () => this.onChange(),
             },
          ].concat(elements);
 
@@ -94889,6 +94934,9 @@ __webpack_require__.r(__webpack_exports__);
                view: "checkbox",
                labelWidth: uiConfig.labelWidthCheckbox,
                labelRight: L("Plus/Minus Buttons"),
+               on: {
+                  onChange: () => this.onChange(),
+               },
             },
          ]);
       }
@@ -95003,6 +95051,9 @@ __webpack_require__.r(__webpack_exports__);
                      value: L("Checkboxes"),
                   },
                ],
+               on: {
+                  onChange: () => this.onChange(),
+               },
             },
          ]);
       }
@@ -95117,6 +95168,9 @@ __webpack_require__.r(__webpack_exports__);
                      value: L("Radio"),
                   },
                ],
+               on: {
+                  onChange: () => this.onChange(),
+               },
             },
          ]);
       }
@@ -95236,6 +95290,9 @@ __webpack_require__.r(__webpack_exports__);
                      value: L("Rich editor"),
                   },
                ],
+               on: {
+                  onChange: () => this.onChange(),
+               },
             },
          ]);
       }
@@ -98272,6 +98329,7 @@ let myClass = null;
                      if (newVal == L("No add new option")) {
                         $$(ids.formView).setValue("");
                      }
+                     this.emit("change");
                   },
                },
             };
@@ -98396,6 +98454,7 @@ let myClass = null;
                      if (newVal == L("No add new option")) {
                         $$(ids.formEdit).setValue("");
                      }
+                     this.emit("change");
                   },
                },
             };
