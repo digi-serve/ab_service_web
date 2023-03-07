@@ -91445,7 +91445,9 @@ __webpack_require__.r(__webpack_exports__);
          SourceSelector.define("options", dcOptions);
          SourceSelector.define("value", view?.settings?.dataviewID ?? null);
          SourceSelector.refresh();
-
+         if (view?.settings?.filterConditions) {
+            this.filterComponent.setValue(view.settings.filterConditions);
+         }
          this.populatePopupEditors(view);
       }
 
@@ -91471,7 +91473,6 @@ __webpack_require__.r(__webpack_exports__);
          vals.settings = vals.settings ?? {};
          vals.settings.dataviewID = $$(ids.datacollection).getValue();
          vals.settings.filterConditions = filterValues;
-
          return vals;
       }
 
@@ -91509,20 +91510,10 @@ __webpack_require__.r(__webpack_exports__);
          // Update .settings values
          this.values();
 
-         let allComplete = true;
          const filterValues = this.filterComponent.getValue();
-         filterValues.rules.forEach((f) => {
-            // if all 3 fields are present, we are good.
-            if (f.key && f.rule && f.value) {
-               allComplete = allComplete && true;
-            } else {
-               // else, we found an entry that wasn't complete:
-               allComplete = false;
-            }
-         });
 
          // only perform the update if a complete row is specified:
-         if (allComplete) {
+         if (this.filterComponent.isConditionComplete(filterValues)) {
             this.hideFilterPopup();
 
             // we want to call .save() but give webix a chance to properly update it's
@@ -91562,16 +91553,8 @@ __webpack_require__.r(__webpack_exports__);
       populateBadgeNumber(view) {
          const ids = this.ids;
          const $buttonFilter = $$(ids.buttonFilter);
-
-         if (view?.settings?.filterConditions?.rules) {
-            $buttonFilter.define(
-               "badge",
-               view.settings.filterConditions.rules.length || null
-            );
-         } else {
-            $buttonFilter.define("badge", null);
-         }
-
+         const count = view?.settings?.filterConditions?.rules?.length || null;
+         $buttonFilter.define("badge", count);
          $buttonFilter.refresh();
       }
    }
