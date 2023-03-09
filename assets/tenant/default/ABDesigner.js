@@ -103407,6 +103407,7 @@ __webpack_require__.r(__webpack_exports__);
        */
       templateListItem(obj, common) {
          if (!this.cacheTemplate[obj.id]) {
+            obj.warningsEval?.();
             var warnings = obj.warningsAll();
 
             if (typeof this._templateListItem == "string") {
@@ -104256,6 +104257,7 @@ __webpack_require__.r(__webpack_exports__);
          let warnObjects = {};
          if (app) {
             app[key]().forEach((o) => {
+               o.warningsEval?.();
                countObjects += (o.warningsAll() || []).length;
             });
          }
