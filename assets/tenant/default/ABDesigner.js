@@ -79374,7 +79374,7 @@ __webpack_require__.r(__webpack_exports__);
 
          values.id = this.element.id;
          values.diagramID = this.element.diagramID;
-         values.key = key ?? this.key;
+         values.key = key ?? UIProcessService.key;
 
          const subtask =
             ProcessTaskManager.newTask(values, this.element.process, this.AB) ??
