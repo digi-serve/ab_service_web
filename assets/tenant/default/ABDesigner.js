@@ -71591,6 +71591,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewFormConnect */ "./src/rootPages/Designer/properties/views/ABViewFormConnect.js"),
       __webpack_require__(/*! ./views/ABViewFormCustom */ "./src/rootPages/Designer/properties/views/ABViewFormCustom.js"),
       __webpack_require__(/*! ./views/ABViewFormDatepicker */ "./src/rootPages/Designer/properties/views/ABViewFormDatepicker.js"),
+      __webpack_require__(/*! ./views/ABViewFormJson */ "./src/rootPages/Designer/properties/views/ABViewFormJson.js"),
       __webpack_require__(/*! ./views/ABViewFormNumber */ "./src/rootPages/Designer/properties/views/ABViewFormNumber.js"),
       __webpack_require__(/*! ./views/ABViewFormSelectMultiple */ "./src/rootPages/Designer/properties/views/ABViewFormSelectMultiple.js"),
       __webpack_require__(/*! ./views/ABViewFormSelectSingle */ "./src/rootPages/Designer/properties/views/ABViewFormSelectSingle.js"),
@@ -94862,6 +94863,168 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewFormItemProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewFormJson.js":
+/*!*******************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewFormJson.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewFormItem */ "./src/rootPages/Designer/properties/views/ABViewFormItem.js");
+/*
+ * ABViewFormJson
+ * A Property manager for our ABViewFormJson definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_form_json";
+
+   const ABViewFormItem = (0,_ABViewFormItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABViewFormItem.L();
+
+   class ABViewFormJsonProperty extends ABViewFormItem {
+      constructor() {
+         super(BASE_ID, {
+            // Put our ids here
+            type: "",
+            filterField: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "json";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               id: ids.type,
+               name: "type",
+               view: "radio",
+               label: L("Type"),
+               vertical: true,
+               options: [
+                  {
+                     id: "string",
+                     value: L("JSON String"),
+                  },
+                  {
+                     id: "systemObject",
+                     value: L("System Object Chooser UI"),
+                  },
+                  {
+                     id: "filter",
+                     value: L("Filter UI"),
+                  },
+               ],
+               on: {
+                  onChange: (newValue) => {
+                     if (newValue == "filter") {
+                        $$(ids.filterField).show();
+                     } else {
+                        $$(ids.filterField).hide();
+                     }
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.filterField,
+               name: "filterField",
+               view: "combo",
+               hidden: true,
+               label: L("Object Field to Filter"),
+               labelPosition: "top",
+               placeholder: L("Select a field to filter by"),
+               // options: look at populate
+               on: {
+                  onChange: (newValue) => {
+                     this.onChange();
+                  },
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+         const ABViewFormJsonPropertyComponentDefaults = this.defaultValues();
+
+         // set the options for the filterField
+         let filterFieldOptions = [{ id: "", value: "" }];
+         view.parent.views().forEach((element) => {
+            if (
+               element.key == "json" &&
+               element.settings.type == "systemObject"
+            ) {
+               let formComponent = view.parent.viewComponents[element.id];
+               filterFieldOptions.push({
+                  id: element.settings.fieldId,
+                  value: formComponent.settings.fieldLabel,
+               });
+            }
+         });
+         $$(ids.filterField).define("options", filterFieldOptions);
+
+         if (view.settings.filterField)
+            $$(ids.filterField).setValue(view.settings.filterField);
+
+         $$(ids.type).setValue(
+            view.settings.type || ABViewFormJsonPropertyComponentDefaults.type
+         );
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const ids = this.ids;
+
+         const $component = $$(ids.component);
+
+         const values = super.values() ?? {};
+         values.settings = $component.getValues() ?? {};
+         values.settings.type = $$(ids.type).getValue();
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("json");
+      }
+   }
+
+   return ABViewFormJsonProperty;
 }
 
 
