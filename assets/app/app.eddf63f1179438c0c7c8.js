@@ -446,30 +446,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_webix_webix_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../js/webix/webix.js */ 93794);
 /* harmony import */ var _js_webix_webix_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_js_webix_webix_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _js_webix_webix_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../js/webix/webix.css */ 2499);
-/* harmony import */ var _node_modules_bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../node_modules/bootstrap/dist/css/bootstrap.min.css */ 90569);
-/* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../config/Config.js */ 24998);
-/* harmony import */ var _node_modules_formiojs_dist_formio_full_min_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.full.min.js */ 545);
-/* harmony import */ var _node_modules_formiojs_dist_formio_full_min_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_formiojs_dist_formio_full_min_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _node_modules_formiojs_dist_formio_form_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.form.min.css */ 49879);
-/* harmony import */ var _node_modules_formiojs_dist_formio_builder_min_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.builder.min.css */ 50864);
-/* harmony import */ var _init_initConfig_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../init/initConfig.js */ 46613);
-/* harmony import */ var _init_initDiv_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../init/initDiv.js */ 25956);
-/* harmony import */ var _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../init/initDefinitions.js */ 54285);
-/* harmony import */ var _js_webix_components_querybuilder_querybuilder_min_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../js/webix/components/querybuilder/querybuilder.min.css */ 61210);
-/* harmony import */ var _js_selectivity_selectivity_min_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../js/selectivity/selectivity.min.css */ 58292);
-/* harmony import */ var _js_webix_extras_tinymce__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../js/webix/extras/tinymce */ 16552);
-/* harmony import */ var tinymce_icons_default__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tinymce/icons/default */ 6890);
-/* harmony import */ var tinymce_icons_default__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(tinymce_icons_default__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var tinymce_themes_silver__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! tinymce/themes/silver */ 38860);
-/* harmony import */ var tinymce_themes_silver__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(tinymce_themes_silver__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var tinymce_plugins_link__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tinymce/plugins/link */ 72682);
-/* harmony import */ var tinymce_plugins_link__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(tinymce_plugins_link__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var tinymce_skins_ui_oxide_skin_min_css__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! tinymce/skins/ui/oxide/skin.min.css */ 94654);
-/* harmony import */ var tinymce_skins_ui_oxide_content_css__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! tinymce/skins/ui/oxide/content.css */ 71884);
-/* harmony import */ var tinymce_skins_content_default_content_min_css__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tinymce/skins/content/default/content.min.css */ 78841);
-/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../ui/ui.js */ 67706);
-/* harmony import */ var _ui_loading_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../ui/loading.js */ 92441);
-/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 34777);
+/* harmony import */ var _js_webix_locales_th_TH_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../js/webix/locales/th-TH.js */ 23267);
+/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! events */ 17187);
+/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../node_modules/bootstrap/dist/css/bootstrap.min.css */ 90569);
+/* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../config/Config.js */ 24998);
+/* harmony import */ var _node_modules_formiojs_dist_formio_full_min_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.full.min.js */ 545);
+/* harmony import */ var _node_modules_formiojs_dist_formio_full_min_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_formiojs_dist_formio_full_min_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_formiojs_dist_formio_form_min_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.form.min.css */ 49879);
+/* harmony import */ var _node_modules_formiojs_dist_formio_builder_min_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.builder.min.css */ 50864);
+/* harmony import */ var _init_initConfig_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../init/initConfig.js */ 46613);
+/* harmony import */ var _init_initDiv_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../init/initDiv.js */ 25956);
+/* harmony import */ var _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../init/initDefinitions.js */ 54285);
+/* harmony import */ var _js_webix_components_querybuilder_querybuilder_min_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../js/webix/components/querybuilder/querybuilder.min.css */ 61210);
+/* harmony import */ var _js_selectivity_selectivity_min_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../js/selectivity/selectivity.min.css */ 58292);
+/* harmony import */ var _js_webix_extras_tinymce__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../js/webix/extras/tinymce */ 16552);
+/* harmony import */ var tinymce_icons_default__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tinymce/icons/default */ 6890);
+/* harmony import */ var tinymce_icons_default__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(tinymce_icons_default__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var tinymce_themes_silver__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! tinymce/themes/silver */ 38860);
+/* harmony import */ var tinymce_themes_silver__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(tinymce_themes_silver__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var tinymce_plugins_link__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! tinymce/plugins/link */ 72682);
+/* harmony import */ var tinymce_plugins_link__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(tinymce_plugins_link__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var tinymce_skins_ui_oxide_skin_min_css__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tinymce/skins/ui/oxide/skin.min.css */ 94654);
+/* harmony import */ var tinymce_skins_ui_oxide_content_css__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! tinymce/skins/ui/oxide/content.css */ 71884);
+/* harmony import */ var tinymce_skins_content_default_content_min_css__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! tinymce/skins/content/default/content.min.css */ 78841);
+/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../ui/ui.js */ 67706);
+/* harmony import */ var _ui_loading_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../ui/loading.js */ 92441);
+/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 34777);
 /*
  * Bootstrap.js
  * This file drives the setup and preparation of the Web Platform.
@@ -479,7 +482,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // NOTE: changed to require() so switching to webix_debug.js will work.
-// var Webix = require("../js/webix/webix-debug.js");
+// const Webix = require("../js/webix/webix-debug.js");
 
 
 // Make sure webix is global object
@@ -489,7 +492,9 @@ if (!window.webix) {
 
 
 
-var EventEmitter = (__webpack_require__(/*! events */ 17187).EventEmitter);
+
+
+const EventEmitter = (events__WEBPACK_IMPORTED_MODULE_3___default().EventEmitter);
 
 
 
@@ -534,7 +539,7 @@ class Bootstrap extends EventEmitter {
       this.setMaxListeners(0);
 
       // Common Reference to Configuration Values
-      this.Config = _config_Config_js__WEBPACK_IMPORTED_MODULE_15__["default"];
+      this.Config = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"];
 
       //
       // UI Related
@@ -565,8 +570,8 @@ class Bootstrap extends EventEmitter {
       // happening inconsitently.
       if (ab) this.AB = ab;
 
-      _ui_loading_js__WEBPACK_IMPORTED_MODULE_16__["default"].attach();
-      this.ui(_ui_loading_js__WEBPACK_IMPORTED_MODULE_16__["default"]);
+      _ui_loading_js__WEBPACK_IMPORTED_MODULE_18__["default"].attach();
+      this.ui(_ui_loading_js__WEBPACK_IMPORTED_MODULE_18__["default"]);
       const loadABFactory = Promise.all(/*! import() */[__webpack_require__.e("vendors"), __webpack_require__.e("AppBuilder_ABFactory_js-node_modules_moment_locale_sync_recursive_")]).then(__webpack_require__.bind(__webpack_require__, /*! ../AppBuilder/ABFactory */ 68768));
       // @const {Promise} loadABFactory Defer loading the ABFactory for a smaller
       // inital file size, allowing us to show the loading UI sooner.
@@ -577,18 +582,18 @@ class Bootstrap extends EventEmitter {
       return (
          // 1) Find or create the DIV element our UI is to attach to
          //    this DIV element can contain settings pertainent to our setup
-         _init_initDiv_js__WEBPACK_IMPORTED_MODULE_17__["default"].init(this)
+         _init_initDiv_js__WEBPACK_IMPORTED_MODULE_19__["default"].init(this)
             .then(() => {
                // 2) Request the User's Configuration Information from the
                //    server.
                preloadMessage("Getting Configuration Settings");
-               return _init_initConfig_js__WEBPACK_IMPORTED_MODULE_18__["default"].init(this);
+               return _init_initConfig_js__WEBPACK_IMPORTED_MODULE_20__["default"].init(this);
             })
             // load definitions for current user
             .then(async () => {
-               if (_config_Config_js__WEBPACK_IMPORTED_MODULE_15__["default"].userConfig()) {
+               if (_config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].userConfig()) {
                   preloadMessage("Loading App Definitions");
-                  await _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_19__["default"].init(this);
+                  await _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_21__["default"].init(this);
                }
             })
 
@@ -597,11 +602,12 @@ class Bootstrap extends EventEmitter {
 
                // Make sure the BootStrap Object is available globally
                window.__ABBS = this;
-               var allPluginsLoaded = [];
 
-               var tenantInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_15__["default"].tenantConfig();
+               const allPluginsLoaded = [];
+               const tenantInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].tenantConfig();
+
                if (tenantInfo) {
-                  var plugins = _config_Config_js__WEBPACK_IMPORTED_MODULE_15__["default"].plugins() || [];
+                  const plugins = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].plugins() || [];
 
                   // Short Term Fix: Don't load ABDesigner for non builders (need a way to assign plugins to users/roles);
                   const designerIndex = plugins.indexOf("ABDesigner.js");
@@ -610,7 +616,7 @@ class Bootstrap extends EventEmitter {
                         "6cc04894-a61b-4fb5-b3e5-b8c3f78bd331",
                         "e1be4d22-1d00-4c34-b205-ef84b8334b19",
                      ];
-                     const userInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_15__["default"].userConfig();
+                     const userInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].userConfig();
                      const userBuilderRoles = userInfo?.roles.filter(
                         (role) => builderRoles.indexOf(role.uuid) > -1
                      ).length;
@@ -635,7 +641,9 @@ class Bootstrap extends EventEmitter {
                //    {ABFactory} that drives the rest of the AppBuilder objects
                preloadMessage("Starting AppBuilder");
                const { default: ABFactory } = await loadABFactory;
-               var definitions = _config_Config_js__WEBPACK_IMPORTED_MODULE_15__["default"].definitions() || null;
+
+               let definitions = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].definitions() || null;
+
                if (definitions) {
                   // NOTE: when loading up an unauthorized user,
                   // definitions will be null: we can skip the plugins
@@ -649,15 +657,16 @@ class Bootstrap extends EventEmitter {
                // NOTE: special case: User has no Roles defined.
                // direct them to our special ErrorNoDefsUI
                const userConfig = this.AB.Config.userConfig();
+
                if (userConfig && userConfig.roles.length == 0) {
                   await this.AB.init();
-                  _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_20__["default"].init(this.AB);
-                  _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_20__["default"].attach();
-                  if (_config_Config_js__WEBPACK_IMPORTED_MODULE_15__["default"].userReal()) {
-                     _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_20__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_15__["default"].userConfig());
+                  _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__["default"].init(this.AB);
+                  _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__["default"].attach();
+                  if (_config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].userReal()) {
+                     _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].userConfig());
                   }
                   this.ui().destroy(); // remove the preloading screen
-                  this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_20__["default"]);
+                  this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__["default"]);
 
                   let err = new Error("No Definitions");
                   err.code = "ENODEFS";
@@ -675,7 +684,7 @@ class Bootstrap extends EventEmitter {
                   // 3.5  prepare the plugins
                   this._plugins.forEach((p) => {
                      p.apply(this.AB);
-                     var labels = p.labels(
+                     const labels = p.labels(
                         this.AB.Multilingual.currentLanguage()
                      );
                      this.AB.Multilingual.pluginLoadLabels(p.key, labels);
@@ -688,7 +697,7 @@ class Bootstrap extends EventEmitter {
                return Promise.resolve().then(() => {
                   // webix recommends wrapping any webix code in the .ready()
                   // function that executes after page loading.
-                  webix.ready(() => {
+                  _js_webix_webix_js__WEBPACK_IMPORTED_MODULE_1__.ready(() => {
                      const locales = {
                         en: "en-US",
                         "zh-hans": "zh-CN",
@@ -698,8 +707,14 @@ class Bootstrap extends EventEmitter {
                      const { languageCode } = AB.Config.userConfig() ?? {};
                      // save the webix locale used to set locale in ClassUIPage.renderPage()
                      window.webixLocale =
-                        locales.hasOwnProperty(languageCode) &&
-                        webix.i18n.locales.hasOwnProperty(locales[languageCode])
+                        Object.prototype.hasOwnProperty.call(
+                           locales,
+                           languageCode
+                        ) &&
+                        Object.prototype.hasOwnProperty.call(
+                           _js_webix_webix_js__WEBPACK_IMPORTED_MODULE_1__.i18n.locales,
+                           locales[languageCode]
+                        )
                            ? locales[languageCode]
                            : false;
 
@@ -708,14 +723,14 @@ class Bootstrap extends EventEmitter {
                      // UI. The experience becomes more like a touch interface
                      // with the exception that scroll bars appear when user
                      // hovers over a scrollable area
-                     /* if (!webix.env.touch  && webix.env.scrollSize ) */
-                     webix.CustomScroll.init();
+                     /* if (!Webix.env.touch  && Webix.env.scrollSize ) */
+                     _js_webix_webix_js__WEBPACK_IMPORTED_MODULE_1__.CustomScroll.init();
 
-                     var div = this.div();
+                     const div = this.div();
 
-                     _ui_ui_js__WEBPACK_IMPORTED_MODULE_21__["default"].attach(div.id);
+                     _ui_ui_js__WEBPACK_IMPORTED_MODULE_23__["default"].attach(div.id);
                      this.ui().destroy(); // remove the preloading screen
-                     this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_21__["default"]);
+                     this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_23__["default"]);
                      this.ui().init(this.AB);
                      // this.ui().init() routine handles the remaining
                      // bootup/display process.
@@ -760,11 +775,11 @@ class Bootstrap extends EventEmitter {
 
 function loadScript(tenant, p) {
    return new Promise((resolve, reject) => {
-      var cb = () => resolve();
+      const cb = () => resolve();
 
       // Adding the script tag to the head as suggested before
-      var head = document.head;
-      var script = document.createElement("script");
+      const head = document.head;
+      const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `/plugin/${tenant || "??"}/${p}`;
 
@@ -15807,6 +15822,108 @@ _webix_js__WEBPACK_IMPORTED_MODULE_1___default().protoUI(
 
 /***/ }),
 
+/***/ 23267:
+/*!***********************************!*\
+  !*** ./js/webix/locales/th-TH.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _webix_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../webix.js */ 93794);
+/* harmony import */ var _webix_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_webix_js__WEBPACK_IMPORTED_MODULE_0__);
+/*Thai (Thailand) locale
+ * modified to use Budhist Era Years
+ */
+
+
+if (!window.webix) {
+   window.webix = _webix_js__WEBPACK_IMPORTED_MODULE_0__;
+}
+
+window.webix.i18n.locales["th-TH"] = {
+   groupDelimiter: ",",
+   groupSize: 3,
+   decimalDelimiter: ".",
+   decimalSize: 2,
+   dateFormat: (date) => {
+      if (date == null) return "";
+      else if (typeof date == "string") return date;
+
+      const format = webix.Date.dateToStr(`%j/%m/${date.getFullYear() + 543}`);
+      return format(date);
+   },
+   timeFormat: "%G:%i",
+   longDateFormat: (date) => {
+      if (date == null) return "";
+      else if (typeof date == "string") return date;
+
+      const format = webix.Date.dateToStr(`%j %F ${date.getFullYear() + 543}`);
+      return format(date);
+   },
+   fullDateFormat: (date) => {
+      if (date == null) return "";
+      else if (typeof date == "string") return date;
+
+      const format = webix.Date.dateToStr(
+         `%j %F ${date.getFullYear() + 543} %G:%i`
+      );
+      return format(date);
+   },
+   am: ["am", "AM"],
+   pm: ["pm", "PM"],
+   price: "฿{obj}",
+   priceSettings: {
+      groupDelimiter: ",",
+      groupSize: 3,
+      decimalDelimiter: ".",
+      decimalSize: 2,
+   },
+   calendar: {
+      monthFull: [
+         "มกราคม",
+         "กุมภาพันธ์",
+         "มีนาคม",
+         "เมษายน",
+         "พฤษภาคม",
+         "มิถุนายน",
+         "กรกฎาคม",
+         "สิงหาคม",
+         "กันยายน",
+         "ตุลาคม",
+         "พฤศจิกายน",
+         "ธันวาคม",
+      ],
+      monthShort: [
+         "ม.ค.",
+         "ก.พ.",
+         "มี.ค.",
+         "เม.ย.",
+         "พ.ค.",
+         "มิ.ย.",
+         "ก.ค.",
+         "ส.ค.",
+         "ก.ย.",
+         "ต.ค.",
+         "พ.ย.",
+         "ธ.ค.",
+      ],
+      dayFull: [
+         "อาทิตย์",
+         "จันทร์",
+         "อังคาร",
+         "พุธ",
+         "พฤหัสบดี",
+         "ศุกร์",
+         "เสาร์",
+      ],
+      dayShort: ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."],
+   },
+};
+
+
+/***/ }),
+
 /***/ 93794:
 /*!***************************!*\
   !*** ./js/webix/webix.js ***!
@@ -23207,4 +23324,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.c0d83f9d2df03338f25c.js.map
+//# sourceMappingURL=app.eddf63f1179438c0c7c8.js.map
