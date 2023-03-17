@@ -78575,31 +78575,50 @@ __webpack_require__.r(__webpack_exports__);
    var L = UIClass.L();
 
    class UIProcessParticipant_selectManagersUI extends UI_Common_Participant_SelectManager {
-      constructor(id) {
-         super(id, {
+      constructor(idBase) {
+         super(idBase, {
             useField: "", // bool on whether to use userFields from process
             fields: "", // to\fromUsers.fields
             userField: "",
+            buttonFilter: "",
+         });
+
+         this.AB = AB;
+         this.filterComponent = this.AB.filterComplexNew(
+            `${this.ids.component}_filter`,
+            AB
+         );
+
+         this.filterComponent.init({ isProcessParticipant: true });
+         this.filterComponent.on("save", (filterConditions) => {
+            this.populateBadgeNumber(filterConditions);
          });
       }
 
-      ui(obj = {}) {
+      ui(element = {}) {
+         const obj = element.toUsers || {};
          const baseUI = super.ui(obj);
+         const filterConditions = obj.filterConditions || {
+            glue: "and",
+            rules: [],
+         };
+         const fields =
+            element.process?.processDataFields(element).map((e) => e.field) ||
+            [];
 
-         var __UserFields = [];
-         if (obj.userProcessFieldData) {
-            __UserFields = obj.userProcessFieldData.map((u) => {
+         this.filterComponent.fieldsLoad(fields);
+         this.filterComponent.setValue(filterConditions);
+
+         const __UserFields =
+            obj.userProcessFieldData?.map((u) => {
                return {
                   uuid: u.field.id,
                   id: u.key,
                   value: u.label,
                   key: u.key,
                };
-            });
-         }
-
-         var ids = this.ids;
-
+            }) || [];
+         const ids = this.ids;
          const userFieldElements = [
             {},
             {
@@ -78675,6 +78694,7 @@ __webpack_require__.r(__webpack_exports__);
                      stringResult: false /* returns data as an array of [id] */,
                      on: {
                         onAfterRender: function () {
+                           self.filterComponent.emit("save", filterConditions);
                            // set data-cy for original field to track clicks to open option list
                            UIClass.CYPRESS_REF(this.getNode(), ids.userField);
                         },
@@ -78690,15 +78710,42 @@ __webpack_require__.r(__webpack_exports__);
             },
          ];
 
-         baseUI.elements.push(...userFieldElements);
+         const self = this;
+
+         baseUI.elements.push(...userFieldElements, {
+            id: ids.buttonFilter,
+            view: "button",
+            name: "buttonFilter",
+            css: "webix_primary",
+            label: L("Scope query"),
+            type: "icon",
+            badge: 0,
+            click: function () {
+               self.filterComponent.popUp(this.$view, null, { pos: "top" });
+            },
+         });
 
          return baseUI;
       }
 
       async init(AB) {
          this.AB = AB;
+      }
 
-         return Promise.resolve();
+      populateBadgeNumber(filterConditions = {}) {
+         const ids = this.ids;
+         const $buttonFilter = $$(ids.buttonFilter);
+
+         if (filterConditions.rules) {
+            $buttonFilter.define(
+               "badge",
+               filterConditions.rules?.length || null
+            );
+            $buttonFilter.refresh();
+         } else {
+            $buttonFilter.define("badge", null);
+            $buttonFilter.refresh();
+         }
       }
 
       // show() {
@@ -78712,8 +78759,8 @@ __webpack_require__.r(__webpack_exports__);
        * @return {json}
        */
       values() {
-         var obj = super.values();
-         var ids = this.ids;
+         const obj = super.values();
+         const ids = this.ids;
 
          if ($$(ids.useField)) {
             obj.useField = $$(ids.useField).getValue();
@@ -78724,6 +78771,8 @@ __webpack_require__.r(__webpack_exports__);
          } else {
             obj.userFields = [];
          }
+
+         obj.filterConditions = this.filterComponent.getValue();
 
          return obj;
       }
@@ -81102,8 +81151,6 @@ __webpack_require__.r(__webpack_exports__);
 
       async init(AB) {
          this.AB = AB;
-
-         return Promise.resolve();
       }
 
       populate(element) {
@@ -81125,7 +81172,7 @@ __webpack_require__.r(__webpack_exports__);
             webix.ui(
                {
                   id: ids.toUsers,
-                  rows: [this.toUsers.ui(element.toUsers ?? {})],
+                  rows: [this.toUsers.ui(element ?? {})],
                   paddingY: 10,
                },
                $toUsers
@@ -103775,15 +103822,21 @@ __webpack_require__.r(__webpack_exports__);
    var L = UIClass.L();
 
    class UI_Common_Participant_SelectManager extends UIClass {
-      constructor(base) {
-         super(base, {
-            form: "",
-            name: "",
-            role: "",
-            useRole: "",
-            useAccount: "",
-            account: "",
-         });
+      constructor(idBase, ids) {
+         super(
+            idBase,
+            Object.assign(
+               {
+                  form: "",
+                  name: "",
+                  role: "",
+                  useRole: "",
+                  useAccount: "",
+                  account: "",
+               },
+               ids
+            )
+         );
       }
 
       ui(obj = {}) {
