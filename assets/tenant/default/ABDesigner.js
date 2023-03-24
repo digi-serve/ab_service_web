@@ -78596,7 +78596,8 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       ui(element = {}) {
-         const obj = element.toUsers || {};
+         // const obj = element.toUsers || {};
+         const obj = element ?? {};
          const baseUI = super.ui(obj);
          const filterConditions = obj.filterConditions || {
             glue: "and",
@@ -122097,7 +122098,7 @@ function isInSubProcess(element) {
          // insert Panel into the webix ui
          let newPanelUI = {
             id: this.ids.properties,
-            rows: [newPanel.ui(), {}],
+            rows: [newPanel.ui(element), {}],
          };
          webix.ui(newPanelUI, $$(this.ids.properties));
 
