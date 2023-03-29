@@ -21265,8 +21265,7 @@ class PortalWorkInbox extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"
                         view: "label",
                         align: "center",
                         height: 200,
-                        label:
-                           "<div style='display: block; font-size: 180px; background-color: #666; color: transparent; text-shadow: 0px 1px 1px rgba(255,255,255,0.5); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text;' class='fa fa-thumbs-up'></div>",
+                        label: "<div style='display: block; font-size: 180px; background-color: #666; color: transparent; text-shadow: 0px 1px 1px rgba(255,255,255,0.5); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text;' class='fa fa-thumbs-up'></div>",
                      },
                      {
                         view: "label",
@@ -21361,6 +21360,16 @@ class PortalWorkInbox extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"
                accordion.show();
             }
             this.emit("updated");
+         });
+
+         this.AB.on("ab.inbox.update", (item) => {
+            const appId = this.appLookupHash[item.definition];
+            const accordion = this.allAppAccordions[appId];
+
+            accordion.AB.Network.emit("inbox.update", {
+               uuid: item.uuid,
+               unitID: item.definition,
+            });
          });
 
          // Now Register for RT Updates to our Inbox
@@ -23324,4 +23333,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.600f1e393fda985f4ec5.js.map
+//# sourceMappingURL=app.134f352f27accd937d9c.js.map
