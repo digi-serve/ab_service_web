@@ -86828,7 +86828,7 @@ const ABViewRuleActionObjectUpdaterDefaults = {
                            // );
                            this.FilterComponent.init({
                               isRecordRule: true,
-                              fieldOptions: options,
+                              recordRuleFieldOptions: options,
                            });
 
                            // this.FilterComponent.on("changed", (...params) => {
@@ -101009,6 +101009,24 @@ __webpack_require__.r(__webpack_exports__);
                                     },
                                  },
                                  {
+                                    name: "version",
+                                    view: "text",
+                                    label: L("Version"),
+                                    labelWidth: 100,
+                                    placeholder: L("1.0.0"),
+                                    invalidMessage: L(
+                                       "&nbsp; can only contain numbers or '.'s ."
+                                    ),
+                                    on: {
+                                       onAfterRender() {
+                                          AB.ClassUI.CYPRESS_REF(
+                                             this,
+                                             "abd_choose_form_version_number"
+                                          );
+                                       },
+                                    },
+                                 },
+                                 {
                                     name: "icon",
                                     view: "richselect",
                                     id: "richselect1",
@@ -101682,13 +101700,16 @@ __webpack_require__.r(__webpack_exports__);
             [
                "label",
                "description",
+               "version",
                "icon",
                "isSystemObject",
                "isAccessManaged",
                "isTranslationManaged",
             ].forEach((f) => {
                if ($$(this.ids.form).elements[f]) {
-                  $$(this.ids.form).elements[f].setValue(application[f]);
+                  $$(this.ids.form).elements[f].setValue(
+                     application[f] || application.json[f]
+                  );
                }
             });
 
@@ -102869,6 +102890,10 @@ var myClass = null;
 
          queryLoad(query) {
             this.CurrentQueryID = query?.id;
+         }
+
+         versionLoad(version) {
+            this.CurrentVersionID = version?.id;
          }
 
          viewLoad(view) {
@@ -104272,6 +104297,476 @@ var myClass = null;
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/ui_version_list.js":
+/*!***************************************************!*\
+  !*** ./src/rootPages/Designer/ui_version_list.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/*
+ * ab_common_list
+ *
+ * A common interface for displaying AB category list widget
+ *
+ */
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB, options) {
+   const uiConfig = AB.Config.uiSettings();
+   var L = function (...params) {
+      return AB.Multilingual.labelPlugin("ABDesigner", ...params);
+   };
+
+   class UI_Common_List extends AB.ClassUI {
+      constructor(attributes) {
+         attributes.idBase = attributes.idBase || "ui_common_list";
+         var base = attributes.idBase || "ui_common_list";
+         super(base, {
+            listSetting: "",
+            vList: "",
+            buttonNew: "",
+         });
+
+         this.idBase = base;
+
+         this.labels = {
+            addNew: "Add new item",
+            confirmDeleteTitle: "Delete Item",
+         };
+         // copy in any passed in labels:
+         if (attributes.labels) {
+            for (var key in attributes.labels) {
+               this.labels[key] = attributes.labels[key];
+            }
+         }
+         // {lookup hash} id : Label Key
+         // we allow the creating UI component to pass in alternate
+         // label keys for this list.  That's how to customize the labels
+         // for the current situation.
+
+         attributes.menu = attributes.menu || {};
+         attributes.menu.copy =
+            typeof attributes.menu.copy == "undefined"
+               ? true
+               : attributes.menu.copy;
+         attributes.menu.exclude =
+            typeof attributes.menu.exclude == "undefined"
+               ? true
+               : attributes.menu.exclude;
+         this.attributes = attributes;
+
+         /*
+          * _templateListItem
+          *
+          * The Process Row template definition.
+          */
+         this._templateListItem =
+            "<div class='ab-object-list-item'>#version# - #changelog.author# <div style='padding-left:18px'>#changelog.commitMessage#</div></div>";
+
+         this.cacheTemplate = {};
+         // {json} hash { obj.id : template display }
+         // a temporary cache of an items template
+         // this is to prevent multiple template generations
+         // in rapid succession.
+
+         this.CurrentApplication = null;
+         this.itemList = null;
+
+         this._initialized = false;
+         this._settings = {};
+      }
+
+      ui() {
+         var ids = this.ids;
+         var data = data || {};
+
+         // Our webix UI definition:
+         return {
+            id: this.ids.component,
+            rows: [
+               {
+                  // view: AB.custom.editunitlist.view, // "editunitlist"
+                  // view: AB.custom..view, // "editunitlist"
+                  view: "list",
+                  id: this.ids.vList,
+                  width: uiConfig.columnWidthLarge,
+
+                  select: true,
+
+                  editaction: "custom",
+                  editable: true,
+                  editor: "text",
+                  editValue: "label",
+
+                  type: {
+                     height: 57,
+                  },
+                  template: (obj, common) => {
+                     return this.templateListItem(obj, common);
+                  },
+                  on: {
+                     onAfterSelect: (id) => {
+                        this.onSelectItem(id);
+                     },
+                     onBeforeEditStop: (state, editor) => {
+                        this.onBeforeEditStop(state, editor);
+                     },
+                     onAfterEditStop: (state, editor, ignoreUpdate) => {
+                        this.onAfterEditStop(state, editor, ignoreUpdate);
+                     },
+                     onAfterRender() {
+                        this.data.each((a) => {
+                           AB.ClassUI.CYPRESS_REF(
+                              this.getItemNode(a.id),
+                              `${ids.list}_${a.id}`
+                           );
+                        });
+                     },
+                  },
+                  // onClick: {
+                  //    "ab-object-list-edit": (e, id, trg) => {
+                  //       this.clickEditMenu(e, id, trg);
+                  //    },
+                  // },
+               },
+               {
+                  view: "button",
+                  css: "webix_primary",
+                  id: this.ids.buttonNew,
+                  value: "Clear", // L(this.labels.addNew),
+                  type: "form",
+                  click: () => {
+                     this.clearForm(true); // pass true so it will select the new object after you created it
+                  },
+                  on: {
+                     onAfterRender() {
+                        AB.ClassUI.CYPRESS_REF(this);
+                     },
+                  },
+               },
+            ],
+         };
+      }
+
+      // Our init() function for setting up our UI
+      init(AB) {
+         this.AB = AB;
+
+         if ($$(this.ids.component)) $$(this.ids.component).adjust();
+
+         this.$list = $$(this.ids.vList);
+
+         // mark initialed
+         this._initialized = true;
+      }
+
+      /**
+       * @function applicationLoad
+       *
+       * Initialize the Process List from the provided ABApplication
+       *
+       * If no ABApplication is provided, then show an empty form. (create operation)
+       *
+       * @param {ABApplication} application  	[optional] The current ABApplication
+       *										we are working with.
+       */
+      // ! this may not ever be used?
+      applicationLoad(application) {
+         this.CurrentApplication = application;
+      }
+
+      dataLoad(versionData) {
+         this.busy();
+         if (!versionData) {
+            this.AB.notify.developer("No version Data", {
+               context: "ui_work_version_list:dataLoad()",
+               versionData,
+            });
+            this.clearForm();
+            this.ready();
+            return;
+         }
+         var data = versionData.changeLog;
+
+         function sortChangelogByVersion(changelogObj) {
+            const changeData = changelogObj;
+            // Get an array of the changelog object's keys (i.e. version numbers)
+            const versionNumbers = Object.keys(changelogObj);
+
+            // Sort the version numbers based on semantic versioning rules, with newest versions first
+            const sortedVersionNumbers = versionNumbers.sort((a, b) => {
+               const [aMajor, aMinor, aPatch] = a
+                  .split(".")
+                  .map((num) => parseInt(num));
+               const [bMajor, bMinor, bPatch] = b
+                  .split(".")
+                  .map((num) => parseInt(num));
+
+               if (aMajor !== bMajor) {
+                  return bMajor - aMajor;
+               } else if (aMinor !== bMinor) {
+                  return bMinor - aMinor;
+               } else {
+                  return bPatch - aPatch;
+               }
+            });
+
+            // Map the sorted versions to an array of objects that includes the version number and changelog info
+            const sortedChangelog = sortedVersionNumbers.map(
+               (version, index) => {
+                  if (typeof changelogObj[version] == "string") {
+                     AB.notify.developer(new Error(), {
+                        context: "ui_version_list.loadData()",
+                        message:
+                           "The changelog object is not in the correct format.",
+                        version: version,
+                     });
+                     return { version: version, id: index };
+                  }
+
+                  changelogObj[version]["versionNumber"] = version;
+                  // TODO clean up this object @achoobert
+                  return {
+                     id: index,
+                     label: version,
+                     // title: version,
+                     // name: version,
+                     version: version,
+                     changelog: changelogObj[version],
+                     commitMessage: changeData[version]["commitMessage"],
+                     author: changeData[version]["author"],
+                     timestamp: changeData[version]["timestamp"],
+                     changeSize: changeData[version]["changeSize"],
+                  };
+               }
+            );
+
+            return sortedChangelog;
+         }
+
+         // get a sorted list of changes, and add it to a data collection
+         this.itemList = new webix.DataCollection({
+            data: sortChangelogByVersion(data),
+         });
+
+         // clear our list and display our versions:
+         var List = this.$list || $$(this.ids.vList);
+         if (List) {
+            List.clearAll();
+            List.data.unsync();
+            List.data.sync(this.itemList);
+            List.refresh();
+            List.unselectAll();
+         }
+
+         this.ready();
+      }
+
+      busy() {
+         this.$list?.showProgress?.({ type: "icon" });
+      }
+
+      ready() {
+         this.$list?.hideProgress?.();
+      }
+
+      /**
+       * @function onSelectItem()
+       *
+       * Perform these actions when an Version is selected in the List.
+       */
+      onSelectItem(id) {
+         var version = this.$list.getItem(id);
+
+         // _logic.callbacks.onChange(object);
+         this.emit("selected", version);
+      }
+
+      /**
+       * @function clearForm()
+       *
+       * emit clear form, so workspace will clear.
+       */
+      clearForm() {
+         this.emit("selected");
+      }
+
+      /**
+       * @function save()
+       *
+       */
+      save() {
+         // if this UI has not been initialed, then skip it
+         if (!this._initialized) return;
+
+         // CurrentApplication.save();
+         this.AB.Storage.set(this.idBase, this._settings);
+      }
+
+      selectItem(id) {
+         this.$list.blockEvent();
+         this.select(id);
+         this.$list.unblockEvent();
+      }
+
+      /**
+       * @function templateListItem
+       *
+       * Defines the template for each row of our VersionList.
+       *
+       * @param {obj} obj the current instance of ABxxxx for the row.
+       * @param {?} common the webix.common icon data structure
+       * @return {string}
+       */
+      templateListItem(obj, common) {
+         if (!this.cacheTemplate[obj.id]) {
+            if (typeof this._templateListItem == "string") {
+               this.cacheTemplate[obj.id] = this._templateListItem
+                  .replace("#label#", obj.label || "??label??")
+                  .replace("#title#", obj.title || "??title??")
+                  .replace("#year#", obj.year || "??year??")
+                  .replace("#version#", obj.version || "??version??")
+                  .replace(
+                     "#changelog.author#",
+                     obj.changelog?.author || "??changelog.author??"
+                  )
+                  .replace(
+                     "#changelog.commitMessage#",
+                     obj.changelog?.commitMessage ||
+                        "??changelog.commitMessage??"
+                  );
+            } else {
+               // else they sent in a function()
+               this.cacheTemplate[obj.id] = this._templateListItem(obj, common);
+            }
+
+            setTimeout(() => {
+               delete this.cacheTemplate[obj.id];
+            }, 400);
+         }
+         return this.cacheTemplate[obj.id];
+      }
+
+      // 	// if (processList.exists(object.id))
+      // 	// 	processList.updateItem(object.id, object);
+      // 	// else
+      // 	// 	processList.add(object);
+
+      // 	if (selectNew != null && selectNew == true) {
+      // 		$$(ids.list).select(object.id);
+      // 	}
+      // 	else if (callback) {
+      // 		callback();
+      // 	}
+
+      // },
+
+      // /**
+      //  * @function clickAddNew
+      //  *
+      //  * Manages initiating the transition to the new Process Popup window
+      //  */
+      // clickAddNew(selectNew) {
+      //    this.emit("addNew", selectNew);
+      // }
+
+      /**
+       * @function exclude()
+       *
+       * alert calling UI that a list item was chosen for "exclude"
+       */
+      exclude() {
+         var item = this.$list.getSelectedItem(false);
+         this.emit("exclude", item);
+      }
+
+      rename() {
+         var itemId = this.$list.getSelectedId(false);
+         this.$list.edit(itemId);
+      }
+
+      remove() {
+         var selectedItem = this.$list.getSelectedItem(false);
+
+         // verify they mean to do this:
+         webix.confirm({
+            title: L(this.labels.confirmDeleteTitle),
+            text: L(this.labels.confirmDeleteMessage, [selectedItem.label]),
+            ok: L("Yes"),
+            cancel: L("No"),
+            callback: async (isOK) => {
+               if (isOK) {
+                  this.busy();
+
+                  try {
+                     await selectedItem.destroy();
+                     this.ready();
+                     this.itemList.remove(selectedItem.id);
+
+                     // let the calling component know about
+                     // the deletion:
+                     this.emit("deleted", selectedItem);
+
+                     // clear object workspace
+                     this.emit("selected", null);
+                  } catch (e) {
+                     this.AB.notify.developer(e, {
+                        context: "ui_common_list:remove(): error removing item",
+                     });
+                     this.ready();
+                  }
+               }
+            },
+         });
+      }
+
+      select(id) {
+         this.$list.select(id);
+      }
+
+      callbackProcessEditorMenu(action) {
+         switch (action) {
+            case "rename":
+               this.rename();
+               break;
+            case "exclude":
+               this.exclude();
+               break;
+            case "delete":
+               this.remove();
+               break;
+         }
+      }
+
+      // Expose any globally accessible Actions:
+      // this.actions({
+      //    /**
+      //     * @function getSelectedProcess
+      //     *
+      //     * returns which ABProcess is currently selected.
+      //     * @return {ABProcess}  or {null} if nothing selected.
+      //     */
+      //    getSelectedProcess: function () {
+      //       return $$(ids.list).getSelectedItem();
+      //    },
+
+      //    addNewProcess: function (selectNew, callback) {
+      //       _logic.clickNewProcess(selectNew, callback);
+      //    },
+      // });
+   }
+
+   // NOTE: We are returning the Class here, not an instance:
+   return new UI_Common_List(options);
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/ui_warnings.js":
 /*!***********************************************!*\
   !*** ./src/rootPages/Designer/ui_warnings.js ***!
@@ -104417,12 +104912,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_work_interface__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ui_work_interface */ "./src/rootPages/Designer/ui_work_interface.js");
 /* harmony import */ var _ui_work_datacollection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ui_work_datacollection */ "./src/rootPages/Designer/ui_work_datacollection.js");
 /* harmony import */ var _ui_work_process__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ui_work_process */ "./src/rootPages/Designer/ui_work_process.js");
+/* harmony import */ var _ui_work_version_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ui_work_version.js */ "./src/rootPages/Designer/ui_work_version.js");
 /*
  * ab_work
  *
  * Display the component for working with an ABApplication.
  *
  */
+
 
 
 
@@ -104440,6 +104937,7 @@ __webpack_require__.r(__webpack_exports__);
    const AppDataCollectionWorkspace = (0,_ui_work_datacollection__WEBPACK_IMPORTED_MODULE_4__["default"])(AB);
    const AppProcessWorkspace = (0,_ui_work_process__WEBPACK_IMPORTED_MODULE_5__["default"])(AB);
    var AppInterfaceWorkspace = (0,_ui_work_interface__WEBPACK_IMPORTED_MODULE_3__["default"])(AB);
+   var AppVersionWorkspace = (0,_ui_work_version_js__WEBPACK_IMPORTED_MODULE_6__["default"])(AB);
 
    class UI_Work extends UIClass {
       constructor(options = {}) {
@@ -104452,6 +104950,7 @@ __webpack_require__.r(__webpack_exports__);
             tab_datacollection: "",
             tab_processview: "",
             tab_interface: "",
+            tab_version: "",
             workspace: "",
             collapseMenu: "",
             expandMenu: "",
@@ -104529,6 +105028,16 @@ __webpack_require__.r(__webpack_exports__);
                   icon: "fa fa-fw fa-id-card-o",
                   // TODO
                   // issues: warnInterfaces,
+               },
+               {
+                  id: this.ids.tab_version,
+                  value: L("Version"),
+                  icon: "fa fa-fw fa-code-fork",
+                  on: {
+                     onclick: () => {
+                        AppVersionWorkspace.show();
+                     },
+                  },
                },
             ];
 
@@ -104691,6 +105200,7 @@ __webpack_require__.r(__webpack_exports__);
                            AppDataCollectionWorkspace.ui(),
                            AppProcessWorkspace.ui(),
                            AppInterfaceWorkspace.ui(),
+                           AppVersionWorkspace.ui(),
                         ],
                      },
                   ],
@@ -104723,6 +105233,7 @@ __webpack_require__.r(__webpack_exports__);
          AppDataCollectionWorkspace.init(AB);
          AppProcessWorkspace.init(AB);
          AppInterfaceWorkspace.init(AB);
+         AppVersionWorkspace.init(AB);
 
          this.$tabbar = $$(this.ids.tabbar);
 
@@ -104799,6 +105310,7 @@ __webpack_require__.r(__webpack_exports__);
          AppDataCollectionWorkspace.applicationLoad(application);
          AppProcessWorkspace.applicationLoad(application);
          AppInterfaceWorkspace.applicationLoad(application);
+         AppVersionWorkspace.applicationLoad(application);
 
          this.refreshSideBar(application);
 
@@ -104842,6 +105354,13 @@ __webpack_require__.r(__webpack_exports__);
             case "interface":
                AppInterfaceWorkspace.show();
                this.$tabbar.select(this.ids.tab_interface);
+               break;
+
+            // Version Workspace Tab
+            case this.ids.tab_version:
+               AppVersionWorkspace.show();
+               // AppVersionLog.show();
+               // this.$tabbar.select(this.ids.tab_version);
                break;
          }
       }
@@ -125160,6 +125679,762 @@ __webpack_require__.r(__webpack_exports__);
       }
    }
    return new UI_Work_Query_Workspace_Design(init_settings);
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/ui_work_version.js":
+/*!***************************************************!*\
+  !*** ./src/rootPages/Designer/ui_work_version.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
+/* harmony import */ var _ui_work_version_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui_work_version_list */ "./src/rootPages/Designer/ui_work_version_list.js");
+/* harmony import */ var _ui_work_version_workspace__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui_work_version_workspace */ "./src/rootPages/Designer/ui_work_version_workspace.js");
+/*
+ * ui_work_version
+ *
+ * Display the Version Tab UI:
+ *
+ */
+
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+   const VersionList = (0,_ui_work_version_list__WEBPACK_IMPORTED_MODULE_1__["default"])(AB);
+   const VersionWorkspace = (0,_ui_work_version_workspace__WEBPACK_IMPORTED_MODULE_2__["default"])(AB, {
+      allowDelete: 0,
+      configureHeaders: false,
+      detailsView: "",
+      editView: "",
+      isEditable: 0,
+      massUpdate: 0,
+      isReadOnly: true,
+   });
+
+   class UI_Work_Version extends UIClass {
+      constructor() {
+         super("ui_work_version");
+      }
+
+      ui() {
+         const ids = this.ids;
+         // Our webix UI definition:
+         return {
+            id: ids.component,
+            type: "space",
+            cols: [
+               VersionList.ui(),
+               { view: "resizer", width: 11 },
+               VersionWorkspace.ui(),
+            ],
+         };
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         // Our init() function for setting up our UI
+         VersionList.on("selected", (dc) => {
+            this.select(dc);
+         });
+
+         VersionWorkspace.on("addNew", (AB, selectNew) => {
+            VersionList.emit("addNew", AB, selectNew);
+         });
+
+         await VersionWorkspace.init(AB);
+         await VersionList.init(AB);
+
+         this.on("versionDataUpdate", () => {
+            // if we receive a signal that a version has been updated
+            this.VersionList.refresh();
+         });
+
+         this.on("clearForm", () => {
+            // if we receive a signal that a version has been updated
+            this.VersionWorkspace.clearForm();
+         });
+      }
+
+      /**
+       * @function applicationLoad
+       * Initialize the Version Workspace with the given ABApplication.
+       * @param {ABApplication} application
+       */
+      applicationLoad(application) {
+         const oldAppID = this.CurrentApplicationID;
+
+         super.applicationLoad(application);
+
+         if (oldAppID && oldAppID != this.CurrentApplicationID) {
+            VersionWorkspace.clearForm();
+         }
+
+         // application.versionData =
+         //    application.json.versionData || application.versionData;
+
+         VersionList.applicationLoad(application);
+         VersionWorkspace.applicationLoad(application);
+      }
+
+      /**
+       * @function show()
+       *
+       * Show this component.
+       */
+      show() {
+         const ids = this.ids;
+
+         $$(ids.component).show(false, false);
+
+         const application = this.CurrentApplication;
+         if (application) {
+            VersionWorkspace.applicationLoad(application);
+            VersionList.applicationLoad(application);
+         }
+         VersionList.ready();
+      }
+
+      select(dc) {
+         if (dc == null) VersionWorkspace.clearForm();
+         VersionWorkspace.versionLoad(dc);
+         // VersionWorkspace.populateWorkspace(dc);
+      }
+   }
+
+   return new UI_Work_Version();
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/ui_work_version_list.js":
+/*!********************************************************!*\
+  !*** ./src/rootPages/Designer/ui_work_version_list.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
+/* harmony import */ var _ui_version_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui_version_list */ "./src/rootPages/Designer/ui_version_list.js");
+/*
+ * ui_work_version_list
+ *
+ * Manage the ABVersion List
+ *
+ */
+
+
+// import UI_ADD_FORM from "./ui_work_version_list_newVersion";
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+   // const AddForm = UI_ADD_FORM(AB);
+
+   class UI_Work_Version_List extends UIClass {
+      constructor() {
+         super("ui_work_version_list");
+         this.AB = {};
+
+         // {ui_common_list} instance to display a list of our data collections.
+         this.ListComponent = (0,_ui_version_list__WEBPACK_IMPORTED_MODULE_1__["default"])(AB, {
+            idBase: this.ids.component,
+            labels: {
+               addNew: "Add new Version",
+               title: "Versions",
+               searchPlaceholder: "Version",
+            },
+         });
+      }
+
+      // Our webix UI definition:
+      ui() {
+         return this.ListComponent.ui();
+      }
+
+      // Our init() function for setting up our UI
+      async init(AB) {
+         this.AB = AB;
+
+         //
+         // List of Processes
+         //
+         await this.ListComponent.init(AB);
+
+         this.on("addNew", (AB, selectNew) => {
+            // if we receive a signal that there is new data
+            let data = AB.versionData || AB.json.versionData;
+            this.ListComponent.dataLoad(data);
+            this.emit("selected", selectNew);
+         });
+
+         this.ListComponent.on("selected", (item) => {
+            this.emit("selected", item);
+         });
+
+         this.ListComponent.on("clearForm", () => {
+            this.emit("clearForm");
+         });
+      }
+
+      /**
+       * @function applicationLoad
+       *
+       * Initialize the Data Collection List from the provided ABApplication
+       *
+       * If no ABApplication is provided, then show an empty form. (create operation)
+       *
+       * @param {ABApplication} application  	[optional] The current ABApplication
+       *										we are working with.
+       */
+      applicationLoad(application) {
+         super.applicationLoad(application);
+
+         this.AB = application;
+         // clear our list and display our data collections:
+         // Make the list from the definitions here...
+         let data = application.versionData || application.json.versionData;
+         this.ListComponent.dataLoad(data);
+      }
+
+      ready() {
+         this.ListComponent.ready();
+      }
+   }
+
+   return new UI_Work_Version_List();
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/ui_work_version_workspace.js":
+/*!*************************************************************!*\
+  !*** ./src/rootPages/Designer/ui_work_version_workspace.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ui_class */ "./src/rootPages/Designer/ui_class.js");
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB, init_settings) {
+   const ibase = "ui_work_version_workspace";
+   const uiConfig = AB.Config.uiSettings();
+   const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = UIClass.L();
+
+   class UI_Work_Version_Workspace extends UIClass {
+      constructor(base, settings = {}) {
+         super(base, {
+            form: "",
+            versionForm: "",
+            versionOption: "",
+            multiview: "",
+            noSelection: "",
+            workspace: "",
+         });
+         this.AB = AB;
+
+         this.versionNumber = "1.0.0";
+
+         this.settings = settings;
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return {
+            cells: [
+               // No selection
+               {
+                  id: ids.noSelection,
+                  rows: [
+                     {
+                        css: "webix_dark",
+                        id: this.ids.versionOption,
+                        view: "toolbar",
+                        cols: [
+                           { width: 12 },
+                           { view: "label", label: "App Version" },
+                        ],
+                     },
+                     {
+                        // autoheight: false,
+                        view: "form",
+                        // id: "versionForm",
+                        id: this.ids.form,
+                        rows: [
+                           {
+                              label: "Version number options for Current Changes",
+                              view: "label",
+                              height: 10,
+                           },
+                           {
+                              cols: [
+                                 {
+                                    id: this.ids.versionOption,
+                                    options: this.getVersionOptions(
+                                       this.versionNumber || "1.0.0"
+                                    ),
+                                    view: "segmented",
+                                    height: 40,
+                                 },
+                                 { width: 15 },
+                              ],
+                           },
+                           {
+                              view: "text",
+                              label: "Author",
+                              name: "author",
+                              id: "author",
+                              labelPosition: "top",
+                           },
+                           {
+                              label: "Release Notes",
+                              view: "textarea",
+                              name: "commitMessage",
+                              id: "commitMessage",
+                              labelPosition: "top",
+                              placeholder:
+                                 "Explain your changes. Users will see this.",
+                           },
+                           {
+                              view: "text",
+                              label: "Version Number",
+                              name: "version",
+                              id: "version",
+                              labelPosition: "top",
+                              hidden: true,
+                           },
+                           {
+                              view: "text",
+                              label: "Date",
+                              name: "timestamp",
+                              id: "timestamp",
+                              labelPosition: "top",
+                              hidden: true,
+                           },
+                           {
+                              view: "checkbox",
+                              label: "Force keep this version",
+                              name: "keepVersion",
+                              id: "keepVersion",
+                              labelPosition: "top",
+                              hidden: true,
+                           },
+
+                           {
+                              id: "save_button",
+                              label: "Save Log Message",
+                              view: "button",
+                              height: 38,
+                              type: "icon",
+                              css: "webix_primary",
+                              disabled: false,
+                              click: () => {
+                                 return this.saveNew();
+                              },
+                           },
+                           {
+                              id: "update_button",
+                              label: "Update Change Log",
+                              view: "button",
+                              height: 38,
+                              type: "icon",
+                              css: "webix_primary",
+                              disabled: false,
+                              hidden: true,
+                              click: () => {
+                                 return this.saveUpdate();
+                              },
+                           },
+                           {
+                              id: "rollback_button",
+                              label: "Rollback module to this version",
+                              view: "button",
+                              height: 38,
+                              type: "icon",
+                              css: "webix_primary",
+                              disabled: false,
+                              // click: rollback_to_old_version,
+                              hidden: true,
+                           },
+
+                           {
+                              id: "export_button",
+                              label: "Export",
+                              view: "button",
+                              height: 38,
+                              type: "icon",
+                              css: "webix_primary",
+                              icon: "fa fa-download",
+                              disabled: false,
+                              // click: export,
+                           },
+                        ],
+                     },
+                  ],
+               },
+            ],
+         };
+      }
+
+      async init(AB) {
+         const ids = this.ids;
+
+         this.AB = AB;
+         this.$form = $$(this.ids.form);
+         this.$versionOption = $$(this.ids.versionOption);
+
+         $$(ids.noSelection).show();
+      }
+
+      applicationLoad(application) {
+         super.applicationLoad(application);
+         let versionData = this.getVersionData(application); //|| application.json.versionData;
+
+         // fill the version numbers
+         this.versionNumber = versionData?.versionNumber
+            ? versionData.versionNumber
+            : "1.0.0";
+         this.CurrentVersionID = this.versionNumber; // SET Default selected version
+
+         this.setOptions(this.versionNumber);
+         // var versionOptions = this.$versionOption;
+         // if (versionOptions) {
+         //    versionOptions.data.options = this.getVersionOptions(
+         //       this.versionNumber
+         //    );
+         //    versionOptions.refresh();
+         // }
+      }
+
+      getVersionData(AB) {
+         AB = AB || this.CurrentApplication;
+         let versionData = AB.versionData || AB.json.versionData;
+         if (!versionData) {
+            this.AB.notify.developer("there is no versionData", {
+               context: "ui_work_version_workspace:getVersionData()",
+               application: AB.toObj(),
+            });
+         }
+         return versionData;
+      }
+
+      setOptions(vNumber) {
+         let versionOptions = this.$versionOption;
+         if (versionOptions) {
+            versionOptions.data.options = this.getVersionOptions(vNumber);
+            versionOptions.refresh();
+         }
+      }
+
+      versionLoad(version) {
+         if (!version) {
+            this.clearForm();
+            return false;
+         }
+         super.versionLoad(version);
+
+         this.$versionOption.disable();
+         $$("save_button").hide();
+         $$("update_button").show();
+         $$("version").show();
+         $$("timestamp").show();
+         $$("export_button").hide();
+
+         // load the selected version data into the form
+         this.$form.setValues(version);
+         this.setOptions(this.versionNumber);
+         this.$versionOption.refresh();
+
+         this.versionData = version;
+      }
+      clearForm() {
+         this.$versionOption.enable();
+         $$("save_button").show();
+         $$("update_button").hide();
+         $$("version").hide();
+         $$("timestamp").hide();
+         $$("export_button").show();
+
+         // UNload the selected version data into the form
+         this.$form.setValues({});
+         this.setOptions(this.versionNumber);
+         this.$versionOption.refresh();
+      }
+
+      loadData(data) {
+         console.error("no function should be here", data);
+      }
+
+      /**
+       * @method saveNew
+       * take the data entered into the form and
+       * add it to our current application.
+       * @param {obj} values  key=>value hash of model values.
+       * @return {Promise}
+       */
+      async saveNew() {
+         var Form = this.$form;
+         let formVals = Form.getValues();
+
+         // get version number option
+         formVals["version"] = this.getVersionNumber(
+            this.$versionOption.$getValue()
+         );
+
+         // set to current time
+         formVals["timestamp"] = new Date().toISOString();
+
+         // is this error needed?
+         if (!this.CurrentApplication) {
+            webix.alert({
+               title: L("Shoot!"),
+               test: L("No Application Set!  Why?"),
+            });
+            return false;
+         }
+
+         try {
+            await this.applicationChangeLogAdd(
+               this.CurrentApplication,
+               formVals
+            );
+            this.emit("versionDataUpdate", true);
+            this.toList();
+         } catch (e) {
+            /* error is handled in .applicationChangeLogAdd() */
+         }
+         // this.ready();
+      }
+      /**
+       * @method saveUpdate
+       * take the data entered into the form and
+       * add it to our current application.
+       * @param {obj} values  key=>value hash of model values.
+       * @return {Promise}
+       */
+      async saveUpdate() {
+         var Form = this.$form;
+         let formVals = Form.getValues();
+
+         let importantValues = {};
+         importantValues["version"] = formVals.version;
+         importantValues["author"] = formVals.author;
+         importantValues["date"] = formVals.date;
+         importantValues["commitMessage"] = formVals.commitMessage;
+
+         // is this error needed?
+         if (!this.CurrentApplication) {
+            webix.alert({
+               title: L("Shoot!"),
+               test: L("No Application Set!  Why?"),
+            });
+            return false;
+         }
+
+         try {
+            await this.applicationChangeLogUpdate(
+               this.CurrentApplication,
+               formVals
+            );
+            this.emit("versionDataUpdate", true);
+            this.toList();
+         } catch (e) {
+            /* error is handled in .applicationChangeLogUpdate() */
+         }
+         // this.ready();
+      }
+
+      /**
+       * @function getVersionNumber
+       * Extracts the version number from a string.
+       * @param {string} string The input string to extract the version number from.
+       * @return {string|null} The version number if found in the input string, otherwise null.
+       */
+
+      getVersionNumber(string) {
+         const pattern = /^(\d+\.\d+\.\d+)/;
+         const match = pattern.exec(string);
+         if (match) {
+            return match[1];
+         } else {
+            const e = new Error(
+               "Failed to extract version number from input string."
+            );
+            this.AB.notify.developer(e, {
+               context: "ui_work_version_workspace:getVersionNumber()",
+               application: this.Application.toObj(),
+               string,
+            });
+            return null;
+         }
+      }
+
+      // Helper functions
+      //  The getVersionOptions() function generates an array of version options that start from the current version
+      // and go up by one for each of the three segments (major, minor, and patch).
+      getVersionOptions(versionNumber) {
+         const major = versionNumber.split(".")[0];
+         const minor = versionNumber.split(".")[1];
+         const patch = versionNumber.split(".")[2];
+         const options = [
+            `${parseInt(major) + 1}.0.0 <i>major</i>`,
+            `${major}.${parseInt(minor) + 1}.0 <i>minor</i>`,
+            `${major}.${minor}.${parseInt(patch) + 1} <i>patch</i>`,
+         ];
+         return options;
+      }
+
+      /**
+       * @method applicationChangeLogAdd
+       * Step through the process of updating an ABApplication with the
+       * current state of the Form.
+       * @param {ABApplication, object} application, values to add
+       */
+      async applicationChangeLogAdd(AB, values) {
+         let versionData = this.getVersionData(AB);
+         var oldVersionNumber = versionData?.versionNumber;
+         // string
+         // the original version number to reset to incase of an error saving.
+
+         let newVersionNumber = values.version;
+
+         // Set only new Data, we want to keep the old version data
+         versionData.changeLog[newVersionNumber] = values;
+         versionData.versionNumber = newVersionNumber;
+
+         AB.json["versionData"] = versionData;
+
+         try {
+            await AB.save();
+            webix.message({
+               type: "success",
+               text: L(
+                  "{0} Successfully logged update of ",
+                  [AB.label],
+                  " to version: ",
+                  newVersionNumber
+               ),
+            });
+
+            // update the UI
+            this.versionNumber = newVersionNumber;
+            this.clearForm();
+            // emit, update the list
+            this.emit("addNew", AB, newVersionNumber);
+         } catch (e) {
+            webix.message({
+               type: "error",
+               text: L(
+                  "Error Updating {0}",
+                  [AB.label],
+                  " to version: ",
+                  newVersionNumber
+               ),
+            });
+            this.AB.notify.developer(e, {
+               context: "ui_work_version_workspace:applicationChangeLogAdd()",
+               application: AB.toObj(),
+               values,
+            });
+
+            // reset the version number
+            AB.versionData.versionNumber = oldVersionNumber;
+            // Remove the unsaved object
+            // ? does reflect work here?
+            Reflect.deleteProperty(AB.versionData.changeLog, newVersionNumber);
+         }
+      }
+
+      /**
+       * @method applicationChangeLogUpdate
+       * Step through the process of updating one of the logs for an ABApplication with the
+       * current state of the Form.
+       * @param {ABApplication} application
+       */
+      async applicationChangeLogUpdate(AB, values) {
+         AB = this.CurrentApplication || AB;
+
+         let updateVersionNum = values.version;
+
+         let appData = this.getVersionData(AB);
+         var oldVersion = appData.changeLog[updateVersionNum];
+         // object
+         // the original version to reset to incase of an error saving.
+
+         if (!oldVersion) {
+            // There is no old record to update..
+            console.error("They are trying to change the version number...");
+            // return this.applicationChangeLogAdd(Application, values);
+         }
+
+         // Set Data
+         AB.json.versionData.changeLog[updateVersionNum] = values;
+
+         try {
+            await AB.save();
+            webix.message({
+               type: "success",
+               text: L(
+                  "{0} Successfully logged update of ",
+                  [AB.label],
+                  " to version: ",
+                  updateVersionNum
+               ),
+            });
+            this.emit("addNew", AB, values);
+         } catch (e) {
+            webix.message({
+               type: "error",
+               text: L(
+                  "Error Updating {0}",
+                  [AB.label],
+                  " to version: ",
+                  updateVersionNum
+               ),
+            });
+            this.AB.notify.developer(e, {
+               context:
+                  "ui_work_version_workspace:applicationChangeLogUpdate()",
+               application: AB.toObj(),
+               values,
+            });
+
+            // reset the version number
+            AB.json.versionData.versionNumber = oldVersion.versionNumber;
+            // Remove the unsaved object
+            Reflect.deleteProperty(
+               AB.json.versionData.changeLog,
+               updateVersionNum
+            );
+         }
+      }
+   }
+
+   return new UI_Work_Version_Workspace(ibase, init_settings);
 }
 
 
