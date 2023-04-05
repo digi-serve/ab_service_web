@@ -71584,6 +71584,12 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewDataFilter */ "./src/rootPages/Designer/properties/views/ABViewDataFilter.js"),
       __webpack_require__(/*! ./views/ABViewDataview */ "./src/rootPages/Designer/properties/views/ABViewDataview.js"),
       __webpack_require__(/*! ./views/ABViewDetail */ "./src/rootPages/Designer/properties/views/ABViewDetail.js"),
+      __webpack_require__(/*! ./views/ABViewDetailCheckbox */ "./src/rootPages/Designer/properties/views/ABViewDetailCheckbox.js"),
+      __webpack_require__(/*! ./views/ABViewDetailCustom */ "./src/rootPages/Designer/properties/views/ABViewDetailCustom.js"),
+      __webpack_require__(/*! ./views/ABViewDetailImage */ "./src/rootPages/Designer/properties/views/ABViewDetailImage.js"),
+      __webpack_require__(/*! ./views/ABViewDetailItem */ "./src/rootPages/Designer/properties/views/ABViewDetailItem.js"),
+      __webpack_require__(/*! ./views/ABViewDetailText */ "./src/rootPages/Designer/properties/views/ABViewDetailText.js"),
+      __webpack_require__(/*! ./views/ABViewDetailTree */ "./src/rootPages/Designer/properties/views/ABViewDetailTree.js"),
       __webpack_require__(/*! ./views/ABViewDocxBuilder */ "./src/rootPages/Designer/properties/views/ABViewDocxBuilder.js"),
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/properties/views/ABViewForm.js"),
       __webpack_require__(/*! ./views/ABViewFormButton */ "./src/rootPages/Designer/properties/views/ABViewFormButton.js"),
@@ -92767,6 +92773,447 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewDetailProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewDetailCheckbox.js":
+/*!*************************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDetailCheckbox.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewDetailItem */ "./src/rootPages/Designer/properties/views/ABViewDetailItem.js");
+/**
+ * ABViewDetailCheckbox
+ * A Property manager for our ABViewDetailCheckbox definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_detail_checkbox";
+
+   const ABViewDetailItem = (0,_ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+   class ABViewDetailCheckboxProperty extends ABViewDetailItem {
+      constructor() {
+         super(BASE_ID, {
+            height: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "detailcheckbox";
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("detailcheckbox");
+      }
+   }
+
+   return ABViewDetailCheckboxProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewDetailCustom.js":
+/*!***********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDetailCustom.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewDetailItem */ "./src/rootPages/Designer/properties/views/ABViewDetailItem.js");
+/**
+ * ABViewDetailCustom
+ * A Property manager for our ABViewDetailCustom definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_detail_custom";
+
+   const ABViewDetailItem = (0,_ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+   class ABViewDetailCustomProperty extends ABViewDetailItem {
+      constructor() {
+         super(BASE_ID, {
+            height: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "detailcustom";
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("detailcustom");
+      }
+   }
+
+   return ABViewDetailCustomProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewDetailImage.js":
+/*!**********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDetailImage.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewDetailItem */ "./src/rootPages/Designer/properties/views/ABViewDetailItem.js");
+/**
+ * ABViewDetailImage
+ * A Property manager for our ABViewDetailImage definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_detail_image";
+   const DEFAULT_VALUES = {
+      height: 0,
+      width: 0,
+   };
+
+   const ABViewDetailItem = (0,_ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+   class ABViewDetailImageProperty extends ABViewDetailItem {
+      constructor() {
+         super(BASE_ID, {
+            height: "",
+            width: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "detailimage";
+      }
+
+      ui() {
+         return super.ui([
+            {
+               id: this.ids.height,
+               name: "height",
+               view: "counter",
+               label: this.label("Height"),
+               on: {
+                  onChange: () => this.onChange(),
+               },
+            },
+            {
+               id: this.ids.width,
+               name: "width",
+               view: "counter",
+               label: this.label("Width"),
+               on: {
+                  onChange: () => this.onChange(),
+               },
+            },
+         ]);
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("detailimage");
+      }
+
+      populate(view) {
+         super.populate(view);
+         const defaults = this.defaultValues();
+         const height = view.settings?.height ?? defaults.height;
+         $$(this.ids.height).setValue(height);
+         const width = view.settings?.width ?? defaults.width;
+         $$(this.ids.width).setValue(width);
+      }
+
+      defaultValues() {
+         const values = super.defaultValues();
+         return Object.assign(DEFAULT_VALUES, values);
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const values = super.values() ?? {};
+         values.settings = values.settings ?? {};
+         values.settings.height = $$(this.ids.height).getValue();
+         values.settings.width = $$(this.ids.width).getValue();
+         return values;
+      }
+   }
+
+   return ABViewDetailImageProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewDetailItem.js":
+/*!*********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDetailItem.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewDetailItem
+ * A Property manager for our ABViewDetailItem definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+
+   class ABViewDetailItemProperty extends ABView {
+      constructor(BASE_ID, ids = {}) {
+         super(
+            BASE_ID,
+            Object.assign(ids, {
+               // Put our ids here
+               field: "",
+            })
+         );
+
+         this.AB = AB;
+      }
+
+      ui(elements = [], rules = {}) {
+         const ids = this.ids;
+         const _ui = [
+            {
+               id: ids.field,
+               name: "fieldLabel",
+               view: "text",
+               disabled: true,
+               label: L("Field"),
+            },
+         ].concat(elements);
+
+         return super.ui(_ui, rules);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const [field] = this.AB.objectByID(view.settings.objectId).fields(
+            (f) => f.id == view.settings.fieldId
+         );
+
+         $$(this.ids.field).setValue(field.label);
+      }
+
+      defaultValues() {
+         const ViewClass = this.ViewClass();
+
+         let values = {};
+
+         if (ViewClass) {
+            values = ViewClass.defaultValues();
+         }
+
+         return values;
+      }
+   }
+
+   return ABViewDetailItemProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewDetailText.js":
+/*!*********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDetailText.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewDetailItem */ "./src/rootPages/Designer/properties/views/ABViewDetailItem.js");
+/**
+ * ABViewDetailText
+ * A Property manager for our ABViewDetailText definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_detail_text";
+   const DEFAULT_VALUES = {
+      height: 0,
+   };
+
+   const ABViewDetailItem = (0,_ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+   class ABViewDetailTextProperty extends ABViewDetailItem {
+      constructor() {
+         super(BASE_ID, {
+            height: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "detailtext";
+      }
+
+      ui() {
+         return super.ui([
+            {
+               id: this.ids.height,
+               name: "height",
+               view: "counter",
+               label: this.label("Height"),
+               on: {
+                  onChange: () => this.onChange(),
+               },
+            },
+         ]);
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("detailtext");
+      }
+
+      populate(view) {
+         super.populate(view);
+         const defaults = this.defaultValues();
+         const height = view.settings?.height ?? defaults.height;
+         $$(this.ids.height).setValue(height);
+      }
+
+      defaultValues() {
+         const values = super.defaultValues();
+         return Object.assign(DEFAULT_VALUES, values);
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const values = super.values() ?? {};
+         values.settings = values.settings ?? {};
+         values.settings.height = $$(this.ids.height).getValue();
+         return values;
+      }
+   }
+
+   return ABViewDetailTextProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewDetailTree.js":
+/*!*********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewDetailTree.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewDetailItem */ "./src/rootPages/Designer/properties/views/ABViewDetailItem.js");
+/**
+ * ABViewDetailTree
+ * A Property manager for our ABViewDetailTree definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_detail_tree";
+
+   const ABViewDetailItem = (0,_ABViewDetailItem__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+   class ABViewDetailTreeProperty extends ABViewDetailItem {
+      constructor() {
+         super(BASE_ID, {
+            height: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "detailtree";
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("detailtree");
+      }
+   }
+
+   return ABViewDetailTreeProperty;
 }
 
 
