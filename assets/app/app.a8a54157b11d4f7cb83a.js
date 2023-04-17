@@ -137,6 +137,14 @@ class Config {
       return {};
    }
 
+   languageConfig() {
+      if (this._config && this._config.languages) {
+         return this._config.languages;
+      }
+      console.error("No Language config found.");
+      return {};
+   }
+
    metaConfig() {
       if (this._config && this._config.meta) {
          return this._config.meta;
@@ -16749,6 +16757,14 @@ class ClassUI extends events__WEBPACK_IMPORTED_MODULE_0__.EventEmitter {
          $$(this.ids.component)?.show();
       }
    }
+
+   get WARNING_ICON() {
+      return `<span class="webix_sidebar_dir_icon webix_icon fa fa-warning pulseLight smalltext"></span>`;
+   }
+
+   get WARNING_ICON_DARK() {
+      return this.WARNING_ICON.replace("pulseLight", "pulseDark");
+   }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ClassUI);
@@ -23333,4 +23349,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.94679b504639c82401e2.js.map
+//# sourceMappingURL=app.a8a54157b11d4f7cb83a.js.map
