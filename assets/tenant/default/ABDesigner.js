@@ -100839,8 +100839,9 @@ var myClass = null;
                return (
                   v.key == widgetKey &&
                   (v.settings.dataviewID == view.settings.dataviewID ||
-                     this.AB.datacollectionByID(v.settings.dataviewID)
-                        ?.datacollectionFollow?.id == view.settings.dataviewID)
+                     (this.AB ?? view.AB)?.datacollectionByID(
+                        v.settings.dataviewID
+                     )?.datacollectionFollow?.id == view.settings.dataviewID)
                );
             };
 
