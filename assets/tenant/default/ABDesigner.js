@@ -68697,6 +68697,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewLayout */ "./src/rootPages/Designer/editors/views/ABViewLayout.js"),
       __webpack_require__(/*! ./views/ABViewMenu */ "./src/rootPages/Designer/editors/views/ABViewMenu.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/editors/views/ABViewPage.js"),
+      __webpack_require__(/*! ./views/ABViewPivot */ "./src/rootPages/Designer/editors/views/ABViewPivot.js"),
       __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/editors/views/ABViewTab.js"),
       __webpack_require__(/*! ./views/ABViewText */ "./src/rootPages/Designer/editors/views/ABViewText.js"),
    ].forEach((E) => {
@@ -70718,6 +70719,91 @@ var myClass = null;
       myClass = class ABViewPageEditor extends ABViewContainer {
          static get key() {
             return "page";
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewPivot.js":
+/*!*************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewPivot.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewPivotEditor
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      // var L = UIClass.L();
+      // var L = ABViewContainer.L();
+
+      myClass = class ABViewPivotEditor extends UIClass {
+         static get key() {
+            return "pivot";
+         }
+
+         constructor(view, base = "interface_editor_viewpivot") {
+            // base: {string} unique base id reference
+
+            super(base);
+
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            const pivotContainer = this.component.ui();
+            const pivot = pivotContainer.rows[0];
+
+            pivot.readonly = false;
+            pivot.on = {
+               onBeforeApply: (structure) => {
+                  this._saveStructure(structure);
+               },
+            };
+
+            return pivot;
+         }
+
+         init(AB) {
+            this.AB = AB;
+
+            this.component?.init?.();
+         }
+
+         detatch() {
+            this.component?.detatch?.();
+         }
+
+         onShow() {
+            this.component?.onShow?.();
+         }
+
+         _saveStructure(structure) {
+            this.view.settings.structure = structure;
+            this.view.save();
          }
       };
    }
