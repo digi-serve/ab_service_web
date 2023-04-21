@@ -68693,6 +68693,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewForm */ "./src/rootPages/Designer/editors/views/ABViewForm.js"),
       __webpack_require__(/*! ./views/ABViewGantt */ "./src/rootPages/Designer/editors/views/ABViewGantt.js"),
       __webpack_require__(/*! ./views/ABViewGrid */ "./src/rootPages/Designer/editors/views/ABViewGrid.js"),
+      __webpack_require__(/*! ./views/ABViewKanban */ "./src/rootPages/Designer/editors/views/ABViewKanban.js"),
       __webpack_require__(/*! ./views/ABViewLabel */ "./src/rootPages/Designer/editors/views/ABViewLabel.js"),
       __webpack_require__(/*! ./views/ABViewLayout */ "./src/rootPages/Designer/editors/views/ABViewLayout.js"),
       __webpack_require__(/*! ./views/ABViewMenu */ "./src/rootPages/Designer/editors/views/ABViewMenu.js"),
@@ -70318,6 +70319,83 @@ var myClass = null;
 
          onShow() {
             this.component.onShow?.();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/editors/views/ABViewKanban.js":
+/*!**************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewKanban.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewKanban
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const BASE_ID = "interface_editor_viewkanban";
+
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+
+      myClass = class ABViewKanbanEditor extends UIClass {
+         static get key() {
+            return "kanban";
+         }
+
+         constructor(view, base = BASE_ID) {
+            // base: {string} unique base id reference
+            super(base);
+
+            this.AB = AB;
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            const component = this.component;
+            const _ui = component.ui();
+            _ui.minWidth = 400;
+
+            return {
+               view: "layout",
+               cols: [_ui, { fillspace: true }],
+            };
+         }
+
+         init(AB) {
+            this.AB = AB;
+
+            this.component?.init?.(AB);
+         }
+
+         detatch() {
+            this.component?.detatch?.();
+         }
+
+         onShow() {
+            this.component?.onShow?.();
          }
       };
    }
@@ -97460,6 +97538,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
 /* harmony import */ var _workspaceViews_ABViewKanban__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../workspaceViews/ABViewKanban */ "./src/rootPages/Designer/properties/workspaceViews/ABViewKanban.js");
 /* harmony import */ var _ui_work_object_workspace_popupNewDataField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../ui_work_object_workspace_popupNewDataField */ "./src/rootPages/Designer/ui_work_object_workspace_popupNewDataField.js");
+/* harmony import */ var _viewProperties_ABViewPropertyLinkPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./viewProperties/ABViewPropertyLinkPage */ "./src/rootPages/Designer/properties/views/viewProperties/ABViewPropertyLinkPage.js");
 /*
  * ABViewKanban
  * A Property manager for our ABViewKanban definitions
@@ -97469,10 +97548,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
    const BASE_ID = "properties_abview_kanban";
 
    const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const LinkPageProperty = (0,_viewProperties_ABViewPropertyLinkPage__WEBPACK_IMPORTED_MODULE_3__["default"])(AB, BASE_ID);
    const L = ABView.L();
    const uiConfig = AB.UISettings.config();
 
@@ -97485,6 +97566,8 @@ __webpack_require__.r(__webpack_exports__);
    class ABViewKanbanProperty extends ABView {
       constructor() {
          super(BASE_ID, { datacollection: "" });
+
+         this.linkPageComponent = new LinkPageProperty(AB, BASE_ID);
       }
 
       static get key() {
@@ -97524,6 +97607,7 @@ __webpack_require__.r(__webpack_exports__);
                },
             },
             ..._ui.rows,
+            this.linkPageComponent.ui(),
          ];
 
          return super.ui(rows);
@@ -97555,6 +97639,11 @@ __webpack_require__.r(__webpack_exports__);
             ViewKanbanProperties.emit("field.added", params[0]);
          });
 
+         this.linkPageComponent.init();
+         this.linkPageComponent.on("change", () => {
+            this.onChange();
+         });
+
          await super.init(AB);
       }
 
@@ -97579,6 +97668,9 @@ __webpack_require__.r(__webpack_exports__);
          $dc.unblockEvent();
          $dc.refresh();
          this.refreshFields(dcID);
+
+         this.linkPageComponent.viewLoad(view);
+         this.linkPageComponent.setSettings(view.settings);
       }
 
       refreshFields(dcID) {
@@ -97610,6 +97702,11 @@ __webpack_require__.r(__webpack_exports__);
          // Object.keys(fields).forEach((f) => {
          //    values.settings[f] = fields[f];
          // });
+
+         const linkSettings = this.linkPageComponent.getSettings();
+         for (const key in linkSettings) {
+            values.settings[key] = linkSettings[key];
+         }
 
          return values;
       }
