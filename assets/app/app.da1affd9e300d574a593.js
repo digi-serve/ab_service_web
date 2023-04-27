@@ -458,14 +458,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! events */ 17187);
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _node_modules_bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../node_modules/bootstrap/dist/css/bootstrap.min.css */ 90569);
-/* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../config/Config.js */ 24998);
+/* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../config/Config.js */ 24998);
 /* harmony import */ var _node_modules_formiojs_dist_formio_full_min_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.full.min.js */ 545);
 /* harmony import */ var _node_modules_formiojs_dist_formio_full_min_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_formiojs_dist_formio_full_min_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _node_modules_formiojs_dist_formio_form_min_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.form.min.css */ 49879);
 /* harmony import */ var _node_modules_formiojs_dist_formio_builder_min_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.builder.min.css */ 50864);
-/* harmony import */ var _init_initConfig_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../init/initConfig.js */ 46613);
-/* harmony import */ var _init_initDiv_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../init/initDiv.js */ 25956);
-/* harmony import */ var _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../init/initDefinitions.js */ 54285);
+/* harmony import */ var _init_initConfig_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../init/initConfig.js */ 46613);
+/* harmony import */ var _init_initDiv_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../init/initDiv.js */ 25956);
+/* harmony import */ var _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../init/initDefinitions.js */ 54285);
 /* harmony import */ var _js_webix_components_querybuilder_querybuilder_min_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../js/webix/components/querybuilder/querybuilder.min.css */ 61210);
 /* harmony import */ var _js_selectivity_selectivity_min_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../js/selectivity/selectivity.min.css */ 58292);
 /* harmony import */ var _js_webix_extras_tinymce__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../js/webix/extras/tinymce */ 16552);
@@ -478,9 +478,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tinymce_skins_ui_oxide_skin_min_css__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tinymce/skins/ui/oxide/skin.min.css */ 94654);
 /* harmony import */ var tinymce_skins_ui_oxide_content_css__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! tinymce/skins/ui/oxide/content.css */ 71884);
 /* harmony import */ var tinymce_skins_content_default_content_min_css__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! tinymce/skins/content/default/content.min.css */ 78841);
-/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../ui/ui.js */ 67706);
-/* harmony import */ var _ui_loading_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../ui/loading.js */ 92441);
-/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 34777);
+/* harmony import */ var _js_webix_components_hint_hint_css__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../js/webix/components/hint/hint.css */ 40942);
+/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../ui/ui.js */ 67706);
+/* harmony import */ var _ui_loading_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../ui/loading.js */ 92441);
+/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 34777);
 /*
  * Bootstrap.js
  * This file drives the setup and preparation of the Web Platform.
@@ -537,6 +538,9 @@ __webpack_require__.e(/*! import() */ "js_webix_components_querybuilder_querybui
  // content.min.css ?
 
 
+__webpack_require__.e(/*! import() */ "js_webix_components_hint_hint_js").then(__webpack_require__.t.bind(__webpack_require__, /*! ../js/webix/components/hint/hint.js */ 45595, 23));
+
+
 
 
 
@@ -547,7 +551,7 @@ class Bootstrap extends EventEmitter {
       this.setMaxListeners(0);
 
       // Common Reference to Configuration Values
-      this.Config = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"];
+      this.Config = _config_Config_js__WEBPACK_IMPORTED_MODULE_18__["default"];
 
       //
       // UI Related
@@ -578,8 +582,8 @@ class Bootstrap extends EventEmitter {
       // happening inconsitently.
       if (ab) this.AB = ab;
 
-      _ui_loading_js__WEBPACK_IMPORTED_MODULE_18__["default"].attach();
-      this.ui(_ui_loading_js__WEBPACK_IMPORTED_MODULE_18__["default"]);
+      _ui_loading_js__WEBPACK_IMPORTED_MODULE_19__["default"].attach();
+      this.ui(_ui_loading_js__WEBPACK_IMPORTED_MODULE_19__["default"]);
       const loadABFactory = Promise.all(/*! import() */[__webpack_require__.e("vendors"), __webpack_require__.e("AppBuilder_ABFactory_js-node_modules_moment_locale_sync_recursive_")]).then(__webpack_require__.bind(__webpack_require__, /*! ../AppBuilder/ABFactory */ 68768));
       // @const {Promise} loadABFactory Defer loading the ABFactory for a smaller
       // inital file size, allowing us to show the loading UI sooner.
@@ -590,18 +594,18 @@ class Bootstrap extends EventEmitter {
       return (
          // 1) Find or create the DIV element our UI is to attach to
          //    this DIV element can contain settings pertainent to our setup
-         _init_initDiv_js__WEBPACK_IMPORTED_MODULE_19__["default"].init(this)
+         _init_initDiv_js__WEBPACK_IMPORTED_MODULE_20__["default"].init(this)
             .then(() => {
                // 2) Request the User's Configuration Information from the
                //    server.
                preloadMessage("Getting Configuration Settings");
-               return _init_initConfig_js__WEBPACK_IMPORTED_MODULE_20__["default"].init(this);
+               return _init_initConfig_js__WEBPACK_IMPORTED_MODULE_21__["default"].init(this);
             })
             // load definitions for current user
             .then(async () => {
-               if (_config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].userConfig()) {
+               if (_config_Config_js__WEBPACK_IMPORTED_MODULE_18__["default"].userConfig()) {
                   preloadMessage("Loading App Definitions");
-                  await _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_21__["default"].init(this);
+                  await _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_22__["default"].init(this);
                }
             })
 
@@ -612,10 +616,10 @@ class Bootstrap extends EventEmitter {
                window.__ABBS = this;
 
                const allPluginsLoaded = [];
-               const tenantInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].tenantConfig();
+               const tenantInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_18__["default"].tenantConfig();
 
                if (tenantInfo) {
-                  const plugins = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].plugins() || [];
+                  const plugins = _config_Config_js__WEBPACK_IMPORTED_MODULE_18__["default"].plugins() || [];
 
                   // Short Term Fix: Don't load ABDesigner for non builders (need a way to assign plugins to users/roles);
                   const designerIndex = plugins.indexOf("ABDesigner.js");
@@ -624,7 +628,7 @@ class Bootstrap extends EventEmitter {
                         "6cc04894-a61b-4fb5-b3e5-b8c3f78bd331",
                         "e1be4d22-1d00-4c34-b205-ef84b8334b19",
                      ];
-                     const userInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].userConfig();
+                     const userInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_18__["default"].userConfig();
                      const userBuilderRoles = userInfo?.roles.filter(
                         (role) => builderRoles.indexOf(role.uuid) > -1
                      ).length;
@@ -650,7 +654,7 @@ class Bootstrap extends EventEmitter {
                preloadMessage("Starting AppBuilder");
                const { default: ABFactory } = await loadABFactory;
 
-               let definitions = _config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].definitions() || null;
+               let definitions = _config_Config_js__WEBPACK_IMPORTED_MODULE_18__["default"].definitions() || null;
 
                if (definitions) {
                   // NOTE: when loading up an unauthorized user,
@@ -668,13 +672,13 @@ class Bootstrap extends EventEmitter {
 
                if (userConfig && userConfig.roles.length == 0) {
                   await this.AB.init();
-                  _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__["default"].init(this.AB);
-                  _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__["default"].attach();
-                  if (_config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].userReal()) {
-                     _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_17__["default"].userConfig());
+                  _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_23__["default"].init(this.AB);
+                  _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_23__["default"].attach();
+                  if (_config_Config_js__WEBPACK_IMPORTED_MODULE_18__["default"].userReal()) {
+                     _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_23__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_18__["default"].userConfig());
                   }
                   this.ui().destroy(); // remove the preloading screen
-                  this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_22__["default"]);
+                  this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_23__["default"]);
 
                   let err = new Error("No Definitions");
                   err.code = "ENODEFS";
@@ -736,9 +740,9 @@ class Bootstrap extends EventEmitter {
 
                      const div = this.div();
 
-                     _ui_ui_js__WEBPACK_IMPORTED_MODULE_23__["default"].attach(div.id);
+                     _ui_ui_js__WEBPACK_IMPORTED_MODULE_24__["default"].attach(div.id);
                      this.ui().destroy(); // remove the preloading screen
-                     this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_23__["default"]);
+                     this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_24__["default"]);
                      this.ui().init(this.AB);
                      // this.ui().init() routine handles the remaining
                      // bootup/display process.
@@ -16189,6 +16193,33 @@ ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.webix_gantt_tree
 
 /***/ }),
 
+/***/ 43008:
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js?url=false!./js/webix/components/hint/hint.css ***!
+  \*******************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ 94015);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ 23645);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".webix_hint_view.webix_hint_animated .webix_hint_overlay_hole_el {\n  fill: #000;\n  -webkit-transition: fill 0.4s ease-in;\n  -o-transition: fill 0.4s ease-in;\n  transition: fill 0.4s ease-in;\n}\n.webix_hint_view.webix_hint_animated .webix_hint {\n  opacity: 1;\n  -webkit-transition: opacity 0.4s ease-in;\n  -o-transition: opacity 0.4s ease-in;\n  transition: opacity 0.4s ease-in;\n}\n.webix_hint_overlay {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  z-index: 1010;\n  pointer-events: none;\n  overflow: hidden;\n  opacity: 0.6;\n}\n.webix_hint_view svg {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  left: 0;\n  top: 0;\n}\n.webix_hint_overflow {\n  pointer-events: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  position: relative;\n  height: 100%;\n  width: 100%;\n  min-width: 100%;\n}\n.webix_hint_overflow .webix_window,\n.webix_hint_overflow .webix_popup {\n  pointer-events: all;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.webix_hint {\n  position: fixed;\n  pointer-events: all;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n  display: block;\n  z-index: 1012;\n  width: 310px;\n  border-radius: 2px;\n  background-color: #FFFFFF;\n  padding: 22px 50px 80px 22px;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.1);\n  opacity: 0;\n}\n.webix_hint .webix_hint_label {\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 16px;\n  line-height: 24px;\n  margin: -5px 0;\n}\n.webix_hint .webix_hint_title {\n  color: rgba(0, 0, 0, 0.87);\n  font-size: 20px;\n  font-weight: 500;\n  line-height: 1;\n  margin-bottom: 15px;\n}\n.webix_hint_buttons {\n  position: absolute;\n  bottom: 11px;\n  right: 22px;\n}\n.webix_hint_buttons .webix_hint_button {\n  display: inline-block;\n  pointer-events: all;\n  -webkit-box-sizing: content-box;\n  box-sizing: content-box;\n  cursor: pointer;\n  margin: 0 auto;\n  height: 32px;\n  padding: 0px 16px;\n  border: none;\n  border-radius: 2px;\n  font-size: 14px;\n  font-weight: 500;\n  line-height: 16px;\n  text-transform: uppercase;\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_next {\n  margin-left: 17px;\n  background-color: #00BFC7;\n  color: #fff;\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_next:hover {\n  background-color: #27D6DD;\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_prev {\n  color: #0097A7;\n  background-color: #fff;\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_prev:hover {\n  background-color: rgba(0, 191, 199, 0.1);\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_prev.webix_hint_button_hidden {\n  display: none;\n}\n.webix_hint_progress {\n  position: absolute;\n  bottom: 17px;\n  left: 22px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 14px;\n}\n.webix_hint_button_close {\n  position: absolute;\n  right: 22px;\n  top: 20px;\n  z-index: 1012;\n  background: transparent;\n  border: none;\n  font-size: 22px;\n  color: rgba(0, 0, 0, 0.54);\n  pointer-events: all;\n  cursor: pointer;\n  padding: 0;\n  line-height: 1;\n}\n.webix_hint_button_close:hover {\n  color: rgba(0, 0, 0, 0.7);\n}\n", "",{"version":3,"sources":["webpack://./js/webix/components/hint/hint.css"],"names":[],"mappings":"AAAA;EACE,UAAU;EACV,qCAAqC;EACrC,gCAAgC;EAChC,6BAA6B;AAC/B;AACA;EACE,UAAU;EACV,wCAAwC;EACxC,mCAAmC;EACnC,gCAAgC;AAClC;AACA;EACE,eAAe;EACf,WAAW;EACX,YAAY;EACZ,MAAM;EACN,OAAO;EACP,aAAa;EACb,oBAAoB;EACpB,gBAAgB;EAChB,YAAY;AACd;AACA;EACE,kBAAkB;EAClB,YAAY;EACZ,WAAW;EACX,OAAO;EACP,MAAM;AACR;AACA;EACE,oBAAoB;EACpB,yBAAyB;EACzB,sBAAsB;EACtB,qBAAqB;EACrB,iBAAiB;EACjB,kBAAkB;EAClB,YAAY;EACZ,WAAW;EACX,eAAe;AACjB;AACA;;EAEE,mBAAmB;EACnB,yBAAyB;EACzB,sBAAsB;EACtB,qBAAqB;EACrB,iBAAiB;AACnB;AACA;EACE,eAAe;EACf,mBAAmB;EACnB,yBAAyB;EACzB,sBAAsB;EACtB,qBAAqB;EACrB,iBAAiB;EACjB,cAAc;EACd,aAAa;EACb,YAAY;EACZ,kBAAkB;EAClB,yBAAyB;EACzB,4BAA4B;EAC5B,8BAA8B;EAC9B,sBAAsB;EACtB,kFAAkF;EAClF,0EAA0E;EAC1E,UAAU;AACZ;AACA;EACE,0BAA0B;EAC1B,eAAe;EACf,iBAAiB;EACjB,cAAc;AAChB;AACA;EACE,0BAA0B;EAC1B,eAAe;EACf,gBAAgB;EAChB,cAAc;EACd,mBAAmB;AACrB;AACA;EACE,kBAAkB;EAClB,YAAY;EACZ,WAAW;AACb;AACA;EACE,qBAAqB;EACrB,mBAAmB;EACnB,+BAA+B;EAC/B,uBAAuB;EACvB,eAAe;EACf,cAAc;EACd,YAAY;EACZ,iBAAiB;EACjB,YAAY;EACZ,kBAAkB;EAClB,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,yBAAyB;AAC3B;AACA;EACE,iBAAiB;EACjB,yBAAyB;EACzB,WAAW;AACb;AACA;EACE,yBAAyB;AAC3B;AACA;EACE,cAAc;EACd,sBAAsB;AACxB;AACA;EACE,wCAAwC;AAC1C;AACA;EACE,aAAa;AACf;AACA;EACE,kBAAkB;EAClB,YAAY;EACZ,UAAU;EACV,0BAA0B;EAC1B,eAAe;AACjB;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,SAAS;EACT,aAAa;EACb,uBAAuB;EACvB,YAAY;EACZ,eAAe;EACf,0BAA0B;EAC1B,mBAAmB;EACnB,eAAe;EACf,UAAU;EACV,cAAc;AAChB;AACA;EACE,yBAAyB;AAC3B","sourcesContent":[".webix_hint_view.webix_hint_animated .webix_hint_overlay_hole_el {\n  fill: #000;\n  -webkit-transition: fill 0.4s ease-in;\n  -o-transition: fill 0.4s ease-in;\n  transition: fill 0.4s ease-in;\n}\n.webix_hint_view.webix_hint_animated .webix_hint {\n  opacity: 1;\n  -webkit-transition: opacity 0.4s ease-in;\n  -o-transition: opacity 0.4s ease-in;\n  transition: opacity 0.4s ease-in;\n}\n.webix_hint_overlay {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  z-index: 1010;\n  pointer-events: none;\n  overflow: hidden;\n  opacity: 0.6;\n}\n.webix_hint_view svg {\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  left: 0;\n  top: 0;\n}\n.webix_hint_overflow {\n  pointer-events: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  position: relative;\n  height: 100%;\n  width: 100%;\n  min-width: 100%;\n}\n.webix_hint_overflow .webix_window,\n.webix_hint_overflow .webix_popup {\n  pointer-events: all;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.webix_hint {\n  position: fixed;\n  pointer-events: all;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n  display: block;\n  z-index: 1012;\n  width: 310px;\n  border-radius: 2px;\n  background-color: #FFFFFF;\n  padding: 22px 50px 80px 22px;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.1);\n  opacity: 0;\n}\n.webix_hint .webix_hint_label {\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 16px;\n  line-height: 24px;\n  margin: -5px 0;\n}\n.webix_hint .webix_hint_title {\n  color: rgba(0, 0, 0, 0.87);\n  font-size: 20px;\n  font-weight: 500;\n  line-height: 1;\n  margin-bottom: 15px;\n}\n.webix_hint_buttons {\n  position: absolute;\n  bottom: 11px;\n  right: 22px;\n}\n.webix_hint_buttons .webix_hint_button {\n  display: inline-block;\n  pointer-events: all;\n  -webkit-box-sizing: content-box;\n  box-sizing: content-box;\n  cursor: pointer;\n  margin: 0 auto;\n  height: 32px;\n  padding: 0px 16px;\n  border: none;\n  border-radius: 2px;\n  font-size: 14px;\n  font-weight: 500;\n  line-height: 16px;\n  text-transform: uppercase;\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_next {\n  margin-left: 17px;\n  background-color: #00BFC7;\n  color: #fff;\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_next:hover {\n  background-color: #27D6DD;\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_prev {\n  color: #0097A7;\n  background-color: #fff;\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_prev:hover {\n  background-color: rgba(0, 191, 199, 0.1);\n}\n.webix_hint_buttons .webix_hint_button.webix_hint_button_prev.webix_hint_button_hidden {\n  display: none;\n}\n.webix_hint_progress {\n  position: absolute;\n  bottom: 17px;\n  left: 22px;\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 14px;\n}\n.webix_hint_button_close {\n  position: absolute;\n  right: 22px;\n  top: 20px;\n  z-index: 1012;\n  background: transparent;\n  border: none;\n  font-size: 22px;\n  color: rgba(0, 0, 0, 0.54);\n  pointer-events: all;\n  cursor: pointer;\n  padding: 0;\n  line-height: 1;\n}\n.webix_hint_button_close:hover {\n  color: rgba(0, 0, 0, 0.7);\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 96831:
 /*!*********************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js?url=false!./js/webix/components/query/query.css ***!
@@ -16344,7 +16375,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".mainSidebar.webix_sidebar.webix_dark,\n.darkScrollview {\n   background: #444 !important;\n}\n.appDevDesigns {\n   background-color: rgb(68, 68, 68) !important;\n   width: 100%;\n   height: 100%;\n   background-image: url(assets/images/appdev_logo_white.png);\n   background-size: auto 110px;\n   background-repeat: no-repeat;\n   background-position: center;\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_sidebar_icon {\n   margin-right: 15px;\n   color: rgba(255, 255, 255, 0.4);\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_branch_1 {\n   //border-top: 1px solid rgba(255,255,255,0.1);\n   border-bottom: 1px solid rgba(0, 0, 0, 0.4);\n   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1);\n}\n.mainToolbar .webix_icon {\n   margin-top: -2px;\n}\n.mainToolbar.webix_toolbar.webix_dark {\n   background: #333;\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_item:hover {\n   background-color: rgba(0, 0, 0, 0.15);\n}\n.mainSidebar.webix_sidebar.webix_dark\n   .webix_tree_item:hover\n   .webix_sidebar_icon {\n   color: rgba(255, 255, 255, 0.8);\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_item.webix_selected,\n.mainSidebar .webix_tree_item.webix_sidebar_selected {\n   background-color: rgba(0, 0, 0, 0.2);\n   color: #1ca1c1;\n}\n.mainSidebar.webix_sidebar.webix_dark\n   .webix_tree_item.webix_selected\n   .webix_icon {\n   color: #1ca1c1;\n}\n.webix_toolbar.webix_dark .webix_secondary.activePage button {\n   background-color: #1ca1c1 !important;\n}\n.webix_toolbar.webix_dark .userMenu.webix_menu-x .webix_list_item {\n   background-color: transparent;\n   padding: 3px 10px;\n   opacity: 0.7;\n}\n.webix_toolbar.webix_dark .inbox.webix_secondary button {\n   background-color: transparent;\n}\n.webix_toolbar.webix_dark .inbox.webix_secondary button .webix_icon_btn {\n   opacity: 0.7;\n   font-size: 20px;\n}\n.appPages .webix_button {\n   font-size: 14px;\n   color: rgba(255, 255, 255, 0.8) !important;\n}\n.appPages .webix_icon_btn {\n   opacity: 0.4;\n}\n\n/* Styles imported from AppBuilder v1 */\nlabel {\n   font-weight: 500;\n}\n/* Custom Webix Badge */\n.webix_badge {\n   font-size: 8pt;\n   height: 18px;\n   line-height: 18px;\n   min-width: 18px;\n   right: 0;\n}\n/* Custom selectivity */\n.webix_checksuggest_select_all .webix_el_box {\n   height: auto !important;\n}\n.webix_multicombo_tag,\n.webix_multicombo_value {\n   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.3);\n   padding: 0 9pt;\n   border-bottom: 1px solid #fff;\n   margin: 3px 3px 1px;\n   max-height: 27px;\n   overflow: hidden;\n   line-height: 26px;\n   font-weight: normal;\n   color: #475466 !important;\n}\n.badgeContainer {\n   position: relative;\n}\n.webix_tooltip .webix_badge.selectivityBadge {\n   display: none;\n}\n.editConnectedPage {\n   margin-left: -5px;\n   margin-right: 5px;\n   opacity: 0.4;\n}\n.editConnectedPage:hover {\n   opacity: 1;\n   cursor: pointer;\n}\n.webix_tooltip .webix_multicombo_delete {\n   display: none;\n}\n.webix_multicombo_delete:hover:after {\n   color: rgba(0, 0, 0, 0.7);\n}\n.webix_multicombo_delete:hover {\n   transform: scale(1.1);\n}\n.webix_multicombo_delete {\n   margin-right: -7pt;\n}\n.webix_multicombo_delete.clear-combo-value {\n   margin-right: -5px;\n   position: relative;\n   right: 9px;\n   transition: all 0.2s ease-in-out;\n}\n.webix_multicombo_value {\n   display: flex;\n   /* width: 100%; */\n}\n.webix_multicombo_value .ellip {\n   text-overflow: ellipsis;\n   overflow: hidden;\n   white-space: nowrap;\n}\n.webix_cell .webix_multicombo_tag,\n.webix_cell .webix_multicombo_value {\n   line-height: 26px;\n   margin: 4px 1.5px;\n}\n.webix_el_combo .webix_progress_state {\n   font-size: 35px !important;\n}\n.webix_list_item .editConnectedPage {\n   display: none;\n}\n.hascustomcolor {\n   color: white !important;\n   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3) !important;\n}\n.combowithcolors .webix_inp_static {\n   padding-left: 0px;\n}\n.webix_multicombo_delete:after {\n   color: rgba(0, 0, 0, 0.4);\n   text-shadow: none;\n}\n.hideWebixMulticomboTag .webix_multicombo_tag {\n   box-shadow: none;\n   padding: 0;\n   border: 0;\n   margin: 0;\n   background: transparent;\n   border-radius: 0;\n   max-height: none;\n}\n.selectivity-placeholder {\n   text-indent: 10px;\n   color: #666;\n}\n.selectivity-multiple-input-container {\n   background: transparent !important;\n   padding: 0px !important;\n   overflow: hidden !important;\n   max-height: unset;\n   /* border-radius: 6px; */\n}\n.selectivity-single-result-container {\n   left: 2px;\n}\n.selectivity-multiple-selected-item,\n.selectivity-single-selected-item {\n   background: #337ab7 !important;\n   padding: 0 10px;\n   border-radius: 15px !important;\n   color: #fff !important;\n   line-height: 29px;\n   display: inline-block;\n   height: unset !important;\n   margin: 2px;\n   /*max-width: 100px !important;*/\n}\n.selectivity-multiple-input,\ninput[type=\"text\"].selectivity-multiple-input {\n   height: 33px;\n   text-indent: 10px;\n}\n.selectivity-single-selected-item-remove {\n   color: #fff;\n   float: none;\n   padding: 7px 5px 7px 0px;\n}\n.selectivity-multiple-selected-item-edit,\n.selectivity-multiple-selected-item-remove {\n   padding: 5px 0 5px 5px;\n}\n.selectivity-single-selected-item-edit,\n.selectivity-multiple-selected-item-edit,\n.selectivity-single-selected-item-edit:hover,\n.selectivity-multiple-selected-item-edit:hover {\n   color: #fff;\n   cursor: pointer;\n   text-decoration: none !important;\n   background: #1ca1c1;\n   margin-left: -9pt;\n   padding: 5px 5px 5px 10px;\n   margin-right: 5px;\n}\n.customField {\n   line-height: 33px;\n}\n.customField .selectivity-multiple-input-container {\n   border: 1px solid #ccd7e6;\n   /* border-radius: 6px; */\n   margin-right: 4px;\n}\n.readonlyField {\n   background-color: #fff;\n}\n.selectivity-single-select {\n   background: transparent !important;\n}\n.webix_cell .form-entry {\n   border: 0;\n}\n.form-entry {\n   border-radius: 6px;\n   height: 100%;\n   border: 1px solid #ddd;\n   color: #666;\n   background: #fff;\n   border-color: #ccc;\n   margin-right: 2px;\n}\n.form-entry .selectivity-multiple-selected-item {\n   float: none;\n}\n.webix_template .selectivity-single-select {\n   padding: 0;\n   border: 1px solid #ccd7e6;\n   /* border-radius: 6px; */\n   margin-right: 4px;\n}\n.selectivity-single-select input {\n   padding: 0;\n   border: 0;\n}\n.selectivity-single-selected-item {\n   color: #666;\n}\n.selectivity-single-result-container {\n   top: 0em !important;\n}\n.selectivity-caret {\n   top: 0.4em !important;\n}\n.selectivityBadge {\n   top: 6px;\n   right: -5px;\n   background: #aaa;\n}\n.list-data-values,\n.connect-data-values {\n   position: relative;\n}\n\n.ab-app-list-info {\n   float: left;\n   height: 100%;\n}\n.ab-app-list-edit,\n.ab-object-list-edit,\n.ab-page-list-edit {\n   float: right;\n   height: 100%;\n   opacity: 0.6;\n}\n.ab-app-list-edit:hover,\n.ab-object-list-edit:hover,\n.ab-page-list-edit:hover {\n   opacity: 1;\n}\n.ab-app-list-edit .webix_list_item {\n   line-height: 50px;\n}\n.ab-app-list-edit .webix_icon {\n   line-height: 59px;\n}\n.ab-app-list-item {\n   height: 100%;\n   clear: both;\n}\n.ab-app-list-edit .webix_list_item {\n   padding: 10px;\n}\n.ab-app-list-name {\n   font-size: 20px;\n   line-height: 20px;\n   margin-top: 10px;\n}\n.ab-app-list-description {\n   opacity: 0.6;\n}\n\n.webix_list_item .webix_icon {\n   font-size: inherit;\n}\n.webix_list_item .webix_icon.wxi-checkbox-marked {\n   font-size: 20px;\n}\n.emptypane {\n   line-height: auto;\n}\n.opsportal-area-site-default-appbuilder a,\n.webix_view a {\n   opacity: 1;\n}\n.webix_list_item.menu.selected {\n   background: #657584;\n}\n.webix_icon_btn {\n   font-size: 20px;\n}\n.appTitle .webix_el_box {\n   font-size: 20px !important;\n}\n.webix_dark .webix_icon_btn {\n   opacity: 0.4;\n}\n.ab_amp .webix_dark .webix_icon_btn {\n   opacity: 1;\n}\n.webix_el_button button {\n   /* font-size: 14px; */\n}\n.webix_el_button button.webixtype_standard:hover {\n   text-decoration: underline;\n}\n.webix_menu-x .webix_list_item {\n   line-height: 31px;\n}\n.bg-white {\n   background: white;\n}\n.ab-component-tools {\n   position: absolute;\n   top: 2px;\n   right: 33px;\n}\n.ab-component-tools.ab-tab-tools {\n   right: 0;\n   z-index: 100;\n}\n.ab-component-remove,\n.ab-component-edit {\n   width: 31px;\n   height: 31px;\n   display: inline-block;\n   margin-right: 1px;\n   font-size: 18px;\n   text-align: center;\n   line-height: 33px !important;\n   background: #4caf50;\n   color: white;\n   top: -2px;\n   position: relative;\n   overflow: hidden;\n   float: right;\n}\n.ab-component-remove:hover,\n.ab-component-edit:hover {\n   cursor: pointer;\n}\n.ab-component-remove {\n   background: #ff3b30;\n}\n.panel_icon {\n   font-size: 16px;\n   width: 22px;\n   height: 24px;\n   line-height: 24px;\n}\n.webix_fieldset_label {\n   width: auto;\n   margin-bottom: 0;\n   border: 0;\n}\n.ab-widget-header {\n   background: #eee;\n}\n.ab-component-header .webix_el_box {\n   font-size: 24px;\n}\n.ab-component-description .webix_el_box {\n   color: #666;\n}\n.bg_gray {\n   background-color: #ebedf0;\n}\n.webix_dark .webix_sidebar {\n   background-color: transparent;\n}\n.webix_dark .webix_view {\n   background-color: transparent;\n   color: white;\n}\n.ab_amp .webix_dark .webix_view {\n   background-color: white;\n   color: inherit;\n}\n.webix_dark .webix_list-x .webix_list_item {\n   border-right: 0;\n}\n.ab-text .ab-detail-component-holder {\n   line-height: 32px;\n}\n.webix_tree_checkbox {\n   margin: 5px 6px 0 0 !important;\n   height: 14px;\n   width: 14px;\n}\n.ab-menu-left .webix_scroll_cont {\n   text-align: left;\n}\n.ab-menu-right .webix_scroll_cont {\n   text-align: right;\n}\n.ab-menu-center .webix_scroll_cont {\n   text-align: center;\n}\n.ab-menu-link.webix_menu-x .webix_list_item {\n   background: transparent;\n   color: #337ab7;\n   font-weight: bold;\n   padding: 0;\n   margin-right: 15px;\n}\n.ab-menu-link.webix_menu-x .webix_list_item:hover {\n   text-decoration: underline;\n}\n.ab-custom-field {\n   overflow: visible;\n}\n.ab-custom-field .webix_template {\n   padding: 0;\n}\n.ab-custom-field legend {\n   border-bottom: none;\n}\n\n.ab-component-form-rule {\n   background-color: #dcdcdc;\n}\n.ab-main-container .webix_querybuilder_wrap .webix_layout_form,\n.ab-main-container .ab-component-form-rules .webix_layout_form {\n   background: inherit !important;\n}\n.ab-component-form-rules .webix_view {\n   background: transparent !important;\n}\n.ab-component-form-rules {\n   background: #ddd;\n   border-radius: 5px;\n   box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.4);\n   position: relative;\n   overflow: visible;\n}\n.ab-component-form-rules-delete {\n   background: transparent;\n}\n.ab-component-form-rules-delete .ab-component-remove {\n   position: absolute;\n   top: -6px;\n   right: -8px;\n   border-radius: 100%;\n}\n/* Connect object data */\n.ab-connect-add-new a.fa {\n   width: 35px;\n   height: 35px;\n   display: block;\n   float: left;\n   border-radius: 4px;\n   background: #1ca1c1;\n   color: white;\n   opacity: 1;\n   text-align: center;\n   line-height: 35px;\n}\n.ab-connect-add-new a.fa:hover {\n   text-decoration: none;\n   background-color: #1992af;\n}\n.ab-connect-data-info {\n   display: inline-block;\n   width: 90px;\n   white-space: nowrap;\n   overflow: hidden;\n   text-overflow: ellipsis;\n}\n\n.ab-connect-data-disable {\n   background-color: #aaa;\n}\n.stop-scrolling {\n   height: 100%;\n   overflow: hidden;\n}\n.ab-scroll-y {\n   overflow-y: auto !important;\n}\n.ab-ellipses-text,\n.ab-ellipses-text > div {\n   overflow: hidden;\n   white-space: nowrap;\n   text-overflow: ellipsis;\n}\n.webix_dtable .webix_ss_footer .webix_hcell:hover,\n.webix_dtable .webix_ss_header .webix_hcell:hover {\n   border-right-color: #dadee0;\n}\n\n/* Interface Editor */\n.ab-widget-header {\n   background-color: #ddd;\n}\n.ab-widget-header .webix_icon_btn {\n   opacity: 0.7;\n   margin-left: 5px;\n}\n.ab-main-container .widget_drag {\n   position: absolute;\n   z-index: 1;\n   top: 0px;\n   right: 0px;\n   width: 33px;\n   opacity: 1;\n   cursor: move;\n   background-color: #aaa;\n   height: 31px;\n   color: #fff;\n}\n.ab-main-container .widget_drag:hover {\n   opacity: 0.8;\n}\n.ab-main-container .widget_drag .webix_icon {\n   line-height: 28px;\n   width: 33px;\n   height: 33px;\n   text-align: center;\n}\n.webix_el_checkbox .webix_label_right {\n   padding-top: 0;\n}\n.webix_cell .ab-image-data-field {\n   /* pointer-events: none; */\n   padding: 0;\n}\n.ab-image-holder .webix_template {\n   padding: 0;\n}\n.ab-image-data-field {\n   width: 100%;\n   height: 100%;\n}\n.ab-image-data-field-download {\n   position: absolute;\n   left: 0;\n   background-color: #dcdcdc;\n   padding: 3px 1px 1px 1px;\n   opacity: 0.5 !important;\n   text-decoration: none;\n   color: #000;\n}\n.ab-image-data-field-download:hover {\n   opacity: 1 !important;\n   text-decoration: none;\n   color: #000;\n}\n.detailsView .webix_icon:hover,\n.edit .webix_icon:hover,\n.trash .webix_icon:hover {\n   cursor: pointer;\n}\n.ab-layout-header {\n   position: relative;\n}\n.ab-layout-header > .ab-component-tools {\n   right: 0px;\n}\n\n.transparent {\n   background: transparent !important;\n}\n.webix_modal {\n   opacity: 0.8;\n}\n.modal_title .webix_el_box {\n   font-size: 18px;\n}\n.webix_toolbar .webix_el_box {\n   padding: 3px 0;\n}\n/* Loading Screen */\n.ab-loading-screen {\n   background: #000;\n   opacity: 0.7;\n   position: absolute !important;\n}\n.ab-loading-body {\n   background: #000;\n   border-width: 0px !important;\n}\n.ab-loading-message {\n   color: #fff !important;\n   background: #000 !important;\n   font-size: 30px !important;\n   text-align: center;\n   vertical-align: middle;\n   border-width: 0px !important;\n   padding-top: 20% !important;\n   height: 100px !important;\n}\n.ab-loading-button {\n   text-align: center;\n}\n.ab-loading-button button {\n   background-color: #003b7e;\n   width: 200px;\n}\n.ab-loading-cancel-button {\n   text-align: center;\n   background: transparent;\n}\n.ab-loading-cancel-button a {\n   color: #fff !important;\n}\n.ab-loading-screen .webix_progress_bottom {\n   height: 40px !important;\n   opacity: 1;\n}\n.ab-loading-screen .webix_progress_bottom .webix_progress_state {\n   height: 40px !important;\n}\n.webix_menu-x .webix_list_item:last-child {\n   border-top-right-radius: 2px;\n   border-bottom-right-radius: 2px;\n}\n.webix_menu-x .webix_list_item:first-child {\n   border-top-left-radius: 2px;\n   border-bottom-left-radius: 2px;\n}\n.preview_item {\n   background: #999;\n}\n.panel_drag_view {\n   border-width: 0 1px 1px 1px;\n   border-color: 1px solid #dadee0;\n   border-style: solid;\n}\n.panel_drag_view:before {\n   content: \"\";\n   display: block;\n   height: 100%;\n   width: 100%;\n   background: rgb(255, 255, 255);\n   background: linear-gradient(\n      0deg,\n      rgba(255, 255, 255, 1) 15%,\n      rgba(255, 255, 255, 0) 80%\n   );\n   position: absolute;\n   z-index: 1;\n   top: 31px;\n}\n.ab-datacollection-table .ab-component-in-page {\n   text-align: center;\n   line-height: 15px;\n   vertical-align: middle;\n   display: table-cell;\n}\n.ab-datacollection-table .webix_dataview_item {\n   display: table;\n}\n.ab-datacollection-table .fa {\n   color: #337ab7;\n   margin-bottom: 10px;\n}\n.ab-datacollection-table.borderless .webix_dataview_item {\n   border: none;\n}\n.ab-datacollection-table .webix_dataview_item:hover {\n   background: #edeff0;\n   border-radius: 5px;\n}\n.webix_list_item:hover {\n   background: rgba(0, 0, 0, 0.05);\n}\n.webix_all_tabs .webix_item_tab.webix_selected,\n.webix_all_tabs .webix_item_tab.webix_selected:hover,\n.webix_all_tabs .webix_item_tab.webix_selected:active,\n.webix_all_tabs .webix_item_tab.webix_selected:focus {\n   color: white;\n   background: #1ca1c199 !important;\n   box-shadow: inset 0 -3px #1ca1c1;\n}\n.webix_all_tabs .webix_item_tab,\n.webix_el_tabbar .webixtype_bottom .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_icon .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_iconTop .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_image .webix_tab_more_icon {\n   box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);\n   background: #ebedf0;\n}\n.ab-tab-back:hover,\n.ab-tab-next:hover,\n.ab-tab-up:hover,\n.ab-tab-down:hover {\n   cursor: e-resize;\n   opacity: 1;\n}\n.ab-tab-back:hover {\n   cursor: w-resize;\n}\n.ab-tab-up:hover {\n   cursor: n-resize;\n   opacity: 1;\n}\n.ab-tab-down:hover {\n   cursor: s-resize;\n}\n.ab-tab-back,\n.ab-tab-next,\n.ab-tab-up,\n.ab-tab-down {\n   float: left;\n   margin-left: 10px;\n   background: #1ca1c1;\n   opacity: 0.8;\n   width: 20px;\n   height: 20px;\n   border-radius: 10px;\n   line-height: 18px;\n   padding-right: 2px;\n   color: white;\n}\n.ab-tab-edit {\n   opacity: 0.4;\n}\n.ab-tab-edit:hover {\n   opacity: 1;\n}\n.ab-tab-next {\n   float: right;\n   margin-right: 10px;\n   padding-left: 6px;\n}\n.ab-tab-up,\n.ab-tab-down {\n   float: right;\n   margin: 12px -2px 12px 15px;\n   padding-left: 6px;\n}\n.webix_all_tabs div:nth-child(1) .ab-tab-back {\n   display: none;\n}\n.webix_all_tabs div:nth-last-child(1) .ab-tab-next {\n   display: none;\n}\n.webix_tab_filler:nth-last-child(1) {\n   width: 17px !important;\n}\n.ab-tabview-scrollview {\n   /* margin-top: -1px; */\n}\n.ab-tabIconContainer {\n   display: inline-block;\n}\n\n.webix_view.webix_control.webix_el_tabbar.webix_dark {\n   background: #4a4e58;\n}\n.webix_el_tabbar.webix_dark .webix_all_tabs .webix_item_tab {\n   background: transparent;\n   color: white;\n}\n.webix_el_tabbar.webix_dark .webix_all_tabs .webix_item_tab:hover {\n   background: rgba(0, 0, 0, 0.1);\n}\n.webix_sidebar.webix_dark .webix_tree_item.webix_selected span {\n   color: white;\n}\n.webix_sidebar.webix_dark\n   .webix_tree_item.webix_selected\n   span.webix_sidebar_icon {\n   color: inherit;\n}\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_inp_counter_next,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_inp_counter_prev,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_menu-x .webix_list_item,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_0,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_1,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_N,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_base,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_next,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_prev {\n   border-color: rgba(0, 0, 0, 0.1);\n}\n.webix_tree_none {\n   /* display: none; */\n}\n.ab-background-lightgray {\n   background: #c0c5cc;\n}\n.ab-background-gray {\n   background: #475466;\n}\n.ab-background-gray::before {\n   content: \"\";\n   background: #475466;\n   display: block;\n   position: absolute;\n   left: 0;\n   width: 100%;\n   height: 100vh;\n}\n.ab-background-gray .webix_view.webix_layout_form {\n   background: transparent;\n}\n.webix_carousel .image {\n   background: #333;\n}\n.webix_nav_panel .webix_nav_item {\n   box-sizing: border-box;\n}\n.ab-carousel-image-container {\n   position: relative;\n   height: 100%;\n}\n.ab-carousel-image-container img {\n   width: 100%;\n   height: 100%;\n   object-fit: contain;\n}\n.ab-carousel-image-title {\n   position: absolute;\n   top: 0;\n   left: 0;\n   font-size: 18px;\n   padding: 4px;\n   background: rgba(0, 0, 0, 0.4);\n   border-bottom-right-radius: 8px;\n   color: #fff;\n}\n.ab-carousel-image-icon {\n   position: absolute;\n   top: 0px;\n   right: 0px;\n   font-size: 20px;\n   border-bottom-left-radius: 8px;\n   background: rgba(255, 255, 255, 0.4);\n}\n.ab-carousel-image-icon span {\n   opacity: 0.6;\n   margin: 6px;\n}\n.ab-carousel-image-icon span:hover {\n   opacity: 1;\n   cursor: pointer;\n}\n.webix_carousel.fullscreen .ab-carousel-fullscreen {\n   display: none;\n}\n.ab-detail-view .webix_accordionitem {\n   border-radius: 5px;\n   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;\n   border-color: transparent;\n}\n.ab-detail-page.ab-detail-hover .webix_accordionitem:hover {\n   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px 0px;\n}\n.ab-detail-page .webix_accordionitem:hover .webix_accordionitem_body:after {\n   background: #1da1c14f;\n   width: 100%;\n   height: 100%;\n   display: block;\n   position: absolute;\n   cursor: pointer;\n   top: 0;\n   font-family: \"FontAwesome\";\n   content: \"\";\n   color: white;\n   text-align: center;\n   font-size: 72px;\n   vertical-align: middle;\n}\n.ab-edit-page .webix_accordionitem:hover {\n   position: relative;\n}\n.ab-edit-page .webix_accordionitem:hover .webix_accordionitem_header {\n   display: block !important;\n   position: absolute;\n   right: 0;\n   top: 0;\n   border: 0;\n   z-index: 1;\n   border-bottom-left-radius: 10px;\n}\n.ab-edit-page\n   .webix_accordionitem:hover\n   .webix_accordionitem_header\n   .webix_accordionitem_button:before {\n   content: \"\\f013\";\n   font-family: \"FontAwesome\";\n   color: #94a1b3;\n}\n.ab-edit-page.ab-detail-page\n   .webix_accordionitem:hover\n   .webix_accordionitem_header\n   .webix_accordionitem_button:before {\n   color: white;\n}\n.ab-edit-page\n   .webix_accordionitem\n   .webix_accordionitem_header:hover\n   .webix_accordionitem_button:before {\n   color: #94a1b3 !important;\n}\n.ab-custom-template .webix_template {\n   padding: 10px;\n}\n\n.image-data-field-image {\n   position: relative;\n   border: 5px solid white;\n   background-size: cover;\n   background-position: center;\n}\n.ab-delete-photo {\n   position: absolute;\n   top: 0;\n   right: 0;\n}\n.hasDataCollection {\n   color: #1ca1c1;\n   margin: 5px;\n   position: absolute;\n   right: 0;\n   background: white;\n}\n.sidebarCustomIcon {\n   font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n   font-size: 12px !important;\n   background: #94a1b3 !important;\n   border-radius: 100%;\n   width: 20px !important;\n   height: 20px;\n   line-height: 20px;\n   color: #fff !important;\n   font-weight: bold;\n   vertical-align: unset !important;\n}\n.webix_dark .sidebarCustomIcon {\n   color: #4a4e58 !important;\n}\n.webix_dark .webix_selected .sidebarCustomIcon {\n   background: #1ca1c1 !important;\n   color: #4a4e58 !important;\n}\n.webix_selected .sidebarCustomIcon {\n   color: #fff !important;\n   background: #1ca1c1 !important;\n}\n\n/* FormBuilder Clases */\n.formbuilder {\n   padding: 20px;\n}\n.card-header .btn {\n   color: #333;\n}\n.card {\n   position: relative;\n   display: -ms-flexbox;\n   display: flex;\n   -ms-flex-direction: column;\n   flex-direction: column;\n   min-width: 0;\n   word-wrap: break-word;\n   background-color: #fff;\n   background-clip: border-box;\n   border: 1px solid rgba(0, 0, 0, 0.125);\n   border-radius: 0.25rem;\n}\n\n.card > hr {\n   margin-right: 0;\n   margin-left: 0;\n}\n\n.card > .list-group:first-child .list-group-item:first-child {\n   border-top-left-radius: 0.25rem;\n   border-top-right-radius: 0.25rem;\n}\n\n.card > .list-group:last-child .list-group-item:last-child {\n   border-bottom-right-radius: 0.25rem;\n   border-bottom-left-radius: 0.25rem;\n}\n\n.card-body {\n   -ms-flex: 1 1 auto;\n   flex: 1 1 auto;\n   min-height: 1px;\n   padding: 1.25rem;\n}\n\n.card-title {\n   margin-bottom: 0.75rem;\n}\n\n.card-subtitle {\n   margin-top: -0.375rem;\n   margin-bottom: 0;\n}\n\n.card-text:last-child {\n   margin-bottom: 0;\n}\n\n.card-link:hover {\n   text-decoration: none;\n}\n\n.card-link + .card-link {\n   margin-left: 1.25rem;\n}\n\n.card-header {\n   padding: 0.75rem 1.25rem;\n   margin-bottom: 0;\n   background-color: rgba(0, 0, 0, 0.03);\n   border-bottom: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-header:first-child {\n   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;\n}\n\n.card-header + .list-group .list-group-item:first-child {\n   border-top: 0;\n}\n\n.card-footer {\n   padding: 0.75rem 1.25rem;\n   background-color: rgba(0, 0, 0, 0.03);\n   border-top: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-footer:last-child {\n   border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);\n}\n\n.card-header-tabs {\n   margin-right: -0.625rem;\n   margin-bottom: -0.75rem;\n   margin-left: -0.625rem;\n   border-bottom: 0;\n}\n\n.card-header-pills {\n   margin-right: -0.625rem;\n   margin-left: -0.625rem;\n}\n\n.card-img-overlay {\n   position: absolute;\n   top: 0;\n   right: 0;\n   bottom: 0;\n   left: 0;\n   padding: 1.25rem;\n}\n\n.card-img,\n.card-img-bottom,\n.card-img-top {\n   -ms-flex-negative: 0;\n   flex-shrink: 0;\n   width: 100%;\n}\n\n.card-img,\n.card-img-top {\n   border-top-left-radius: calc(0.25rem - 1px);\n   border-top-right-radius: calc(0.25rem - 1px);\n}\n\n.card-img,\n.card-img-bottom {\n   border-bottom-right-radius: calc(0.25rem - 1px);\n   border-bottom-left-radius: calc(0.25rem - 1px);\n}\n\n.card-deck .card {\n   margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n   .card-deck {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-flow: row wrap;\n      flex-flow: row wrap;\n      margin-right: -15px;\n      margin-left: -15px;\n   }\n   .card-deck .card {\n      -ms-flex: 1 0 0%;\n      flex: 1 0 0%;\n      margin-right: 15px;\n      margin-bottom: 0;\n      margin-left: 15px;\n   }\n}\n\n.card-group > .card {\n   margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n   .card-group {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-flow: row wrap;\n      flex-flow: row wrap;\n   }\n   .card-group > .card {\n      -ms-flex: 1 0 0%;\n      flex: 1 0 0%;\n      margin-bottom: 0;\n   }\n   .card-group > .card + .card {\n      margin-left: 0;\n      border-left: 0;\n   }\n   .card-group > .card:not(:last-child) {\n      border-top-right-radius: 0;\n      border-bottom-right-radius: 0;\n   }\n   .card-group > .card:not(:last-child) .card-header,\n   .card-group > .card:not(:last-child) .card-img-top {\n      border-top-right-radius: 0;\n   }\n   .card-group > .card:not(:last-child) .card-footer,\n   .card-group > .card:not(:last-child) .card-img-bottom {\n      border-bottom-right-radius: 0;\n   }\n   .card-group > .card:not(:first-child) {\n      border-top-left-radius: 0;\n      border-bottom-left-radius: 0;\n   }\n   .card-group > .card:not(:first-child) .card-header,\n   .card-group > .card:not(:first-child) .card-img-top {\n      border-top-left-radius: 0;\n   }\n   .card-group > .card:not(:first-child) .card-footer,\n   .card-group > .card:not(:first-child) .card-img-bottom {\n      border-bottom-left-radius: 0;\n   }\n}\n\n.card-columns .card {\n   margin-bottom: 0.75rem;\n}\n\n@media (min-width: 576px) {\n   .card-columns {\n      -webkit-column-count: 3;\n      -moz-column-count: 3;\n      column-count: 3;\n      -webkit-column-gap: 1.25rem;\n      -moz-column-gap: 1.25rem;\n      column-gap: 1.25rem;\n      orphans: 1;\n      widows: 1;\n   }\n   .card-columns .card {\n      display: inline-block;\n      width: 100%;\n   }\n}\n\n.accordion > .card {\n   overflow: hidden;\n}\n\n.accordion > .card:not(:last-of-type) {\n   border-bottom: 0;\n   border-bottom-right-radius: 0;\n   border-bottom-left-radius: 0;\n}\n\n.accordion > .card:not(:first-of-type) {\n   border-top-left-radius: 0;\n   border-top-right-radius: 0;\n}\n\n.accordion > .card > .card-header {\n   border-radius: 0;\n   margin-bottom: -1px;\n}\n.form-builder-group-header {\n   padding: 0;\n}\n.formio .btn:hover,\n.btn:focus {\n   background-position: 0 0 !important;\n}\n.mb-0,\n.my-0 {\n   margin-bottom: 0 !important;\n}\n.mt-0,\n.my-0 {\n   margin-top: 0 !important;\n}\n.scrolly {\n   overflow: scroll;\n}\n.forceOpen {\n   display: block !important;\n}\n.formio .btn-secondary,\n.formio-dialog .btn-secondary {\n   color: #333;\n}\n.formio-dialog a,\n.formio a {\n   opacity: 1 !important;\n}\n.component-settings .nav > li > a {\n   margin-bottom: -7px;\n}\n.formio-form .input-group {\n   display: flex;\n}\n.formio-form .input-group-append {\n   margin-left: -1px;\n}\n.formio-form .input-group-append,\n.formio-form .input-group-prepend {\n   display: -ms-flexbox;\n   display: flex;\n}\n.formio-form .input-group-text {\n   display: -ms-flexbox;\n   display: flex;\n   -ms-flex-align: center;\n   align-items: center;\n   padding: 0.375rem 0.75rem;\n   margin-bottom: 0;\n   font-size: 1rem;\n   font-weight: 400;\n   line-height: 1.5;\n   color: #495057;\n   text-align: center;\n   white-space: nowrap;\n   background-color: #e9ecef;\n   border: 1px solid #ced4da;\n   border-radius: 0.25rem;\n}\n.formio-form .input-group > .input-group-append > .btn,\n.formio-form .input-group > .input-group-append > .input-group-text,\n.formio-form\n   .input-group\n   > .input-group-prepend:first-child\n   > .btn:not(:first-child),\n.formio-form\n   .input-group\n   > .input-group-prepend:first-child\n   > .input-group-text:not(:first-child),\n.formio-form .input-group > .input-group-prepend:not(:first-child) > .btn,\n.formio-form\n   .input-group\n   > .input-group-prepend:not(:first-child)\n   > .input-group-text {\n   border-top-left-radius: 0;\n   border-bottom-left-radius: 0;\n}\n.formio-form .nav-tabs > li {\n   margin-bottom: -8px;\n}\n.formio-dialog .formio-form .nav-tabs > li {\n   margin-bottom: -1px;\n}\n.max100 {\n   max-width: 100%;\n}\n.webix_qb_buttons button {\n   height: auto;\n}\n.no-margin {\n   margin: 0 !important;\n}\n.ab_amp .fa-stack {\n   font-size: 0.65em;\n}\n.ab_amp i {\n   vertical-align: middle;\n}\n.ab_amp.lightgray {\n   background: #eee;\n}\n.ab_amp .webixLineTree:hover {\n   cursor: pointer;\n}\n.ab_amp .accessLevel .fa-stack {\n   vertical-align: top;\n   margin-top: 3px;\n}\n.ab_amp .accessLevel:hover .fa-stack {\n   transform: scale(1.25, 1.25);\n}\n.ab_amp .externalLink {\n   color: #ccc;\n   float: right;\n   margin-top: 5px;\n}\n.ab_amp .externalLink:hover {\n   color: #666 !important;\n}\n.ab_amp .webix_accordionitem .webix_accordionitem_button,\n.ab_amp .webix_accordionitem.collapsed .webix_accordionitem_button {\n   float: left !important;\n}\n.ab_amp .webix_accordionitem .webix_accordionitem_button {\n   transform: rotate(180deg);\n}\n.ab_amp .webix_accordionitem.collapsed .webix_accordionitem_button {\n   transform: rotate(-90deg);\n}\n.ab_amp .webix_accordionitem_header {\n   background-color: #1ca1c1 !important;\n}\n.ab_amp .webix_accordionitem_header.collapsed {\n   background-color: white !important;\n}\n.ab_amp .webix_danger_inverse button {\n   border: 1px solid #ff4938;\n   color: #ff4938;\n   background: white;\n}\n.ab_amp .webix_danger_inverse .webix_icon_btn {\n   color: #ff4938;\n}\n.ab_amp .webix_danger_inverse:hover button {\n   background-color: #ff4938;\n   color: #fff;\n}\n.ab_amp .webix_danger_inverse:hover .webix_icon_btn {\n   color: #fff;\n}\ndiv.amp {\n   font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n   background: rgb(28, 161, 193, 0.4);\n   /* padding: 5px 0; */\n   display: inline-block;\n   right: 0;\n   top: 75px;\n   border-top-left-radius: 10px;\n   border-bottom-left-radius: 10px;\n   color: white;\n   font-size: 16px;\n   transition: 0.25s all;\n   position: absolute;\n   width: 40px;\n   white-space: nowrap;\n   overflow: hidden;\n   height: 32px;\n   z-index: 100;\n   display: flex;\n}\ndiv.amp.qtt {\n   top: 108px;\n}\ndiv.amp div {\n   padding: 5px 10px;\n}\ndiv.amp div:first-child {\n   background: rgba(255, 255, 255, 0.2);\n   border-right: 1px solid rgba(255, 255, 255, 0.4);\n   padding: 5px 10px;\n}\ndiv.amp:hover {\n   width: 212px !important;\n   cursor: pointer;\n   background: rgb(28, 161, 193) !important;\n}\ndiv.amp:hover .fa-unlock-alt {\n   display: inline-block !important;\n}\ndiv.amp:hover .fa-lock {\n   display: none !important;\n}\ndiv.amp .fa-unlock-alt,\ndiv.amp .fa-lock,\ndiv.amp .fa-language {\n   transform: scale(1.25, 1.25);\n   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);\n}\ndiv.amp .fa-unlock-alt {\n   display: none;\n}\n.ampWindow .webix_toolbar.webix_dark {\n   background: #444 !important;\n}\n/* .accessLevel-0::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(233, 30, 30, 0.4);\n   display: block;\n   position: absolute;\n}\n.accessLevel-1::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(33, 150, 243, 0.4);\n   display: block;\n   position: absolute;\n}\n.accessLevel-2::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(76, 175, 80, 0.4);\n   display: block;\n   position: absolute;\n} */\n.ab-csv-importer .row-pass {\n   background-color: #b4e8b6;\n}\n.ab-csv-importer .row-fail {\n   background-color: #e4b0ad;\n}\n.ab-csv-importer .row-warn {\n   background-color: #f9d59f;\n}\n.ab-csv-importer .cell-invalid {\n   background-color: #e9ab4d;\n}\n.transparentBG .webix_el_tabbar + .webix_multiview {\n   background: transparent !important;\n}\n.webix_hcell .fa {\n   opacity: 0.4;\n}\n.ab-widget-header .webix_template {\n   padding: 0 10px;\n}\n.ab-layout-header .webix_template {\n   padding: 0;\n   line-height: 30px;\n}\n.ab-widget-header .webix_template div {\n   line-height: 30px;\n}\n.ab-widget-header .webix_template div .fa,\n.ab-layout-header .fa {\n   vertical-align: middle;\n}\n#offlinePrompt,\n#connectionPrompt {\n   line-height: 30px;\n   color: white;\n   background: #f44336;\n   font-size: 14px;\n   text-align: center;\n   transition: all 1s;\n   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);\n   overflow: hidden;\n}\n#connectionPrompt {\n   background: #f44336;\n}\n#countdown {\n   height: 20px;\n   width: 20px;\n   text-align: center;\n   display: inline-block;\n   line-height: 20px;\n   position: relative;\n   bottom: 2px;\n   font-size: 9px;\n}\n\n#countdown-number {\n   color: white;\n   display: inline-block;\n   width: 20px;\n   height: 20px;\n}\n\n#countdown svg {\n   width: 20px;\n   height: 20px;\n   transform: rotateY(-180deg) rotateZ(-90deg);\n   position: absolute;\n   margin-left: -20px;\n}\n\n#countdown svg circle {\n   stroke-dasharray: 56px;\n   stroke-dashoffset: 0px;\n   stroke-linecap: round;\n   stroke-width: 2px;\n   stroke: white;\n   fill: none;\n   animation: countdown 30s linear infinite forwards;\n}\n\n@keyframes countdown {\n   from {\n      stroke-dashoffset: 0px;\n   }\n   to {\n      stroke-dashoffset: 56px;\n   }\n}\n#reloadPrompt {\n   position: absolute;\n   z-index: 200000;\n   top: 0;\n   bottom: 0;\n   left: 0;\n   right: 0;\n   background: rgba(0, 0, 0, 0.7);\n   display: flex;\n}\n#reloadPrompt div {\n   background: #f44336;\n   width: 250px;\n   border: 3px solid white;\n   margin: auto auto;\n   padding: 20px;\n   text-align: center;\n   border-radius: 10px;\n   color: white;\n   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);\n}\n.reloadPage {\n   background: rgba(0, 0, 0, 0.2);\n   border: none;\n   padding: 5px 10px;\n   border-radius: 5px;\n   margin-top: 10px;\n}\n.reloadPage:hover {\n   background: rgba(0, 0, 0, 0.4);\n}\n.webix_warn .webix_button {\n   background: #ff9800 !important;\n   color: #fff !important;\n}\n.webix_dark .webix_inp_bottom_label {\n   color: lightgray;\n   font-style: oblique;\n}\n.no-margin {\n   margin: 0;\n}\n.inbox_drawer.webix_toolbar.webix_dark .webix_secondary button,\n.mainToolbar.webix_toolbar.webix_dark .webix_secondary button {\n   background-color: transparent;\n}\n.inbox_drawer.webix_toolbar.webix_dark .webix_secondary button:hover,\n.mainToolbar.webix_toolbar.webix_dark .webix_secondary button:hover {\n   background-color: rgba(0, 0, 0, 0.2);\n}\n/* Login Page */\n.portalLogin {\n   /* opacity: 0; */\n   background: #ebedf0;\n   background: linear-gradient(\n      0deg,\n      rgba(171, 171, 171, 1) 0%,\n      rgba(235, 237, 240, 1) 100%\n   );\n   /* -webkit-animation: 1s ease 0s normal forwards 1 fadein;\n   animation: 1s ease 0s normal forwards 1 fadein; */\n}\n.portalLoginForm {\n   opacity: 0;\n   -webkit-animation: 1s ease 0s normal forwards 1 fadein;\n   animation: 1s ease 0s normal forwards 1 fadein;\n   background: white;\n   border-radius: 30px;\n   box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);\n   position: relative;\n   top: -20px;\n   transform: scale(1.2);\n}\n.portalLogin .webix_view {\n   overflow: visible;\n   display: inline-block;\n}\ndiv.webix_dataview_item.webix_transparent {\n   padding: 0px;\n}\n@keyframes fadein {\n   0% {\n      opacity: 0;\n      top: -20px;\n      transform: scale(1.1);\n      box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);\n   }\n   100% {\n      opacity: 1;\n      top: 0;\n      transform: scale(1);\n      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);\n   }\n}\n\n@-webkit-keyframes fadein {\n   0% {\n      opacity: 0;\n   }\n   100% {\n      opacity: 1;\n   }\n}\n.ab-connect-add-new-link .webix_icon_btn {\n   margin-right: 0;\n}\n.image-data-field-icon {\n   border: 2px dashed rgba(0, 0, 0, 0.3);\n   border-radius: 10px;\n   padding: 5px;\n   display: flex;\n   flex-direction: row;\n   text-align: center;\n   justify-content: center;\n   align-items: center;\n   line-height: 12px;\n   font-size: 10px;\n   color: rgba(0, 0, 0, 0.5);\n   margin: 5px;\n   height: calc(100% - 10px);\n   overflow: hidden;\n}\n.webix_cell > .ab-image-data-field {\n   margin-left: -12px;\n}\n.ab-delete-photo {\n   background: red;\n   color: white;\n   font-size: 10px;\n   text-align: center;\n   line-height: 20px;\n   width: 20px;\n   height: 20px;\n   border-radius: 10px;\n   top: -3px;\n   right: -3px;\n   transition: all 0.25s;\n}\n.ab-delete-photo:hover {\n   color: white;\n   font-size: 14px;\n}\n.webix_transparent .webix_button .webix_icon,\n.webix_transparent .webix_button .webix_icon_btn {\n   color: #1ca1c1;\n}\n.webix_icon_btn {\n   margin-right: 0 !important;\n   vertical-align: baseline;\n}\n.webix_list_icon.webix_icon {\n   vertical-align: baseline;\n}\n.webix_list_item.menu {\n   color: inherit;\n}\n.ab-datacollection-list-item {\n   position: relative;\n}\n.ab-object-list-item {\n   position: relative;\n}\n.ab-object-list-edit {\n   position: absolute;\n   right: 0;\n   top: 0;\n}\n.webix_el_label.formText .webix_el_box {\n   font-weight: normal;\n}\n\n.switcheroo .webix_win_head .webix_layout_line {\n   background: #657584;\n   color: #fff;\n}\n.switcheroo .webix_win_head .webix_view .webix_template {\n   background: #657584;\n   color: #fff;\n}\n\n.portal_work_switcheroo_user_switched .webix_view {\n   background: #e64b2a;\n   color: #fff;\n}\n\n.portal_work_switcheroo_user_switched .webix_el_box {\n   color: #fff;\n}\n/* Query Override */\n.wbq-field-box {\n   max-width: 95% !important;\n}\n", "",{"version":3,"sources":["webpack://./styles/ui.css"],"names":[],"mappings":"AAAA;;GAEG,2BAA2B;AAC9B;AACA;GACG,4CAA4C;GAC5C,WAAW;GACX,YAAY;GACZ,0DAA0D;GAC1D,2BAA2B;GAC3B,4BAA4B;GAC5B,2BAA2B;AAC9B;AACA;GACG,kBAAkB;GAClB,+BAA+B;AAClC;AACA;GACG,6CAA6C;GAC7C,2CAA2C;GAC3C,gDAAgD;AACnD;AACA;GACG,gBAAgB;AACnB;AACA;GACG,gBAAgB;AACnB;AACA;GACG,qCAAqC;AACxC;AACA;;;GAGG,+BAA+B;AAClC;AACA;;GAEG,oCAAoC;GACpC,cAAc;AACjB;AACA;;;GAGG,cAAc;AACjB;AACA;GACG,oCAAoC;AACvC;AACA;GACG,6BAA6B;GAC7B,iBAAiB;GACjB,YAAY;AACf;AACA;GACG,6BAA6B;AAChC;AACA;GACG,YAAY;GACZ,eAAe;AAClB;AACA;GACG,eAAe;GACf,0CAA0C;AAC7C;AACA;GACG,YAAY;AACf;;AAEA,uCAAuC;AACvC;GACG,gBAAgB;AACnB;AACA,uBAAuB;AACvB;GACG,cAAc;GACd,YAAY;GACZ,iBAAiB;GACjB,eAAe;GACf,QAAQ;AACX;AACA,uBAAuB;AACvB;GACG,uBAAuB;AAC1B;AACA;;GAEG,gDAAgD;GAChD,cAAc;GACd,6BAA6B;GAC7B,mBAAmB;GACnB,gBAAgB;GAChB,gBAAgB;GAChB,iBAAiB;GACjB,mBAAmB;GACnB,yBAAyB;AAC5B;AACA;GACG,kBAAkB;AACrB;AACA;GACG,aAAa;AAChB;AACA;GACG,iBAAiB;GACjB,iBAAiB;GACjB,YAAY;AACf;AACA;GACG,UAAU;GACV,eAAe;AAClB;AACA;GACG,aAAa;AAChB;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,qBAAqB;AACxB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;GAClB,kBAAkB;GAClB,UAAU;GACV,gCAAgC;AACnC;AACA;GACG,aAAa;GACb,iBAAiB;AACpB;AACA;GACG,uBAAuB;GACvB,gBAAgB;GAChB,mBAAmB;AACtB;AACA;;GAEG,iBAAiB;GACjB,iBAAiB;AACpB;AACA;GACG,0BAA0B;AAC7B;AACA;GACG,aAAa;AAChB;AACA;GACG,uBAAuB;GACvB,sDAAsD;AACzD;AACA;GACG,iBAAiB;AACpB;AACA;GACG,yBAAyB;GACzB,iBAAiB;AACpB;AACA;GACG,gBAAgB;GAChB,UAAU;GACV,SAAS;GACT,SAAS;GACT,uBAAuB;GACvB,gBAAgB;GAChB,gBAAgB;AACnB;AACA;GACG,iBAAiB;GACjB,WAAW;AACd;AACA;GACG,kCAAkC;GAClC,uBAAuB;GACvB,2BAA2B;GAC3B,iBAAiB;GACjB,wBAAwB;AAC3B;AACA;GACG,SAAS;AACZ;AACA;;GAEG,8BAA8B;GAC9B,eAAe;GACf,8BAA8B;GAC9B,sBAAsB;GACtB,iBAAiB;GACjB,qBAAqB;GACrB,wBAAwB;GACxB,WAAW;GACX,+BAA+B;AAClC;AACA;;GAEG,YAAY;GACZ,iBAAiB;AACpB;AACA;GACG,WAAW;GACX,WAAW;GACX,wBAAwB;AAC3B;AACA;;GAEG,sBAAsB;AACzB;AACA;;;;GAIG,WAAW;GACX,eAAe;GACf,gCAAgC;GAChC,mBAAmB;GACnB,iBAAiB;GACjB,yBAAyB;GACzB,iBAAiB;AACpB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,yBAAyB;GACzB,wBAAwB;GACxB,iBAAiB;AACpB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,kCAAkC;AACrC;AACA;GACG,SAAS;AACZ;AACA;GACG,kBAAkB;GAClB,YAAY;GACZ,sBAAsB;GACtB,WAAW;GACX,gBAAgB;GAChB,kBAAkB;GAClB,iBAAiB;AACpB;AACA;GACG,WAAW;AACd;AACA;GACG,UAAU;GACV,yBAAyB;GACzB,wBAAwB;GACxB,iBAAiB;AACpB;AACA;GACG,UAAU;GACV,SAAS;AACZ;AACA;GACG,WAAW;AACd;AACA;GACG,mBAAmB;AACtB;AACA;GACG,qBAAqB;AACxB;AACA;GACG,QAAQ;GACR,WAAW;GACX,gBAAgB;AACnB;AACA;;GAEG,kBAAkB;AACrB;;AAEA;GACG,WAAW;GACX,YAAY;AACf;AACA;;;GAGG,YAAY;GACZ,YAAY;GACZ,YAAY;AACf;AACA;;;GAGG,UAAU;AACb;AACA;GACG,iBAAiB;AACpB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,YAAY;GACZ,WAAW;AACd;AACA;GACG,aAAa;AAChB;AACA;GACG,eAAe;GACf,iBAAiB;GACjB,gBAAgB;AACnB;AACA;GACG,YAAY;AACf;;AAEA;GACG,kBAAkB;AACrB;AACA;GACG,eAAe;AAClB;AACA;GACG,iBAAiB;AACpB;AACA;;GAEG,UAAU;AACb;AACA;GACG,mBAAmB;AACtB;AACA;GACG,eAAe;AAClB;AACA;GACG,0BAA0B;AAC7B;AACA;GACG,YAAY;AACf;AACA;GACG,UAAU;AACb;AACA;GACG,qBAAqB;AACxB;AACA;GACG,0BAA0B;AAC7B;AACA;GACG,iBAAiB;AACpB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,kBAAkB;GAClB,QAAQ;GACR,WAAW;AACd;AACA;GACG,QAAQ;GACR,YAAY;AACf;AACA;;GAEG,WAAW;GACX,YAAY;GACZ,qBAAqB;GACrB,iBAAiB;GACjB,eAAe;GACf,kBAAkB;GAClB,4BAA4B;GAC5B,mBAAmB;GACnB,YAAY;GACZ,SAAS;GACT,kBAAkB;GAClB,gBAAgB;GAChB,YAAY;AACf;AACA;;GAEG,eAAe;AAClB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,eAAe;GACf,WAAW;GACX,YAAY;GACZ,iBAAiB;AACpB;AACA;GACG,WAAW;GACX,gBAAgB;GAChB,SAAS;AACZ;AACA;GACG,gBAAgB;AACnB;AACA;GACG,eAAe;AAClB;AACA;GACG,WAAW;AACd;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,6BAA6B;AAChC;AACA;GACG,6BAA6B;GAC7B,YAAY;AACf;AACA;GACG,uBAAuB;GACvB,cAAc;AACjB;AACA;GACG,eAAe;AAClB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,8BAA8B;GAC9B,YAAY;GACZ,WAAW;AACd;AACA;GACG,gBAAgB;AACnB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,uBAAuB;GACvB,cAAc;GACd,iBAAiB;GACjB,UAAU;GACV,kBAAkB;AACrB;AACA;GACG,0BAA0B;AAC7B;AACA;GACG,iBAAiB;AACpB;AACA;GACG,UAAU;AACb;AACA;GACG,mBAAmB;AACtB;;AAEA;GACG,yBAAyB;AAC5B;AACA;;GAEG,8BAA8B;AACjC;AACA;GACG,kCAAkC;AACrC;AACA;GACG,gBAAgB;GAChB,kBAAkB;GAClB,oDAAoD;GACpD,kBAAkB;GAClB,iBAAiB;AACpB;AACA;GACG,uBAAuB;AAC1B;AACA;GACG,kBAAkB;GAClB,SAAS;GACT,WAAW;GACX,mBAAmB;AACtB;AACA,wBAAwB;AACxB;GACG,WAAW;GACX,YAAY;GACZ,cAAc;GACd,WAAW;GACX,kBAAkB;GAClB,mBAAmB;GACnB,YAAY;GACZ,UAAU;GACV,kBAAkB;GAClB,iBAAiB;AACpB;AACA;GACG,qBAAqB;GACrB,yBAAyB;AAC5B;AACA;GACG,qBAAqB;GACrB,WAAW;GACX,mBAAmB;GACnB,gBAAgB;GAChB,uBAAuB;AAC1B;;AAEA;GACG,sBAAsB;AACzB;AACA;GACG,YAAY;GACZ,gBAAgB;AACnB;AACA;GACG,2BAA2B;AAC9B;AACA;;GAEG,gBAAgB;GAChB,mBAAmB;GACnB,uBAAuB;AAC1B;AACA;;GAEG,2BAA2B;AAC9B;;AAEA,qBAAqB;AACrB;GACG,sBAAsB;AACzB;AACA;GACG,YAAY;GACZ,gBAAgB;AACnB;AACA;GACG,kBAAkB;GAClB,UAAU;GACV,QAAQ;GACR,UAAU;GACV,WAAW;GACX,UAAU;GACV,YAAY;GACZ,sBAAsB;GACtB,YAAY;GACZ,WAAW;AACd;AACA;GACG,YAAY;AACf;AACA;GACG,iBAAiB;GACjB,WAAW;GACX,YAAY;GACZ,kBAAkB;AACrB;AACA;GACG,cAAc;AACjB;AACA;GACG,0BAA0B;GAC1B,UAAU;AACb;AACA;GACG,UAAU;AACb;AACA;GACG,WAAW;GACX,YAAY;AACf;AACA;GACG,kBAAkB;GAClB,OAAO;GACP,yBAAyB;GACzB,wBAAwB;GACxB,uBAAuB;GACvB,qBAAqB;GACrB,WAAW;AACd;AACA;GACG,qBAAqB;GACrB,qBAAqB;GACrB,WAAW;AACd;AACA;;;GAGG,eAAe;AAClB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,UAAU;AACb;;AAEA;GACG,kCAAkC;AACrC;AACA;GACG,YAAY;AACf;AACA;GACG,eAAe;AAClB;AACA;GACG,cAAc;AACjB;AACA,mBAAmB;AACnB;GACG,gBAAgB;GAChB,YAAY;GACZ,6BAA6B;AAChC;AACA;GACG,gBAAgB;GAChB,4BAA4B;AAC/B;AACA;GACG,sBAAsB;GACtB,2BAA2B;GAC3B,0BAA0B;GAC1B,kBAAkB;GAClB,sBAAsB;GACtB,4BAA4B;GAC5B,2BAA2B;GAC3B,wBAAwB;AAC3B;AACA;GACG,kBAAkB;AACrB;AACA;GACG,yBAAyB;GACzB,YAAY;AACf;AACA;GACG,kBAAkB;GAClB,uBAAuB;AAC1B;AACA;GACG,sBAAsB;AACzB;AACA;GACG,uBAAuB;GACvB,UAAU;AACb;AACA;GACG,uBAAuB;AAC1B;AACA;GACG,4BAA4B;GAC5B,+BAA+B;AAClC;AACA;GACG,2BAA2B;GAC3B,8BAA8B;AACjC;AACA;GACG,gBAAgB;AACnB;AACA;GACG,2BAA2B;GAC3B,+BAA+B;GAC/B,mBAAmB;AACtB;AACA;GACG,WAAW;GACX,cAAc;GACd,YAAY;GACZ,WAAW;GACX,8BAA8B;GAC9B;;;;IAIC;GACD,kBAAkB;GAClB,UAAU;GACV,SAAS;AACZ;AACA;GACG,kBAAkB;GAClB,iBAAiB;GACjB,sBAAsB;GACtB,mBAAmB;AACtB;AACA;GACG,cAAc;AACjB;AACA;GACG,cAAc;GACd,mBAAmB;AACtB;AACA;GACG,YAAY;AACf;AACA;GACG,mBAAmB;GACnB,kBAAkB;AACrB;AACA;GACG,+BAA+B;AAClC;AACA;;;;GAIG,YAAY;GACZ,gCAAgC;GAChC,gCAAgC;AACnC;AACA;;;;;GAKG,iDAAiD;GACjD,mBAAmB;AACtB;AACA;;;;GAIG,gBAAgB;GAChB,UAAU;AACb;AACA;GACG,gBAAgB;AACnB;AACA;GACG,gBAAgB;GAChB,UAAU;AACb;AACA;GACG,gBAAgB;AACnB;AACA;;;;GAIG,WAAW;GACX,iBAAiB;GACjB,mBAAmB;GACnB,YAAY;GACZ,WAAW;GACX,YAAY;GACZ,mBAAmB;GACnB,iBAAiB;GACjB,kBAAkB;GAClB,YAAY;AACf;AACA;GACG,YAAY;AACf;AACA;GACG,UAAU;AACb;AACA;GACG,YAAY;GACZ,kBAAkB;GAClB,iBAAiB;AACpB;AACA;;GAEG,YAAY;GACZ,2BAA2B;GAC3B,iBAAiB;AACpB;AACA;GACG,aAAa;AAChB;AACA;GACG,aAAa;AAChB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,qBAAqB;AACxB;;AAEA;GACG,mBAAmB;AACtB;AACA;GACG,uBAAuB;GACvB,YAAY;AACf;AACA;GACG,8BAA8B;AACjC;AACA;GACG,YAAY;AACf;AACA;;;GAGG,cAAc;AACjB;AACA;;;;;;;;;GASG,gCAAgC;AACnC;AACA;GACG,mBAAmB;AACtB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,WAAW;GACX,mBAAmB;GACnB,cAAc;GACd,kBAAkB;GAClB,OAAO;GACP,WAAW;GACX,aAAa;AAChB;AACA;GACG,uBAAuB;AAC1B;AACA;GACG,gBAAgB;AACnB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,kBAAkB;GAClB,YAAY;AACf;AACA;GACG,WAAW;GACX,YAAY;GACZ,mBAAmB;AACtB;AACA;GACG,kBAAkB;GAClB,MAAM;GACN,OAAO;GACP,eAAe;GACf,YAAY;GACZ,8BAA8B;GAC9B,+BAA+B;GAC/B,WAAW;AACd;AACA;GACG,kBAAkB;GAClB,QAAQ;GACR,UAAU;GACV,eAAe;GACf,8BAA8B;GAC9B,oCAAoC;AACvC;AACA;GACG,YAAY;GACZ,WAAW;AACd;AACA;GACG,UAAU;GACV,eAAe;AAClB;AACA;GACG,aAAa;AAChB;AACA;GACG,kBAAkB;GAClB,8CAA8C;GAC9C,y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pB,eAAe;MACf,2BAA2B;MAC3B,wBAAwB;MACxB,mBAAmB;MACnB,UAAU;MACV,SAAS;GACZ;GACA;MACG,qBAAqB;MACrB,WAAW;GACd;AACH;;AAEA;GACG,gBAAgB;AACnB;;AAEA;GACG,gBAAgB;GAChB,6BAA6B;GAC7B,4BAA4B;AAC/B;;AAEA;GACG,yBAAyB;GACzB,0BAA0B;AAC7B;;AAEA;GACG,gBAAgB;GAChB,mBAAmB;AACtB;AACA;GACG,UAAU;AACb;AACA;;GAEG,mCAAmC;AACtC;AACA;;GAEG,2BAA2B;AAC9B;AACA;;GAEG,wBAAwB;AAC3B;AACA;GACG,gBAAgB;AACnB;AACA;GACG,yBAAyB;AAC5B;AACA;;GAEG,WAAW;AACd;AACA;;GAEG,qBAAqB;AACxB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,aAAa;AAChB;AACA;GACG,iBAAiB;AACpB;AACA;;GAEG,oBAAoB;GACpB,aAAa;AAChB;AACA;GACG,oBAAoB;GACpB,aAAa;GACb,sBAAsB;GACtB,mBAAmB;GACnB,yBAAyB;GACzB,gBAAgB;GAChB,eAAe;GACf,gBAAgB;GAChB,gBAAgB;GAChB,cAAc;GACd,kBAAkB;GAClB,mBAAmB;GACnB,yBAAyB;GACzB,yBAAyB;GACzB,sBAAsB;AACzB;AACA;;;;;;;;;;;;;;;GAeG,yBAAyB;GACzB,4BAA4B;AAC/B;AACA;GACG,mBAAmB;AACtB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,eAAe;AAClB;AACA;GACG,YAAY;AACf;AACA;GACG,oBAAoB;AACvB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,gBAAgB;AACnB;AACA;GACG,eAAe;AAClB;AACA;GACG,mBAAmB;GACnB,eAAe;AAClB;AACA;GACG,4BAA4B;AAC/B;AACA;GACG,WAAW;GACX,YAAY;GACZ,eAAe;AAClB;AACA;GACG,sBAAsB;AACzB;AACA;;GAEG,sBAAsB;AACzB;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,oCAAoC;AAC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B,mBAAmB;GACnB,iBAAiB;GACjB,eAAe;GACf,yBAAyB;GACzB,WAAW;GACX,yBAAyB;GACzB,gBAAgB;AACnB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,eAAe;GACf,YAAY;GACZ,eAAe;GACf,kBAAkB;GAClB,iBAAiB;GACjB,WAAW;GACX,YAAY;GACZ,mBAAmB;GACnB,SAAS;GACT,WAAW;GACX,qBAAqB;AACxB;AACA;GACG,YAAY;GACZ,eAAe;AAClB;AACA;;GAEG,cAAc;AACjB;AACA;GACG,0BAA0B;GAC1B,wBAAwB;AAC3B;AACA;GACG,wBAAwB;AAC3B;AACA;GACG,cAAc;AACjB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;GAClB,QAAQ;GACR,MAAM;AACT;AACA;GACG,mBAAmB;AACtB;;AAEA;GACG,mBAAmB;GACnB,WAAW;AACd;AACA;GACG,mBAAmB;GACnB,WAAW;AACd;;AAEA;GACG,mBAAmB;GACnB,WAAW;AACd;;AAEA;GACG,WAAW;AACd;AACA,mBAAmB;AACnB;GACG,yBAAyB;AAC5B","sourcesContent":[".mainSidebar.webix_sidebar.webix_dark,\n.darkScrollview {\n   background: #444 !important;\n}\n.appDevDesigns {\n   background-color: rgb(68, 68, 68) !important;\n   width: 100%;\n   height: 100%;\n   background-image: url(assets/images/appdev_logo_white.png);\n   background-size: auto 110px;\n   background-repeat: no-repeat;\n   background-position: center;\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_sidebar_icon {\n   margin-right: 15px;\n   color: rgba(255, 255, 255, 0.4);\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_branch_1 {\n   //border-top: 1px solid rgba(255,255,255,0.1);\n   border-bottom: 1px solid rgba(0, 0, 0, 0.4);\n   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1);\n}\n.mainToolbar .webix_icon {\n   margin-top: -2px;\n}\n.mainToolbar.webix_toolbar.webix_dark {\n   background: #333;\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_item:hover {\n   background-color: rgba(0, 0, 0, 0.15);\n}\n.mainSidebar.webix_sidebar.webix_dark\n   .webix_tree_item:hover\n   .webix_sidebar_icon {\n   color: rgba(255, 255, 255, 0.8);\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_item.webix_selected,\n.mainSidebar .webix_tree_item.webix_sidebar_selected {\n   background-color: rgba(0, 0, 0, 0.2);\n   color: #1ca1c1;\n}\n.mainSidebar.webix_sidebar.webix_dark\n   .webix_tree_item.webix_selected\n   .webix_icon {\n   color: #1ca1c1;\n}\n.webix_toolbar.webix_dark .webix_secondary.activePage button {\n   background-color: #1ca1c1 !important;\n}\n.webix_toolbar.webix_dark .userMenu.webix_menu-x .webix_list_item {\n   background-color: transparent;\n   padding: 3px 10px;\n   opacity: 0.7;\n}\n.webix_toolbar.webix_dark .inbox.webix_secondary button {\n   background-color: transparent;\n}\n.webix_toolbar.webix_dark .inbox.webix_secondary button .webix_icon_btn {\n   opacity: 0.7;\n   font-size: 20px;\n}\n.appPages .webix_button {\n   font-size: 14px;\n   color: rgba(255, 255, 255, 0.8) !important;\n}\n.appPages .webix_icon_btn {\n   opacity: 0.4;\n}\n\n/* Styles imported from AppBuilder v1 */\nlabel {\n   font-weight: 500;\n}\n/* Custom Webix Badge */\n.webix_badge {\n   font-size: 8pt;\n   height: 18px;\n   line-height: 18px;\n   min-width: 18px;\n   right: 0;\n}\n/* Custom selectivity */\n.webix_checksuggest_select_all .webix_el_box {\n   height: auto !important;\n}\n.webix_multicombo_tag,\n.webix_multicombo_value {\n   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.3);\n   padding: 0 9pt;\n   border-bottom: 1px solid #fff;\n   margin: 3px 3px 1px;\n   max-height: 27px;\n   overflow: hidden;\n   line-height: 26px;\n   font-weight: normal;\n   color: #475466 !important;\n}\n.badgeContainer {\n   position: relative;\n}\n.webix_tooltip .webix_badge.selectivityBadge {\n   display: none;\n}\n.editConnectedPage {\n   margin-left: -5px;\n   margin-right: 5px;\n   opacity: 0.4;\n}\n.editConnectedPage:hover {\n   opacity: 1;\n   cursor: pointer;\n}\n.webix_tooltip .webix_multicombo_delete {\n   display: none;\n}\n.webix_multicombo_delete:hover:after {\n   color: rgba(0, 0, 0, 0.7);\n}\n.webix_multicombo_delete:hover {\n   transform: scale(1.1);\n}\n.webix_multicombo_delete {\n   margin-right: -7pt;\n}\n.webix_multicombo_delete.clear-combo-value {\n   margin-right: -5px;\n   position: relative;\n   right: 9px;\n   transition: all 0.2s ease-in-out;\n}\n.webix_multicombo_value {\n   display: flex;\n   /* width: 100%; */\n}\n.webix_multicombo_value .ellip {\n   text-overflow: ellipsis;\n   overflow: hidden;\n   white-space: nowrap;\n}\n.webix_cell .webix_multicombo_tag,\n.webix_cell .webix_multicombo_value {\n   line-height: 26px;\n   margin: 4px 1.5px;\n}\n.webix_el_combo .webix_progress_state {\n   font-size: 35px !important;\n}\n.webix_list_item .editConnectedPage {\n   display: none;\n}\n.hascustomcolor {\n   color: white !important;\n   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3) !important;\n}\n.combowithcolors .webix_inp_static {\n   padding-left: 0px;\n}\n.webix_multicombo_delete:after {\n   color: rgba(0, 0, 0, 0.4);\n   text-shadow: none;\n}\n.hideWebixMulticomboTag .webix_multicombo_tag {\n   box-shadow: none;\n   padding: 0;\n   border: 0;\n   margin: 0;\n   background: transparent;\n   border-radius: 0;\n   max-height: none;\n}\n.selectivity-placeholder {\n   text-indent: 10px;\n   color: #666;\n}\n.selectivity-multiple-input-container {\n   background: transparent !important;\n   padding: 0px !important;\n   overflow: hidden !important;\n   max-height: unset;\n   /* border-radius: 6px; */\n}\n.selectivity-single-result-container {\n   left: 2px;\n}\n.selectivity-multiple-selected-item,\n.selectivity-single-selected-item {\n   background: #337ab7 !important;\n   padding: 0 10px;\n   border-radius: 15px !important;\n   color: #fff !important;\n   line-height: 29px;\n   display: inline-block;\n   height: unset !important;\n   margin: 2px;\n   /*max-width: 100px !important;*/\n}\n.selectivity-multiple-input,\ninput[type=\"text\"].selectivity-multiple-input {\n   height: 33px;\n   text-indent: 10px;\n}\n.selectivity-single-selected-item-remove {\n   color: #fff;\n   float: none;\n   padding: 7px 5px 7px 0px;\n}\n.selectivity-multiple-selected-item-edit,\n.selectivity-multiple-selected-item-remove {\n   padding: 5px 0 5px 5px;\n}\n.selectivity-single-selected-item-edit,\n.selectivity-multiple-selected-item-edit,\n.selectivity-single-selected-item-edit:hover,\n.selectivity-multiple-selected-item-edit:hover {\n   color: #fff;\n   cursor: pointer;\n   text-decoration: none !important;\n   background: #1ca1c1;\n   margin-left: -9pt;\n   padding: 5px 5px 5px 10px;\n   margin-right: 5px;\n}\n.customField {\n   line-height: 33px;\n}\n.customField .selectivity-multiple-input-container {\n   border: 1px solid #ccd7e6;\n   /* border-radius: 6px; */\n   margin-right: 4px;\n}\n.readonlyField {\n   background-color: #fff;\n}\n.selectivity-single-select {\n   background: transparent !important;\n}\n.webix_cell .form-entry {\n   border: 0;\n}\n.form-entry {\n   border-radius: 6px;\n   height: 100%;\n   border: 1px solid #ddd;\n   color: #666;\n   background: #fff;\n   border-color: #ccc;\n   margin-right: 2px;\n}\n.form-entry .selectivity-multiple-selected-item {\n   float: none;\n}\n.webix_template .selectivity-single-select {\n   padding: 0;\n   border: 1px solid #ccd7e6;\n   /* border-radius: 6px; */\n   margin-right: 4px;\n}\n.selectivity-single-select input {\n   padding: 0;\n   border: 0;\n}\n.selectivity-single-selected-item {\n   color: #666;\n}\n.selectivity-single-result-container {\n   top: 0em !important;\n}\n.selectivity-caret {\n   top: 0.4em !important;\n}\n.selectivityBadge {\n   top: 6px;\n   right: -5px;\n   background: #aaa;\n}\n.list-data-values,\n.connect-data-values {\n   position: relative;\n}\n\n.ab-app-list-info {\n   float: left;\n   height: 100%;\n}\n.ab-app-list-edit,\n.ab-object-list-edit,\n.ab-page-list-edit {\n   float: right;\n   height: 100%;\n   opacity: 0.6;\n}\n.ab-app-list-edit:hover,\n.ab-object-list-edit:hover,\n.ab-page-list-edit:hover {\n   opacity: 1;\n}\n.ab-app-list-edit .webix_list_item {\n   line-height: 50px;\n}\n.ab-app-list-edit .webix_icon {\n   line-height: 59px;\n}\n.ab-app-list-item {\n   height: 100%;\n   clear: both;\n}\n.ab-app-list-edit .webix_list_item {\n   padding: 10px;\n}\n.ab-app-list-name {\n   font-size: 20px;\n   line-height: 20px;\n   margin-top: 10px;\n}\n.ab-app-list-description {\n   opacity: 0.6;\n}\n\n.webix_list_item .webix_icon {\n   font-size: inherit;\n}\n.webix_list_item .webix_icon.wxi-checkbox-marked {\n   font-size: 20px;\n}\n.emptypane {\n   line-height: auto;\n}\n.opsportal-area-site-default-appbuilder a,\n.webix_view a {\n   opacity: 1;\n}\n.webix_list_item.menu.selected {\n   background: #657584;\n}\n.webix_icon_btn {\n   font-size: 20px;\n}\n.appTitle .webix_el_box {\n   font-size: 20px !important;\n}\n.webix_dark .webix_icon_btn {\n   opacity: 0.4;\n}\n.ab_amp .webix_dark .webix_icon_btn {\n   opacity: 1;\n}\n.webix_el_button button {\n   /* font-size: 14px; */\n}\n.webix_el_button button.webixtype_standard:hover {\n   text-decoration: underline;\n}\n.webix_menu-x .webix_list_item {\n   line-height: 31px;\n}\n.bg-white {\n   background: white;\n}\n.ab-component-tools {\n   position: absolute;\n   top: 2px;\n   right: 33px;\n}\n.ab-component-tools.ab-tab-tools {\n   right: 0;\n   z-index: 100;\n}\n.ab-component-remove,\n.ab-component-edit {\n   width: 31px;\n   height: 31px;\n   display: inline-block;\n   margin-right: 1px;\n   font-size: 18px;\n   text-align: center;\n   line-height: 33px !important;\n   background: #4caf50;\n   color: white;\n   top: -2px;\n   position: relative;\n   overflow: hidden;\n   float: right;\n}\n.ab-component-remove:hover,\n.ab-component-edit:hover {\n   cursor: pointer;\n}\n.ab-component-remove {\n   background: #ff3b30;\n}\n.panel_icon {\n   font-size: 16px;\n   width: 22px;\n   height: 24px;\n   line-height: 24px;\n}\n.webix_fieldset_label {\n   width: auto;\n   margin-bottom: 0;\n   border: 0;\n}\n.ab-widget-header {\n   background: #eee;\n}\n.ab-component-header .webix_el_box {\n   font-size: 24px;\n}\n.ab-component-description .webix_el_box {\n   color: #666;\n}\n.bg_gray {\n   background-color: #ebedf0;\n}\n.webix_dark .webix_sidebar {\n   background-color: transparent;\n}\n.webix_dark .webix_view {\n   background-color: transparent;\n   color: white;\n}\n.ab_amp .webix_dark .webix_view {\n   background-color: white;\n   color: inherit;\n}\n.webix_dark .webix_list-x .webix_list_item {\n   border-right: 0;\n}\n.ab-text .ab-detail-component-holder {\n   line-height: 32px;\n}\n.webix_tree_checkbox {\n   margin: 5px 6px 0 0 !important;\n   height: 14px;\n   width: 14px;\n}\n.ab-menu-left .webix_scroll_cont {\n   text-align: left;\n}\n.ab-menu-right .webix_scroll_cont {\n   text-align: right;\n}\n.ab-menu-center .webix_scroll_cont {\n   text-align: center;\n}\n.ab-menu-link.webix_menu-x .webix_list_item {\n   background: transparent;\n   color: #337ab7;\n   font-weight: bold;\n   padding: 0;\n   margin-right: 15px;\n}\n.ab-menu-link.webix_menu-x .webix_list_item:hover {\n   text-decoration: underline;\n}\n.ab-custom-field {\n   overflow: visible;\n}\n.ab-custom-field .webix_template {\n   padding: 0;\n}\n.ab-custom-field legend {\n   border-bottom: none;\n}\n\n.ab-component-form-rule {\n   background-color: #dcdcdc;\n}\n.ab-main-container .webix_querybuilder_wrap .webix_layout_form,\n.ab-main-container .ab-component-form-rules .webix_layout_form {\n   background: inherit !important;\n}\n.ab-component-form-rules .webix_view {\n   background: transparent !important;\n}\n.ab-component-form-rules {\n   background: #ddd;\n   border-radius: 5px;\n   box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.4);\n   position: relative;\n   overflow: visible;\n}\n.ab-component-form-rules-delete {\n   background: transparent;\n}\n.ab-component-form-rules-delete .ab-component-remove {\n   position: absolute;\n   top: -6px;\n   right: -8px;\n   border-radius: 100%;\n}\n/* Connect object data */\n.ab-connect-add-new a.fa {\n   width: 35px;\n   height: 35px;\n   display: block;\n   float: left;\n   border-radius: 4px;\n   background: #1ca1c1;\n   color: white;\n   opacity: 1;\n   text-align: center;\n   line-height: 35px;\n}\n.ab-connect-add-new a.fa:hover {\n   text-decoration: none;\n   background-color: #1992af;\n}\n.ab-connect-data-info {\n   display: inline-block;\n   width: 90px;\n   white-space: nowrap;\n   overflow: hidden;\n   text-overflow: ellipsis;\n}\n\n.ab-connect-data-disable {\n   background-color: #aaa;\n}\n.stop-scrolling {\n   height: 100%;\n   overflow: hidden;\n}\n.ab-scroll-y {\n   overflow-y: auto !important;\n}\n.ab-ellipses-text,\n.ab-ellipses-text > div {\n   overflow: hidden;\n   white-space: nowrap;\n   text-overflow: ellipsis;\n}\n.webix_dtable .webix_ss_footer .webix_hcell:hover,\n.webix_dtable .webix_ss_header .webix_hcell:hover {\n   border-right-color: #dadee0;\n}\n\n/* Interface Editor */\n.ab-widget-header {\n   background-color: #ddd;\n}\n.ab-widget-header .webix_icon_btn {\n   opacity: 0.7;\n   margin-left: 5px;\n}\n.ab-main-container .widget_drag {\n   position: absolute;\n   z-index: 1;\n   top: 0px;\n   right: 0px;\n   width: 33px;\n   opacity: 1;\n   cursor: move;\n   background-color: #aaa;\n   height: 31px;\n   color: #fff;\n}\n.ab-main-container .widget_drag:hover {\n   opacity: 0.8;\n}\n.ab-main-container .widget_drag .webix_icon {\n   line-height: 28px;\n   width: 33px;\n   height: 33px;\n   text-align: center;\n}\n.webix_el_checkbox .webix_label_right {\n   padding-top: 0;\n}\n.webix_cell .ab-image-data-field {\n   /* pointer-events: none; */\n   padding: 0;\n}\n.ab-image-holder .webix_template {\n   padding: 0;\n}\n.ab-image-data-field {\n   width: 100%;\n   height: 100%;\n}\n.ab-image-data-field-download {\n   position: absolute;\n   left: 0;\n   background-color: #dcdcdc;\n   padding: 3px 1px 1px 1px;\n   opacity: 0.5 !important;\n   text-decoration: none;\n   color: #000;\n}\n.ab-image-data-field-download:hover {\n   opacity: 1 !important;\n   text-decoration: none;\n   color: #000;\n}\n.detailsView .webix_icon:hover,\n.edit .webix_icon:hover,\n.trash .webix_icon:hover {\n   cursor: pointer;\n}\n.ab-layout-header {\n   position: relative;\n}\n.ab-layout-header > .ab-component-tools {\n   right: 0px;\n}\n\n.transparent {\n   background: transparent !important;\n}\n.webix_modal {\n   opacity: 0.8;\n}\n.modal_title .webix_el_box {\n   font-size: 18px;\n}\n.webix_toolbar .webix_el_box {\n   padding: 3px 0;\n}\n/* Loading Screen */\n.ab-loading-screen {\n   background: #000;\n   opacity: 0.7;\n   position: absolute !important;\n}\n.ab-loading-body {\n   background: #000;\n   border-width: 0px !important;\n}\n.ab-loading-message {\n   color: #fff !important;\n   background: #000 !important;\n   font-size: 30px !important;\n   text-align: center;\n   vertical-align: middle;\n   border-width: 0px !important;\n   padding-top: 20% !important;\n   height: 100px !important;\n}\n.ab-loading-button {\n   text-align: center;\n}\n.ab-loading-button button {\n   background-color: #003b7e;\n   width: 200px;\n}\n.ab-loading-cancel-button {\n   text-align: center;\n   background: transparent;\n}\n.ab-loading-cancel-button a {\n   color: #fff !important;\n}\n.ab-loading-screen .webix_progress_bottom {\n   height: 40px !important;\n   opacity: 1;\n}\n.ab-loading-screen .webix_progress_bottom .webix_progress_state {\n   height: 40px !important;\n}\n.webix_menu-x .webix_list_item:last-child {\n   border-top-right-radius: 2px;\n   border-bottom-right-radius: 2px;\n}\n.webix_menu-x .webix_list_item:first-child {\n   border-top-left-radius: 2px;\n   border-bottom-left-radius: 2px;\n}\n.preview_item {\n   background: #999;\n}\n.panel_drag_view {\n   border-width: 0 1px 1px 1px;\n   border-color: 1px solid #dadee0;\n   border-style: solid;\n}\n.panel_drag_view:before {\n   content: \"\";\n   display: block;\n   height: 100%;\n   width: 100%;\n   background: rgb(255, 255, 255);\n   background: linear-gradient(\n      0deg,\n      rgba(255, 255, 255, 1) 15%,\n      rgba(255, 255, 255, 0) 80%\n   );\n   position: absolute;\n   z-index: 1;\n   top: 31px;\n}\n.ab-datacollection-table .ab-component-in-page {\n   text-align: center;\n   line-height: 15px;\n   vertical-align: middle;\n   display: table-cell;\n}\n.ab-datacollection-table .webix_dataview_item {\n   display: table;\n}\n.ab-datacollection-table .fa {\n   color: #337ab7;\n   margin-bottom: 10px;\n}\n.ab-datacollection-table.borderless .webix_dataview_item {\n   border: none;\n}\n.ab-datacollection-table .webix_dataview_item:hover {\n   background: #edeff0;\n   border-radius: 5px;\n}\n.webix_list_item:hover {\n   background: rgba(0, 0, 0, 0.05);\n}\n.webix_all_tabs .webix_item_tab.webix_selected,\n.webix_all_tabs .webix_item_tab.webix_selected:hover,\n.webix_all_tabs .webix_item_tab.webix_selected:active,\n.webix_all_tabs .webix_item_tab.webix_selected:focus {\n   color: white;\n   background: #1ca1c199 !important;\n   box-shadow: inset 0 -3px #1ca1c1;\n}\n.webix_all_tabs .webix_item_tab,\n.webix_el_tabbar .webixtype_bottom .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_icon .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_iconTop .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_image .webix_tab_more_icon {\n   box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);\n   background: #ebedf0;\n}\n.ab-tab-back:hover,\n.ab-tab-next:hover,\n.ab-tab-up:hover,\n.ab-tab-down:hover {\n   cursor: e-resize;\n   opacity: 1;\n}\n.ab-tab-back:hover {\n   cursor: w-resize;\n}\n.ab-tab-up:hover {\n   cursor: n-resize;\n   opacity: 1;\n}\n.ab-tab-down:hover {\n   cursor: s-resize;\n}\n.ab-tab-back,\n.ab-tab-next,\n.ab-tab-up,\n.ab-tab-down {\n   float: left;\n   margin-left: 10px;\n   background: #1ca1c1;\n   opacity: 0.8;\n   width: 20px;\n   height: 20px;\n   border-radius: 10px;\n   line-height: 18px;\n   padding-right: 2px;\n   color: white;\n}\n.ab-tab-edit {\n   opacity: 0.4;\n}\n.ab-tab-edit:hover {\n   opacity: 1;\n}\n.ab-tab-next {\n   float: right;\n   margin-right: 10px;\n   padding-left: 6px;\n}\n.ab-tab-up,\n.ab-tab-down {\n   float: right;\n   margin: 12px -2px 12px 15px;\n   padding-left: 6px;\n}\n.webix_all_tabs div:nth-child(1) .ab-tab-back {\n   display: none;\n}\n.webix_all_tabs div:nth-last-child(1) .ab-tab-next {\n   display: none;\n}\n.webix_tab_filler:nth-last-child(1) {\n   width: 17px !important;\n}\n.ab-tabview-scrollview {\n   /* margin-top: -1px; */\n}\n.ab-tabIconContainer {\n   display: inline-block;\n}\n\n.webix_view.webix_control.webix_el_tabbar.webix_dark {\n   background: #4a4e58;\n}\n.webix_el_tabbar.webix_dark .webix_all_tabs .webix_item_tab {\n   background: transparent;\n   color: white;\n}\n.webix_el_tabbar.webix_dark .webix_all_tabs .webix_item_tab:hover {\n   background: rgba(0, 0, 0, 0.1);\n}\n.webix_sidebar.webix_dark .webix_tree_item.webix_selected span {\n   color: white;\n}\n.webix_sidebar.webix_dark\n   .webix_tree_item.webix_selected\n   span.webix_sidebar_icon {\n   color: inherit;\n}\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_inp_counter_next,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_inp_counter_prev,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_menu-x .webix_list_item,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_0,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_1,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_N,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_base,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_next,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_prev {\n   border-color: rgba(0, 0, 0, 0.1);\n}\n.webix_tree_none {\n   /* display: none; */\n}\n.ab-background-lightgray {\n   background: #c0c5cc;\n}\n.ab-background-gray {\n   background: #475466;\n}\n.ab-background-gray::before {\n   content: \"\";\n   background: #475466;\n   display: block;\n   position: absolute;\n   left: 0;\n   width: 100%;\n   height: 100vh;\n}\n.ab-background-gray .webix_view.webix_layout_form {\n   background: transparent;\n}\n.webix_carousel .image {\n   background: #333;\n}\n.webix_nav_panel .webix_nav_item {\n   box-sizing: border-box;\n}\n.ab-carousel-image-container {\n   position: relative;\n   height: 100%;\n}\n.ab-carousel-image-container img {\n   width: 100%;\n   height: 100%;\n   object-fit: contain;\n}\n.ab-carousel-image-title {\n   position: absolute;\n   top: 0;\n   left: 0;\n   font-size: 18px;\n   padding: 4px;\n   background: rgba(0, 0, 0, 0.4);\n   border-bottom-right-radius: 8px;\n   color: #fff;\n}\n.ab-carousel-image-icon {\n   position: absolute;\n   top: 0px;\n   right: 0px;\n   font-size: 20px;\n   border-bottom-left-radius: 8px;\n   background: rgba(255, 255, 255, 0.4);\n}\n.ab-carousel-image-icon span {\n   opacity: 0.6;\n   margin: 6px;\n}\n.ab-carousel-image-icon span:hover {\n   opacity: 1;\n   cursor: pointer;\n}\n.webix_carousel.fullscreen .ab-carousel-fullscreen {\n   display: none;\n}\n.ab-detail-view .webix_accordionitem {\n   border-radius: 5px;\n   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;\n   border-color: transparent;\n}\n.ab-detail-page.ab-detail-hover .webix_accordionitem:hover {\n   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px 0px;\n}\n.ab-detail-page .webix_accordionitem:hover .webix_accordionitem_body:after {\n   background: #1da1c14f;\n   width: 100%;\n   height: 100%;\n   display: block;\n   position: absolute;\n   cursor: pointer;\n   top: 0;\n   font-family: \"FontAwesome\";\n   content: \"\";\n   color: white;\n   text-align: center;\n   font-size: 72px;\n   vertical-align: middle;\n}\n.ab-edit-page .webix_accordionitem:hover {\n   position: relative;\n}\n.ab-edit-page .webix_accordionitem:hover .webix_accordionitem_header {\n   display: block !important;\n   position: absolute;\n   right: 0;\n   top: 0;\n   border: 0;\n   z-index: 1;\n   border-bottom-left-radius: 10px;\n}\n.ab-edit-page\n   .webix_accordionitem:hover\n   .webix_accordionitem_header\n   .webix_accordionitem_button:before {\n   content: \"\\f013\";\n   font-family: \"FontAwesome\";\n   color: #94a1b3;\n}\n.ab-edit-page.ab-detail-page\n   .webix_accordionitem:hover\n   .webix_accordionitem_header\n   .webix_accordionitem_button:before {\n   color: white;\n}\n.ab-edit-page\n   .webix_accordionitem\n   .webix_accordionitem_header:hover\n   .webix_accordionitem_button:before {\n   color: #94a1b3 !important;\n}\n.ab-custom-template .webix_template {\n   padding: 10px;\n}\n\n.image-data-field-image {\n   position: relative;\n   border: 5px solid white;\n   background-size: cover;\n   background-position: center;\n}\n.ab-delete-photo {\n   position: absolute;\n   top: 0;\n   right: 0;\n}\n.hasDataCollection {\n   color: #1ca1c1;\n   margin: 5px;\n   position: absolute;\n   right: 0;\n   background: white;\n}\n.sidebarCustomIcon {\n   font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n   font-size: 12px !important;\n   background: #94a1b3 !important;\n   border-radius: 100%;\n   width: 20px !important;\n   height: 20px;\n   line-height: 20px;\n   color: #fff !important;\n   font-weight: bold;\n   vertical-align: unset !important;\n}\n.webix_dark .sidebarCustomIcon {\n   color: #4a4e58 !important;\n}\n.webix_dark .webix_selected .sidebarCustomIcon {\n   background: #1ca1c1 !important;\n   color: #4a4e58 !important;\n}\n.webix_selected .sidebarCustomIcon {\n   color: #fff !important;\n   background: #1ca1c1 !important;\n}\n\n/* FormBuilder Clases */\n.formbuilder {\n   padding: 20px;\n}\n.card-header .btn {\n   color: #333;\n}\n.card {\n   position: relative;\n   display: -ms-flexbox;\n   display: flex;\n   -ms-flex-direction: column;\n   flex-direction: column;\n   min-width: 0;\n   word-wrap: break-word;\n   background-color: #fff;\n   background-clip: border-box;\n   border: 1px solid rgba(0, 0, 0, 0.125);\n   border-radius: 0.25rem;\n}\n\n.card > hr {\n   margin-right: 0;\n   margin-left: 0;\n}\n\n.card > .list-group:first-child .list-group-item:first-child {\n   border-top-left-radius: 0.25rem;\n   border-top-right-radius: 0.25rem;\n}\n\n.card > .list-group:last-child .list-group-item:last-child {\n   border-bottom-right-radius: 0.25rem;\n   border-bottom-left-radius: 0.25rem;\n}\n\n.card-body {\n   -ms-flex: 1 1 auto;\n   flex: 1 1 auto;\n   min-height: 1px;\n   padding: 1.25rem;\n}\n\n.card-title {\n   margin-bottom: 0.75rem;\n}\n\n.card-subtitle {\n   margin-top: -0.375rem;\n   margin-bottom: 0;\n}\n\n.card-text:last-child {\n   margin-bottom: 0;\n}\n\n.card-link:hover {\n   text-decoration: none;\n}\n\n.card-link + .card-link {\n   margin-left: 1.25rem;\n}\n\n.card-header {\n   padding: 0.75rem 1.25rem;\n   margin-bottom: 0;\n   background-color: rgba(0, 0, 0, 0.03);\n   border-bottom: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-header:first-child {\n   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;\n}\n\n.card-header + .list-group .list-group-item:first-child {\n   border-top: 0;\n}\n\n.card-footer {\n   padding: 0.75rem 1.25rem;\n   background-color: rgba(0, 0, 0, 0.03);\n   border-top: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-footer:last-child {\n   border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);\n}\n\n.card-header-tabs {\n   margin-right: -0.625rem;\n   margin-bottom: -0.75rem;\n   margin-left: -0.625rem;\n   border-bottom: 0;\n}\n\n.card-header-pills {\n   margin-right: -0.625rem;\n   margin-left: -0.625rem;\n}\n\n.card-img-overlay {\n   position: absolute;\n   top: 0;\n   right: 0;\n   bottom: 0;\n   left: 0;\n   padding: 1.25rem;\n}\n\n.card-img,\n.card-img-bottom,\n.card-img-top {\n   -ms-flex-negative: 0;\n   flex-shrink: 0;\n   width: 100%;\n}\n\n.card-img,\n.card-img-top {\n   border-top-left-radius: calc(0.25rem - 1px);\n   border-top-right-radius: calc(0.25rem - 1px);\n}\n\n.card-img,\n.card-img-bottom {\n   border-bottom-right-radius: calc(0.25rem - 1px);\n   border-bottom-left-radius: calc(0.25rem - 1px);\n}\n\n.card-deck .card {\n   margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n   .card-deck {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-flow: row wrap;\n      flex-flow: row wrap;\n      margin-right: -15px;\n      margin-left: -15px;\n   }\n   .card-deck .card {\n      -ms-flex: 1 0 0%;\n      flex: 1 0 0%;\n      margin-right: 15px;\n      margin-bottom: 0;\n      margin-left: 15px;\n   }\n}\n\n.card-group > .card {\n   margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n   .card-group {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-flow: row wrap;\n      flex-flow: row wrap;\n   }\n   .card-group > .card {\n      -ms-flex: 1 0 0%;\n      flex: 1 0 0%;\n      margin-bottom: 0;\n   }\n   .card-group > .card + .card {\n      margin-left: 0;\n      border-left: 0;\n   }\n   .card-group > .card:not(:last-child) {\n      border-top-right-radius: 0;\n      border-bottom-right-radius: 0;\n   }\n   .card-group > .card:not(:last-child) .card-header,\n   .card-group > .card:not(:last-child) .card-img-top {\n      border-top-right-radius: 0;\n   }\n   .card-group > .card:not(:last-child) .card-footer,\n   .card-group > .card:not(:last-child) .card-img-bottom {\n      border-bottom-right-radius: 0;\n   }\n   .card-group > .card:not(:first-child) {\n      border-top-left-radius: 0;\n      border-bottom-left-radius: 0;\n   }\n   .card-group > .card:not(:first-child) .card-header,\n   .card-group > .card:not(:first-child) .card-img-top {\n      border-top-left-radius: 0;\n   }\n   .card-group > .card:not(:first-child) .card-footer,\n   .card-group > .card:not(:first-child) .card-img-bottom {\n      border-bottom-left-radius: 0;\n   }\n}\n\n.card-columns .card {\n   margin-bottom: 0.75rem;\n}\n\n@media (min-width: 576px) {\n   .card-columns {\n      -webkit-column-count: 3;\n      -moz-column-count: 3;\n      column-count: 3;\n      -webkit-column-gap: 1.25rem;\n      -moz-column-gap: 1.25rem;\n      column-gap: 1.25rem;\n      orphans: 1;\n      widows: 1;\n   }\n   .card-columns .card {\n      display: inline-block;\n      width: 100%;\n   }\n}\n\n.accordion > .card {\n   overflow: hidden;\n}\n\n.accordion > .card:not(:last-of-type) {\n   border-bottom: 0;\n   border-bottom-right-radius: 0;\n   border-bottom-left-radius: 0;\n}\n\n.accordion > .card:not(:first-of-type) {\n   border-top-left-radius: 0;\n   border-top-right-radius: 0;\n}\n\n.accordion > .card > .card-header {\n   border-radius: 0;\n   margin-bottom: -1px;\n}\n.form-builder-group-header {\n   padding: 0;\n}\n.formio .btn:hover,\n.btn:focus {\n   background-position: 0 0 !important;\n}\n.mb-0,\n.my-0 {\n   margin-bottom: 0 !important;\n}\n.mt-0,\n.my-0 {\n   margin-top: 0 !important;\n}\n.scrolly {\n   overflow: scroll;\n}\n.forceOpen {\n   display: block !important;\n}\n.formio .btn-secondary,\n.formio-dialog .btn-secondary {\n   color: #333;\n}\n.formio-dialog a,\n.formio a {\n   opacity: 1 !important;\n}\n.component-settings .nav > li > a {\n   margin-bottom: -7px;\n}\n.formio-form .input-group {\n   display: flex;\n}\n.formio-form .input-group-append {\n   margin-left: -1px;\n}\n.formio-form .input-group-append,\n.formio-form .input-group-prepend {\n   display: -ms-flexbox;\n   display: flex;\n}\n.formio-form .input-group-text {\n   display: -ms-flexbox;\n   display: flex;\n   -ms-flex-align: center;\n   align-items: center;\n   padding: 0.375rem 0.75rem;\n   margin-bottom: 0;\n   font-size: 1rem;\n   font-weight: 400;\n   line-height: 1.5;\n   color: #495057;\n   text-align: center;\n   white-space: nowrap;\n   background-color: #e9ecef;\n   border: 1px solid #ced4da;\n   border-radius: 0.25rem;\n}\n.formio-form .input-group > .input-group-append > .btn,\n.formio-form .input-group > .input-group-append > .input-group-text,\n.formio-form\n   .input-group\n   > .input-group-prepend:first-child\n   > .btn:not(:first-child),\n.formio-form\n   .input-group\n   > .input-group-prepend:first-child\n   > .input-group-text:not(:first-child),\n.formio-form .input-group > .input-group-prepend:not(:first-child) > .btn,\n.formio-form\n   .input-group\n   > .input-group-prepend:not(:first-child)\n   > .input-group-text {\n   border-top-left-radius: 0;\n   border-bottom-left-radius: 0;\n}\n.formio-form .nav-tabs > li {\n   margin-bottom: -8px;\n}\n.formio-dialog .formio-form .nav-tabs > li {\n   margin-bottom: -1px;\n}\n.max100 {\n   max-width: 100%;\n}\n.webix_qb_buttons button {\n   height: auto;\n}\n.no-margin {\n   margin: 0 !important;\n}\n.ab_amp .fa-stack {\n   font-size: 0.65em;\n}\n.ab_amp i {\n   vertical-align: middle;\n}\n.ab_amp.lightgray {\n   background: #eee;\n}\n.ab_amp .webixLineTree:hover {\n   cursor: pointer;\n}\n.ab_amp .accessLevel .fa-stack {\n   vertical-align: top;\n   margin-top: 3px;\n}\n.ab_amp .accessLevel:hover .fa-stack {\n   transform: scale(1.25, 1.25);\n}\n.ab_amp .externalLink {\n   color: #ccc;\n   float: right;\n   margin-top: 5px;\n}\n.ab_amp .externalLink:hover {\n   color: #666 !important;\n}\n.ab_amp .webix_accordionitem .webix_accordionitem_button,\n.ab_amp .webix_accordionitem.collapsed .webix_accordionitem_button {\n   float: left !important;\n}\n.ab_amp .webix_accordionitem .webix_accordionitem_button {\n   transform: rotate(180deg);\n}\n.ab_amp .webix_accordionitem.collapsed .webix_accordionitem_button {\n   transform: rotate(-90deg);\n}\n.ab_amp .webix_accordionitem_header {\n   background-color: #1ca1c1 !important;\n}\n.ab_amp .webix_accordionitem_header.collapsed {\n   background-color: white !important;\n}\n.ab_amp .webix_danger_inverse button {\n   border: 1px solid #ff4938;\n   color: #ff4938;\n   background: white;\n}\n.ab_amp .webix_danger_inverse .webix_icon_btn {\n   color: #ff4938;\n}\n.ab_amp .webix_danger_inverse:hover button {\n   background-color: #ff4938;\n   color: #fff;\n}\n.ab_amp .webix_danger_inverse:hover .webix_icon_btn {\n   color: #fff;\n}\ndiv.amp {\n   font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n   background: rgb(28, 161, 193, 0.4);\n   /* padding: 5px 0; */\n   display: inline-block;\n   right: 0;\n   top: 75px;\n   border-top-left-radius: 10px;\n   border-bottom-left-radius: 10px;\n   color: white;\n   font-size: 16px;\n   transition: 0.25s all;\n   position: absolute;\n   width: 40px;\n   white-space: nowrap;\n   overflow: hidden;\n   height: 32px;\n   z-index: 100;\n   display: flex;\n}\ndiv.amp.qtt {\n   top: 108px;\n}\ndiv.amp div {\n   padding: 5px 10px;\n}\ndiv.amp div:first-child {\n   background: rgba(255, 255, 255, 0.2);\n   border-right: 1px solid rgba(255, 255, 255, 0.4);\n   padding: 5px 10px;\n}\ndiv.amp:hover {\n   width: 212px !important;\n   cursor: pointer;\n   background: rgb(28, 161, 193) !important;\n}\ndiv.amp:hover .fa-unlock-alt {\n   display: inline-block !important;\n}\ndiv.amp:hover .fa-lock {\n   display: none !important;\n}\ndiv.amp .fa-unlock-alt,\ndiv.amp .fa-lock,\ndiv.amp .fa-language {\n   transform: scale(1.25, 1.25);\n   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);\n}\ndiv.amp .fa-unlock-alt {\n   display: none;\n}\n.ampWindow .webix_toolbar.webix_dark {\n   background: #444 !important;\n}\n/* .accessLevel-0::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(233, 30, 30, 0.4);\n   display: block;\n   position: absolute;\n}\n.accessLevel-1::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(33, 150, 243, 0.4);\n   display: block;\n   position: absolute;\n}\n.accessLevel-2::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(76, 175, 80, 0.4);\n   display: block;\n   position: absolute;\n} */\n.ab-csv-importer .row-pass {\n   background-color: #b4e8b6;\n}\n.ab-csv-importer .row-fail {\n   background-color: #e4b0ad;\n}\n.ab-csv-importer .row-warn {\n   background-color: #f9d59f;\n}\n.ab-csv-importer .cell-invalid {\n   background-color: #e9ab4d;\n}\n.transparentBG .webix_el_tabbar + .webix_multiview {\n   background: transparent !important;\n}\n.webix_hcell .fa {\n   opacity: 0.4;\n}\n.ab-widget-header .webix_template {\n   padding: 0 10px;\n}\n.ab-layout-header .webix_template {\n   padding: 0;\n   line-height: 30px;\n}\n.ab-widget-header .webix_template div {\n   line-height: 30px;\n}\n.ab-widget-header .webix_template div .fa,\n.ab-layout-header .fa {\n   vertical-align: middle;\n}\n#offlinePrompt,\n#connectionPrompt {\n   line-height: 30px;\n   color: white;\n   background: #f44336;\n   font-size: 14px;\n   text-align: center;\n   transition: all 1s;\n   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);\n   overflow: hidden;\n}\n#connectionPrompt {\n   background: #f44336;\n}\n#countdown {\n   height: 20px;\n   width: 20px;\n   text-align: center;\n   display: inline-block;\n   line-height: 20px;\n   position: relative;\n   bottom: 2px;\n   font-size: 9px;\n}\n\n#countdown-number {\n   color: white;\n   display: inline-block;\n   width: 20px;\n   height: 20px;\n}\n\n#countdown svg {\n   width: 20px;\n   height: 20px;\n   transform: rotateY(-180deg) rotateZ(-90deg);\n   position: absolute;\n   margin-left: -20px;\n}\n\n#countdown svg circle {\n   stroke-dasharray: 56px;\n   stroke-dashoffset: 0px;\n   stroke-linecap: round;\n   stroke-width: 2px;\n   stroke: white;\n   fill: none;\n   animation: countdown 30s linear infinite forwards;\n}\n\n@keyframes countdown {\n   from {\n      stroke-dashoffset: 0px;\n   }\n   to {\n      stroke-dashoffset: 56px;\n   }\n}\n#reloadPrompt {\n   position: absolute;\n   z-index: 200000;\n   top: 0;\n   bottom: 0;\n   left: 0;\n   right: 0;\n   background: rgba(0, 0, 0, 0.7);\n   display: flex;\n}\n#reloadPrompt div {\n   background: #f44336;\n   width: 250px;\n   border: 3px solid white;\n   margin: auto auto;\n   padding: 20px;\n   text-align: center;\n   border-radius: 10px;\n   color: white;\n   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);\n}\n.reloadPage {\n   background: rgba(0, 0, 0, 0.2);\n   border: none;\n   padding: 5px 10px;\n   border-radius: 5px;\n   margin-top: 10px;\n}\n.reloadPage:hover {\n   background: rgba(0, 0, 0, 0.4);\n}\n.webix_warn .webix_button {\n   background: #ff9800 !important;\n   color: #fff !important;\n}\n.webix_dark .webix_inp_bottom_label {\n   color: lightgray;\n   font-style: oblique;\n}\n.no-margin {\n   margin: 0;\n}\n.inbox_drawer.webix_toolbar.webix_dark .webix_secondary button,\n.mainToolbar.webix_toolbar.webix_dark .webix_secondary button {\n   background-color: transparent;\n}\n.inbox_drawer.webix_toolbar.webix_dark .webix_secondary button:hover,\n.mainToolbar.webix_toolbar.webix_dark .webix_secondary button:hover {\n   background-color: rgba(0, 0, 0, 0.2);\n}\n/* Login Page */\n.portalLogin {\n   /* opacity: 0; */\n   background: #ebedf0;\n   background: linear-gradient(\n      0deg,\n      rgba(171, 171, 171, 1) 0%,\n      rgba(235, 237, 240, 1) 100%\n   );\n   /* -webkit-animation: 1s ease 0s normal forwards 1 fadein;\n   animation: 1s ease 0s normal forwards 1 fadein; */\n}\n.portalLoginForm {\n   opacity: 0;\n   -webkit-animation: 1s ease 0s normal forwards 1 fadein;\n   animation: 1s ease 0s normal forwards 1 fadein;\n   background: white;\n   border-radius: 30px;\n   box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);\n   position: relative;\n   top: -20px;\n   transform: scale(1.2);\n}\n.portalLogin .webix_view {\n   overflow: visible;\n   display: inline-block;\n}\ndiv.webix_dataview_item.webix_transparent {\n   padding: 0px;\n}\n@keyframes fadein {\n   0% {\n      opacity: 0;\n      top: -20px;\n      transform: scale(1.1);\n      box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);\n   }\n   100% {\n      opacity: 1;\n      top: 0;\n      transform: scale(1);\n      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);\n   }\n}\n\n@-webkit-keyframes fadein {\n   0% {\n      opacity: 0;\n   }\n   100% {\n      opacity: 1;\n   }\n}\n.ab-connect-add-new-link .webix_icon_btn {\n   margin-right: 0;\n}\n.image-data-field-icon {\n   border: 2px dashed rgba(0, 0, 0, 0.3);\n   border-radius: 10px;\n   padding: 5px;\n   display: flex;\n   flex-direction: row;\n   text-align: center;\n   justify-content: center;\n   align-items: center;\n   line-height: 12px;\n   font-size: 10px;\n   color: rgba(0, 0, 0, 0.5);\n   margin: 5px;\n   height: calc(100% - 10px);\n   overflow: hidden;\n}\n.webix_cell > .ab-image-data-field {\n   margin-left: -12px;\n}\n.ab-delete-photo {\n   background: red;\n   color: white;\n   font-size: 10px;\n   text-align: center;\n   line-height: 20px;\n   width: 20px;\n   height: 20px;\n   border-radius: 10px;\n   top: -3px;\n   right: -3px;\n   transition: all 0.25s;\n}\n.ab-delete-photo:hover {\n   color: white;\n   font-size: 14px;\n}\n.webix_transparent .webix_button .webix_icon,\n.webix_transparent .webix_button .webix_icon_btn {\n   color: #1ca1c1;\n}\n.webix_icon_btn {\n   margin-right: 0 !important;\n   vertical-align: baseline;\n}\n.webix_list_icon.webix_icon {\n   vertical-align: baseline;\n}\n.webix_list_item.menu {\n   color: inherit;\n}\n.ab-datacollection-list-item {\n   position: relative;\n}\n.ab-object-list-item {\n   position: relative;\n}\n.ab-object-list-edit {\n   position: absolute;\n   right: 0;\n   top: 0;\n}\n.webix_el_label.formText .webix_el_box {\n   font-weight: normal;\n}\n\n.switcheroo .webix_win_head .webix_layout_line {\n   background: #657584;\n   color: #fff;\n}\n.switcheroo .webix_win_head .webix_view .webix_template {\n   background: #657584;\n   color: #fff;\n}\n\n.portal_work_switcheroo_user_switched .webix_view {\n   background: #e64b2a;\n   color: #fff;\n}\n\n.portal_work_switcheroo_user_switched .webix_el_box {\n   color: #fff;\n}\n/* Query Override */\n.wbq-field-box {\n   max-width: 95% !important;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".mainSidebar.webix_sidebar.webix_dark,\n.darkScrollview {\n   background: #444 !important;\n}\n.appDevDesigns {\n   background-color: rgb(68, 68, 68) !important;\n   width: 100%;\n   height: 100%;\n   background-image: url(assets/images/appdev_logo_white.png);\n   background-size: auto 110px;\n   background-repeat: no-repeat;\n   background-position: center;\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_sidebar_icon {\n   margin-right: 15px;\n   color: rgba(255, 255, 255, 0.4);\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_branch_1 {\n   //border-top: 1px solid rgba(255,255,255,0.1);\n   border-bottom: 1px solid rgba(0, 0, 0, 0.4);\n   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1);\n}\n.mainToolbar .webix_icon {\n   margin-top: -2px;\n}\n.mainToolbar.webix_toolbar.webix_dark {\n   background: #333;\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_item:hover {\n   background-color: rgba(0, 0, 0, 0.15);\n}\n.mainSidebar.webix_sidebar.webix_dark\n   .webix_tree_item:hover\n   .webix_sidebar_icon {\n   color: rgba(255, 255, 255, 0.8);\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_item.webix_selected,\n.mainSidebar .webix_tree_item.webix_sidebar_selected {\n   background-color: rgba(0, 0, 0, 0.2);\n   color: #1ca1c1;\n}\n.mainSidebar.webix_sidebar.webix_dark\n   .webix_tree_item.webix_selected\n   .webix_icon {\n   color: #1ca1c1;\n}\n.webix_toolbar.webix_dark .webix_secondary.activePage button {\n   background-color: #1ca1c1 !important;\n}\n.webix_toolbar.webix_dark .userMenu.webix_menu-x .webix_list_item {\n   background-color: transparent;\n   padding: 3px 10px;\n   opacity: 0.7;\n}\n.webix_toolbar.webix_dark .inbox.webix_secondary button {\n   background-color: transparent;\n}\n.webix_toolbar.webix_dark .inbox.webix_secondary button .webix_icon_btn {\n   opacity: 0.7;\n   font-size: 20px;\n}\n.appPages .webix_button {\n   font-size: 14px;\n   color: rgba(255, 255, 255, 0.8) !important;\n}\n.appPages .webix_icon_btn {\n   opacity: 0.4;\n}\n\n/* Styles imported from AppBuilder v1 */\nlabel {\n   font-weight: 500;\n}\n/* Custom Webix Badge */\n.webix_badge {\n   font-size: 8pt;\n   height: 18px;\n   line-height: 18px;\n   min-width: 18px;\n   right: 0;\n}\n/* Custom selectivity */\n.webix_checksuggest_select_all .webix_el_box {\n   height: auto !important;\n}\n.webix_multicombo_tag,\n.webix_multicombo_value {\n   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.3);\n   padding: 0 9pt;\n   border-bottom: 1px solid #fff;\n   margin: 3px 3px 1px;\n   max-height: 27px;\n   overflow: hidden;\n   line-height: 26px;\n   font-weight: normal;\n   color: #475466 !important;\n}\n.badgeContainer {\n   position: relative;\n}\n.webix_tooltip .webix_badge.selectivityBadge {\n   display: none;\n}\n.editConnectedPage {\n   margin-left: -5px;\n   margin-right: 5px;\n   opacity: 0.4;\n}\n.editConnectedPage:hover {\n   opacity: 1;\n   cursor: pointer;\n}\n.webix_tooltip .webix_multicombo_delete {\n   display: none;\n}\n.webix_multicombo_delete:hover:after {\n   color: rgba(0, 0, 0, 0.7);\n}\n.webix_multicombo_delete:hover {\n   transform: scale(1.1);\n}\n.webix_multicombo_delete {\n   margin-right: -7pt;\n}\n.webix_multicombo_delete.clear-combo-value {\n   margin-right: -5px;\n   position: relative;\n   right: 9px;\n   transition: all 0.2s ease-in-out;\n}\n.webix_multicombo_value {\n   display: flex;\n   /* width: 100%; */\n}\n.webix_multicombo_value .ellip {\n   text-overflow: ellipsis;\n   overflow: hidden;\n   white-space: nowrap;\n}\n.webix_cell .webix_multicombo_tag,\n.webix_cell .webix_multicombo_value {\n   line-height: 26px;\n   margin: 4px 1.5px;\n}\n.webix_el_combo .webix_progress_state {\n   font-size: 35px !important;\n}\n.webix_list_item .editConnectedPage {\n   display: none;\n}\n.hascustomcolor {\n   color: white !important;\n   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3) !important;\n}\n.combowithcolors .webix_inp_static {\n   padding-left: 0px;\n}\n.webix_multicombo_delete:after {\n   color: rgba(0, 0, 0, 0.4);\n   text-shadow: none;\n}\n.hideWebixMulticomboTag .webix_multicombo_tag {\n   box-shadow: none;\n   padding: 0;\n   border: 0;\n   margin: 0;\n   background: transparent;\n   border-radius: 0;\n   max-height: none;\n}\n.selectivity-placeholder {\n   text-indent: 10px;\n   color: #666;\n}\n.selectivity-multiple-input-container {\n   background: transparent !important;\n   padding: 0px !important;\n   overflow: hidden !important;\n   max-height: unset;\n   /* border-radius: 6px; */\n}\n.selectivity-single-result-container {\n   left: 2px;\n}\n.selectivity-multiple-selected-item,\n.selectivity-single-selected-item {\n   background: #337ab7 !important;\n   padding: 0 10px;\n   border-radius: 15px !important;\n   color: #fff !important;\n   line-height: 29px;\n   display: inline-block;\n   height: unset !important;\n   margin: 2px;\n   /*max-width: 100px !important;*/\n}\n.selectivity-multiple-input,\ninput[type=\"text\"].selectivity-multiple-input {\n   height: 33px;\n   text-indent: 10px;\n}\n.selectivity-single-selected-item-remove {\n   color: #fff;\n   float: none;\n   padding: 7px 5px 7px 0px;\n}\n.selectivity-multiple-selected-item-edit,\n.selectivity-multiple-selected-item-remove {\n   padding: 5px 0 5px 5px;\n}\n.selectivity-single-selected-item-edit,\n.selectivity-multiple-selected-item-edit,\n.selectivity-single-selected-item-edit:hover,\n.selectivity-multiple-selected-item-edit:hover {\n   color: #fff;\n   cursor: pointer;\n   text-decoration: none !important;\n   background: #1ca1c1;\n   margin-left: -9pt;\n   padding: 5px 5px 5px 10px;\n   margin-right: 5px;\n}\n.customField {\n   line-height: 33px;\n}\n.customField .selectivity-multiple-input-container {\n   border: 1px solid #ccd7e6;\n   /* border-radius: 6px; */\n   margin-right: 4px;\n}\n.readonlyField {\n   background-color: #fff;\n}\n.selectivity-single-select {\n   background: transparent !important;\n}\n.webix_cell .form-entry {\n   border: 0;\n}\n.form-entry {\n   border-radius: 6px;\n   height: 100%;\n   border: 1px solid #ddd;\n   color: #666;\n   background: #fff;\n   border-color: #ccc;\n   margin-right: 2px;\n}\n.form-entry .selectivity-multiple-selected-item {\n   float: none;\n}\n.webix_template .selectivity-single-select {\n   padding: 0;\n   border: 1px solid #ccd7e6;\n   /* border-radius: 6px; */\n   margin-right: 4px;\n}\n.selectivity-single-select input {\n   padding: 0;\n   border: 0;\n}\n.selectivity-single-selected-item {\n   color: #666;\n}\n.selectivity-single-result-container {\n   top: 0em !important;\n}\n.selectivity-caret {\n   top: 0.4em !important;\n}\n.selectivityBadge {\n   top: 6px;\n   right: -5px;\n   background: #aaa;\n}\n.list-data-values,\n.connect-data-values {\n   position: relative;\n}\n\n.ab-app-list-info {\n   float: left;\n   height: 100%;\n}\n.ab-app-list-edit,\n.ab-object-list-edit,\n.ab-page-list-edit {\n   float: right;\n   height: 100%;\n   opacity: 0.6;\n}\n.ab-app-list-edit:hover,\n.ab-object-list-edit:hover,\n.ab-page-list-edit:hover {\n   opacity: 1;\n}\n.ab-app-list-edit .webix_list_item {\n   line-height: 50px;\n}\n.ab-app-list-edit .webix_icon {\n   line-height: 59px;\n}\n.ab-app-list-item {\n   height: 100%;\n   clear: both;\n}\n.ab-app-list-edit .webix_list_item {\n   padding: 10px;\n}\n.ab-app-list-name {\n   font-size: 20px;\n   line-height: 20px;\n   margin-top: 10px;\n}\n.ab-app-list-description {\n   opacity: 0.6;\n}\n\n.webix_list_item .webix_icon {\n   font-size: inherit;\n}\n.webix_list_item .webix_icon.wxi-checkbox-marked {\n   font-size: 20px;\n}\n.emptypane {\n   line-height: auto;\n}\n.opsportal-area-site-default-appbuilder a,\n.webix_view a {\n   opacity: 1;\n}\n.webix_list_item.menu.selected {\n   background: #657584;\n}\n.webix_icon_btn {\n   font-size: 20px;\n}\n.appTitle .webix_el_box {\n   font-size: 20px !important;\n}\n.webix_dark .webix_icon_btn {\n   opacity: 0.4;\n}\n.ab_amp .webix_dark .webix_icon_btn {\n   opacity: 1;\n}\n.webix_el_button button {\n   /* font-size: 14px; */\n}\n.webix_el_button button.webixtype_standard:hover {\n   text-decoration: underline;\n}\n.webix_menu-x .webix_list_item {\n   line-height: 31px;\n}\n.bg-white {\n   background: white;\n}\n.ab-component-tools {\n   position: absolute;\n   top: 2px;\n   right: 33px;\n}\n.ab-component-tools.ab-tab-tools {\n   right: 0;\n   z-index: 100;\n}\n.ab-component-remove,\n.ab-component-edit {\n   width: 31px;\n   height: 31px;\n   display: inline-block;\n   margin-right: 1px;\n   font-size: 18px;\n   text-align: center;\n   line-height: 33px !important;\n   background: #4caf50;\n   color: white;\n   top: -2px;\n   position: relative;\n   overflow: hidden;\n   float: right;\n}\n.ab-component-remove:hover,\n.ab-component-edit:hover {\n   cursor: pointer;\n}\n.ab-component-remove {\n   background: #ff3b30;\n}\n.panel_icon {\n   font-size: 16px;\n   width: 22px;\n   height: 24px;\n   line-height: 24px;\n}\n.webix_fieldset_label {\n   width: auto;\n   margin-bottom: 0;\n   border: 0;\n}\n.ab-widget-header {\n   background: #eee;\n}\n.ab-component-header .webix_el_box {\n   font-size: 24px;\n}\n.ab-component-description .webix_el_box {\n   color: #666;\n}\n.bg_gray {\n   background-color: #ebedf0;\n}\n.webix_dark .webix_sidebar {\n   background-color: transparent;\n}\n.webix_dark .webix_view {\n   background-color: transparent;\n   color: white;\n}\n.ab_amp .webix_dark .webix_view {\n   background-color: white;\n   color: inherit;\n}\n.webix_dark .webix_list-x .webix_list_item {\n   border-right: 0;\n}\n.ab-text .ab-detail-component-holder {\n   line-height: 32px;\n}\n.webix_tree_checkbox {\n   margin: 5px 6px 0 0 !important;\n   height: 14px;\n   width: 14px;\n}\n.ab-menu-left .webix_scroll_cont {\n   text-align: left;\n}\n.ab-menu-right .webix_scroll_cont {\n   text-align: right;\n}\n.ab-menu-center .webix_scroll_cont {\n   text-align: center;\n}\n.ab-menu-link.webix_menu-x .webix_list_item {\n   background: transparent;\n   color: #337ab7;\n   font-weight: bold;\n   padding: 0;\n   margin-right: 15px;\n}\n.ab-menu-link.webix_menu-x .webix_list_item:hover {\n   text-decoration: underline;\n}\n.ab-custom-field {\n   overflow: visible;\n}\n.ab-custom-field .webix_template {\n   padding: 0;\n}\n.ab-custom-field legend {\n   border-bottom: none;\n}\n\n.ab-component-form-rule {\n   background-color: #dcdcdc;\n}\n.ab-main-container .webix_querybuilder_wrap .webix_layout_form,\n.ab-main-container .ab-component-form-rules .webix_layout_form {\n   background: inherit !important;\n}\n.ab-component-form-rules .webix_view {\n   background: transparent !important;\n}\n.ab-component-form-rules {\n   background: #ddd;\n   border-radius: 5px;\n   box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.4);\n   position: relative;\n   overflow: visible;\n}\n.ab-component-form-rules-delete {\n   background: transparent;\n}\n.ab-component-form-rules-delete .ab-component-remove {\n   position: absolute;\n   top: -6px;\n   right: -8px;\n   border-radius: 100%;\n}\n/* Connect object data */\n.ab-connect-add-new a.fa {\n   width: 35px;\n   height: 35px;\n   display: block;\n   float: left;\n   border-radius: 4px;\n   background: #1ca1c1;\n   color: white;\n   opacity: 1;\n   text-align: center;\n   line-height: 35px;\n}\n.ab-connect-add-new a.fa:hover {\n   text-decoration: none;\n   background-color: #1992af;\n}\n.ab-connect-data-info {\n   display: inline-block;\n   width: 90px;\n   white-space: nowrap;\n   overflow: hidden;\n   text-overflow: ellipsis;\n}\n\n.ab-connect-data-disable {\n   background-color: #aaa;\n}\n.stop-scrolling {\n   height: 100%;\n   overflow: hidden;\n}\n.ab-scroll-y {\n   overflow-y: auto !important;\n}\n.ab-ellipses-text,\n.ab-ellipses-text > div {\n   overflow: hidden;\n   white-space: nowrap;\n   text-overflow: ellipsis;\n}\n.webix_dtable .webix_ss_footer .webix_hcell:hover,\n.webix_dtable .webix_ss_header .webix_hcell:hover {\n   border-right-color: #dadee0;\n}\n\n/* Interface Editor */\n.ab-widget-header {\n   background-color: #ddd;\n}\n.ab-widget-header .webix_icon_btn {\n   opacity: 0.7;\n   margin-left: 5px;\n}\n.ab-main-container .widget_drag {\n   position: absolute;\n   z-index: 1;\n   top: 0px;\n   right: 0px;\n   width: 33px;\n   opacity: 1;\n   cursor: move;\n   background-color: #aaa;\n   height: 31px;\n   color: #fff;\n}\n.ab-main-container .widget_drag:hover {\n   opacity: 0.8;\n}\n.ab-main-container .widget_drag .webix_icon {\n   line-height: 28px;\n   width: 33px;\n   height: 33px;\n   text-align: center;\n}\n.webix_el_checkbox .webix_label_right {\n   padding-top: 0;\n}\n.webix_cell .ab-image-data-field {\n   /* pointer-events: none; */\n   padding: 0;\n}\n.ab-image-holder .webix_template {\n   padding: 0;\n}\n.ab-image-data-field {\n   width: 100%;\n   height: 100%;\n}\n.ab-image-data-field-download {\n   position: absolute;\n   left: 0;\n   background-color: #dcdcdc;\n   padding: 3px 1px 1px 1px;\n   opacity: 0.5 !important;\n   text-decoration: none;\n   color: #000;\n}\n.ab-image-data-field-download:hover {\n   opacity: 1 !important;\n   text-decoration: none;\n   color: #000;\n}\n.detailsView .webix_icon:hover,\n.edit .webix_icon:hover,\n.trash .webix_icon:hover {\n   cursor: pointer;\n}\n.ab-layout-header {\n   position: relative;\n}\n.ab-layout-header > .ab-component-tools {\n   right: 0px;\n}\n\n.transparent {\n   background: transparent !important;\n}\n.webix_modal {\n   opacity: 0.8;\n}\n.modal_title .webix_el_box {\n   font-size: 18px;\n}\n.webix_toolbar .webix_el_box {\n   padding: 3px 0;\n}\n/* Loading Screen */\n.ab-loading-screen {\n   background: #000;\n   opacity: 0.7;\n   position: absolute !important;\n}\n.ab-loading-body {\n   background: #000;\n   border-width: 0px !important;\n}\n.ab-loading-message {\n   color: #fff !important;\n   background: #000 !important;\n   font-size: 30px !important;\n   text-align: center;\n   vertical-align: middle;\n   border-width: 0px !important;\n   padding-top: 20% !important;\n   height: 100px !important;\n}\n.ab-loading-button {\n   text-align: center;\n}\n.ab-loading-button button {\n   background-color: #003b7e;\n   width: 200px;\n}\n.ab-loading-cancel-button {\n   text-align: center;\n   background: transparent;\n}\n.ab-loading-cancel-button a {\n   color: #fff !important;\n}\n.ab-loading-screen .webix_progress_bottom {\n   height: 40px !important;\n   opacity: 1;\n}\n.ab-loading-screen .webix_progress_bottom .webix_progress_state {\n   height: 40px !important;\n}\n.webix_menu-x .webix_list_item:last-child {\n   border-top-right-radius: 2px;\n   border-bottom-right-radius: 2px;\n}\n.webix_menu-x .webix_list_item:first-child {\n   border-top-left-radius: 2px;\n   border-bottom-left-radius: 2px;\n}\n.preview_item {\n   background: #999;\n}\n.panel_drag_view {\n   border-width: 0 1px 1px 1px;\n   border-color: 1px solid #dadee0;\n   border-style: solid;\n}\n.panel_drag_view:before {\n   content: \"\";\n   display: block;\n   height: 100%;\n   width: 100%;\n   background: rgb(255, 255, 255);\n   background: linear-gradient(\n      0deg,\n      rgba(255, 255, 255, 1) 15%,\n      rgba(255, 255, 255, 0) 80%\n   );\n   position: absolute;\n   z-index: 1;\n   top: 31px;\n}\n.ab-datacollection-table .ab-component-in-page {\n   text-align: center;\n   line-height: 15px;\n   vertical-align: middle;\n   display: table-cell;\n}\n.ab-datacollection-table .webix_dataview_item {\n   display: table;\n}\n.ab-datacollection-table .fa {\n   color: #337ab7;\n   margin-bottom: 10px;\n}\n.ab-datacollection-table.borderless .webix_dataview_item {\n   border: none;\n}\n.ab-datacollection-table .webix_dataview_item:hover {\n   background: #edeff0;\n   border-radius: 5px;\n}\n.webix_list_item:hover {\n   background: rgba(0, 0, 0, 0.05);\n}\n.webix_all_tabs .webix_item_tab.webix_selected,\n.webix_all_tabs .webix_item_tab.webix_selected:hover,\n.webix_all_tabs .webix_item_tab.webix_selected:active,\n.webix_all_tabs .webix_item_tab.webix_selected:focus {\n   color: white;\n   background: #1ca1c199 !important;\n   box-shadow: inset 0 -3px #1ca1c1;\n}\n.webix_all_tabs .webix_item_tab,\n.webix_el_tabbar .webixtype_bottom .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_icon .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_iconTop .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_image .webix_tab_more_icon {\n   box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);\n   background: #ebedf0;\n}\n.ab-tab-back:hover,\n.ab-tab-next:hover,\n.ab-tab-up:hover,\n.ab-tab-down:hover {\n   cursor: e-resize;\n   opacity: 1;\n}\n.ab-tab-back:hover {\n   cursor: w-resize;\n}\n.ab-tab-up:hover {\n   cursor: n-resize;\n   opacity: 1;\n}\n.ab-tab-down:hover {\n   cursor: s-resize;\n}\n.ab-tab-back,\n.ab-tab-next,\n.ab-tab-up,\n.ab-tab-down {\n   float: left;\n   margin-left: 10px;\n   background: #1ca1c1;\n   opacity: 0.8;\n   width: 20px;\n   height: 20px;\n   border-radius: 10px;\n   line-height: 18px;\n   padding-right: 2px;\n   color: white;\n}\n.ab-tab-edit {\n   opacity: 0.4;\n}\n.ab-tab-edit:hover {\n   opacity: 1;\n}\n.ab-tab-next {\n   float: right;\n   margin-right: 10px;\n   padding-left: 6px;\n}\n.ab-tab-up,\n.ab-tab-down {\n   float: right;\n   margin: 12px -2px 12px 15px;\n   padding-left: 6px;\n}\n.webix_all_tabs div:nth-child(1) .ab-tab-back {\n   display: none;\n}\n.webix_all_tabs div:nth-last-child(1) .ab-tab-next {\n   display: none;\n}\n.webix_tab_filler:nth-last-child(1) {\n   width: 17px !important;\n}\n.ab-tabview-scrollview {\n   /* margin-top: -1px; */\n}\n.ab-tabIconContainer {\n   display: inline-block;\n}\n\n.webix_view.webix_control.webix_el_tabbar.webix_dark {\n   background: #4a4e58;\n}\n.webix_el_tabbar.webix_dark .webix_all_tabs .webix_item_tab {\n   background: transparent;\n   color: white;\n}\n.webix_el_tabbar.webix_dark .webix_all_tabs .webix_item_tab:hover {\n   background: rgba(0, 0, 0, 0.1);\n}\n.webix_sidebar.webix_dark .webix_tree_item.webix_selected span {\n   color: white;\n}\n.webix_sidebar.webix_dark\n   .webix_tree_item.webix_selected\n   span.webix_sidebar_icon {\n   color: inherit;\n}\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_inp_counter_next,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_inp_counter_prev,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_menu-x .webix_list_item,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_0,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_1,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_N,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_base,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_next,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_prev {\n   border-color: rgba(0, 0, 0, 0.1);\n}\n.webix_tree_none {\n   /* display: none; */\n}\n.ab-background-lightgray {\n   background: #c0c5cc;\n}\n.ab-background-gray {\n   background: #475466;\n}\n.ab-background-gray::before {\n   content: \"\";\n   background: #475466;\n   display: block;\n   position: absolute;\n   left: 0;\n   width: 100%;\n   height: 100vh;\n}\n.ab-background-gray .webix_view.webix_layout_form {\n   background: transparent;\n}\n.webix_carousel .image {\n   background: #333;\n}\n.webix_nav_panel .webix_nav_item {\n   box-sizing: border-box;\n}\n.ab-carousel-image-container {\n   position: relative;\n   height: 100%;\n}\n.ab-carousel-image-container img {\n   width: 100%;\n   height: 100%;\n   object-fit: contain;\n}\n.ab-carousel-image-title {\n   position: absolute;\n   top: 0;\n   left: 0;\n   font-size: 18px;\n   padding: 4px;\n   background: rgba(0, 0, 0, 0.4);\n   border-bottom-right-radius: 8px;\n   color: #fff;\n}\n.ab-carousel-image-icon {\n   position: absolute;\n   top: 0px;\n   right: 0px;\n   font-size: 20px;\n   border-bottom-left-radius: 8px;\n   background: rgba(255, 255, 255, 0.4);\n}\n.ab-carousel-image-icon span {\n   opacity: 0.6;\n   margin: 6px;\n}\n.ab-carousel-image-icon span:hover {\n   opacity: 1;\n   cursor: pointer;\n}\n.webix_carousel.fullscreen .ab-carousel-fullscreen {\n   display: none;\n}\n.ab-detail-view .webix_accordionitem {\n   border-radius: 5px;\n   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;\n   border-color: transparent;\n}\n.ab-detail-page.ab-detail-hover .webix_accordionitem:hover {\n   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px 0px;\n}\n.ab-detail-page .webix_accordionitem:hover .webix_accordionitem_body:after {\n   background: #1da1c14f;\n   width: 100%;\n   height: 100%;\n   display: block;\n   position: absolute;\n   cursor: pointer;\n   top: 0;\n   font-family: \"FontAwesome\";\n   content: \"\";\n   color: white;\n   text-align: center;\n   font-size: 72px;\n   vertical-align: middle;\n}\n.ab-edit-page .webix_accordionitem:hover {\n   position: relative;\n}\n.ab-edit-page .webix_accordionitem:hover .webix_accordionitem_header {\n   display: block !important;\n   position: absolute;\n   right: 0;\n   top: 0;\n   border: 0;\n   z-index: 1;\n   border-bottom-left-radius: 10px;\n}\n.ab-edit-page\n   .webix_accordionitem:hover\n   .webix_accordionitem_header\n   .webix_accordionitem_button:before {\n   content: \"\\f013\";\n   font-family: \"FontAwesome\";\n   color: #94a1b3;\n}\n.ab-edit-page.ab-detail-page\n   .webix_accordionitem:hover\n   .webix_accordionitem_header\n   .webix_accordionitem_button:before {\n   color: white;\n}\n.ab-edit-page\n   .webix_accordionitem\n   .webix_accordionitem_header:hover\n   .webix_accordionitem_button:before {\n   color: #94a1b3 !important;\n}\n.ab-custom-template .webix_template {\n   padding: 10px;\n}\n\n.image-data-field-image {\n   position: relative;\n   border: 5px solid white;\n   background-size: cover;\n   background-position: center;\n}\n.ab-delete-photo {\n   position: absolute;\n   top: 0;\n   right: 0;\n}\n.hasDataCollection {\n   color: #1ca1c1;\n   margin: 5px;\n   position: absolute;\n   right: 0;\n   background: white;\n}\n.sidebarCustomIcon {\n   font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n   font-size: 12px !important;\n   background: #94a1b3 !important;\n   border-radius: 100%;\n   width: 20px !important;\n   height: 20px;\n   line-height: 20px;\n   color: #fff !important;\n   font-weight: bold;\n   vertical-align: unset !important;\n}\n.webix_dark .sidebarCustomIcon {\n   color: #4a4e58 !important;\n}\n.webix_dark .webix_selected .sidebarCustomIcon {\n   background: #1ca1c1 !important;\n   color: #4a4e58 !important;\n}\n.webix_selected .sidebarCustomIcon {\n   color: #fff !important;\n   background: #1ca1c1 !important;\n}\n\n/* FormBuilder Clases */\n.formbuilder {\n   padding: 20px;\n}\n.card-header .btn {\n   color: #333;\n}\n.card {\n   position: relative;\n   display: -ms-flexbox;\n   display: flex;\n   -ms-flex-direction: column;\n   flex-direction: column;\n   min-width: 0;\n   word-wrap: break-word;\n   background-color: #fff;\n   background-clip: border-box;\n   border: 1px solid rgba(0, 0, 0, 0.125);\n   border-radius: 0.25rem;\n}\n\n.card > hr {\n   margin-right: 0;\n   margin-left: 0;\n}\n\n.card > .list-group:first-child .list-group-item:first-child {\n   border-top-left-radius: 0.25rem;\n   border-top-right-radius: 0.25rem;\n}\n\n.card > .list-group:last-child .list-group-item:last-child {\n   border-bottom-right-radius: 0.25rem;\n   border-bottom-left-radius: 0.25rem;\n}\n\n.card-body {\n   -ms-flex: 1 1 auto;\n   flex: 1 1 auto;\n   min-height: 1px;\n   padding: 1.25rem;\n}\n\n.card-title {\n   margin-bottom: 0.75rem;\n}\n\n.card-subtitle {\n   margin-top: -0.375rem;\n   margin-bottom: 0;\n}\n\n.card-text:last-child {\n   margin-bottom: 0;\n}\n\n.card-link:hover {\n   text-decoration: none;\n}\n\n.card-link + .card-link {\n   margin-left: 1.25rem;\n}\n\n.card-header {\n   padding: 0.75rem 1.25rem;\n   margin-bottom: 0;\n   background-color: rgba(0, 0, 0, 0.03);\n   border-bottom: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-header:first-child {\n   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;\n}\n\n.card-header + .list-group .list-group-item:first-child {\n   border-top: 0;\n}\n\n.card-footer {\n   padding: 0.75rem 1.25rem;\n   background-color: rgba(0, 0, 0, 0.03);\n   border-top: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-footer:last-child {\n   border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);\n}\n\n.card-header-tabs {\n   margin-right: -0.625rem;\n   margin-bottom: -0.75rem;\n   margin-left: -0.625rem;\n   border-bottom: 0;\n}\n\n.card-header-pills {\n   margin-right: -0.625rem;\n   margin-left: -0.625rem;\n}\n\n.card-img-overlay {\n   position: absolute;\n   top: 0;\n   right: 0;\n   bottom: 0;\n   left: 0;\n   padding: 1.25rem;\n}\n\n.card-img,\n.card-img-bottom,\n.card-img-top {\n   -ms-flex-negative: 0;\n   flex-shrink: 0;\n   width: 100%;\n}\n\n.card-img,\n.card-img-top {\n   border-top-left-radius: calc(0.25rem - 1px);\n   border-top-right-radius: calc(0.25rem - 1px);\n}\n\n.card-img,\n.card-img-bottom {\n   border-bottom-right-radius: calc(0.25rem - 1px);\n   border-bottom-left-radius: calc(0.25rem - 1px);\n}\n\n.card-deck .card {\n   margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n   .card-deck {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-flow: row wrap;\n      flex-flow: row wrap;\n      margin-right: -15px;\n      margin-left: -15px;\n   }\n   .card-deck .card {\n      -ms-flex: 1 0 0%;\n      flex: 1 0 0%;\n      margin-right: 15px;\n      margin-bottom: 0;\n      margin-left: 15px;\n   }\n}\n\n.card-group > .card {\n   margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n   .card-group {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-flow: row wrap;\n      flex-flow: row wrap;\n   }\n   .card-group > .card {\n      -ms-flex: 1 0 0%;\n      flex: 1 0 0%;\n      margin-bottom: 0;\n   }\n   .card-group > .card + .card {\n      margin-left: 0;\n      border-left: 0;\n   }\n   .card-group > .card:not(:last-child) {\n      border-top-right-radius: 0;\n      border-bottom-right-radius: 0;\n   }\n   .card-group > .card:not(:last-child) .card-header,\n   .card-group > .card:not(:last-child) .card-img-top {\n      border-top-right-radius: 0;\n   }\n   .card-group > .card:not(:last-child) .card-footer,\n   .card-group > .card:not(:last-child) .card-img-bottom {\n      border-bottom-right-radius: 0;\n   }\n   .card-group > .card:not(:first-child) {\n      border-top-left-radius: 0;\n      border-bottom-left-radius: 0;\n   }\n   .card-group > .card:not(:first-child) .card-header,\n   .card-group > .card:not(:first-child) .card-img-top {\n      border-top-left-radius: 0;\n   }\n   .card-group > .card:not(:first-child) .card-footer,\n   .card-group > .card:not(:first-child) .card-img-bottom {\n      border-bottom-left-radius: 0;\n   }\n}\n\n.card-columns .card {\n   margin-bottom: 0.75rem;\n}\n\n@media (min-width: 576px) {\n   .card-columns {\n      -webkit-column-count: 3;\n      -moz-column-count: 3;\n      column-count: 3;\n      -webkit-column-gap: 1.25rem;\n      -moz-column-gap: 1.25rem;\n      column-gap: 1.25rem;\n      orphans: 1;\n      widows: 1;\n   }\n   .card-columns .card {\n      display: inline-block;\n      width: 100%;\n   }\n}\n\n.accordion > .card {\n   overflow: hidden;\n}\n\n.accordion > .card:not(:last-of-type) {\n   border-bottom: 0;\n   border-bottom-right-radius: 0;\n   border-bottom-left-radius: 0;\n}\n\n.accordion > .card:not(:first-of-type) {\n   border-top-left-radius: 0;\n   border-top-right-radius: 0;\n}\n\n.accordion > .card > .card-header {\n   border-radius: 0;\n   margin-bottom: -1px;\n}\n.form-builder-group-header {\n   padding: 0;\n}\n.formio .btn:hover,\n.btn:focus {\n   background-position: 0 0 !important;\n}\n.mb-0,\n.my-0 {\n   margin-bottom: 0 !important;\n}\n.mt-0,\n.my-0 {\n   margin-top: 0 !important;\n}\n.scrolly {\n   overflow: scroll;\n}\n.forceOpen {\n   display: block !important;\n}\n.formio .btn-secondary,\n.formio-dialog .btn-secondary {\n   color: #333;\n}\n.formio-dialog a,\n.formio a {\n   opacity: 1 !important;\n}\n.component-settings .nav > li > a {\n   margin-bottom: -7px;\n}\n.formio-form .input-group {\n   display: flex;\n}\n.formio-form .input-group-append {\n   margin-left: -1px;\n}\n.formio-form .input-group-append,\n.formio-form .input-group-prepend {\n   display: -ms-flexbox;\n   display: flex;\n}\n.formio-form .input-group-text {\n   display: -ms-flexbox;\n   display: flex;\n   -ms-flex-align: center;\n   align-items: center;\n   padding: 0.375rem 0.75rem;\n   margin-bottom: 0;\n   font-size: 1rem;\n   font-weight: 400;\n   line-height: 1.5;\n   color: #495057;\n   text-align: center;\n   white-space: nowrap;\n   background-color: #e9ecef;\n   border: 1px solid #ced4da;\n   border-radius: 0.25rem;\n}\n.formio-form .input-group > .input-group-append > .btn,\n.formio-form .input-group > .input-group-append > .input-group-text,\n.formio-form\n   .input-group\n   > .input-group-prepend:first-child\n   > .btn:not(:first-child),\n.formio-form\n   .input-group\n   > .input-group-prepend:first-child\n   > .input-group-text:not(:first-child),\n.formio-form .input-group > .input-group-prepend:not(:first-child) > .btn,\n.formio-form\n   .input-group\n   > .input-group-prepend:not(:first-child)\n   > .input-group-text {\n   border-top-left-radius: 0;\n   border-bottom-left-radius: 0;\n}\n.formio-form .nav-tabs > li {\n   margin-bottom: -8px;\n}\n.formio-dialog .formio-form .nav-tabs > li {\n   margin-bottom: -1px;\n}\n.max100 {\n   max-width: 100%;\n}\n.webix_qb_buttons button {\n   height: auto;\n}\n.no-margin {\n   margin: 0 !important;\n}\n.ab_amp .fa-stack {\n   font-size: 0.65em;\n}\n.ab_amp i {\n   vertical-align: middle;\n}\n.ab_amp.lightgray {\n   background: #eee;\n}\n.ab_amp .webixLineTree:hover {\n   cursor: pointer;\n}\n.ab_amp .accessLevel .fa-stack {\n   vertical-align: top;\n   margin-top: 3px;\n}\n.ab_amp .accessLevel:hover .fa-stack {\n   transform: scale(1.25, 1.25);\n}\n.ab_amp .externalLink {\n   color: #ccc;\n   float: right;\n   margin-top: 5px;\n}\n.ab_amp .externalLink:hover {\n   color: #666 !important;\n}\n.ab_amp .webix_accordionitem .webix_accordionitem_button,\n.ab_amp .webix_accordionitem.collapsed .webix_accordionitem_button {\n   float: left !important;\n}\n.ab_amp .webix_accordionitem .webix_accordionitem_button {\n   transform: rotate(180deg);\n}\n.ab_amp .webix_accordionitem.collapsed .webix_accordionitem_button {\n   transform: rotate(-90deg);\n}\n.ab_amp .webix_accordionitem_header {\n   background-color: #1ca1c1 !important;\n}\n.ab_amp .webix_accordionitem_header.collapsed {\n   background-color: white !important;\n}\n.ab_amp .webix_danger_inverse button {\n   border: 1px solid #ff4938;\n   color: #ff4938;\n   background: white;\n}\n.ab_amp .webix_danger_inverse .webix_icon_btn {\n   color: #ff4938;\n}\n.ab_amp .webix_danger_inverse:hover button {\n   background-color: #ff4938;\n   color: #fff;\n}\n.ab_amp .webix_danger_inverse:hover .webix_icon_btn {\n   color: #fff;\n}\ndiv.amp {\n   font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n   background: rgb(28, 161, 193, 0.4);\n   /* padding: 5px 0; */\n   display: inline-block;\n   right: 0;\n   top: 75px;\n   border-top-left-radius: 10px;\n   border-bottom-left-radius: 10px;\n   color: white;\n   font-size: 16px;\n   transition: 0.25s all;\n   position: absolute;\n   width: 40px;\n   white-space: nowrap;\n   overflow: hidden;\n   height: 32px;\n   z-index: 100;\n   display: flex;\n}\ndiv.amp.qtt {\n   top: 108px;\n}\ndiv.amp div {\n   padding: 5px 10px;\n}\ndiv.amp div:first-child {\n   background: rgba(255, 255, 255, 0.2);\n   border-right: 1px solid rgba(255, 255, 255, 0.4);\n   padding: 5px 10px;\n}\ndiv.amp:hover {\n   width: 212px !important;\n   cursor: pointer;\n   background: rgb(28, 161, 193) !important;\n}\ndiv.amp:hover .fa-unlock-alt {\n   display: inline-block !important;\n}\ndiv.amp:hover .fa-lock {\n   display: none !important;\n}\ndiv.amp .fa-unlock-alt,\ndiv.amp .fa-lock,\ndiv.amp .fa-language {\n   transform: scale(1.25, 1.25);\n   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);\n}\ndiv.amp .fa-unlock-alt {\n   display: none;\n}\n.ampWindow .webix_toolbar.webix_dark {\n   background: #444 !important;\n}\n/* .accessLevel-0::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(233, 30, 30, 0.4);\n   display: block;\n   position: absolute;\n}\n.accessLevel-1::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(33, 150, 243, 0.4);\n   display: block;\n   position: absolute;\n}\n.accessLevel-2::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(76, 175, 80, 0.4);\n   display: block;\n   position: absolute;\n} */\n.ab-csv-importer .row-pass {\n   background-color: #b4e8b6;\n}\n.ab-csv-importer .row-fail {\n   background-color: #e4b0ad;\n}\n.ab-csv-importer .row-warn {\n   background-color: #f9d59f;\n}\n.ab-csv-importer .cell-invalid {\n   background-color: #e9ab4d;\n}\n.transparentBG .webix_el_tabbar + .webix_multiview {\n   background: transparent !important;\n}\n.webix_hcell .fa {\n   opacity: 0.4;\n}\n.ab-widget-header .webix_template {\n   padding: 0 10px;\n}\n.ab-layout-header .webix_template {\n   padding: 0;\n   line-height: 30px;\n}\n.ab-widget-header .webix_template div {\n   line-height: 30px;\n}\n.ab-widget-header .webix_template div .fa,\n.ab-layout-header .fa {\n   vertical-align: middle;\n}\n#offlinePrompt,\n#connectionPrompt {\n   line-height: 30px;\n   color: white;\n   background: #f44336;\n   font-size: 14px;\n   text-align: center;\n   transition: all 1s;\n   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);\n   overflow: hidden;\n}\n#connectionPrompt {\n   background: #f44336;\n}\n#countdown {\n   height: 20px;\n   width: 20px;\n   text-align: center;\n   display: inline-block;\n   line-height: 20px;\n   position: relative;\n   bottom: 2px;\n   font-size: 9px;\n}\n\n#countdown-number {\n   color: white;\n   display: inline-block;\n   width: 20px;\n   height: 20px;\n}\n\n#countdown svg {\n   width: 20px;\n   height: 20px;\n   transform: rotateY(-180deg) rotateZ(-90deg);\n   position: absolute;\n   margin-left: -20px;\n}\n\n#countdown svg circle {\n   stroke-dasharray: 56px;\n   stroke-dashoffset: 0px;\n   stroke-linecap: round;\n   stroke-width: 2px;\n   stroke: white;\n   fill: none;\n   animation: countdown 30s linear infinite forwards;\n}\n\n@keyframes countdown {\n   from {\n      stroke-dashoffset: 0px;\n   }\n   to {\n      stroke-dashoffset: 56px;\n   }\n}\n#reloadPrompt {\n   position: absolute;\n   z-index: 200000;\n   top: 0;\n   bottom: 0;\n   left: 0;\n   right: 0;\n   background: rgba(0, 0, 0, 0.7);\n   display: flex;\n}\n#reloadPrompt div {\n   background: #f44336;\n   width: 250px;\n   border: 3px solid white;\n   margin: auto auto;\n   padding: 20px;\n   text-align: center;\n   border-radius: 10px;\n   color: white;\n   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);\n}\n.reloadPage {\n   background: rgba(0, 0, 0, 0.2);\n   border: none;\n   padding: 5px 10px;\n   border-radius: 5px;\n   margin-top: 10px;\n}\n.reloadPage:hover {\n   background: rgba(0, 0, 0, 0.4);\n}\n.webix_warn .webix_button {\n   background: #ff9800 !important;\n   color: #fff !important;\n}\n.webix_dark .webix_inp_bottom_label {\n   color: lightgray;\n   font-style: oblique;\n}\n.no-margin {\n   margin: 0;\n}\n.inbox_drawer.webix_toolbar.webix_dark .webix_secondary button,\n.mainToolbar.webix_toolbar.webix_dark .webix_secondary button {\n   background-color: transparent;\n}\n.inbox_drawer.webix_toolbar.webix_dark .webix_secondary button:hover,\n.mainToolbar.webix_toolbar.webix_dark .webix_secondary button:hover {\n   background-color: rgba(0, 0, 0, 0.2);\n}\n/* Login Page */\n.portalLogin {\n   /* opacity: 0; */\n   background: #ebedf0;\n   background: linear-gradient(\n      0deg,\n      rgba(171, 171, 171, 1) 0%,\n      rgba(235, 237, 240, 1) 100%\n   );\n   /* -webkit-animation: 1s ease 0s normal forwards 1 fadein;\n   animation: 1s ease 0s normal forwards 1 fadein; */\n}\n.portalLoginForm {\n   opacity: 0;\n   -webkit-animation: 1s ease 0s normal forwards 1 fadein;\n   animation: 1s ease 0s normal forwards 1 fadein;\n   background: white;\n   border-radius: 30px;\n   box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);\n   position: relative;\n   top: -20px;\n   transform: scale(1.2);\n}\n.portalLogin .webix_view {\n   overflow: visible;\n   display: inline-block;\n}\ndiv.webix_dataview_item.webix_transparent {\n   padding: 0px;\n}\n@keyframes fadein {\n   0% {\n      opacity: 0;\n      top: -20px;\n      transform: scale(1.1);\n      box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);\n   }\n   100% {\n      opacity: 1;\n      top: 0;\n      transform: scale(1);\n      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);\n   }\n}\n\n@-webkit-keyframes fadein {\n   0% {\n      opacity: 0;\n   }\n   100% {\n      opacity: 1;\n   }\n}\n.ab-connect-add-new-link .webix_icon_btn {\n   margin-right: 0;\n}\n.image-data-field-icon {\n   border: 2px dashed rgba(0, 0, 0, 0.3);\n   border-radius: 10px;\n   padding: 5px;\n   display: flex;\n   flex-direction: row;\n   text-align: center;\n   justify-content: center;\n   align-items: center;\n   line-height: 12px;\n   font-size: 10px;\n   color: rgba(0, 0, 0, 0.5);\n   margin: 5px;\n   height: calc(100% - 10px);\n   overflow: hidden;\n}\n.webix_cell > .ab-image-data-field {\n   margin-left: -12px;\n}\n.ab-delete-photo {\n   background: red;\n   color: white;\n   font-size: 10px;\n   text-align: center;\n   line-height: 20px;\n   width: 20px;\n   height: 20px;\n   border-radius: 10px;\n   top: -3px;\n   right: -3px;\n   transition: all 0.25s;\n}\n.ab-delete-photo:hover {\n   color: white;\n   font-size: 14px;\n}\n.webix_transparent .webix_button .webix_icon,\n.webix_transparent .webix_button .webix_icon_btn {\n   color: #1ca1c1;\n}\n.webix_icon_btn {\n   margin-right: 0 !important;\n   vertical-align: baseline;\n}\n.webix_list_icon.webix_icon {\n   vertical-align: baseline;\n}\n.webix_list_item.menu {\n   color: inherit;\n}\n.ab-datacollection-list-item {\n   position: relative;\n}\n.ab-object-list-item {\n   position: relative;\n}\n.ab-object-list-edit {\n   position: absolute;\n   right: 0;\n   top: 0;\n}\n.webix_el_label.formText .webix_el_box {\n   font-weight: normal;\n}\n\n.switcheroo .webix_win_head .webix_layout_line {\n   background: #657584;\n   color: #fff;\n}\n.switcheroo .webix_win_head .webix_view .webix_template {\n   background: #657584;\n   color: #fff;\n}\n\n.portal_work_switcheroo_user_switched .webix_view {\n   background: #e64b2a;\n   color: #fff;\n}\n\n.portal_work_switcheroo_user_switched .webix_el_box {\n   color: #fff;\n}\n/* Query Override */\n.wbq-field-box {\n   max-width: 95% !important;\n}\n/* Tutorial Manager */\n.highlightMe,\n.findDataCy [data-cy] {\n   position: relative !important;\n}\n.highlightMe:before,\n.findDataCy [data-cy]:hover:before {\n   content: \"\" !important;\n   width: 100% !important;\n   height: 100% !important;\n   border: 2px solid red !important;\n   border-style: inset !important;\n   position: absolute !important;\n   top: 0 !important;\n   left: 0 !important;\n   cursor: help !important;\n}\ninput.highlightMe,\ntextarea.highlightMe,\nbutton.highlightMe,\n.findDataCy input[data-cy]:hover,\n.findDataCy textarea[data-cy]:hover,\n.findDataCy button[data-cy]:hover {\n   border: 2px solid red !important;\n   border-style: inset !important;\n   cursor: help !important;\n}\n.hintItem {\n   position: relative;\n   overflow: visible !important;\n   margin: 10px;\n   padding: 10px;\n   border: 1px solid #efefef;\n   border-radius: 5px;\n   background: rgba(0, 0, 0, 0.05);\n}\n.hintItem:hover {\n   background: #efefef;\n}\n.hintItem h1 {\n   font-size: 18px;\n   padding: 0;\n   margin: 0;\n}\n.hintItem p {\n   margin: 0;\n   font-size: 14px;\n   line-height: 18px;\n   color: #6c757d;\n   overflow: hidden;\n   text-overflow: ellipsis;\n   display: -webkit-box;\n   -webkit-line-clamp: 2;\n   -webkit-box-orient: vertical;\n}\n.deleteHint,\n.deleteStep {\n   position: absolute;\n   right: -5px;\n   top: -5px;\n   background: red;\n   color: white;\n   width: 20px;\n   height: 20px;\n   line-height: 20px;\n   text-align: center;\n   border-radius: 10px;\n}\n.deleteHint:hover,\n.deleteStep:hover {\n   transform: scale(1.1);\n   cursor: pointer;\n}\n.deleteStep {\n   right: 25px;\n}\n.active0 {\n   opacity: 0.4;\n}\n.highlightWin {\n   font-size: 18px;\n   text-align: center;\n}\n.stepPos {\n   font-size: 20px;\n   width: 35px;\n   height: 35px;\n   margin: 0 auto;\n   background: #657584;\n   line-height: 35px;\n   text-align: center;\n   color: white;\n   border-radius: 100%;\n}\n.wider_popup {\n   width: 250px !important;\n}\n.wider_popup .webix_list_item {\n   white-space: nowrap;\n   overflow: hidden;\n   text-overflow: ellipsis;\n}\n.webix_hint {\n   padding-bottom: 60px !important;\n}\n.dontShow {\n   font-size: 12px;\n   font-weight: normal;\n   font-style: italic;\n   display: block;\n   padding: 0;\n   margin: 15px 0 0 0;\n}\n.dontShow input {\n   vertical-align: text-top;\n}\n", "",{"version":3,"sources":["webpack://./styles/ui.css"],"names":[],"mappings":"AAAA;;GAEG,2BAA2B;AAC9B;AACA;GACG,4CAA4C;GAC5C,WAAW;GACX,YAAY;GACZ,0DAA0D;GAC1D,2BAA2B;GAC3B,4BAA4B;GAC5B,2BAA2B;AAC9B;AACA;GACG,kBAAkB;GAClB,+BAA+B;AAClC;AACA;GACG,6CAA6C;GAC7C,2CAA2C;GAC3C,gDAAgD;AACnD;AACA;GACG,gBAAgB;AACnB;AACA;GACG,gBAAgB;AACnB;AACA;GACG,qCAAqC;AACxC;AACA;;;GAGG,+BAA+B;AAClC;AACA;;GAEG,oCAAoC;GACpC,cAAc;AACjB;AACA;;;GAGG,cAAc;AACjB;AACA;GACG,oCAAoC;AACvC;AACA;GACG,6BAA6B;GAC7B,iBAAiB;GACjB,YAAY;AACf;AACA;GACG,6BAA6B;AAChC;AACA;GACG,YAAY;GACZ,eAAe;AAClB;AACA;GACG,eAAe;GACf,0CAA0C;AAC7C;AACA;GACG,YAAY;AACf;;AAEA,uCAAuC;AACvC;GACG,gBAAgB;AACnB;AACA,uBAAuB;AACvB;GACG,cAAc;GACd,YAAY;GACZ,iBAAiB;GACjB,eAAe;GACf,QAAQ;AACX;AACA,uBAAuB;AACvB;GACG,uBAAuB;AAC1B;AACA;;GAEG,gDAAgD;GAChD,cAAc;GACd,6BAA6B;GAC7B,mBAAmB;GACnB,gBAAgB;GAChB,gBAAgB;GAChB,iBAAiB;GACjB,mBAAmB;GACnB,yBAAyB;AAC5B;AACA;GACG,kBAAkB;AACrB;AACA;GACG,aAAa;AAChB;AACA;GACG,iBAAiB;GACjB,iBAAiB;GACjB,YAAY;AACf;AACA;GACG,UAAU;GACV,eAAe;AAClB;AACA;GACG,aAAa;AAChB;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,qBAAqB;AACxB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,kBAAkB;GAClB,kBAAkB;GAClB,UAAU;GACV,gCAAgC;AACnC;AACA;GACG,aAAa;GACb,iBAAiB;AACpB;AACA;GACG,uBAAuB;GACvB,gBAAgB;GAChB,mBAAmB;AACtB;AACA;;GAEG,iBAAiB;GACjB,iBAAiB;AACpB;AACA;GACG,0BAA0B;AAC7B;AACA;GACG,aAAa;AAChB;AACA;GACG,uBAAuB;GACvB,sDAAsD;AACzD;AACA;GACG,iBAAiB;AACpB;AACA;GACG,yBAAyB;GACzB,iBAAiB;AACpB;AACA;GACG,gBAAgB;GAChB,UAAU;GACV,SAAS;GACT,SAAS;GACT,uBAAuB;GACvB,gBAAgB;GAChB,gBAAgB;AACnB;AACA;GACG,iBAAiB;GACjB,WAAW;AACd;AACA;GACG,kCAAkC;GAClC,uBAAuB;GACvB,2BAA2B;GAC3B,iBAAiB;GACjB,wBAAwB;AAC3B;AACA;GACG,SAAS;AACZ;AACA;;GAEG,8BAA8B;GAC9B,eAAe;GACf,8BAA8B;GAC9B,sBAAsB;GACtB,iBAAiB;GACjB,qBAAqB;GACrB,wBAAwB;GACxB,WAAW;GACX,+BAA+B;AAClC;AACA;;GAEG,YAAY;GACZ,iBAAiB;AACpB;AACA;GACG,WAAW;GACX,WAAW;GACX,wBAAwB;AAC3B;AACA;;GAEG,sBAAsB;AACzB;AACA;;;;GAIG,WAAW;GACX,eAAe;GACf,gCAAgC;GAChC,mBAAmB;GACnB,iBAAiB;GACjB,yBAAyB;GACzB,iBAAiB;AACpB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,yBAAyB;GACzB,wBAAwB;GACxB,iBAAiB;AACpB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,kCAAkC;AACrC;AACA;GACG,SAAS;AACZ;AACA;GACG,kBAAkB;GAClB,YAAY;GACZ,sBAAsB;GACtB,WAAW;GACX,gBAAgB;GAChB,kBAAkB;GAClB,iBAAiB;AACpB;AACA;GACG,WAAW;AACd;AACA;GACG,UAAU;GACV,yBAAyB;GACzB,wBAAwB;GACxB,iBAAiB;AACpB;AACA;GACG,UAAU;GACV,SAAS;AACZ;AACA;GACG,WAAW;AACd;AACA;GACG,mBAAmB;AACtB;AACA;GACG,qBAAqB;AACxB;AACA;GACG,QAAQ;GACR,WAAW;GACX,gBAAgB;AACnB;AACA;;GAEG,kBAAkB;AACrB;;AAEA;GACG,WAAW;GACX,YAAY;AACf;AACA;;;GAGG,YAAY;GACZ,YAAY;GACZ,YAAY;AACf;AACA;;;GAGG,UAAU;AACb;AACA;GACG,iBAAiB;AACpB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,YAAY;GACZ,WAAW;AACd;AACA;GACG,aAAa;AAChB;AACA;GACG,eAAe;GACf,iBAAiB;GACjB,gBAAgB;AACnB;AACA;GACG,YAAY;AACf;;AAEA;GACG,kBAAkB;AACrB;AACA;GACG,eAAe;AAClB;AACA;GACG,iBAAiB;AACpB;AACA;;GAEG,UAAU;AACb;AACA;GACG,mBAAmB;AACtB;AACA;GACG,eAAe;AAClB;AACA;GACG,0BAA0B;AAC7B;AACA;GACG,YAAY;AACf;AACA;GACG,UAAU;AACb;AACA;GACG,qBAAqB;AACxB;AACA;GACG,0BAA0B;AAC7B;AACA;GACG,iBAAiB;AACpB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,kBAAkB;GAClB,QAAQ;GACR,WAAW;AACd;AACA;GACG,QAAQ;GACR,YAAY;AACf;AACA;;GAEG,WAAW;GACX,YAAY;GACZ,qBAAqB;GACrB,iBAAiB;GACjB,eAAe;GACf,kBAAkB;GAClB,4BAA4B;GAC5B,mBAAmB;GACnB,YAAY;GACZ,SAAS;GACT,kBAAkB;GAClB,gBAAgB;GAChB,YAAY;AACf;AACA;;GAEG,eAAe;AAClB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,eAAe;GACf,WAAW;GACX,YAAY;GACZ,iBAAiB;AACpB;AACA;GACG,WAAW;GACX,gBAAgB;GAChB,SAAS;AACZ;AACA;GACG,gBAAgB;AACnB;AACA;GACG,eAAe;AAClB;AACA;GACG,WAAW;AACd;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,6BAA6B;AAChC;AACA;GACG,6BAA6B;GAC7B,YAAY;AACf;AACA;GACG,uBAAuB;GACvB,cAAc;AACjB;AACA;GACG,eAAe;AAClB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,8BAA8B;GAC9B,YAAY;GACZ,WAAW;AACd;AACA;GACG,gBAAgB;AACnB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,uBAAuB;GACvB,cAAc;GACd,iBAAiB;GACjB,UAAU;GACV,kBAAkB;AACrB;AACA;GACG,0BAA0B;AAC7B;AACA;GACG,iBAAiB;AACpB;AACA;GACG,UAAU;AACb;AACA;GACG,mBAAmB;AACtB;;AAEA;GACG,yBAAyB;AAC5B;AACA;;GAEG,8BAA8B;AACjC;AACA;GACG,kCAAkC;AACrC;AACA;GACG,gBAAgB;GAChB,kBAAkB;GAClB,oDAAoD;GACpD,kBAAkB;GAClB,iBAAiB;AACpB;AACA;GACG,uBAAuB;AAC1B;AACA;GACG,kBAAkB;GAClB,SAAS;GACT,WAAW;GACX,mBAAmB;AACtB;AACA,wBAAwB;AACxB;GACG,WAAW;GACX,YAAY;GACZ,cAAc;GACd,WAAW;GACX,kBAAkB;GAClB,mBAAmB;GACnB,YAAY;GACZ,UAAU;GACV,kBAAkB;GAClB,iBAAiB;AACpB;AACA;GACG,qBAAqB;GACrB,yBAAyB;AAC5B;AACA;GACG,qBAAqB;GACrB,WAAW;GACX,mBAAmB;GACnB,gBAAgB;GAChB,uBAAuB;AAC1B;;AAEA;GACG,sBAAsB;AACzB;AACA;GACG,YAAY;GACZ,gBAAgB;AACnB;AACA;GACG,2BAA2B;AAC9B;AACA;;GAEG,gBAAgB;GAChB,mBAAmB;GACnB,uBAAuB;AAC1B;AACA;;GAEG,2BAA2B;AAC9B;;AAEA,qBAAqB;AACrB;GACG,sBAAsB;AACzB;AACA;GACG,YAAY;GACZ,gBAAgB;AACnB;AACA;GACG,kBAAkB;GAClB,UAAU;GACV,QAAQ;GACR,UAAU;GACV,WAAW;GACX,UAAU;GACV,YAAY;GACZ,sBAAsB;GACtB,YAAY;GACZ,WAAW;AACd;AACA;GACG,YAAY;AACf;AACA;GACG,iBAAiB;GACjB,WAAW;GACX,YAAY;GACZ,kBAAkB;AACrB;AACA;GACG,cAAc;AACjB;AACA;GACG,0BAA0B;GAC1B,UAAU;AACb;AACA;GACG,UAAU;AACb;AACA;GACG,WAAW;GACX,YAAY;AACf;AACA;GACG,kBAAkB;GAClB,OAAO;GACP,yBAAyB;GACzB,wBAAwB;GACxB,uBAAuB;GACvB,qBAAqB;GACrB,WAAW;AACd;AACA;GACG,qBAAqB;GACrB,qBAAqB;GACrB,WAAW;AACd;AACA;;;GAGG,eAAe;AAClB;AACA;GACG,kBAAkB;AACrB;AACA;GACG,UAAU;AACb;;AAEA;GACG,kCAAkC;AACrC;AACA;GACG,YAAY;AACf;AACA;GACG,eAAe;AAClB;AACA;GACG,cAAc;AACjB;AACA,mBAAmB;AACnB;GACG,gBAAgB;GAChB,YAAY;GACZ,6BAA6B;AAChC;AACA;GACG,gBAAgB;GAChB,4BAA4B;AAC/B;AACA;GACG,sBAAsB;GACtB,2BAA2B;GAC3B,0BAA0B;GAC1B,kBAAkB;GAClB,sBAAsB;GACtB,4BAA4B;GAC5B,2BAA2B;GAC3B,wBAAwB;AAC3B;AACA;GACG,kBAAkB;AACrB;AACA;GACG,yBAAyB;GACzB,YAAY;AACf;AACA;GACG,kBAAkB;GAClB,uBAAuB;AAC1B;AACA;GACG,sBAAsB;AACzB;AACA;GACG,uBAAuB;GACvB,UAAU;AACb;AACA;GACG,uBAAuB;AAC1B;AACA;GACG,4BAA4B;GAC5B,+BAA+B;AAClC;AACA;GACG,2BAA2B;GAC3B,8BAA8B;AACjC;AACA;GACG,gBAAgB;AACnB;AACA;GACG,2BAA2B;GAC3B,+BAA+B;GAC/B,mBAAmB;AACtB;AACA;GACG,WAAW;GACX,cAAc;GACd,YAAY;GACZ,WAAW;GACX,8BAA8B;GAC9B;;;;IAIC;GACD,kBAAkB;GAClB,UAAU;GACV,SAAS;AACZ;AACA;GACG,kBAAkB;GAClB,iBAAiB;GACjB,sBAAsB;GACtB,mBAAmB;AACtB;AACA;GACG,cAAc;AACjB;AACA;GACG,cAAc;GACd,mBAAmB;AACtB;AACA;GACG,YAAY;AACf;AACA;GACG,mBAAmB;GACnB,kBAAkB;AACrB;AACA;GACG,+BAA+B;AAClC;AACA;;;;GAIG,YAAY;GACZ,gCAAgC;GAChC,gCAAgC;AACnC;AACA;;;;;GAKG,iDAAiD;GACjD,mBAAmB;AACtB;AACA;;;;GAIG,gBAAgB;GAChB,UAAU;AACb;AACA;GACG,gBAAgB;AACnB;AACA;GACG,gBAAgB;GAChB,UAAU;AACb;AACA;GACG,gBAAgB;AACnB;AACA;;;;GAIG,WAAW;GACX,iBAAiB;GACjB,mBAAmB;GACnB,YAAY;GACZ,WAAW;GACX,YAAY;GACZ,mBAAmB;GACnB,iBAAiB;GACjB,kBAAkB;GAClB,YAAY;AACf;AACA;GACG,YAAY;AACf;AACA;GACG,UAAU;AACb;AACA;GACG,YAAY;GACZ,kBAAkB;GAClB,iBAAiB;AACpB;AACA;;GAEG,YAAY;GACZ,2BAA2B;GAC3B,iBAAiB;AACpB;AACA;GACG,aAAa;AAChB;AACA;GACG,aAAa;AAChB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,qBAAqB;AACxB;;AAEA;GACG,mBAAmB;AACtB;AACA;GACG,uBAAuB;GACvB,YAAY;AACf;AACA;GACG,8BAA8B;AACjC;AACA;GACG,YAAY;AACf;AACA;;;GAGG,cAAc;AACjB;AACA;;;;;;;;;GASG,gCAAgC;AACnC;AACA;GACG,mBAAmB;AACtB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,WAAW;GACX,mBAAmB;GACnB,cAAc;GACd,kBAAkB;GAClB,OAAO;GACP,WAAW;GACX,aAAa;AAChB;AACA;GACG,uBAAuB;AAC1B;AACA;GACG,gBAAgB;AACnB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,kBAAkB;GAClB,YAAY;AACf;AACA;GACG,WAAW;GACX,YAAY;GACZ,mBAAmB;AACtB;AACA;GACG,kBAAkB;GAClB,MAAM;GACN,OAAO;GACP,eAAe;GACf,YAAY;GACZ,8BAA8B;GAC9B,+BAA+B;GAC/B,WAAW;AACd;AACA;GACG,kBAAkB;GAClB,QAAQ;GACR,UAAU;GACV,eAAe;GACf,8BAA8B;GAC9B,oCAAoC;AACvC;AACA;GACG,YAAY;GACZ,WAAW;AACd;AACA;GACG,UAAU;GACV,eAAe;AAClB;AACA;GACG,aAAa;AAChB;AACA;GACG,kBAAkB;GAClB,8CAA8C;GAC9C,y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pB,eAAe;MACf,2BAA2B;MAC3B,wBAAwB;MACxB,mBAAmB;MACnB,UAAU;MACV,SAAS;GACZ;GACA;MACG,qBAAqB;MACrB,WAAW;GACd;AACH;;AAEA;GACG,gBAAgB;AACnB;;AAEA;GACG,gBAAgB;GAChB,6BAA6B;GAC7B,4BAA4B;AAC/B;;AAEA;GACG,yBAAyB;GACzB,0BAA0B;AAC7B;;AAEA;GACG,gBAAgB;GAChB,mBAAmB;AACtB;AACA;GACG,UAAU;AACb;AACA;;GAEG,mCAAmC;AACtC;AACA;;GAEG,2BAA2B;AAC9B;AACA;;GAEG,wBAAwB;AAC3B;AACA;GACG,gBAAgB;AACnB;AACA;GACG,yBAAyB;AAC5B;AACA;;GAEG,WAAW;AACd;AACA;;GAEG,qBAAqB;AACxB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,aAAa;AAChB;AACA;GACG,iBAAiB;AACpB;AACA;;GAEG,oBAAoB;GACpB,aAAa;AAChB;AACA;GACG,oBAAoB;GACpB,aAAa;GACb,sBAAsB;GACtB,mBAAmB;GACnB,yBAAyB;GACzB,gBAAgB;GAChB,eAAe;GACf,gBAAgB;GAChB,gBAAgB;GAChB,cAAc;GACd,kBAAkB;GAClB,mBAAmB;GACnB,yBAAyB;GACzB,yBAAyB;GACzB,sBAAsB;AACzB;AACA;;;;;;;;;;;;;;;GAeG,yBAAyB;GACzB,4BAA4B;AAC/B;AACA;GACG,mBAAmB;AACtB;AACA;GACG,mBAAmB;AACtB;AACA;GACG,eAAe;AAClB;AACA;GACG,YAAY;AACf;AACA;GACG,oBAAoB;AACvB;AACA;GACG,iBAAiB;AACpB;AACA;GACG,sBAAsB;AACzB;AACA;GACG,gBAAgB;AACnB;AACA;GACG,eAAe;AAClB;AACA;GACG,mBAAmB;GACnB,eAAe;AAClB;AACA;GACG,4BAA4B;AAC/B;AACA;GACG,WAAW;GACX,YAAY;GACZ,eAAe;AAClB;AACA;GACG,sBAAsB;AACzB;AACA;;GAEG,sBAAsB;AACzB;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,yBAAyB;AAC5B;AACA;GACG,oCAAoC;AAC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","sourcesContent":[".mainSidebar.webix_sidebar.webix_dark,\n.darkScrollview {\n   background: #444 !important;\n}\n.appDevDesigns {\n   background-color: rgb(68, 68, 68) !important;\n   width: 100%;\n   height: 100%;\n   background-image: url(assets/images/appdev_logo_white.png);\n   background-size: auto 110px;\n   background-repeat: no-repeat;\n   background-position: center;\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_sidebar_icon {\n   margin-right: 15px;\n   color: rgba(255, 255, 255, 0.4);\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_branch_1 {\n   //border-top: 1px solid rgba(255,255,255,0.1);\n   border-bottom: 1px solid rgba(0, 0, 0, 0.4);\n   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1);\n}\n.mainToolbar .webix_icon {\n   margin-top: -2px;\n}\n.mainToolbar.webix_toolbar.webix_dark {\n   background: #333;\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_item:hover {\n   background-color: rgba(0, 0, 0, 0.15);\n}\n.mainSidebar.webix_sidebar.webix_dark\n   .webix_tree_item:hover\n   .webix_sidebar_icon {\n   color: rgba(255, 255, 255, 0.8);\n}\n.mainSidebar.webix_sidebar.webix_dark .webix_tree_item.webix_selected,\n.mainSidebar .webix_tree_item.webix_sidebar_selected {\n   background-color: rgba(0, 0, 0, 0.2);\n   color: #1ca1c1;\n}\n.mainSidebar.webix_sidebar.webix_dark\n   .webix_tree_item.webix_selected\n   .webix_icon {\n   color: #1ca1c1;\n}\n.webix_toolbar.webix_dark .webix_secondary.activePage button {\n   background-color: #1ca1c1 !important;\n}\n.webix_toolbar.webix_dark .userMenu.webix_menu-x .webix_list_item {\n   background-color: transparent;\n   padding: 3px 10px;\n   opacity: 0.7;\n}\n.webix_toolbar.webix_dark .inbox.webix_secondary button {\n   background-color: transparent;\n}\n.webix_toolbar.webix_dark .inbox.webix_secondary button .webix_icon_btn {\n   opacity: 0.7;\n   font-size: 20px;\n}\n.appPages .webix_button {\n   font-size: 14px;\n   color: rgba(255, 255, 255, 0.8) !important;\n}\n.appPages .webix_icon_btn {\n   opacity: 0.4;\n}\n\n/* Styles imported from AppBuilder v1 */\nlabel {\n   font-weight: 500;\n}\n/* Custom Webix Badge */\n.webix_badge {\n   font-size: 8pt;\n   height: 18px;\n   line-height: 18px;\n   min-width: 18px;\n   right: 0;\n}\n/* Custom selectivity */\n.webix_checksuggest_select_all .webix_el_box {\n   height: auto !important;\n}\n.webix_multicombo_tag,\n.webix_multicombo_value {\n   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.3);\n   padding: 0 9pt;\n   border-bottom: 1px solid #fff;\n   margin: 3px 3px 1px;\n   max-height: 27px;\n   overflow: hidden;\n   line-height: 26px;\n   font-weight: normal;\n   color: #475466 !important;\n}\n.badgeContainer {\n   position: relative;\n}\n.webix_tooltip .webix_badge.selectivityBadge {\n   display: none;\n}\n.editConnectedPage {\n   margin-left: -5px;\n   margin-right: 5px;\n   opacity: 0.4;\n}\n.editConnectedPage:hover {\n   opacity: 1;\n   cursor: pointer;\n}\n.webix_tooltip .webix_multicombo_delete {\n   display: none;\n}\n.webix_multicombo_delete:hover:after {\n   color: rgba(0, 0, 0, 0.7);\n}\n.webix_multicombo_delete:hover {\n   transform: scale(1.1);\n}\n.webix_multicombo_delete {\n   margin-right: -7pt;\n}\n.webix_multicombo_delete.clear-combo-value {\n   margin-right: -5px;\n   position: relative;\n   right: 9px;\n   transition: all 0.2s ease-in-out;\n}\n.webix_multicombo_value {\n   display: flex;\n   /* width: 100%; */\n}\n.webix_multicombo_value .ellip {\n   text-overflow: ellipsis;\n   overflow: hidden;\n   white-space: nowrap;\n}\n.webix_cell .webix_multicombo_tag,\n.webix_cell .webix_multicombo_value {\n   line-height: 26px;\n   margin: 4px 1.5px;\n}\n.webix_el_combo .webix_progress_state {\n   font-size: 35px !important;\n}\n.webix_list_item .editConnectedPage {\n   display: none;\n}\n.hascustomcolor {\n   color: white !important;\n   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3) !important;\n}\n.combowithcolors .webix_inp_static {\n   padding-left: 0px;\n}\n.webix_multicombo_delete:after {\n   color: rgba(0, 0, 0, 0.4);\n   text-shadow: none;\n}\n.hideWebixMulticomboTag .webix_multicombo_tag {\n   box-shadow: none;\n   padding: 0;\n   border: 0;\n   margin: 0;\n   background: transparent;\n   border-radius: 0;\n   max-height: none;\n}\n.selectivity-placeholder {\n   text-indent: 10px;\n   color: #666;\n}\n.selectivity-multiple-input-container {\n   background: transparent !important;\n   padding: 0px !important;\n   overflow: hidden !important;\n   max-height: unset;\n   /* border-radius: 6px; */\n}\n.selectivity-single-result-container {\n   left: 2px;\n}\n.selectivity-multiple-selected-item,\n.selectivity-single-selected-item {\n   background: #337ab7 !important;\n   padding: 0 10px;\n   border-radius: 15px !important;\n   color: #fff !important;\n   line-height: 29px;\n   display: inline-block;\n   height: unset !important;\n   margin: 2px;\n   /*max-width: 100px !important;*/\n}\n.selectivity-multiple-input,\ninput[type=\"text\"].selectivity-multiple-input {\n   height: 33px;\n   text-indent: 10px;\n}\n.selectivity-single-selected-item-remove {\n   color: #fff;\n   float: none;\n   padding: 7px 5px 7px 0px;\n}\n.selectivity-multiple-selected-item-edit,\n.selectivity-multiple-selected-item-remove {\n   padding: 5px 0 5px 5px;\n}\n.selectivity-single-selected-item-edit,\n.selectivity-multiple-selected-item-edit,\n.selectivity-single-selected-item-edit:hover,\n.selectivity-multiple-selected-item-edit:hover {\n   color: #fff;\n   cursor: pointer;\n   text-decoration: none !important;\n   background: #1ca1c1;\n   margin-left: -9pt;\n   padding: 5px 5px 5px 10px;\n   margin-right: 5px;\n}\n.customField {\n   line-height: 33px;\n}\n.customField .selectivity-multiple-input-container {\n   border: 1px solid #ccd7e6;\n   /* border-radius: 6px; */\n   margin-right: 4px;\n}\n.readonlyField {\n   background-color: #fff;\n}\n.selectivity-single-select {\n   background: transparent !important;\n}\n.webix_cell .form-entry {\n   border: 0;\n}\n.form-entry {\n   border-radius: 6px;\n   height: 100%;\n   border: 1px solid #ddd;\n   color: #666;\n   background: #fff;\n   border-color: #ccc;\n   margin-right: 2px;\n}\n.form-entry .selectivity-multiple-selected-item {\n   float: none;\n}\n.webix_template .selectivity-single-select {\n   padding: 0;\n   border: 1px solid #ccd7e6;\n   /* border-radius: 6px; */\n   margin-right: 4px;\n}\n.selectivity-single-select input {\n   padding: 0;\n   border: 0;\n}\n.selectivity-single-selected-item {\n   color: #666;\n}\n.selectivity-single-result-container {\n   top: 0em !important;\n}\n.selectivity-caret {\n   top: 0.4em !important;\n}\n.selectivityBadge {\n   top: 6px;\n   right: -5px;\n   background: #aaa;\n}\n.list-data-values,\n.connect-data-values {\n   position: relative;\n}\n\n.ab-app-list-info {\n   float: left;\n   height: 100%;\n}\n.ab-app-list-edit,\n.ab-object-list-edit,\n.ab-page-list-edit {\n   float: right;\n   height: 100%;\n   opacity: 0.6;\n}\n.ab-app-list-edit:hover,\n.ab-object-list-edit:hover,\n.ab-page-list-edit:hover {\n   opacity: 1;\n}\n.ab-app-list-edit .webix_list_item {\n   line-height: 50px;\n}\n.ab-app-list-edit .webix_icon {\n   line-height: 59px;\n}\n.ab-app-list-item {\n   height: 100%;\n   clear: both;\n}\n.ab-app-list-edit .webix_list_item {\n   padding: 10px;\n}\n.ab-app-list-name {\n   font-size: 20px;\n   line-height: 20px;\n   margin-top: 10px;\n}\n.ab-app-list-description {\n   opacity: 0.6;\n}\n\n.webix_list_item .webix_icon {\n   font-size: inherit;\n}\n.webix_list_item .webix_icon.wxi-checkbox-marked {\n   font-size: 20px;\n}\n.emptypane {\n   line-height: auto;\n}\n.opsportal-area-site-default-appbuilder a,\n.webix_view a {\n   opacity: 1;\n}\n.webix_list_item.menu.selected {\n   background: #657584;\n}\n.webix_icon_btn {\n   font-size: 20px;\n}\n.appTitle .webix_el_box {\n   font-size: 20px !important;\n}\n.webix_dark .webix_icon_btn {\n   opacity: 0.4;\n}\n.ab_amp .webix_dark .webix_icon_btn {\n   opacity: 1;\n}\n.webix_el_button button {\n   /* font-size: 14px; */\n}\n.webix_el_button button.webixtype_standard:hover {\n   text-decoration: underline;\n}\n.webix_menu-x .webix_list_item {\n   line-height: 31px;\n}\n.bg-white {\n   background: white;\n}\n.ab-component-tools {\n   position: absolute;\n   top: 2px;\n   right: 33px;\n}\n.ab-component-tools.ab-tab-tools {\n   right: 0;\n   z-index: 100;\n}\n.ab-component-remove,\n.ab-component-edit {\n   width: 31px;\n   height: 31px;\n   display: inline-block;\n   margin-right: 1px;\n   font-size: 18px;\n   text-align: center;\n   line-height: 33px !important;\n   background: #4caf50;\n   color: white;\n   top: -2px;\n   position: relative;\n   overflow: hidden;\n   float: right;\n}\n.ab-component-remove:hover,\n.ab-component-edit:hover {\n   cursor: pointer;\n}\n.ab-component-remove {\n   background: #ff3b30;\n}\n.panel_icon {\n   font-size: 16px;\n   width: 22px;\n   height: 24px;\n   line-height: 24px;\n}\n.webix_fieldset_label {\n   width: auto;\n   margin-bottom: 0;\n   border: 0;\n}\n.ab-widget-header {\n   background: #eee;\n}\n.ab-component-header .webix_el_box {\n   font-size: 24px;\n}\n.ab-component-description .webix_el_box {\n   color: #666;\n}\n.bg_gray {\n   background-color: #ebedf0;\n}\n.webix_dark .webix_sidebar {\n   background-color: transparent;\n}\n.webix_dark .webix_view {\n   background-color: transparent;\n   color: white;\n}\n.ab_amp .webix_dark .webix_view {\n   background-color: white;\n   color: inherit;\n}\n.webix_dark .webix_list-x .webix_list_item {\n   border-right: 0;\n}\n.ab-text .ab-detail-component-holder {\n   line-height: 32px;\n}\n.webix_tree_checkbox {\n   margin: 5px 6px 0 0 !important;\n   height: 14px;\n   width: 14px;\n}\n.ab-menu-left .webix_scroll_cont {\n   text-align: left;\n}\n.ab-menu-right .webix_scroll_cont {\n   text-align: right;\n}\n.ab-menu-center .webix_scroll_cont {\n   text-align: center;\n}\n.ab-menu-link.webix_menu-x .webix_list_item {\n   background: transparent;\n   color: #337ab7;\n   font-weight: bold;\n   padding: 0;\n   margin-right: 15px;\n}\n.ab-menu-link.webix_menu-x .webix_list_item:hover {\n   text-decoration: underline;\n}\n.ab-custom-field {\n   overflow: visible;\n}\n.ab-custom-field .webix_template {\n   padding: 0;\n}\n.ab-custom-field legend {\n   border-bottom: none;\n}\n\n.ab-component-form-rule {\n   background-color: #dcdcdc;\n}\n.ab-main-container .webix_querybuilder_wrap .webix_layout_form,\n.ab-main-container .ab-component-form-rules .webix_layout_form {\n   background: inherit !important;\n}\n.ab-component-form-rules .webix_view {\n   background: transparent !important;\n}\n.ab-component-form-rules {\n   background: #ddd;\n   border-radius: 5px;\n   box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.4);\n   position: relative;\n   overflow: visible;\n}\n.ab-component-form-rules-delete {\n   background: transparent;\n}\n.ab-component-form-rules-delete .ab-component-remove {\n   position: absolute;\n   top: -6px;\n   right: -8px;\n   border-radius: 100%;\n}\n/* Connect object data */\n.ab-connect-add-new a.fa {\n   width: 35px;\n   height: 35px;\n   display: block;\n   float: left;\n   border-radius: 4px;\n   background: #1ca1c1;\n   color: white;\n   opacity: 1;\n   text-align: center;\n   line-height: 35px;\n}\n.ab-connect-add-new a.fa:hover {\n   text-decoration: none;\n   background-color: #1992af;\n}\n.ab-connect-data-info {\n   display: inline-block;\n   width: 90px;\n   white-space: nowrap;\n   overflow: hidden;\n   text-overflow: ellipsis;\n}\n\n.ab-connect-data-disable {\n   background-color: #aaa;\n}\n.stop-scrolling {\n   height: 100%;\n   overflow: hidden;\n}\n.ab-scroll-y {\n   overflow-y: auto !important;\n}\n.ab-ellipses-text,\n.ab-ellipses-text > div {\n   overflow: hidden;\n   white-space: nowrap;\n   text-overflow: ellipsis;\n}\n.webix_dtable .webix_ss_footer .webix_hcell:hover,\n.webix_dtable .webix_ss_header .webix_hcell:hover {\n   border-right-color: #dadee0;\n}\n\n/* Interface Editor */\n.ab-widget-header {\n   background-color: #ddd;\n}\n.ab-widget-header .webix_icon_btn {\n   opacity: 0.7;\n   margin-left: 5px;\n}\n.ab-main-container .widget_drag {\n   position: absolute;\n   z-index: 1;\n   top: 0px;\n   right: 0px;\n   width: 33px;\n   opacity: 1;\n   cursor: move;\n   background-color: #aaa;\n   height: 31px;\n   color: #fff;\n}\n.ab-main-container .widget_drag:hover {\n   opacity: 0.8;\n}\n.ab-main-container .widget_drag .webix_icon {\n   line-height: 28px;\n   width: 33px;\n   height: 33px;\n   text-align: center;\n}\n.webix_el_checkbox .webix_label_right {\n   padding-top: 0;\n}\n.webix_cell .ab-image-data-field {\n   /* pointer-events: none; */\n   padding: 0;\n}\n.ab-image-holder .webix_template {\n   padding: 0;\n}\n.ab-image-data-field {\n   width: 100%;\n   height: 100%;\n}\n.ab-image-data-field-download {\n   position: absolute;\n   left: 0;\n   background-color: #dcdcdc;\n   padding: 3px 1px 1px 1px;\n   opacity: 0.5 !important;\n   text-decoration: none;\n   color: #000;\n}\n.ab-image-data-field-download:hover {\n   opacity: 1 !important;\n   text-decoration: none;\n   color: #000;\n}\n.detailsView .webix_icon:hover,\n.edit .webix_icon:hover,\n.trash .webix_icon:hover {\n   cursor: pointer;\n}\n.ab-layout-header {\n   position: relative;\n}\n.ab-layout-header > .ab-component-tools {\n   right: 0px;\n}\n\n.transparent {\n   background: transparent !important;\n}\n.webix_modal {\n   opacity: 0.8;\n}\n.modal_title .webix_el_box {\n   font-size: 18px;\n}\n.webix_toolbar .webix_el_box {\n   padding: 3px 0;\n}\n/* Loading Screen */\n.ab-loading-screen {\n   background: #000;\n   opacity: 0.7;\n   position: absolute !important;\n}\n.ab-loading-body {\n   background: #000;\n   border-width: 0px !important;\n}\n.ab-loading-message {\n   color: #fff !important;\n   background: #000 !important;\n   font-size: 30px !important;\n   text-align: center;\n   vertical-align: middle;\n   border-width: 0px !important;\n   padding-top: 20% !important;\n   height: 100px !important;\n}\n.ab-loading-button {\n   text-align: center;\n}\n.ab-loading-button button {\n   background-color: #003b7e;\n   width: 200px;\n}\n.ab-loading-cancel-button {\n   text-align: center;\n   background: transparent;\n}\n.ab-loading-cancel-button a {\n   color: #fff !important;\n}\n.ab-loading-screen .webix_progress_bottom {\n   height: 40px !important;\n   opacity: 1;\n}\n.ab-loading-screen .webix_progress_bottom .webix_progress_state {\n   height: 40px !important;\n}\n.webix_menu-x .webix_list_item:last-child {\n   border-top-right-radius: 2px;\n   border-bottom-right-radius: 2px;\n}\n.webix_menu-x .webix_list_item:first-child {\n   border-top-left-radius: 2px;\n   border-bottom-left-radius: 2px;\n}\n.preview_item {\n   background: #999;\n}\n.panel_drag_view {\n   border-width: 0 1px 1px 1px;\n   border-color: 1px solid #dadee0;\n   border-style: solid;\n}\n.panel_drag_view:before {\n   content: \"\";\n   display: block;\n   height: 100%;\n   width: 100%;\n   background: rgb(255, 255, 255);\n   background: linear-gradient(\n      0deg,\n      rgba(255, 255, 255, 1) 15%,\n      rgba(255, 255, 255, 0) 80%\n   );\n   position: absolute;\n   z-index: 1;\n   top: 31px;\n}\n.ab-datacollection-table .ab-component-in-page {\n   text-align: center;\n   line-height: 15px;\n   vertical-align: middle;\n   display: table-cell;\n}\n.ab-datacollection-table .webix_dataview_item {\n   display: table;\n}\n.ab-datacollection-table .fa {\n   color: #337ab7;\n   margin-bottom: 10px;\n}\n.ab-datacollection-table.borderless .webix_dataview_item {\n   border: none;\n}\n.ab-datacollection-table .webix_dataview_item:hover {\n   background: #edeff0;\n   border-radius: 5px;\n}\n.webix_list_item:hover {\n   background: rgba(0, 0, 0, 0.05);\n}\n.webix_all_tabs .webix_item_tab.webix_selected,\n.webix_all_tabs .webix_item_tab.webix_selected:hover,\n.webix_all_tabs .webix_item_tab.webix_selected:active,\n.webix_all_tabs .webix_item_tab.webix_selected:focus {\n   color: white;\n   background: #1ca1c199 !important;\n   box-shadow: inset 0 -3px #1ca1c1;\n}\n.webix_all_tabs .webix_item_tab,\n.webix_el_tabbar .webixtype_bottom .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_icon .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_iconTop .webix_tab_more_icon,\n.webix_el_tabbar .webixtype_image .webix_tab_more_icon {\n   box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);\n   background: #ebedf0;\n}\n.ab-tab-back:hover,\n.ab-tab-next:hover,\n.ab-tab-up:hover,\n.ab-tab-down:hover {\n   cursor: e-resize;\n   opacity: 1;\n}\n.ab-tab-back:hover {\n   cursor: w-resize;\n}\n.ab-tab-up:hover {\n   cursor: n-resize;\n   opacity: 1;\n}\n.ab-tab-down:hover {\n   cursor: s-resize;\n}\n.ab-tab-back,\n.ab-tab-next,\n.ab-tab-up,\n.ab-tab-down {\n   float: left;\n   margin-left: 10px;\n   background: #1ca1c1;\n   opacity: 0.8;\n   width: 20px;\n   height: 20px;\n   border-radius: 10px;\n   line-height: 18px;\n   padding-right: 2px;\n   color: white;\n}\n.ab-tab-edit {\n   opacity: 0.4;\n}\n.ab-tab-edit:hover {\n   opacity: 1;\n}\n.ab-tab-next {\n   float: right;\n   margin-right: 10px;\n   padding-left: 6px;\n}\n.ab-tab-up,\n.ab-tab-down {\n   float: right;\n   margin: 12px -2px 12px 15px;\n   padding-left: 6px;\n}\n.webix_all_tabs div:nth-child(1) .ab-tab-back {\n   display: none;\n}\n.webix_all_tabs div:nth-last-child(1) .ab-tab-next {\n   display: none;\n}\n.webix_tab_filler:nth-last-child(1) {\n   width: 17px !important;\n}\n.ab-tabview-scrollview {\n   /* margin-top: -1px; */\n}\n.ab-tabIconContainer {\n   display: inline-block;\n}\n\n.webix_view.webix_control.webix_el_tabbar.webix_dark {\n   background: #4a4e58;\n}\n.webix_el_tabbar.webix_dark .webix_all_tabs .webix_item_tab {\n   background: transparent;\n   color: white;\n}\n.webix_el_tabbar.webix_dark .webix_all_tabs .webix_item_tab:hover {\n   background: rgba(0, 0, 0, 0.1);\n}\n.webix_sidebar.webix_dark .webix_tree_item.webix_selected span {\n   color: white;\n}\n.webix_sidebar.webix_dark\n   .webix_tree_item.webix_selected\n   span.webix_sidebar_icon {\n   color: inherit;\n}\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_inp_counter_next,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_inp_counter_prev,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_menu-x .webix_list_item,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_0,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_1,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webix_segment_N,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_base,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_next,\n.webix_layout_toolbar.webix_toolbar.webix_dark .webixtype_prev {\n   border-color: rgba(0, 0, 0, 0.1);\n}\n.webix_tree_none {\n   /* display: none; */\n}\n.ab-background-lightgray {\n   background: #c0c5cc;\n}\n.ab-background-gray {\n   background: #475466;\n}\n.ab-background-gray::before {\n   content: \"\";\n   background: #475466;\n   display: block;\n   position: absolute;\n   left: 0;\n   width: 100%;\n   height: 100vh;\n}\n.ab-background-gray .webix_view.webix_layout_form {\n   background: transparent;\n}\n.webix_carousel .image {\n   background: #333;\n}\n.webix_nav_panel .webix_nav_item {\n   box-sizing: border-box;\n}\n.ab-carousel-image-container {\n   position: relative;\n   height: 100%;\n}\n.ab-carousel-image-container img {\n   width: 100%;\n   height: 100%;\n   object-fit: contain;\n}\n.ab-carousel-image-title {\n   position: absolute;\n   top: 0;\n   left: 0;\n   font-size: 18px;\n   padding: 4px;\n   background: rgba(0, 0, 0, 0.4);\n   border-bottom-right-radius: 8px;\n   color: #fff;\n}\n.ab-carousel-image-icon {\n   position: absolute;\n   top: 0px;\n   right: 0px;\n   font-size: 20px;\n   border-bottom-left-radius: 8px;\n   background: rgba(255, 255, 255, 0.4);\n}\n.ab-carousel-image-icon span {\n   opacity: 0.6;\n   margin: 6px;\n}\n.ab-carousel-image-icon span:hover {\n   opacity: 1;\n   cursor: pointer;\n}\n.webix_carousel.fullscreen .ab-carousel-fullscreen {\n   display: none;\n}\n.ab-detail-view .webix_accordionitem {\n   border-radius: 5px;\n   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;\n   border-color: transparent;\n}\n.ab-detail-page.ab-detail-hover .webix_accordionitem:hover {\n   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px 0px;\n}\n.ab-detail-page .webix_accordionitem:hover .webix_accordionitem_body:after {\n   background: #1da1c14f;\n   width: 100%;\n   height: 100%;\n   display: block;\n   position: absolute;\n   cursor: pointer;\n   top: 0;\n   font-family: \"FontAwesome\";\n   content: \"\";\n   color: white;\n   text-align: center;\n   font-size: 72px;\n   vertical-align: middle;\n}\n.ab-edit-page .webix_accordionitem:hover {\n   position: relative;\n}\n.ab-edit-page .webix_accordionitem:hover .webix_accordionitem_header {\n   display: block !important;\n   position: absolute;\n   right: 0;\n   top: 0;\n   border: 0;\n   z-index: 1;\n   border-bottom-left-radius: 10px;\n}\n.ab-edit-page\n   .webix_accordionitem:hover\n   .webix_accordionitem_header\n   .webix_accordionitem_button:before {\n   content: \"\\f013\";\n   font-family: \"FontAwesome\";\n   color: #94a1b3;\n}\n.ab-edit-page.ab-detail-page\n   .webix_accordionitem:hover\n   .webix_accordionitem_header\n   .webix_accordionitem_button:before {\n   color: white;\n}\n.ab-edit-page\n   .webix_accordionitem\n   .webix_accordionitem_header:hover\n   .webix_accordionitem_button:before {\n   color: #94a1b3 !important;\n}\n.ab-custom-template .webix_template {\n   padding: 10px;\n}\n\n.image-data-field-image {\n   position: relative;\n   border: 5px solid white;\n   background-size: cover;\n   background-position: center;\n}\n.ab-delete-photo {\n   position: absolute;\n   top: 0;\n   right: 0;\n}\n.hasDataCollection {\n   color: #1ca1c1;\n   margin: 5px;\n   position: absolute;\n   right: 0;\n   background: white;\n}\n.sidebarCustomIcon {\n   font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n   font-size: 12px !important;\n   background: #94a1b3 !important;\n   border-radius: 100%;\n   width: 20px !important;\n   height: 20px;\n   line-height: 20px;\n   color: #fff !important;\n   font-weight: bold;\n   vertical-align: unset !important;\n}\n.webix_dark .sidebarCustomIcon {\n   color: #4a4e58 !important;\n}\n.webix_dark .webix_selected .sidebarCustomIcon {\n   background: #1ca1c1 !important;\n   color: #4a4e58 !important;\n}\n.webix_selected .sidebarCustomIcon {\n   color: #fff !important;\n   background: #1ca1c1 !important;\n}\n\n/* FormBuilder Clases */\n.formbuilder {\n   padding: 20px;\n}\n.card-header .btn {\n   color: #333;\n}\n.card {\n   position: relative;\n   display: -ms-flexbox;\n   display: flex;\n   -ms-flex-direction: column;\n   flex-direction: column;\n   min-width: 0;\n   word-wrap: break-word;\n   background-color: #fff;\n   background-clip: border-box;\n   border: 1px solid rgba(0, 0, 0, 0.125);\n   border-radius: 0.25rem;\n}\n\n.card > hr {\n   margin-right: 0;\n   margin-left: 0;\n}\n\n.card > .list-group:first-child .list-group-item:first-child {\n   border-top-left-radius: 0.25rem;\n   border-top-right-radius: 0.25rem;\n}\n\n.card > .list-group:last-child .list-group-item:last-child {\n   border-bottom-right-radius: 0.25rem;\n   border-bottom-left-radius: 0.25rem;\n}\n\n.card-body {\n   -ms-flex: 1 1 auto;\n   flex: 1 1 auto;\n   min-height: 1px;\n   padding: 1.25rem;\n}\n\n.card-title {\n   margin-bottom: 0.75rem;\n}\n\n.card-subtitle {\n   margin-top: -0.375rem;\n   margin-bottom: 0;\n}\n\n.card-text:last-child {\n   margin-bottom: 0;\n}\n\n.card-link:hover {\n   text-decoration: none;\n}\n\n.card-link + .card-link {\n   margin-left: 1.25rem;\n}\n\n.card-header {\n   padding: 0.75rem 1.25rem;\n   margin-bottom: 0;\n   background-color: rgba(0, 0, 0, 0.03);\n   border-bottom: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-header:first-child {\n   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;\n}\n\n.card-header + .list-group .list-group-item:first-child {\n   border-top: 0;\n}\n\n.card-footer {\n   padding: 0.75rem 1.25rem;\n   background-color: rgba(0, 0, 0, 0.03);\n   border-top: 1px solid rgba(0, 0, 0, 0.125);\n}\n\n.card-footer:last-child {\n   border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);\n}\n\n.card-header-tabs {\n   margin-right: -0.625rem;\n   margin-bottom: -0.75rem;\n   margin-left: -0.625rem;\n   border-bottom: 0;\n}\n\n.card-header-pills {\n   margin-right: -0.625rem;\n   margin-left: -0.625rem;\n}\n\n.card-img-overlay {\n   position: absolute;\n   top: 0;\n   right: 0;\n   bottom: 0;\n   left: 0;\n   padding: 1.25rem;\n}\n\n.card-img,\n.card-img-bottom,\n.card-img-top {\n   -ms-flex-negative: 0;\n   flex-shrink: 0;\n   width: 100%;\n}\n\n.card-img,\n.card-img-top {\n   border-top-left-radius: calc(0.25rem - 1px);\n   border-top-right-radius: calc(0.25rem - 1px);\n}\n\n.card-img,\n.card-img-bottom {\n   border-bottom-right-radius: calc(0.25rem - 1px);\n   border-bottom-left-radius: calc(0.25rem - 1px);\n}\n\n.card-deck .card {\n   margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n   .card-deck {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-flow: row wrap;\n      flex-flow: row wrap;\n      margin-right: -15px;\n      margin-left: -15px;\n   }\n   .card-deck .card {\n      -ms-flex: 1 0 0%;\n      flex: 1 0 0%;\n      margin-right: 15px;\n      margin-bottom: 0;\n      margin-left: 15px;\n   }\n}\n\n.card-group > .card {\n   margin-bottom: 15px;\n}\n\n@media (min-width: 576px) {\n   .card-group {\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-flow: row wrap;\n      flex-flow: row wrap;\n   }\n   .card-group > .card {\n      -ms-flex: 1 0 0%;\n      flex: 1 0 0%;\n      margin-bottom: 0;\n   }\n   .card-group > .card + .card {\n      margin-left: 0;\n      border-left: 0;\n   }\n   .card-group > .card:not(:last-child) {\n      border-top-right-radius: 0;\n      border-bottom-right-radius: 0;\n   }\n   .card-group > .card:not(:last-child) .card-header,\n   .card-group > .card:not(:last-child) .card-img-top {\n      border-top-right-radius: 0;\n   }\n   .card-group > .card:not(:last-child) .card-footer,\n   .card-group > .card:not(:last-child) .card-img-bottom {\n      border-bottom-right-radius: 0;\n   }\n   .card-group > .card:not(:first-child) {\n      border-top-left-radius: 0;\n      border-bottom-left-radius: 0;\n   }\n   .card-group > .card:not(:first-child) .card-header,\n   .card-group > .card:not(:first-child) .card-img-top {\n      border-top-left-radius: 0;\n   }\n   .card-group > .card:not(:first-child) .card-footer,\n   .card-group > .card:not(:first-child) .card-img-bottom {\n      border-bottom-left-radius: 0;\n   }\n}\n\n.card-columns .card {\n   margin-bottom: 0.75rem;\n}\n\n@media (min-width: 576px) {\n   .card-columns {\n      -webkit-column-count: 3;\n      -moz-column-count: 3;\n      column-count: 3;\n      -webkit-column-gap: 1.25rem;\n      -moz-column-gap: 1.25rem;\n      column-gap: 1.25rem;\n      orphans: 1;\n      widows: 1;\n   }\n   .card-columns .card {\n      display: inline-block;\n      width: 100%;\n   }\n}\n\n.accordion > .card {\n   overflow: hidden;\n}\n\n.accordion > .card:not(:last-of-type) {\n   border-bottom: 0;\n   border-bottom-right-radius: 0;\n   border-bottom-left-radius: 0;\n}\n\n.accordion > .card:not(:first-of-type) {\n   border-top-left-radius: 0;\n   border-top-right-radius: 0;\n}\n\n.accordion > .card > .card-header {\n   border-radius: 0;\n   margin-bottom: -1px;\n}\n.form-builder-group-header {\n   padding: 0;\n}\n.formio .btn:hover,\n.btn:focus {\n   background-position: 0 0 !important;\n}\n.mb-0,\n.my-0 {\n   margin-bottom: 0 !important;\n}\n.mt-0,\n.my-0 {\n   margin-top: 0 !important;\n}\n.scrolly {\n   overflow: scroll;\n}\n.forceOpen {\n   display: block !important;\n}\n.formio .btn-secondary,\n.formio-dialog .btn-secondary {\n   color: #333;\n}\n.formio-dialog a,\n.formio a {\n   opacity: 1 !important;\n}\n.component-settings .nav > li > a {\n   margin-bottom: -7px;\n}\n.formio-form .input-group {\n   display: flex;\n}\n.formio-form .input-group-append {\n   margin-left: -1px;\n}\n.formio-form .input-group-append,\n.formio-form .input-group-prepend {\n   display: -ms-flexbox;\n   display: flex;\n}\n.formio-form .input-group-text {\n   display: -ms-flexbox;\n   display: flex;\n   -ms-flex-align: center;\n   align-items: center;\n   padding: 0.375rem 0.75rem;\n   margin-bottom: 0;\n   font-size: 1rem;\n   font-weight: 400;\n   line-height: 1.5;\n   color: #495057;\n   text-align: center;\n   white-space: nowrap;\n   background-color: #e9ecef;\n   border: 1px solid #ced4da;\n   border-radius: 0.25rem;\n}\n.formio-form .input-group > .input-group-append > .btn,\n.formio-form .input-group > .input-group-append > .input-group-text,\n.formio-form\n   .input-group\n   > .input-group-prepend:first-child\n   > .btn:not(:first-child),\n.formio-form\n   .input-group\n   > .input-group-prepend:first-child\n   > .input-group-text:not(:first-child),\n.formio-form .input-group > .input-group-prepend:not(:first-child) > .btn,\n.formio-form\n   .input-group\n   > .input-group-prepend:not(:first-child)\n   > .input-group-text {\n   border-top-left-radius: 0;\n   border-bottom-left-radius: 0;\n}\n.formio-form .nav-tabs > li {\n   margin-bottom: -8px;\n}\n.formio-dialog .formio-form .nav-tabs > li {\n   margin-bottom: -1px;\n}\n.max100 {\n   max-width: 100%;\n}\n.webix_qb_buttons button {\n   height: auto;\n}\n.no-margin {\n   margin: 0 !important;\n}\n.ab_amp .fa-stack {\n   font-size: 0.65em;\n}\n.ab_amp i {\n   vertical-align: middle;\n}\n.ab_amp.lightgray {\n   background: #eee;\n}\n.ab_amp .webixLineTree:hover {\n   cursor: pointer;\n}\n.ab_amp .accessLevel .fa-stack {\n   vertical-align: top;\n   margin-top: 3px;\n}\n.ab_amp .accessLevel:hover .fa-stack {\n   transform: scale(1.25, 1.25);\n}\n.ab_amp .externalLink {\n   color: #ccc;\n   float: right;\n   margin-top: 5px;\n}\n.ab_amp .externalLink:hover {\n   color: #666 !important;\n}\n.ab_amp .webix_accordionitem .webix_accordionitem_button,\n.ab_amp .webix_accordionitem.collapsed .webix_accordionitem_button {\n   float: left !important;\n}\n.ab_amp .webix_accordionitem .webix_accordionitem_button {\n   transform: rotate(180deg);\n}\n.ab_amp .webix_accordionitem.collapsed .webix_accordionitem_button {\n   transform: rotate(-90deg);\n}\n.ab_amp .webix_accordionitem_header {\n   background-color: #1ca1c1 !important;\n}\n.ab_amp .webix_accordionitem_header.collapsed {\n   background-color: white !important;\n}\n.ab_amp .webix_danger_inverse button {\n   border: 1px solid #ff4938;\n   color: #ff4938;\n   background: white;\n}\n.ab_amp .webix_danger_inverse .webix_icon_btn {\n   color: #ff4938;\n}\n.ab_amp .webix_danger_inverse:hover button {\n   background-color: #ff4938;\n   color: #fff;\n}\n.ab_amp .webix_danger_inverse:hover .webix_icon_btn {\n   color: #fff;\n}\ndiv.amp {\n   font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n   background: rgb(28, 161, 193, 0.4);\n   /* padding: 5px 0; */\n   display: inline-block;\n   right: 0;\n   top: 75px;\n   border-top-left-radius: 10px;\n   border-bottom-left-radius: 10px;\n   color: white;\n   font-size: 16px;\n   transition: 0.25s all;\n   position: absolute;\n   width: 40px;\n   white-space: nowrap;\n   overflow: hidden;\n   height: 32px;\n   z-index: 100;\n   display: flex;\n}\ndiv.amp.qtt {\n   top: 108px;\n}\ndiv.amp div {\n   padding: 5px 10px;\n}\ndiv.amp div:first-child {\n   background: rgba(255, 255, 255, 0.2);\n   border-right: 1px solid rgba(255, 255, 255, 0.4);\n   padding: 5px 10px;\n}\ndiv.amp:hover {\n   width: 212px !important;\n   cursor: pointer;\n   background: rgb(28, 161, 193) !important;\n}\ndiv.amp:hover .fa-unlock-alt {\n   display: inline-block !important;\n}\ndiv.amp:hover .fa-lock {\n   display: none !important;\n}\ndiv.amp .fa-unlock-alt,\ndiv.amp .fa-lock,\ndiv.amp .fa-language {\n   transform: scale(1.25, 1.25);\n   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);\n}\ndiv.amp .fa-unlock-alt {\n   display: none;\n}\n.ampWindow .webix_toolbar.webix_dark {\n   background: #444 !important;\n}\n/* .accessLevel-0::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(233, 30, 30, 0.4);\n   display: block;\n   position: absolute;\n}\n.accessLevel-1::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(33, 150, 243, 0.4);\n   display: block;\n   position: absolute;\n}\n.accessLevel-2::before {\n   content: \"\";\n   width: 100%;\n   height: 100%;\n   background: rgba(76, 175, 80, 0.4);\n   display: block;\n   position: absolute;\n} */\n.ab-csv-importer .row-pass {\n   background-color: #b4e8b6;\n}\n.ab-csv-importer .row-fail {\n   background-color: #e4b0ad;\n}\n.ab-csv-importer .row-warn {\n   background-color: #f9d59f;\n}\n.ab-csv-importer .cell-invalid {\n   background-color: #e9ab4d;\n}\n.transparentBG .webix_el_tabbar + .webix_multiview {\n   background: transparent !important;\n}\n.webix_hcell .fa {\n   opacity: 0.4;\n}\n.ab-widget-header .webix_template {\n   padding: 0 10px;\n}\n.ab-layout-header .webix_template {\n   padding: 0;\n   line-height: 30px;\n}\n.ab-widget-header .webix_template div {\n   line-height: 30px;\n}\n.ab-widget-header .webix_template div .fa,\n.ab-layout-header .fa {\n   vertical-align: middle;\n}\n#offlinePrompt,\n#connectionPrompt {\n   line-height: 30px;\n   color: white;\n   background: #f44336;\n   font-size: 14px;\n   text-align: center;\n   transition: all 1s;\n   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);\n   overflow: hidden;\n}\n#connectionPrompt {\n   background: #f44336;\n}\n#countdown {\n   height: 20px;\n   width: 20px;\n   text-align: center;\n   display: inline-block;\n   line-height: 20px;\n   position: relative;\n   bottom: 2px;\n   font-size: 9px;\n}\n\n#countdown-number {\n   color: white;\n   display: inline-block;\n   width: 20px;\n   height: 20px;\n}\n\n#countdown svg {\n   width: 20px;\n   height: 20px;\n   transform: rotateY(-180deg) rotateZ(-90deg);\n   position: absolute;\n   margin-left: -20px;\n}\n\n#countdown svg circle {\n   stroke-dasharray: 56px;\n   stroke-dashoffset: 0px;\n   stroke-linecap: round;\n   stroke-width: 2px;\n   stroke: white;\n   fill: none;\n   animation: countdown 30s linear infinite forwards;\n}\n\n@keyframes countdown {\n   from {\n      stroke-dashoffset: 0px;\n   }\n   to {\n      stroke-dashoffset: 56px;\n   }\n}\n#reloadPrompt {\n   position: absolute;\n   z-index: 200000;\n   top: 0;\n   bottom: 0;\n   left: 0;\n   right: 0;\n   background: rgba(0, 0, 0, 0.7);\n   display: flex;\n}\n#reloadPrompt div {\n   background: #f44336;\n   width: 250px;\n   border: 3px solid white;\n   margin: auto auto;\n   padding: 20px;\n   text-align: center;\n   border-radius: 10px;\n   color: white;\n   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);\n}\n.reloadPage {\n   background: rgba(0, 0, 0, 0.2);\n   border: none;\n   padding: 5px 10px;\n   border-radius: 5px;\n   margin-top: 10px;\n}\n.reloadPage:hover {\n   background: rgba(0, 0, 0, 0.4);\n}\n.webix_warn .webix_button {\n   background: #ff9800 !important;\n   color: #fff !important;\n}\n.webix_dark .webix_inp_bottom_label {\n   color: lightgray;\n   font-style: oblique;\n}\n.no-margin {\n   margin: 0;\n}\n.inbox_drawer.webix_toolbar.webix_dark .webix_secondary button,\n.mainToolbar.webix_toolbar.webix_dark .webix_secondary button {\n   background-color: transparent;\n}\n.inbox_drawer.webix_toolbar.webix_dark .webix_secondary button:hover,\n.mainToolbar.webix_toolbar.webix_dark .webix_secondary button:hover {\n   background-color: rgba(0, 0, 0, 0.2);\n}\n/* Login Page */\n.portalLogin {\n   /* opacity: 0; */\n   background: #ebedf0;\n   background: linear-gradient(\n      0deg,\n      rgba(171, 171, 171, 1) 0%,\n      rgba(235, 237, 240, 1) 100%\n   );\n   /* -webkit-animation: 1s ease 0s normal forwards 1 fadein;\n   animation: 1s ease 0s normal forwards 1 fadein; */\n}\n.portalLoginForm {\n   opacity: 0;\n   -webkit-animation: 1s ease 0s normal forwards 1 fadein;\n   animation: 1s ease 0s normal forwards 1 fadein;\n   background: white;\n   border-radius: 30px;\n   box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);\n   position: relative;\n   top: -20px;\n   transform: scale(1.2);\n}\n.portalLogin .webix_view {\n   overflow: visible;\n   display: inline-block;\n}\ndiv.webix_dataview_item.webix_transparent {\n   padding: 0px;\n}\n@keyframes fadein {\n   0% {\n      opacity: 0;\n      top: -20px;\n      transform: scale(1.1);\n      box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);\n   }\n   100% {\n      opacity: 1;\n      top: 0;\n      transform: scale(1);\n      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);\n   }\n}\n\n@-webkit-keyframes fadein {\n   0% {\n      opacity: 0;\n   }\n   100% {\n      opacity: 1;\n   }\n}\n.ab-connect-add-new-link .webix_icon_btn {\n   margin-right: 0;\n}\n.image-data-field-icon {\n   border: 2px dashed rgba(0, 0, 0, 0.3);\n   border-radius: 10px;\n   padding: 5px;\n   display: flex;\n   flex-direction: row;\n   text-align: center;\n   justify-content: center;\n   align-items: center;\n   line-height: 12px;\n   font-size: 10px;\n   color: rgba(0, 0, 0, 0.5);\n   margin: 5px;\n   height: calc(100% - 10px);\n   overflow: hidden;\n}\n.webix_cell > .ab-image-data-field {\n   margin-left: -12px;\n}\n.ab-delete-photo {\n   background: red;\n   color: white;\n   font-size: 10px;\n   text-align: center;\n   line-height: 20px;\n   width: 20px;\n   height: 20px;\n   border-radius: 10px;\n   top: -3px;\n   right: -3px;\n   transition: all 0.25s;\n}\n.ab-delete-photo:hover {\n   color: white;\n   font-size: 14px;\n}\n.webix_transparent .webix_button .webix_icon,\n.webix_transparent .webix_button .webix_icon_btn {\n   color: #1ca1c1;\n}\n.webix_icon_btn {\n   margin-right: 0 !important;\n   vertical-align: baseline;\n}\n.webix_list_icon.webix_icon {\n   vertical-align: baseline;\n}\n.webix_list_item.menu {\n   color: inherit;\n}\n.ab-datacollection-list-item {\n   position: relative;\n}\n.ab-object-list-item {\n   position: relative;\n}\n.ab-object-list-edit {\n   position: absolute;\n   right: 0;\n   top: 0;\n}\n.webix_el_label.formText .webix_el_box {\n   font-weight: normal;\n}\n\n.switcheroo .webix_win_head .webix_layout_line {\n   background: #657584;\n   color: #fff;\n}\n.switcheroo .webix_win_head .webix_view .webix_template {\n   background: #657584;\n   color: #fff;\n}\n\n.portal_work_switcheroo_user_switched .webix_view {\n   background: #e64b2a;\n   color: #fff;\n}\n\n.portal_work_switcheroo_user_switched .webix_el_box {\n   color: #fff;\n}\n/* Query Override */\n.wbq-field-box {\n   max-width: 95% !important;\n}\n/* Tutorial Manager */\n.highlightMe,\n.findDataCy [data-cy] {\n   position: relative !important;\n}\n.highlightMe:before,\n.findDataCy [data-cy]:hover:before {\n   content: \"\" !important;\n   width: 100% !important;\n   height: 100% !important;\n   border: 2px solid red !important;\n   border-style: inset !important;\n   position: absolute !important;\n   top: 0 !important;\n   left: 0 !important;\n   cursor: help !important;\n}\ninput.highlightMe,\ntextarea.highlightMe,\nbutton.highlightMe,\n.findDataCy input[data-cy]:hover,\n.findDataCy textarea[data-cy]:hover,\n.findDataCy button[data-cy]:hover {\n   border: 2px solid red !important;\n   border-style: inset !important;\n   cursor: help !important;\n}\n.hintItem {\n   position: relative;\n   overflow: visible !important;\n   margin: 10px;\n   padding: 10px;\n   border: 1px solid #efefef;\n   border-radius: 5px;\n   background: rgba(0, 0, 0, 0.05);\n}\n.hintItem:hover {\n   background: #efefef;\n}\n.hintItem h1 {\n   font-size: 18px;\n   padding: 0;\n   margin: 0;\n}\n.hintItem p {\n   margin: 0;\n   font-size: 14px;\n   line-height: 18px;\n   color: #6c757d;\n   overflow: hidden;\n   text-overflow: ellipsis;\n   display: -webkit-box;\n   -webkit-line-clamp: 2;\n   -webkit-box-orient: vertical;\n}\n.deleteHint,\n.deleteStep {\n   position: absolute;\n   right: -5px;\n   top: -5px;\n   background: red;\n   color: white;\n   width: 20px;\n   height: 20px;\n   line-height: 20px;\n   text-align: center;\n   border-radius: 10px;\n}\n.deleteHint:hover,\n.deleteStep:hover {\n   transform: scale(1.1);\n   cursor: pointer;\n}\n.deleteStep {\n   right: 25px;\n}\n.active0 {\n   opacity: 0.4;\n}\n.highlightWin {\n   font-size: 18px;\n   text-align: center;\n}\n.stepPos {\n   font-size: 20px;\n   width: 35px;\n   height: 35px;\n   margin: 0 auto;\n   background: #657584;\n   line-height: 35px;\n   text-align: center;\n   color: white;\n   border-radius: 100%;\n}\n.wider_popup {\n   width: 250px !important;\n}\n.wider_popup .webix_list_item {\n   white-space: nowrap;\n   overflow: hidden;\n   text-overflow: ellipsis;\n}\n.webix_hint {\n   padding-bottom: 60px !important;\n}\n.dontShow {\n   font-size: 12px;\n   font-weight: normal;\n   font-style: italic;\n   display: block;\n   padding: 0;\n   margin: 15px 0 0 0;\n}\n.dontShow input {\n   vertical-align: text-top;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -16408,6 +16439,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_url_false_gantt_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ 40942:
+/*!*******************************************!*\
+  !*** ./js/webix/components/hint/hint.css ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 93379);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_url_false_hint_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js?url=false!./hint.css */ 43008);
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_url_false_hint_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_url_false_hint_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -19389,7 +19450,8 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
                               if (newVal != oldVal) {
                                  this.buildTranslationAccordion(
                                     this.application.objectsIncluded(),
-                                    this.application.pages()
+                                    this.application.pages(),
+                                    this.application.hintsIncluded()
                                  );
                               }
                            },
@@ -19408,7 +19470,8 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
                               if (newVal != oldVal) {
                                  this.buildTranslationAccordion(
                                     this.application.objectsIncluded(),
-                                    this.application.pages()
+                                    this.application.pages(),
+                                    this.application.hintsIncluded()
                                  );
                               }
                            },
@@ -19459,7 +19522,8 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
             ).refresh();
             this.buildTranslationAccordion(
                this.application.objectsIncluded(),
-               this.application.pages()
+               this.application.pages(),
+               this.application.hintsIncluded()
             );
          });
 
@@ -19502,12 +19566,19 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
       return this.AB.applicationByID(this.appId).views(f);
    }
 
-   buildTranslationAccordion(objects, views) {
+   tutorials(f) {
+      return this.AB.applicationByID(this.appId).hints(f);
+   }
+
+   buildTranslationAccordion(objects, views, tutorials) {
       $$(`qtt_accordion_${this.containerDomID}`).removeView(
          `qtt_accordionitem_${this.containerDomID}_objects`
       );
       $$(`qtt_accordion_${this.containerDomID}`).removeView(
          `qtt_accordionitem_${this.containerDomID}_views`
+      );
+      $$(`qtt_accordion_${this.containerDomID}`).removeView(
+         `qtt_accordionitem_${this.containerDomID}_tutorials`
       );
 
       var toggleParent = (element) => {
@@ -19758,7 +19829,6 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
                         }, 200);
                      }
                   } else if (item.type == "page") {
-                     debugger;
                      var pageView = this.application.views(
                         (v) => v.id == item.id
                      )[0];
@@ -19899,6 +19969,162 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
          },
       ];
 
+      var tutorialTree = [
+         {
+            id: `qtt_tutorials_progress${this.containerDomID}`,
+            height: 7,
+         },
+         {
+            id: `linetree_${this.containerDomID}_tutorials`,
+            view: "edittree",
+            type: "lineTree",
+            editable: true,
+            tooltip: "#hint#",
+            // role: role,
+            editor: "text",
+            editValue: "value",
+            template: (obj, common) => {
+               let language = $$(
+                  `qtt_accordion_${this.containerDomID}_translateTo`
+               ).getValue();
+               var color = "gray";
+               if (obj.value.indexOf(`[${language}]`) > -1) {
+                  color = "#ff5c4c";
+               }
+               if (!obj.icon) {
+                  obj.icon = "minus";
+               }
+               var icon = `<span class="fa-stack" style="margin: 0 5px 0 4px;">
+                                             <i style="color: ${color};" class="fa fa-circle fa-stack-2x"></i>
+                                             <i class="fa fa-${obj.icon} fa-stack-1x fa-inverse"></i>
+                                          </span>`;
+               return (
+                  `<span>` +
+                  icon +
+                  common.icon(obj, common) +
+                  `<span>${obj.value}</span>`
+               );
+            },
+            data: [],
+            on: {
+               onAfterLoad: (id) => {
+                  if (
+                     !$$(`qtt_tutorials_progress${this.containerDomID}`)
+                        .showProgress
+                  ) {
+                     webix.extend(
+                        $$(`qtt_tutorials_progress${this.containerDomID}`),
+                        webix.ProgressBar
+                     );
+                  }
+                  $$(`linetree_${this.containerDomID}_tutorials`).parse(
+                     this.getTranslationToolTutorialsTree(
+                        tutorials,
+                        this.containerDomID
+                     )
+                  );
+                  $$(`linetree_${this.containerDomID}_tutorials`).openAll();
+               },
+               onAfterEditStop: (state, editor, ignoreUpdate) => {
+                  /// need to work here next week james
+                  if (state.old == state.value) return false;
+                  let language = $$(
+                     `qtt_accordion_${this.containerDomID}_translateTo`
+                  ).getValue();
+                  let branch = $$(
+                     `linetree_${this.containerDomID}_tutorials`
+                  ).data.getItem(editor.id);
+                  let propName = branch.field;
+                  if (branch.type == "tutorial") {
+                     let hint = this.AB.hints((h) => {
+                        return h.id == branch.viewId;
+                     })[0];
+                     let hasLang = false;
+                     if (hint.languageDefault() == language) {
+                        hasLang = true;
+                        hint[propName] = state.value;
+                     } else {
+                        hint.translations.forEach((t) => {
+                           if (t.language_code == language) {
+                              hasLang = true;
+                              t[propName] = state.value;
+                           }
+                        });
+                     }
+                     if (!hasLang) {
+                        let trans = {};
+                        for (const [key, value] of Object.entries(
+                           hint.translations[0]
+                        )) {
+                           trans[key] = `[${language}] ${value}`;
+                        }
+                        trans.language_code = language;
+                        trans[propName] = state.value;
+                        hint.translations.push(trans);
+                     }
+                     hint.save();
+                  } else if (branch.type == "step") {
+                     let hint = this.AB.hints((h) => {
+                        return h.id == branch.hintId;
+                     })[0];
+                     let step = hint._steps[branch.viewId];
+                     let hasLang = false;
+                     if (step.languageDefault() == language) {
+                        hasLang = true;
+                        step[propName] = state.value;
+                     } else {
+                        step.translations.forEach((t) => {
+                           if (t.language_code == language) {
+                              hasLang = true;
+                              t[propName] = state.value;
+                           }
+                        });
+                     }
+                     if (!hasLang) {
+                        let trans = {};
+                        for (const [key, value] of Object.entries(
+                           step.translations[0]
+                        )) {
+                           trans[key] = `[${language}] ${value}`;
+                        }
+                        trans.language_code = language;
+                        trans[propName] = state.value;
+                        step.translations.push(trans);
+                     }
+                     step.save();
+                  }
+                  let progressBar = $$(
+                     `qtt_tutorials_progress${this.containerDomID}`
+                  );
+                  let total = progressBar.config.total;
+                  let completed = progressBar.config.completed;
+                  if (
+                     state.old.indexOf(`[${language}]`) == -1 &&
+                     state.value.indexOf(`[${language}]`) > -1
+                  ) {
+                     completed--;
+                  } else if (
+                     state.old.indexOf(`[${language}]`) > -1 &&
+                     state.value.indexOf(`[${language}]`) > -1
+                  ) {
+                     // no change to completed count
+                  } else {
+                     completed++;
+                  }
+                  let position = completed / total + 0.00001;
+                  progressBar.define({
+                     total: total,
+                     completed: completed,
+                  });
+                  progressBar.showProgress({
+                     type: "top",
+                     position: position,
+                  });
+               },
+            },
+         },
+      ];
+
       var objectsAccordionItem = {
          view: "accordionitem",
          id: `qtt_accordionitem_${this.containerDomID}_objects`,
@@ -19921,6 +20147,17 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
          },
       };
 
+      var hintsAccordionItem = {
+         view: "accordionitem",
+         id: `qtt_accordionitem_${this.containerDomID}_tutorials`,
+         header: "Tutorials",
+         collapsed: true,
+         body: {
+            type: "clean",
+            rows: tutorialTree,
+         },
+      };
+
       $$(`qtt_accordion_${this.containerDomID}`).addView(
          objectsAccordionItem,
          -1
@@ -19929,12 +20166,18 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
          viewsAccordionItem,
          -1
       );
+      $$(`qtt_accordion_${this.containerDomID}`).addView(
+         hintsAccordionItem,
+         -1
+      );
       $$(`qtt_accordion_${this.containerDomID}`).show();
       $$(`qtt_accordionitem_${this.containerDomID}_views`).collapse();
+      $$(`qtt_accordionitem_${this.containerDomID}_tutorials`).collapse();
       $$(`qtt_accordion_noSelection_${this.containerDomID}`).hide();
 
       $$(`linetree_${this.containerDomID}_objects`).openAll();
       $$(`linetree_${this.containerDomID}_views`).openAll();
+      $$(`linetree_${this.containerDomID}_tutorials`).openAll();
    }
 
    getTranslations(translations, domId, field, completed, total) {
@@ -19983,7 +20226,7 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
          translatePrefix = `[${translateLang}] `;
       }
       if (
-         (valueLabel || "").indexOf(`[${translateLang}]` == -1) &&
+         (valueLabel || "").indexOf(`[${translateLang}]`) == -1 &&
          !missingTranslate
       ) {
          completed++;
@@ -20163,6 +20406,8 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
          objectId
       ) => {
          var translations = object.translations;
+         // we were missing translationson the Roles object
+         if (!translations) return;
          var labels = this.getTranslations(
             translations,
             domId,
@@ -20230,9 +20475,1229 @@ class PortalTranslationTool extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
 
       return tree;
    }
+
+   getTranslationToolTutorialsTree(tutorials, domId) {
+      var completed = 0;
+      var total = 0;
+      // this so it looks right/indented in a tree view:
+      var tree = new webix.TreeCollection();
+
+      /**
+       * @method addBranch
+       *
+       * @param {ABView} page
+       * @param {uuid} parentId
+       * @param {string} type
+       */
+      var addBranch = (
+         object,
+         parentId,
+         type,
+         field = ["label"],
+         hintId = null
+      ) => {
+         var translations = object.translations;
+         // we were missing translationson the Roles object
+         if (!translations) return;
+         let lastField = "";
+         let firstField = "";
+         field.forEach((f) => {
+            if (firstField == "") firstField = f;
+            lastField = f;
+            var labels = this.getTranslations(
+               translations,
+               domId,
+               f,
+               completed,
+               total
+            );
+            completed = labels.completed;
+            total = labels.total;
+
+            // add to tree collection
+            var branch = {
+               id: object.id + f,
+               viewId: object.id,
+               value: labels.value,
+               hint: labels.hint,
+               translations: object.translations,
+               field: f,
+               type: type,
+               hintId: hintId,
+               icon:
+                  type == "tutorial"
+                     ? "info-circle"
+                     : object.icon
+                     ? object.icon
+                     : "minus-circle",
+            };
+            tree.add(branch, null, parentId);
+            parentId = object.id + firstField;
+         });
+
+         var steps = object.stepIDs || [];
+         steps.forEach((step) => {
+            addBranch(
+               object._steps[step],
+               parentId,
+               "step",
+               ["name", "text"],
+               object.id
+            );
+         });
+      };
+      tutorials.forEach((p, index) => {
+         addBranch(p, null, "tutorial", ["name", "description"]);
+      });
+
+      // there is a webix bug that will not allow you to se the value of a progress bar to 0
+      let progressBar = $$(`qtt_tutorials_progress${domId}`);
+      let position = completed / total + 0.0001;
+      progressBar.showProgress({
+         type: "top",
+         position: position,
+      });
+      progressBar.define({
+         total: total,
+         completed: completed,
+      });
+
+      return tree;
+   }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new PortalTranslationTool());
+
+
+/***/ }),
+
+/***/ 36564:
+/*!***************************************!*\
+  !*** ./ui/portal_tutorial_manager.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClassUI.js */ 32735);
+
+
+let L = (...params) => AB.Multilingual.label(...params);
+
+class PortalTutorialManager extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   constructor() {
+      super();
+   }
+
+   ui(appId) {
+      // this is the modal window that opens when you click a tutorial to edit
+      const tutorialStepsManager = (id) => {
+         return {
+            view: "window",
+            id: "stepManager" + id,
+            head: {
+               view: "toolbar",
+               css: "webix_dark",
+               cols: [
+                  {
+                     width: 15,
+                  },
+                  {
+                     view: "label",
+                     label: "Tutorial Steps Manager",
+                     autowidth: true,
+                  },
+                  {},
+                  {
+                     view: "button",
+                     type: "icon",
+                     icon: "fa fa-plus",
+                     label: "Step",
+                     autowidth: true,
+                     css: "webix_primary",
+                     click: async () => {
+                        // create ABStep
+                        let step = await this.createStep(id);
+                        // save it to get an id to store on the ABHint
+                        await step.save();
+
+                        // get the current ABHint
+                        let hint = this.AB.hints((h) => {
+                           return h.id == id;
+                        })[0];
+                        // store the new ABStep id in the current ABHint
+                        if (hint?.stepIDs && Array.isArray(hint.stepIDs)) {
+                           hint.stepIDs.push(step.id);
+                        } else {
+                           hint.stepIDs = [step.id];
+                        }
+                        // store the ABStep in the ABHint (not saved in definitions)
+                        hint._steps[step.id] = step;
+                        // add the new step UI to the interface
+                        $$("hint_steps_" + hint.id).addView(
+                           this.stepUI(step, hint)
+                        );
+                     },
+                  },
+                  {
+                     view: "button",
+                     width: 35,
+                     css: "webix_transparent",
+                     type: "icon",
+                     icon: "nomargin fa fa-times",
+                     click: () => {
+                        $$("stepManager" + id).close();
+                        this.show();
+                     },
+                  },
+               ],
+            },
+            width: 800,
+            height: 500,
+            move: true,
+            position: "center",
+            resize: true,
+            body: {
+               rows: [
+                  {
+                     view: "scrollview",
+                     body: {
+                        rows: [
+                           tutorialSettings(id),
+                           {
+                              id: "hint_steps_" + id,
+                              rows: [],
+                           },
+                        ],
+                     },
+                  },
+                  save(id),
+               ],
+            },
+         };
+      };
+
+      // ui that contains the list of current ABHints on this application
+      const tutorialManagerBody = {
+         view: "scrollview",
+         css: "lightgray ab_tutorial",
+         body: {
+            rows: [
+               {
+                  view: "list",
+                  id: "tutorial_list",
+                  template: `<div class="deleteHint">
+                                 <i class="fa fa-times"></i>
+                              </div>
+                              <div class="active#settings.active# abTutorial">
+                                 <h1>#name#</h1>
+                                 <p>#description#</p>
+                              </div>`,
+                  data: this._hints,
+                  hidden: this._hints.length == 0, // hide if we do not have any hints yet
+                  type: {
+                     css: "hintItem",
+                     height: "auto",
+                  },
+                  onClick: {
+                     deleteHint: (ev, id) => {
+                        // Confirm user wants to delete the hint
+                        webix
+                           .confirm({
+                              title: L("Delete Tutorial"),
+                              text: L(
+                                 "Are you sure you want to delete this tutorial?"
+                              ),
+                              type: "confirm-error",
+                           })
+                           .then((result) => {
+                              // get the hint that we want to delete
+                              let hint = this.AB.hintID(id);
+                              // delete the hint (steps will also be deleted)
+                              hint.destroy(this.application);
+                              // remove the hint from the ui
+                              $$("tutorial_list").remove(id);
+                              // check if we have any hints if not switch views
+                              if ($$("tutorial_list").count() == 0) {
+                                 $$("tutorial_list").hide();
+                                 $$("tutorial_list_noSelection").show();
+                              }
+                              return false; // blocks the default click behavior
+                           })
+                           .fail(() => {
+                              // webix.message("Cancel");
+                           });
+                        return false;
+                     },
+                     hintItem: (ev, id) => {
+                        // open the editor for the hint
+                        webix.ui(tutorialStepsManager(id)).show();
+                        // insert the steps into the manager to edit
+                        this.steps(id);
+                        this.hide();
+                     },
+                  },
+               },
+               {
+                  id: "tutorial_list_noSelection",
+                  hidden: this._hints.length > 0,
+                  rows: [
+                     {},
+                     {
+                        view: "label",
+                        align: "center",
+                        height: 200,
+                        label: "<div style='display: block; font-size: 180px; background-color: #666; color: transparent; text-shadow: 0px 1px 1px rgba(255,255,255,0.5); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text;' class='fa fa-info-circle'></div>",
+                     },
+                     {
+                        view: "label",
+                        align: "center",
+                        label: "Add a tutorial to this page.",
+                     },
+                     {
+                        cols: [
+                           {},
+                           {
+                              view: "button",
+                              label: "Create Tutorial",
+                              type: "form",
+                              css: "webix_primary",
+                              autowidth: true,
+                              click: () => {
+                                 // open modal that helps user make a new hint
+                                 webix.ui(newTutorialPopup).show();
+
+                                 // populate the optiosn of the page/tab combo
+                                 $$("view_popup_options").define(
+                                    "options",
+                                    this.options
+                                 );
+                                 // attempt to set the values of the combo based off the
+                                 // last visited page would be better if we could look at
+                                 // tabs as well
+                                 $$("view_popup_options").define(
+                                    "value",
+                                    this.portal.AppState.lastPages[
+                                       this.portal.AppState.lastSelectedApp
+                                    ]
+                                 );
+                                 $$("view_popup_options").refresh();
+                              },
+                           },
+                           {},
+                        ],
+                     },
+                     {},
+                  ],
+               },
+            ],
+         },
+      };
+
+      // small modal that is displayed when user wants to create a new tutorial/hint
+      const newTutorialPopup = {
+         view: "popup",
+         id: "newTutorialPopup",
+         position: "center",
+         height: 250,
+         width: 350,
+         modal: true,
+         body: {
+            rows: [
+               {
+                  view: "toolbar",
+                  id: "myToolbarABLiveTool",
+                  css: "webix_dark",
+                  cols: [
+                     {
+                        view: "label",
+                        label: L("Create Tutorial"),
+                        align: "center",
+                     },
+                  ],
+               },
+               {
+                  view: "form",
+                  elements: [
+                     {
+                        view: "combo",
+                        label: "",
+                        id: "view_popup_options",
+                        placeholder: L("Choose Page or Tab"),
+                        options: [],
+                     },
+                     {
+                        cols: [
+                           {
+                              view: "button",
+                              value: L("Cancel"),
+                              click: () => {
+                                 $$("newTutorialPopup").hide();
+                              },
+                           },
+                           {
+                              view: "button",
+                              value: "Create",
+                              id: "view_popup_options_add",
+                              css: "webix_primary",
+                              click: () => {
+                                 let view = $$("view_popup_options").getValue();
+                                 let text = $$("view_popup_options")
+                                    .getText()
+                                    .trim();
+                                 // take values from selection to build a new hint
+                                 this.createTutorial(view, text);
+                                 $$("newTutorialPopup").hide();
+                              },
+                           },
+                        ],
+                     },
+                  ],
+               },
+            ],
+         },
+      };
+
+      // save the hint and step values and close the manager
+      const save = (id) => {
+         return {
+            cols: [
+               {},
+               {
+                  view: "button",
+                  value: L("Cancel"),
+                  width: 100,
+                  click: () => {
+                     $$("stepManager" + id).close();
+                     this.show();
+                  },
+               },
+               {
+                  view: "button",
+                  value: L("Save"),
+                  width: 100,
+                  css: "webix_primary",
+                  click: async (element, event) => {
+                     // validate form
+                     let valid = $$("stepform" + id).validate();
+                     // get hint we are going to update
+                     let hint = this.AB.hints((h) => {
+                        return h.id == id;
+                     })[0];
+                     // loop through steps to get values and save
+                     hint.stepIDs.forEach((step) => {
+                        if (hint?._steps?.[step]) {
+                           // validate each step to ensure they are ready to save
+                           if (
+                              !$$("step_form" + step).validate({
+                                 disabled: true,
+                              })
+                           ) {
+                              valid = false;
+                           } else {
+                              // set values so we can save later
+                              let values = $$("step_form" + step).getValues();
+                              hint._steps[step].name = values.name;
+                              hint._steps[step].text = values.text;
+                              hint._steps[step].settings.event = values.event;
+                              hint._steps[step].settings.el = values.el;
+                              // hint._steps[step].save();
+                           }
+                        }
+                     });
+                     if (!valid) return false;
+
+                     var values = $$("stepform" + id).getValues();
+                     hint.name = values.name;
+                     hint.description = values.description;
+                     hint.settings.view = values.view;
+                     hint.settings.active = values.active;
+                     // save the steps data next
+                     // hint.stepIDs.forEach((step) => {
+                     //    if (hint?._steps?.[step]) {
+                     //       hint._steps[step].save();
+                     //    }
+                     // });
+                     for (const step of hint.stepIDs) {
+                        if (hint?._steps?.[step]) {
+                           await hint._steps[step].save();
+                        }
+                     }
+                     await hint.save();
+                     $$("stepManager" + id).close();
+                     this.show();
+                  },
+               },
+               {},
+            ],
+         };
+      };
+
+      // ui that is at the top of the tutorial manager for the global tutorial settings
+      const tutorialSettings = (id) => {
+         let currentTutorial = this.AB.hints((h) => {
+            return h.id == id;
+         })[0];
+         let active = currentTutorial?.settings.hasOwnProperty("active")
+            ? currentTutorial.settings.active
+            : "1";
+         return {
+            view: "form",
+            id: "stepform" + id,
+            borderless: true,
+            cols: [
+               {
+                  id: "step_window",
+                  rows: [
+                     {
+                        view: "text",
+                        label: L("Title"),
+                        name: "name",
+                        validate: webix.rules.isNotEmpty,
+                        invalidMessage: L("Title is required"),
+                        value: currentTutorial.name,
+                     },
+                     {
+                        view: "textarea",
+                        label: L("Text"),
+                        labelAlign: "left",
+                        height: 100,
+                        name: "description",
+                        value: currentTutorial?.description || "",
+                     },
+                  ],
+               },
+               {
+                  width: 300,
+                  rows: [
+                     {
+                        cols: [
+                           {
+                              view: "label",
+                              label: L("Page/Tab"),
+                              align: "left",
+                              width: 100,
+                           },
+                           // {
+                           //    view: "button",
+                           //    icon: "fa fa-crosshairs",
+                           //    type: "icon",
+                           //    label: L("select"),
+                           //    css: "focusPageTab webix_primary",
+                           //    currentTutorialID: id,
+                           //    width: 100,
+                           //    click: () => {
+                           //       $$("stepManager" + currentTutorial.id).hide();
+                           //       document.addEventListener(
+                           //          "click",
+                           //          this.handlePageTabClick,
+                           //          false
+                           //       );
+                           //       document.hintId = id;
+                           //       webix.ui(this.pageTabWindow(id)).show();
+                           //    },
+                           // },
+                           {
+                              view: "combo",
+                              name: "view",
+                              value: currentTutorial.settings.view,
+                              options: {
+                                 view: "suggest",
+                                 css: "wider_popup",
+                                 body: {
+                                    view: "list",
+                                    css: "wider_popup",
+                                    data: this.options,
+                                    template: "#value#",
+                                 },
+                              },
+                           },
+                        ],
+                     },
+
+                     {
+                        view: "switch",
+                        label: L("Active"),
+                        labelWidth: 100,
+                        name: "active",
+                        value: active,
+                     },
+                  ],
+               },
+            ],
+         };
+      };
+
+      // this is the drawer admin that lists all tutorials
+      return {
+         view: "window",
+         css: "tutorialWindow",
+         id: "tutorial_manager",
+         position: function (state) {
+            state.left = state.maxWidth - 350; // fixed values
+            state.top = 0;
+            state.width = 350; // relative values
+            state.height = state.maxHeight;
+         },
+         on: {
+            onShow: () => {},
+         },
+         head: {
+            view: "toolbar",
+            css: "webix_dark",
+            cols: [
+               {
+                  width: 15,
+               },
+               {
+                  view: "label",
+                  label: "Tutorial Manager",
+                  autowidth: true,
+               },
+               {},
+               {
+                  view: "button",
+                  type: "icon",
+                  icon: "fa fa-plus",
+                  label: "Tutorial",
+                  width: 95,
+                  css: "webix_primary",
+                  click: () => {
+                     webix.ui(newTutorialPopup).show();
+
+                     $$("view_popup_options").define("options", this.options);
+                     $$("view_popup_options").define(
+                        "value",
+                        this.portal.AppState.lastPages[
+                           this.portal.AppState.lastSelectedApp
+                        ]
+                     );
+                     $$("view_popup_options").refresh();
+                  },
+               },
+               {
+                  view: "button",
+                  width: 35,
+                  css: "webix_transparent",
+                  type: "icon",
+                  icon: "nomargin fa fa-times",
+                  click: () => {
+                     this.hide();
+                  },
+               },
+            ],
+         },
+         body: tutorialManagerBody,
+      };
+   }
+
+   init(portal) {
+      this.AB = portal.AB;
+      this.portal = portal;
+      this.appId = portal.AppState.lastSelectedApp;
+
+      this.application = this.AB.applicationByID(this.appId);
+      const pages = this.application.pages();
+      this.options = this.getViewOptions(pages);
+      // only return tutorials that are on current application
+      this._hints = this.AB.hints((hint) => {
+         if (this.application.hintIDs.indexOf(hint.id) > -1) {
+            return true;
+         } else {
+            return false;
+         }
+      });
+      webix.ui(this.ui());
+   }
+
+   show() {
+      // this gets the latest hints and updates them to local list.
+      $$("tutorial_manager").show();
+      this._hints = this.AB.hints((hint) => {
+         if (this.application.hintIDs.indexOf(hint.id) > -1) {
+            return true;
+         } else {
+            return false;
+         }
+      });
+      $$("tutorial_list").define("data", this._hints);
+      $$("tutorial_list").refresh();
+   }
+
+   hide() {
+      $$("tutorial_manager").hide();
+   }
+
+   // small modal that gives instructions to user when selecting the page or tab to load this tutorial on
+   pageTabWindow(hintID) {
+      return {
+         view: "window",
+         id: "pageTabWindow",
+         width: 160,
+         height: 160,
+         move: true,
+         head: {
+            view: "toolbar",
+            css: "webix_dark",
+            cols: [
+               {},
+               {
+                  view: "button",
+                  width: 35,
+                  css: "webix_transparent",
+                  type: "icon",
+                  icon: "nomargin fa fa-times",
+                  click: () => {
+                     $$("stepManager" + hintID).show();
+                     $$("pageTabWindow").hide();
+
+                     document.removeEventListener(
+                        "contextmenu",
+                        this.handleRightClick,
+                        false
+                     );
+                  },
+               },
+            ],
+         },
+         position: function (state) {
+            state.left = state.maxWidth - state.width;
+            state.top = state.maxHeight - state.height;
+         },
+         body: {
+            template:
+               "<div class='highlightWin'>" +
+               L("Click the page or tab that will start this tutorial") +
+               "</div>",
+         },
+      };
+   }
+
+   // small modal that gives instructions to users when they are selecting the highlight element
+   focusWindow(hintID) {
+      return {
+         view: "window",
+         id: "focusWindow",
+         width: 160,
+         height: 160,
+         move: true,
+         head: {
+            view: "toolbar",
+            css: "webix_dark",
+            cols: [
+               {},
+               {
+                  view: "button",
+                  width: 35,
+                  css: "webix_transparent",
+                  type: "icon",
+                  icon: "nomargin fa fa-times",
+                  click: () => {
+                     $$("stepManager" + hintID).show();
+                     $$("focusWindow").hide();
+
+                     document.removeEventListener(
+                        "contextmenu",
+                        this.handleRightClick,
+                        false
+                     );
+                     document.body.classList.remove("findDataCy");
+                  },
+               },
+            ],
+         },
+         position: function (state) {
+            state.left = state.maxWidth - state.width;
+            state.top = state.maxHeight - state.height;
+         },
+         body: {
+            template:
+               "<div class='highlightWin'>" +
+               L("Right click the element you want to highlight.") +
+               "</div>",
+         },
+      };
+   }
+
+   updateStepsUI(id) {
+      const views = $$("hint_steps_" + id).getChildViews();
+      let viewsToRemove = [];
+      views.forEach((view) => {
+         viewsToRemove.push(view.config.id);
+      });
+      viewsToRemove.forEach((view) => {
+         $$("hint_steps_" + id).removeView(view);
+      });
+      this.steps(id);
+   }
+
+   addHighlightClass(event) {
+      let item = $$(event.currentTarget);
+      let formVals = $$("step_form" + item.config.stepId).getValues();
+      document.querySelector(formVals?.el).classList.add("highlightMe");
+   }
+   removeHighlightClass(event) {
+      let item = $$(event.currentTarget);
+      let formVals = $$("step_form" + item.config.stepId).getValues();
+      document.querySelector(formVals?.el).classList.remove("highlightMe");
+   }
+
+   // build a list of steps that are included in this hint
+   steps(id) {
+      let hint = this.AB.hints((h) => {
+         return h.id == id;
+      })[0];
+      // if we do not have steps
+      if (!hint?.stepIDs?.length) {
+         let addStepBelow = {
+            id: "addStepBelow",
+            padding: 20,
+            rows: [
+               {
+                  css: "ab-component-form-rules",
+                  rows: [
+                     {},
+                     {
+                        view: "label",
+                        align: "center",
+                        height: 80,
+                        label: "<div style='display: block; font-size: 80px; background-color: #666; color: transparent; text-shadow: 0px 1px 1px rgba(255,255,255,0.5); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text;' class='fa fa-info-circle'></div>",
+                     },
+                     {
+                        view: "label",
+                        align: "center",
+                        label: L("Add a step to this tutorial."),
+                     },
+                     {
+                        cols: [
+                           {},
+                           {
+                              view: "button",
+                              type: "icon",
+                              icon: "fa fa-plus",
+                              label: L("Step"),
+                              autowidth: true,
+                              css: "webix_primary",
+                              click: async () => {
+                                 // create an ABStep
+                                 let step = await this.createStep(id);
+                                 // save it to definitions to get id
+                                 await step.save();
+                                 // get the hint we are editing
+                                 let hint = this.AB.hints((h) => {
+                                    return h.id == id;
+                                 })[0];
+                                 // assign the new ABStep id to the ABHint
+                                 if (
+                                    hint?.stepIDs &&
+                                    Array.isArray(hint.stepIDs)
+                                 ) {
+                                    hint.stepIDs.push(step.id);
+                                 } else {
+                                    hint.stepIDs = [step.id];
+                                 }
+                                 // store the ABStep on the ABHint (not stored in defs)
+                                 hint._steps[step.id] = step;
+                                 // remove ui that shows when ABHint does not have steps
+                                 $$("hint_steps_" + hint.id).removeView(
+                                    "addStepBelow"
+                                 );
+                                 // add the ui to edit the new step to the ui
+                                 $$("hint_steps_" + hint.id).addView(
+                                    this.stepUI(step, hint)
+                                 );
+                              },
+                           },
+                           {},
+                        ],
+                     },
+                     {},
+                  ],
+               },
+            ],
+         };
+         // add to the ui now that we have it defined
+         $$("hint_steps_" + id).addView(addStepBelow);
+      } else {
+         // if we do have steps
+         hint.stepIDs.forEach((step) => {
+            $$("hint_steps_" + id).addView(
+               this.stepUI(hint._steps[step], hint)
+            );
+         });
+      }
+      // set up hover listeners for buttons that help user pick and show the highlight elements
+      const focusElements = document.querySelectorAll(".focusElement");
+      for (let i = 0; i < focusElements.length; i++) {
+         focusElements[i].addEventListener(
+            "mouseover",
+            this.addHighlightClass,
+            false
+         );
+         focusElements[i].addEventListener(
+            "mouseout",
+            this.removeHighlightClass,
+            false
+         );
+      }
+   }
+
+   // UI for each step that will be used to rebuild steps when moved/deleted/loaded
+   stepUI(step, hint) {
+      // the position of the step that we display in the top left corner of the ui
+      let position = $$("hint_steps_" + hint.id).getChildViews().length + 1;
+      return {
+         view: "form",
+         id: "step_form" + step.id,
+         css: "my",
+         padding: 15,
+         borderless: true,
+         rows: [
+            {
+               borderless: true,
+               cols: [
+                  {
+                     width: 50,
+                     rows: [
+                        {
+                           view: "label",
+                           label: `<h1 class="stepPos">${position}</h1>`,
+                           align: "center",
+                        },
+                        {
+                           view: "icon",
+                           class: "moveStepUp",
+                           icon: "fa fa-caret-up",
+                           disabled: position == 1 ? true : false, // do not allow moving up if already at the top position
+                           align: "center",
+                           click: (id, element) => {
+                              // move the step up a position
+                              this.moveStep(step, hint, "up");
+                           },
+                        },
+                        {
+                           view: "icon",
+                           class: "moveStepDown",
+                           icon: "fa fa-caret-down",
+                           disabled:
+                              hint.stepIDs.length == position ? true : false, // do not let the last item be moved down
+                           align: "center",
+                           click: (id, element) => {
+                              // move the step down a position
+                              this.moveStep(step, hint, "down");
+                           },
+                        },
+                     ],
+                  },
+                  {
+                     css: "ab-component-form-rules",
+                     padding: 15,
+                     cols: [
+                        {
+                           minWidth: 300,
+                           rows: [
+                              {
+                                 view: "text",
+                                 label: L("Title"),
+                                 validate: webix.rules.isNotEmpty,
+                                 invalidMessage: L("Title is required"),
+                                 labelWidth: 100,
+                                 name: "name",
+                                 value: step?.name || "",
+                              },
+                              {
+                                 view: "textarea",
+                                 label: L("Text"),
+                                 labelAlign: "left",
+                                 labelWidth: 100,
+                                 height: 150,
+                                 name: "text",
+                                 value: step?.text || "",
+                              },
+                              {
+                                 cols: [
+                                    {
+                                       view: "label",
+                                       label: L("Highlight"),
+                                       align: "left",
+                                       width: 100,
+                                    },
+                                    {
+                                       view: "button",
+                                       icon: "fa fa-crosshairs",
+                                       type: "icon",
+                                       label: L("select"),
+                                       css: "focusElement webix_primary",
+                                       stepId: step.id,
+                                       width: 100,
+                                       click: () => {
+                                          // change the ui to support the selecting of the highlight element
+                                          $$("stepManager" + hint.id).hide();
+                                          // adding this class will allow a css rule to highlight any element with data-cy attribute on hover
+                                          document.body.classList.add(
+                                             "findDataCy"
+                                          );
+                                          // when the user sees the element hovered can be a highlight element they right click to save it
+                                          document.addEventListener(
+                                             "contextmenu",
+                                             this.handleRightClick,
+                                             false
+                                          );
+                                          // store the step and hint ids to use in the handleRightClick() function
+                                          document.stepId = step.id;
+                                          document.hintId = hint.id;
+                                          // show a small window in bottom right hand corner that helps user know what to do
+                                          webix
+                                             .ui(this.focusWindow(hint.id))
+                                             .show();
+                                       },
+                                    },
+                                    {
+                                       view: "text",
+                                       name: "el",
+                                       value: step.settings.el,
+                                       disabled: true,
+                                       placeholder: L(
+                                          "Click the 'select' button to pick an element to highlight."
+                                       ),
+                                       bottomLabel: L(
+                                          "Hover over the 'select' button to highlight the chosen element."
+                                       ),
+                                       validate: webix.rules.isNotEmpty,
+                                       invalidMessage: L(
+                                          "Please choose an item to highlight"
+                                       ),
+                                    },
+                                 ],
+                              },
+                              {
+                                 cols: [
+                                    {
+                                       view: "label",
+                                       label: L("Event"),
+                                       align: "left",
+                                       width: 100,
+                                    },
+                                    {
+                                       view: "combo",
+                                       value: step.settings.event,
+                                       name: "event",
+                                       options: [
+                                          {
+                                             id: "click",
+                                             value: L("Click"),
+                                          },
+                                          {
+                                             id: "enter",
+                                             value: L("Enter"),
+                                          },
+                                       ],
+                                    },
+                                 ],
+                              },
+                           ],
+                        },
+                     ],
+                  },
+                  {
+                     view: "template",
+                     borderless: true,
+                     template: `<div class="deleteStep"><i class="fa fa-times"></i></div>`,
+                     width: 15,
+                     onClick: {
+                        deleteStep: (ev, id) => {
+                           // ask user if they want to delete this step
+                           webix
+                              .confirm({
+                                 title: L("Delete Step"),
+                                 text: L(
+                                    "Are you sure you want to delete this step?"
+                                 ),
+                                 type: "confirm-error",
+                              })
+                              .then(async (result) => {
+                                 // remove the step from the hint
+                                 hint.stepRemove(step.id);
+                                 await hint.save();
+                                 // rebuild the step ui now that one has been removed
+                                 this.updateStepsUI(hint.id);
+                                 return false; // blocks the default click behavior
+                              })
+                              .fail(() => {
+                                 // webix.message("Cancel");
+                              });
+                           return false;
+                        },
+                     },
+                  },
+               ],
+            },
+         ],
+      };
+   }
+
+   // this function moves a step up or down a position
+   async moveStep(step, hint, direction) {
+      let currPosition = hint.stepIDs.indexOf(step.id);
+      switch (direction) {
+         case "up":
+            hint.stepIDs.splice(
+               currPosition - 1,
+               0,
+               hint.stepIDs.splice(currPosition, 1)[0]
+            );
+            break;
+         default:
+            hint.stepIDs.splice(
+               currPosition + 1,
+               0,
+               hint.stepIDs.splice(currPosition, 1)[0]
+            );
+      }
+      await hint.save();
+      this.updateStepsUI(hint.id);
+   }
+
+   // this builds the list of page/tab options that a hint can be added to
+   getViewOptions(views) {
+      // this so it looks right/indented in a tree view:
+      // var tree = new webix.TreeCollection();
+      var options = [];
+
+      /**
+       * @method addOption
+       *
+       * @param {ABView} page
+       * @param {uuid} parentId
+       * @param {number} depth
+       */
+      var addOption = (object, parentId, depth) => {
+         // add to tree collection
+         if (["page", "tab", "viewcontainer"].indexOf(object.key) != -1) {
+            var indent = "";
+            for (let i = 0; i < depth; i++) {
+               indent += "<i style='display:inline-block; width: 10px;'></i>";
+            }
+            let icon =
+               object.icon == "braille" ? "external-link-square" : object.icon;
+            var option = {
+               id: object.id,
+               value: `${indent} <i class="fa fa-${icon}"></i> ${object.label}`,
+            };
+            options.push(option);
+         }
+
+         var pages = object.pages ? object.pages() : [];
+         pages.forEach((page, pageIndex) => {
+            addOption(page, object.id, depth + 1);
+         });
+
+         var views = object.views();
+         views.forEach((view, pageIndex) => {
+            addOption(view, object.id, depth + 1);
+         });
+      };
+      views.forEach((p, index) => {
+         addOption(p, null, 0);
+      });
+
+      return options;
+   }
+
+   // This creates a new hint and stores it on the application and view we want to display it on
+   async createTutorial(viewID, viewLabel) {
+      let hint = this.AB.hintNew({
+         name: viewLabel,
+         settings: { view: viewID },
+      });
+      await hint.save();
+      if (Array.isArray(this?.application?.hintIDs)) {
+         this.application.hintIDs.unshift(hint.id);
+      } else {
+         this.application.hintIDs = [hint.id];
+      }
+      this.application.save();
+      let hintView = this.application.views((view) => {
+         return view.id == viewID;
+      })[0];
+      hintView.settings.hintID = hint.id;
+      hintView.save();
+      $$("tutorial_list").add(hint, 0);
+      if (this.AB.hints().length) {
+         $$("tutorial_list").show();
+         $$("tutorial_list_noSelection").hide();
+      }
+   }
+
+   // create a new step on a hint
+   async createStep(hintID) {
+      let step = this.AB.stepNew(null, hintID);
+      return step;
+   }
+
+   // store the data-cy info on a step after right clicking an element on the page
+   handleRightClick(event) {
+      function getCy(element) {
+         if (element?.dataset?.cy) {
+            return element.dataset.cy;
+         } else if (element?.parentElement) {
+            return getCy(element.parentElement);
+         } else {
+            webix.alert({
+               text: L("Sorry, try another element."),
+            });
+            return "";
+         }
+      }
+
+      if (document?.stepId) {
+         event.preventDefault();
+         event.stopPropagation();
+         let dataCy = getCy(event.target);
+         if (!dataCy) return false;
+         $$("step_form" + document.stepId).setValues(
+            {
+               el: "[data-cy='" + dataCy + "']",
+            },
+            true
+         );
+      }
+      $$("stepManager" + document.hintId).show();
+      $$("focusWindow").hide();
+
+      document.removeEventListener("contextmenu", this.handleRightClick, false);
+      document.body.classList.remove("findDataCy");
+      delete document.stepId;
+      delete document.hintId;
+
+      return false;
+   }
+
+   // handlePageTabClick(event) {
+   //    event.preventDefault();
+   //    event.stopPropagation();
+   //    debugger;
+   //    // $$("stepform" + document?.hintId).setValues(
+   //    //    {
+   //    //       view: "[data-cy='" + dataCy + "']",
+   //    //    },
+   //    //    true
+   //    // );
+
+   //    $$("stepManager" + document.hintId).show();
+   //    $$("pageTabWindow").hide();
+
+   //    document.removeEventListener("click", this.handlePageTabClick, false);
+   //    delete document.hintId;
+
+   //    return false;
+   // }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new PortalTutorialManager());
 
 
 /***/ }),
@@ -20257,6 +21722,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./portal_work_user_qr_window.js */ 85354);
 /* harmony import */ var _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./portal_access_level_manager.js */ 57184);
 /* harmony import */ var _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./portal_translation_tool.js */ 77150);
+/* harmony import */ var _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./portal_tutorial_manager.js */ 36564);
+
 
 
 
@@ -21115,6 +22582,29 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
             });
          }
       }
+      if (application.isTutorialManaged) {
+         let isManager = false;
+         if (
+            application.tutorialManagers.useAccount == "1" &&
+            application.tutorialManagers.account.indexOf(uuid) > -1
+         ) {
+            isManager = true;
+         }
+         if (!isManager && application.tutorialManagers.useRole == "1") {
+            roles.forEach((role) => {
+               if (application.tutorialManagers.role.indexOf(role.uuid) > -1) {
+                  isManager = true;
+               }
+            });
+         }
+         if (isManager) {
+            settingsMenuOptions.push({
+               id: "tutorial",
+               label: this.label("Tutorial Manager"),
+               icon: "info-circle",
+            });
+         }
+      }
 
       if (settingsMenuOptions.length < 1) return $$("settings_icon").hide();
 
@@ -21140,6 +22630,10 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
                      case "translation":
                         _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_8__["default"].init(this);
                         _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_8__["default"].show();
+                        break;
+                     case "tutorial":
+                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_9__["default"].init(this);
+                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_9__["default"].show();
                         break;
                      default:
                         //eslint-disable-next-line
@@ -23349,4 +24843,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.a8a54157b11d4f7cb83a.js.map
+//# sourceMappingURL=app.da1affd9e300d574a593.js.map
