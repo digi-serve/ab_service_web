@@ -108587,6 +108587,12 @@ __webpack_require__.r(__webpack_exports__);
 
          this.workspaceViews.objectLoad(null);
 
+         // clear object caching in workspace
+         if (this.mockDatacollection?.datasource?.id)
+            this.workspaceViews.clearObjectCache(
+               this.mockDatacollection.datasource.id
+            );
+
          // get current view from object
          this.workspaceViews.objectLoad(this.mockDatacollection.datasource);
          const currentView = this.workspaceViews.getCurrentView();
@@ -121505,6 +121511,10 @@ __webpack_require__.r(__webpack_exports__);
          if (!this.currentViewID) {
             this.currentViewID = this.list()[0].id;
          }
+      }
+
+      clearObjectCache(objectID) {
+         delete this._settings?.[objectID];
       }
 
       /**
