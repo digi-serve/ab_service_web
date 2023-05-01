@@ -69065,9 +69065,7 @@ let myClass = null;
          }
 
          ui() {
-            return {
-               id: this.ids.component,
-            };
+            return this.component.ui();
          }
 
          async init(AB) {
@@ -69142,9 +69140,7 @@ let myClass = null;
          }
 
          ui() {
-            return {
-               id: this.ids.component,
-            };
+            return this.component.ui();
          }
 
          async init(AB) {
@@ -69219,9 +69215,7 @@ let myClass = null;
          }
 
          ui() {
-            return {
-               id: this.ids.component,
-            };
+            return this.component.ui();
          }
 
          async init(AB) {
