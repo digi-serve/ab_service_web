@@ -22044,7 +22044,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
          $$("portal_work_no_network_detected").show();
       }
 
-      navigator.connection.addEventListener("change", function () {
+      navigator?.connection?.addEventListener("change", function () {
          if (navigator.onLine) {
             $$("portal_work_no_network_detected").hide();
          } else {
@@ -24897,4 +24897,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.ce50aacbfbc26229667c.js.map
+//# sourceMappingURL=app.3e8369acf44d8b4a70de.js.map
