@@ -18390,6 +18390,14 @@ class PortalAuth extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
    }
 
    show(defaultView) {
+      // We cannot properly store the session id if users navigate directly to /home
+      // so when they navigate to /home and it was not a redirect we send them back to /
+      if (
+         window?.location?.pathname == "/home" &&
+         !window?.performance?.navigation?.redirectCount
+      )
+         window.location.replace(window.location.origin);
+
       $$("portal_auth").show();
       this.ActivePortal.show(defaultView);
    }
@@ -24897,4 +24905,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.3e8369acf44d8b4a70de.js.map
+//# sourceMappingURL=app.8fa9acbdfb68ea2b3a22.js.map
