@@ -16922,7 +16922,7 @@ class ClassUIPage extends _ClassUI__WEBPACK_IMPORTED_MODULE_0__["default"] {
       };
    }
 
-   init(AB, render = false) {
+   init(AB, render = false, showPage = true) {
       if (AB) {
          this.AB = AB;
       }
@@ -16955,6 +16955,11 @@ class ClassUIPage extends _ClassUI__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
          // 4) Make sure our Root Page is "shown"
          this.showPage();
+
+         if (!showPage) {
+            let parView = $$(this.containerID).getParentView();
+            parView.showBatch(parView.getValue(), false);
+         }
 
          resolve();
       });
@@ -16999,7 +17004,7 @@ class ClassUIPage extends _ClassUI__WEBPACK_IMPORTED_MODULE_0__["default"] {
          this.initialized = false;
 
          // begin the process of reloading the page
-         this.init(this.AB, true);
+         this.init(this.AB, true, false);
       };
 
       if (!this.updatePageEventId && page.isRoot()) {
@@ -24943,4 +24948,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.4a1efe91e0d422b27228.js.map
+//# sourceMappingURL=app.98abc219f409970b17c9.js.map
