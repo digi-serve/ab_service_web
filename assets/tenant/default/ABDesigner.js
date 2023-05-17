@@ -93507,8 +93507,7 @@ __webpack_require__.r(__webpack_exports__);
                      {
                         id: this.ids.datacollection,
                         name: "datacollection",
-                        view: "richselect",
-                        // view: "multicombo",
+                        view: "multiselect",
                         label: L("Data Source"),
                         labelWidth: uiConfig.labelWidthLarge,
                         on: {
@@ -109069,16 +109068,32 @@ __webpack_require__.r(__webpack_exports__);
           */
          const addPage = (page, index, parentId) => {
             // add to tree collection
-            const branch = {
-               id: page.viewId || page.id,
-               label: page.label,
-               icon: page.icon ? page.icon : "",
-               viewIcon: page.viewIcon ? page.viewIcon() : "",
-               datacollection: {
-                  id: page.datacollection ? page.datacollection.id : "",
-               },
-            };
-            this.viewList.add(branch, index, parentId);
+            if (page.key == "docxBuilder" && page?.datacollections?.forEach) {
+               // check if we have one or more datacollections
+               page.datacollections.forEach((collection) => {
+                  const branch = {
+                     id: page.id + collection.id,
+                     label: page.label,
+                     icon: page.icon ? page.icon : "",
+                     viewIcon: page.viewIcon ? page.viewIcon() : "",
+                     datacollection: {
+                        id: collection.id,
+                     },
+                  };
+                  this.viewList.add(branch, index, parentId);
+               });
+            } else {
+               const branch = {
+                  id: page.viewId || page.id,
+                  label: page.label,
+                  icon: page.icon ? page.icon : "",
+                  viewIcon: page.viewIcon ? page.viewIcon() : "",
+                  datacollection: {
+                     id: page.datacollection ? page.datacollection.id : "",
+                  },
+               };
+               this.viewList.add(branch, index, parentId);
+            }
 
             // // add sub-pages
             // if (page instanceof ABViewDetail) {
@@ -111919,7 +111934,7 @@ __webpack_require__.r(__webpack_exports__);
        * @param {ABView} view  current view instance.
        */
       viewLoad(view) {
-         if (this.currentPanel) {
+         if (this.currentPanel && view.id != this.CurrentViewID) {
             // Make sure the current Data is saved:
             if (this.pendingSave) this._handler_onChange(10, true);
 
@@ -111928,26 +111943,25 @@ __webpack_require__.r(__webpack_exports__);
             this.currentPanel = null;
          }
 
-         super.viewLoad(view);
+         if (view.id != this.CurrentViewID) {
+            super.viewLoad(view);
 
-         let _editor = this._editorsByType[view.key];
+            let _editor = this._editorsByType[view.key];
 
-         if (_editor) {
-            let newPanel = new _editor();
-            newPanel.applicationLoad(this.CurrentApplication);
+            if (_editor) {
+               let newPanel = new _editor();
+               newPanel.applicationLoad(this.CurrentApplication);
 
-            let ui = {
-               id: this.ids.editors,
-               rows: [newPanel.ui()],
-            };
+               let ui = [newPanel.ui()];
 
-            webix.ui(ui, $$(this.ids.editors));
-            newPanel.init(this.AB);
-            newPanel.populate(view);
+               webix.ui(ui, $$(this.ids.editors));
+               newPanel.init(this.AB);
+               newPanel.populate(view);
 
-            newPanel.on("changed", this._handler_onChange);
-            this.currentPanel = newPanel;
-            // newPanel.show();
+               newPanel.on("changed", this._handler_onChange);
+               this.currentPanel = newPanel;
+               // newPanel.show();
+            }
          }
       }
 
