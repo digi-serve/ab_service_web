@@ -18535,9 +18535,7 @@ class PortalAuthLoginForm extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["defa
          };
       }
 
-      var L = (...params) => {
-         return this.AB.Multilingual.label(...params);
-      };
+      var L = this.AB.Label();
 
       return {
          id: "portal_auth_login_container",
@@ -18757,7 +18755,7 @@ class PortalAuthLoginForm extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["defa
       if (siteConfig) {
          // replace options in tenant list with siteConfig.tenants:
          var newOptions = [];
-         siteConfig.tenants.forEach((t) => {
+         (siteConfig.tenants || []).forEach((t) => {
             var opt = {
                id: t.uuid,
                value: t.title || t.key,
@@ -24948,4 +24946,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.98abc219f409970b17c9.js.map
+//# sourceMappingURL=app.25295c48301e41ffaefb.js.map
