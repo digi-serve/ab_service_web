@@ -91340,6 +91340,7 @@ __webpack_require__.r(__webpack_exports__);
                on: {
                   onChange: (newValue) => {
                      this.selectSource(newValue);
+                     this.onChange();
                   },
                },
             },
@@ -91349,6 +91350,11 @@ __webpack_require__.r(__webpack_exports__);
                name: "columnUser",
                label: L("Select a user field"),
                labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
             },
             {
                id: ids.columnComment,
@@ -91356,6 +91362,11 @@ __webpack_require__.r(__webpack_exports__);
                name: "columnComment",
                label: L("Select a comment field"),
                labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
             },
             {
                id: ids.columnDate,
@@ -91363,6 +91374,11 @@ __webpack_require__.r(__webpack_exports__);
                name: "columnDate",
                label: L("Select a date field"),
                labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
             },
             {
                id: ids.height,
@@ -91370,6 +91386,11 @@ __webpack_require__.r(__webpack_exports__);
                name: "height",
                label: L("Height:"),
                labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
             },
          ]);
       }
