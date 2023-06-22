@@ -390,6 +390,7 @@ io.sails.reconnection = true;
 
 
 
+// const webix = require("./js/webix/webix_debug.js");
 
 
 
@@ -491,7 +492,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // NOTE: changed to require() so switching to webix_debug.js will work.
-// const Webix = require("../js/webix/webix-debug.js");
+// const Webix = require("../js/webix/webix_debug.js");
 
 
 // Make sure webix is global object
@@ -15931,6 +15932,31 @@ window.webix.i18n.locales["th-TH"] = {
       ],
       dayShort: ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."],
    },
+   aria: {
+      dateFormat: (date) => {
+         if (date == null) return "";
+         else if (typeof date == "string") return date;
+
+         const format = webix.Date.dateToStr(
+            `%d %F ${date.getFullYear() + 543}`
+         );
+         return format(date);
+      },
+      monthFormat: (date) => {
+         if (date == null) return "";
+         else if (typeof date == "string") return date;
+
+         const format = webix.Date.dateToStr(`%F ${date.getFullYear() + 543}`);
+         return format(date);
+      },
+      yearFormat: (date) => {
+         if (date == null) return "";
+         else if (typeof date == "string") return date;
+
+         const format = webix.Date.dateToStr(`${date.getFullYear() + 543}`);
+         return format(date);
+      },
+   },
 };
 
 
@@ -24946,4 +24972,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.25295c48301e41ffaefb.js.map
+//# sourceMappingURL=app.7454f0a60b951e1b1c38.js.map
