@@ -18237,6 +18237,10 @@ class PortalAccessLevelManager extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__[
             onDataUpdate: async (id, data, old) => {
                const tree = $$(`linetree_${role}`);
                if (data.access == "0") {
+                  // NOTE: Need to update "No Access" option here because It does not trigger `onAfterEditStop` event
+                  const view = this.views((v) => v.id == id)[0];
+                  await view.updateAccessLevels(tree.config.role, data.access);
+
                   tree.blockEvent();
                   await tree.data.eachSubItem(id, async (child) => {
                      const childData = tree.getItem(child.id);
@@ -24972,4 +24976,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.7454f0a60b951e1b1c38.js.map
+//# sourceMappingURL=app.ac26d53477de25305095.js.map
