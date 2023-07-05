@@ -1,0 +1,62 @@
+/*
+@license
+Webix Gantt v.8.1.1
+This software is covered by Webix Commercial License.
+Usage without proper license is prohibited.
+(c) XB Software Ltd.
+*/
+
+/*
+@license
+Webix Reports v.8.1.1
+This software is covered by Webix Commercial License.
+Usage without proper license is prohibited.
+(c) XB Software Ltd.
+*/
+
+/*
+@license
+Webix Scheduler v.8.1.1
+This software is covered by Webix Commercial License.
+Usage without proper license is prohibited.
+(c) XB Software Ltd.
+*/
+
+/*! *****************************************************************************
+    Copyright (c) Microsoft Corporation.
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
+    ***************************************************************************** */
+
+/**
+ * @license
+ * Webix Kanban v.8.1.1
+ * This software is covered by Webix Commercial License.
+ * Usage without proper license is prohibited.
+ * (c) XB Software Ltd.
+ */
+
+/**
+ * @license
+ * Webix Pivot v.8.1.1
+ * This software is covered by Webix Commercial License.
+ * Usage without proper license is prohibited.
+ * (c) XB Software Ltd.
+ */
+
+/**
+ * @license
+ * Webix UI v.8.1.1
+ * This software is covered by Webix Commercial License.
+ * Usage without proper license is prohibited.
+ * (c) XB Software Ltd.
+ */
