@@ -26407,7 +26407,8 @@ class PortalAuthLoginForm extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["defa
                                                       "portal_auth_login_form_submit_wait"
                                                    ).show();
 
-                                                   var values = form.getValues();
+                                                   var values =
+                                                      form.getValues();
                                                    self.error(); // hids the error message
 
                                                    // this.AB.Network.post()
@@ -26528,6 +26529,12 @@ class PortalAuthLoginForm extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["defa
          });
 
          $$("portal_auth_login_form_tenantList").define("options", newOptions);
+         if (newOptions.length == 0) {
+            console.warn("no tenants returned");
+            $$("portal_auth_login_form_tenantList").hide();
+         } else {
+            $$("portal_auth_login_form_tenantList").show();
+         }
       }
 
       var tID = this.AB.Tenant.id();
@@ -26912,18 +26919,18 @@ class PortalAuthLoginResetRequest extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0
                                                    autowidth: true,
                                                    hotkey: "enter",
                                                    click() {
-                                                      var email = $$(
-                                                         "reset-email"
-                                                      );
+                                                      var email =
+                                                         $$("reset-email");
                                                       if (email.validate()) {
-                                                         email = email.getValue();
-                                                         var tenant = $$(
-                                                            "reset_tenantList"
-                                                         ).getValue();
+                                                         email =
+                                                            email.getValue();
+                                                         var tenant =
+                                                            $$(
+                                                               "reset_tenantList"
+                                                            ).getValue();
                                                          self.AB.Network.post(
                                                             {
-                                                               url:
-                                                                  "/auth/login/reset",
+                                                               url: "/auth/login/reset",
                                                                data: {
                                                                   email,
                                                                   tenant,
@@ -26937,8 +26944,7 @@ class PortalAuthLoginResetRequest extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0
                                                                },
                                                             },
                                                             {
-                                                               key:
-                                                                  "portal_auth_login_reset",
+                                                               key: "portal_auth_login_reset",
                                                                context: {
                                                                   email,
                                                                },
@@ -26988,7 +26994,7 @@ class PortalAuthLoginResetRequest extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0
 
       var $tenant = $$("reset_tenantList");
       var siteConfig = this.AB.Config.siteConfig();
-      if (siteConfig) {
+      if (siteConfig?.tenants?.length) {
          // replace options in tenant list with siteConfig.tenants:
          var newOptions = [];
          siteConfig.tenants.forEach((t) => {
@@ -32710,4 +32716,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.0035807447f5ad9a6047.js.map
+//# sourceMappingURL=app.2e7781a6f41bdfd491de.js.map
