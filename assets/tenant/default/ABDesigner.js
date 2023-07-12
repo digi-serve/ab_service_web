@@ -100089,7 +100089,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "name",
                      label: L("Event"),
-                     placeholder: "Single line text",
+                     placeholder: L("Single line text"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100097,7 +100097,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "start",
                      label: L("Start"),
-                     placeholder: "Date & Time",
+                     placeholder: L("Date & Time"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100105,7 +100105,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "end",
                      label: L("End"),
-                     placeholder: "Date & Time",
+                     placeholder: L("Date & Time"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100113,7 +100113,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "allDay",
                      label: L("All day"),
-                     placeholder: "Checkbox",
+                     placeholder: L("Checkbox"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100121,7 +100121,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "repeat",
                      label: L("Repeat"),
-                     placeholder: "Single line text",
+                     placeholder: L("Single line text"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100129,7 +100129,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "calendar",
                      label: L("Calendar"),
-                     placeholder: "Connect to another record (One to Many)",
+                     placeholder: L("Connect to another record (One to Many)"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100137,7 +100137,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "color",
                      label: L("Color"),
-                     placeholder: "Single line text",
+                     placeholder: L("Single line text"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100145,7 +100145,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "sectionID",
                      label: L("Section ID"),
-                     placeholder: "Single line text",
+                     placeholder: L("Single line text"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100153,7 +100153,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "unitID",
                      label: L("Unit ID"),
-                     placeholder: "Single line text",
+                     placeholder: L("Single line text"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100161,7 +100161,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "notes",
                      label: L("Notes"),
-                     placeholder: "Long text",
+                     placeholder: L("Long text"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100169,7 +100169,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "originID",
                      label: L("Origin ID"),
-                     placeholder: "Number",
+                     placeholder: L("Number"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                ],
@@ -100213,6 +100213,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "title",
                      label: L("Title"),
+                     placeholder: L("Single line text"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100220,6 +100221,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "color",
                      label: L("Color"),
+                     placeholder: L("Single line text"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -100227,6 +100229,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "active",
                      label: L("Active"),
+                     placeholder: L("Checkbox"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                ],
