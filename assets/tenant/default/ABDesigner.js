@@ -99718,7 +99718,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "name",
                      label: L("Name"),
-                     placeholder: "Single line text",
+                     placeholder: L("Single line text"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -99726,7 +99726,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "text",
                      label: L("Text"),
-                     placeholder: "Long text",
+                     placeholder: L("JSON"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                   {
@@ -99734,7 +99734,7 @@ __webpack_require__.r(__webpack_exports__);
                      view: "richselect",
                      name: "queries",
                      label: L("Queries"),
-                     placeholder: "JSON",
+                     placeholder: L("JSON"),
                      labelWidth: uiConfig.labelWidthLarge,
                   },
                ],
