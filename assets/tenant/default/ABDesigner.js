@@ -119526,7 +119526,7 @@ __webpack_require__.r(__webpack_exports__);
          var defaultSettings = viewProperties.toSettings();
          var defaultView = this.AB.viewNewDetatched(defaultSettings);
 
-         this.popup = defaultView.component();
+         this.popup = defaultView.component(ibase);
          this.popup.init(AB);
          this.popup.objectLoad(this.CurrentObject);
       }
