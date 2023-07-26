@@ -99674,7 +99674,9 @@ __webpack_require__.r(__webpack_exports__);
 
             datacollectionIDs: "",
             editMode: "",
-            readonly: "",
+            hideCommonTab: "",
+            hideDataTab: "",
+            hideViewTab: "",
          });
       }
 
@@ -99748,41 +99750,18 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                view: "label",
-               label: L("Choose Datacollections"),
+               label: L("Limit Datacollections"),
             },
             {
                id: ids.datacollectionIDs,
-               view: "list",
-               height: 200,
-               select: "multiselect",
-               template: "#value#",
-               data: [],
+               view: "multicombo",
+               value: [],
+               options: [],
+               placeholder: L("Click to add Datacollection"),
+               labelAlign: "left",
+               stringResult: false /* returns data as an array of [id] */,
                on: {
-                  onSelectChange: () => {
-                     this.onChange();
-                  },
-               },
-            },
-            {
-               view: "button",
-               label: "Unselect All",
-               click: () => {
-                  $$(ids.datacollectionIDs).unselectAll();
-               },
-            },
-            {
-               id: ids.readonly,
-               name: "readonly",
-               view: "checkbox",
-               label: L("Read only"),
-               labelWidth: uiConfig.labelWidthLarge,
-               on: {
-                  onChange: (newValue) => {
-                     const $edieMode = $$(ids.editMode);
-
-                     if (newValue === 1) $edieMode.show();
-                     else $edieMode.hide();
-
+                  onChange: () => {
                      this.onChange();
                   },
                },
@@ -99791,8 +99770,43 @@ __webpack_require__.r(__webpack_exports__);
                id: ids.editMode,
                name: "editMode",
                view: "checkbox",
-               hidden: true,
                label: L("Edit mode"),
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.hideCommonTab,
+               name: "hideCommonTab",
+               view: "checkbox",
+               label: L("Hide Common tab"),
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.hideDataTab,
+               name: "hideDataTab",
+               view: "checkbox",
+               label: L("Hide Data tab"),
+               labelWidth: uiConfig.labelWidthLarge,
+               on: {
+                  onChange: () => {
+                     this.onChange();
+                  },
+               },
+            },
+            {
+               id: ids.hideViewTab,
+               name: "hideViewTab",
+               view: "checkbox",
+               label: L("Hide View tab"),
                labelWidth: uiConfig.labelWidthLarge,
                on: {
                   onChange: () => {
@@ -99820,9 +99834,16 @@ __webpack_require__.r(__webpack_exports__);
             })
          );
          $dataviewID.refresh();
-         datacollections.forEach((dc) => {
-            $$(ids.datacollectionIDs).add({ id: dc.id, value: dc.label });
-         });
+
+         const $datacollectionIDs = $$(ids.datacollectionIDs);
+
+         $datacollectionIDs.define(
+            "options",
+            datacollections.map((dc) => {
+               return { id: dc.id, value: dc.label };
+            })
+         );
+         $datacollectionIDs.refresh();
       }
 
       getDataviewFieldOptions(dataviewID) {
@@ -99888,15 +99909,6 @@ __webpack_require__.r(__webpack_exports__);
             const $key = $$(ids[key]);
 
             switch (key) {
-               case "datacollectionIDs":
-                  if (view.settings[key] === "") break;
-
-                  $$(ids.datacollectionIDs).select(
-                     view.settings.datacollectionIDs.split(", ")
-                  );
-
-                  break;
-
                case "dataviewFields":
                   {
                      const $dataviewFieldsLabel = $$(ids.dataviewFieldsLabel);
@@ -99914,17 +99926,6 @@ __webpack_require__.r(__webpack_exports__);
                      $dataviewFieldsLabel.show();
                      $key.show();
                   }
-
-                  break;
-
-               case "editMode":
-                  if (view.settings.readonly === 0) {
-                     $key.setValue(defaultValues.editMode);
-
-                     break;
-                  }
-
-                  $key.setValue(view.settings[key]);
 
                   break;
 
@@ -99955,18 +99956,18 @@ __webpack_require__.r(__webpack_exports__);
             defaultValues,
             $$(ids.component).getValues()
          );
+
          values.settings.dataviewFields = values.settings.dataviewID
-            ? $$(ids.dataviewFields).getValues()
+            ? Object.assign(
+                 {},
+                 defaultValues.$dataviewFields,
+                 $$(ids.dataviewFields).getValues()
+              )
             : defaultValues.dataviewFields;
 
-         const selectedIDs = $$(ids.datacollectionIDs).getSelectedId();
-
-         values.settings.datacollectionIDs = Array.isArray(selectedIDs)
-            ? selectedIDs.join(", ")
-            : selectedIDs;
-
-         if (values.settings.readonly === 0)
-            values.settings.editMode = defaultValues.editMode;
+         values.settings.datacollectionIDs = $$(
+            ids.datacollectionIDs
+         ).getValue();
 
          return values;
       }
