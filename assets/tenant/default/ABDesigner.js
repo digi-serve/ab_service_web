@@ -100732,7 +100732,7 @@ __webpack_require__.r(__webpack_exports__);
          $fieldCalendarColor.define(
             "options",
             obj
-               .fields((f) => f.key === "string")
+               .fields((f) => f.key === "string" && f.settings.required === 1)
                .map((e) => {
                   return { id: e.id, value: e.label };
                })
