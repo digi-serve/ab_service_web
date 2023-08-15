@@ -99750,14 +99750,16 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                view: "label",
-               label: L("Limit Datacollections"),
+               label: L("Include Datacollections"),
             },
             {
                id: ids.datacollectionIDs,
                view: "multicombo",
                value: [],
                options: [],
-               placeholder: L("Click to add Datacollection"),
+               placeholder: L(
+                  "Click to add Datacollections (Include all if nothing selected)"
+               ),
                labelAlign: "left",
                stringResult: false /* returns data as an array of [id] */,
                on: {
@@ -99912,7 +99914,6 @@ __webpack_require__.r(__webpack_exports__);
                case "dataviewFields":
                   {
                      const $dataviewFieldsLabel = $$(ids.dataviewFieldsLabel);
-                     const $key = $$(ids[key]);
 
                      if (!view.settings.dataviewID) {
                         $key.setValues(defaultValues[key]);
