@@ -68698,6 +68698,7 @@ __webpack_require__.r(__webpack_exports__);
       __webpack_require__(/*! ./views/ABViewLayout */ "./src/rootPages/Designer/editors/views/ABViewLayout.js"),
       __webpack_require__(/*! ./views/ABViewMenu */ "./src/rootPages/Designer/editors/views/ABViewMenu.js"),
       __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/editors/views/ABViewPage.js"),
+      __webpack_require__(/*! ./views/ABViewPDFImporter */ "./src/rootPages/Designer/editors/views/ABViewPDFImporter.js"),
       __webpack_require__(/*! ./views/ABViewPivot */ "./src/rootPages/Designer/editors/views/ABViewPivot.js"),
       __webpack_require__(/*! ./views/ABViewTab */ "./src/rootPages/Designer/editors/views/ABViewTab.js"),
       __webpack_require__(/*! ./views/ABViewText */ "./src/rootPages/Designer/editors/views/ABViewText.js"),
@@ -70756,6 +70757,79 @@ let myClass = null;
 
 /***/ }),
 
+/***/ "./src/rootPages/Designer/editors/views/ABViewPDFImporter.js":
+/*!*******************************************************************!*\
+  !*** ./src/rootPages/Designer/editors/views/ABViewPDFImporter.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ui_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../ui_class */ "./src/rootPages/Designer/ui_class.js");
+/**
+ * ABViewPDFImporterEditor
+ * The widget that displays the UI Editor Component on the screen
+ * when designing the UI.
+ */
+let myClass = null;
+// {singleton}
+// we will want to call this factory fn() repeatedly in our imports,
+// but we only want to define 1 Class reference.
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   if (!myClass) {
+      const UIClass = (0,_ui_class__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+      // var L = UIClass.L();
+      // var L = ABViewContainer.L();
+
+      myClass = class ABViewPDFImporterEditor extends UIClass {
+         static get key() {
+            return "pdfImporter";
+         }
+
+         constructor(view, base = "interface_editor_pdfImporter") {
+            // base: {string} unique base id reference
+
+            super(view, base);
+
+            this.view = view;
+            this.component = this.view.component();
+         }
+
+         ui() {
+            return this.component.ui();
+         }
+
+         init(AB) {
+            this.AB = AB;
+
+            this.component.init(this.AB);
+
+            // this.component.onShow();
+            // in our editor, we provide accessLv = 2
+         }
+
+         detatch() {
+            this.component?.detatch?.();
+         }
+
+         onShow() {
+            this.component?.onShow?.();
+         }
+      };
+   }
+
+   return myClass;
+}
+
+
+/***/ }),
+
 /***/ "./src/rootPages/Designer/editors/views/ABViewPage.js":
 /*!************************************************************!*\
   !*** ./src/rootPages/Designer/editors/views/ABViewPage.js ***!
@@ -71802,6 +71876,7 @@ var PropertyMgr = null;
          __webpack_require__(/*! ./views/ABViewList */ "./src/rootPages/Designer/properties/views/ABViewList.js"),
          __webpack_require__(/*! ./views/ABViewMenu */ "./src/rootPages/Designer/properties/views/ABViewMenu.js"),
          __webpack_require__(/*! ./views/ABViewPage */ "./src/rootPages/Designer/properties/views/ABViewPage.js"),
+         __webpack_require__(/*! ./views/ABViewPDFImporter */ "./src/rootPages/Designer/properties/views/ABViewPDFImporter.js"),
          __webpack_require__(/*! ./views/ABViewPivot */ "./src/rootPages/Designer/properties/views/ABViewPivot.js"),
          __webpack_require__(/*! ./views/ABViewReportsManager */ "./src/rootPages/Designer/properties/views/ABViewReportsManager.js"),
          __webpack_require__(/*! ./views/ABViewScheduler */ "./src/rootPages/Designer/properties/views/ABViewScheduler.js"),
@@ -99118,6 +99193,175 @@ __webpack_require__.r(__webpack_exports__);
    }
 
    return ABViewMenuProperty;
+}
+
+
+/***/ }),
+
+/***/ "./src/rootPages/Designer/properties/views/ABViewPDFImporter.js":
+/*!**********************************************************************!*\
+  !*** ./src/rootPages/Designer/properties/views/ABViewPDFImporter.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ABView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABView */ "./src/rootPages/Designer/properties/views/ABView.js");
+/*
+ * ABViewPDFImporter
+ * A Property manager for our ABViewPDFImporter definitions
+ */
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(AB) {
+   const BASE_ID = "properties_abview_pdfImporter";
+
+   const ABView = (0,_ABView__WEBPACK_IMPORTED_MODULE_0__["default"])(AB);
+   const L = ABView.L();
+   const uiConfig = AB.UISettings.config();
+
+   class ABViewPDFImporterProperty extends ABView {
+      constructor() {
+         super(BASE_ID, {
+            datacollection: "",
+            field: "",
+         });
+
+         this.AB = AB;
+      }
+
+      static get key() {
+         return "pdfImporter";
+      }
+
+      ui() {
+         const ids = this.ids;
+
+         return super.ui([
+            {
+               view: "fieldset",
+               label: L("Data:"),
+               labelWidth: uiConfig.labelWidthLarge,
+               body: {
+                  type: "clean",
+                  padding: 10,
+                  rows: [
+                     {
+                        id: ids.datacollection,
+                        name: "dataviewID",
+                        view: "richselect",
+                        label: L("Data Source"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        on: {
+                           onChange: (dcId, oldDcId) => {
+                              if (dcId == oldDcId) return;
+                              this.onChange();
+                           },
+                        },
+                     },
+                     {
+                        id: ids.field,
+                        name: "fieldID",
+                        view: "richselect",
+                        label: L("Field"),
+                        labelWidth: uiConfig.labelWidthLarge,
+                        on: {
+                           onChange: (dcId, oldDcId) => {
+                              if (dcId == oldDcId) return;
+                              this.onChange();
+                           },
+                        },
+                     },
+                  ],
+               },
+            },
+         ]);
+      }
+
+      async init(AB) {
+         this.AB = AB;
+
+         await super.init(AB);
+      }
+
+      populate(view) {
+         super.populate(view);
+
+         const ids = this.ids;
+
+         const $dc = $$(ids.datacollection);
+         const dcID = view.settings.dataviewID;
+
+         // Pull data collections to options
+         const dcOptions = view.application
+            .datacollectionsIncluded()
+            .filter((d) => d.sourceType == "object")
+            .map((d) => {
+               return {
+                  id: d.id,
+                  value: d.label,
+                  icon: "fa fa-database",
+               };
+            });
+         $dc.define("options", dcOptions);
+         $dc.define("value", dcID);
+         $dc.refresh();
+
+         // Pull fields to options
+         const $field = $$(ids.field);
+         const fieldID = view.settings.fieldID;
+         if (view.settings.dataviewID) {
+            const obj = this.AB.datacollectionByID(
+               view.settings.dataviewID
+            )?.datasource;
+
+            const fieldOptions =
+               obj
+                  ?.fields((f) => f.key == "image")
+                  ?.map((f) => {
+                     return {
+                        id: f.id,
+                        value: f.label,
+                        icon: "fa fa-file-image-o",
+                     };
+                  }) ?? [];
+
+            $field.define("options", fieldOptions);
+         }
+         $field.define("value", fieldID);
+         $field.refresh();
+      }
+
+      /**
+       * @method values
+       * return the values for this form.
+       * @return {obj}
+       */
+      values() {
+         const $component = $$(this.ids.component);
+
+         const values = super.values();
+
+         values.settings = $component.getValues();
+
+         return values;
+      }
+
+      /**
+       * @method FieldClass()
+       * A method to return the proper ABViewXXX Definition.
+       * NOTE: Must be overwritten by the Child Class
+       */
+      ViewClass() {
+         return super._ViewClass("pdfImporter");
+      }
+   }
+
+   return ABViewPDFImporterProperty;
 }
 
 
