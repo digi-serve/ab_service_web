@@ -1,0 +1,137 @@
+"use strict";
+(globalThis["webpackChunkappbuilder_pwa"] = globalThis["webpackChunkappbuilder_pwa"] || []).push([["src_js_AppBuilder_platform_process_tasks_ABProcessTaskServiceCalculate_js"],{
+
+/***/ 97286:
+/*!***********************************************************************************!*\
+  !*** ./src/js/AppBuilder/core/process/tasks/ABProcessTaskServiceCalculateCore.js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CalculateTaskCore)
+/* harmony export */ });
+/* harmony import */ var _platform_process_tasks_ABProcessElement_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../platform/process/tasks/ABProcessElement.js */ 50138);
+
+
+let CalculateDefaults = {
+   category: null,
+   // category: {string} | null
+   // if this Element should show up on one of the popup replace menus, then
+   // specify one of the categories of elements it should be an option for.
+   // Available choices: [ "start", "gateway", "task", "end" ].
+   //
+   // if it shouldn't show up under the popup menu, then leave this null
+
+   icon: "calculator", // font-awesome icon reference.  (without the 'fa-').  so 'user'  to reference 'fa-user'
+   // icon: {string}
+   // font-awesome icon reference.  (without the 'fa-').  so 'user'  to reference 'fa-user'
+
+   instanceValues: [],
+   // instanceValues: {array}
+   // a list of values this element tracks as it is operating in a process.
+
+   key: "Calculate",
+   // key: {string}
+   // unique key to reference this specific Task
+
+   settings: ["formulaText"],
+};
+
+class CalculateTaskCore extends _platform_process_tasks_ABProcessElement_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   constructor(attributes, process, AB) {
+      attributes.type = attributes.type || "process.task.service.calculate";
+      super(attributes, process, AB, CalculateDefaults);
+
+      // listen
+   }
+
+   // return the default values for this DataField
+   static defaults() {
+      return CalculateDefaults;
+   }
+
+   static DiagramReplace() {
+      return null;
+   }
+
+   /**
+    * processDataFields()
+    * return an array of avaiable data fields that this element
+    * can provide to other ProcessElements.
+    * Different Process Elements can make data available to other
+    * process Elements.
+    * @return {array} | null
+    */
+   processDataFields() {
+      const label = `${this.label}->Value`;
+      // this is a calculate task, so let's include a fake ABFieldNumber
+      // for the .field value, so other tasks that limit their operations
+      // to fields can use this as a number
+      if (!this._fakeNum) {
+         this._fakeObj = this.AB.objectNew({});
+         this._fakeNum = this.AB.fieldNew(
+            { key: "number", name: label, label },
+            this._fakeObj
+         );
+      }
+      return {
+         key: `${this.id}.value`,
+         label,
+         field: this._fakeNum,
+      };
+   }
+}
+
+
+/***/ }),
+
+/***/ 77855:
+/*!***********************************************************************************!*\
+  !*** ./src/js/AppBuilder/platform/process/tasks/ABProcessTaskServiceCalculate.js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CalculateTask)
+/* harmony export */ });
+/* harmony import */ var _core_process_tasks_ABProcessTaskServiceCalculateCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../core/process/tasks/ABProcessTaskServiceCalculateCore.js */ 97286);
+
+
+class CalculateTask extends _core_process_tasks_ABProcessTaskServiceCalculateCore_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   ////
+   //// Process Instance Methods
+   ////
+
+   warningsEval() {
+      super.warningsEval();
+
+      if (!this.formulaText) {
+         this.warningMessage("is missing a formula.");
+      }
+
+      if (this.formulaText) {
+         const hash = {};
+         (this.process.processDataFields(this) || []).forEach((item) => {
+            hash[`{${item.label}}`] = item;
+         });
+
+         let exp = new RegExp(`{[^}]*}`, "g");
+         let entries = this.formulaText.match(exp) || [];
+         entries.forEach((entry) => {
+            if (!hash[entry]) {
+               this.warningMessage(
+                  `could not resolve process value [${entry}]`
+               );
+            }
+         });
+      }
+   }
+}
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=mobile_src_js_AppBuilder_platform_process_tasks_ABProcessTaskServiceCalculate_js.7d722f577bb372c769ca.js.map
