@@ -2,7 +2,7 @@ name: PR Merged
 on:
   pull_request:
     types: [closed]
-    branches: [master]
+    branches: [master, develop]
 permissions:
   contents: write
 jobs:
@@ -20,10 +20,12 @@ jobs:
     name: Version
     # Only run if tests pass 
     needs: [ call-get-label, call-e2e-tests ]
+    if: ${{ needs.call-get-label.outputs.label != "no_release" }}
     uses: ./.github/workflows/bump-version.yml
     with:
       ref: ${{ github.ref }}
       type: ${{ needs.call-get-label.outputs.label }}
+      pre_release: ${{ github.base_ref == 'develop' && 'dev' || '' }}
   call-create-release:
     name: Release
     uses: digi-serve/.github/.github/workflows/create-release.yml@master
@@ -38,8 +40,8 @@ jobs:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     with:
-      base_tag: master
-      tags: master,${{ needs.call-bump-version.outputs.new_version }}
+      base_tag: ${{ github.base_ref }}
+      tags: ${{ github.base_ref }},${{ needs.call-bump-version.outputs.new_version }}
   dispatch-runtime-update:
     name: Dipsatch AB Runtime Update
     needs: [ call-docker-build, call-bump-version, call-get-label ]
