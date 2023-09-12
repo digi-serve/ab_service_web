@@ -11,16 +11,30 @@ on:
       ref:
         type: string
         default: ${{ github.ref }}
+      platform_ver:
+        type: string
+        required: false
+      pre_release:
+        type: string
+        required: false
     outputs:
       new_version:
         value: ${{ jobs.bump.outputs.new_version }}
 jobs:
+  call-generate-build-meta:
+    name: Meta
+    if: ${{ inputs.platform_ver != "" }}
+    uses: digi-serve/.github/.github/workflows/generate-build-meta.yml@master
+    with: 
+      version: ${{ inputs.platform_ver }}
+      identifier: p
   bump:
     name: Bump Version
     runs-on: ubuntu-latest
-    if: ${{ inputs.type != 'no_release' }}
+    needs: call-generate-build-meta
+    if: ${{ always() }}
     outputs:
-      new_version: ${{ steps.increment_version.outputs.new_version }}
+      new_version: ${{ steps.new_with_build.outputs.new_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -30,14 +44,47 @@ jobs:
       - name: Install semver
         run: npm i semver -g
 
-      - name: Increment the Runtime Version
+      - name: Get Current Version
+        id: current_version
+        run: |
+          CURRENT=$(cat version)
+          echo "version=$CURRENT" >> $GITHUB_OUTPUT
+
+      - name: Extract Current Build Meta Data
+        id: current_meta
+        env:
+          CURRENT: ${{ steps.current_version.outputs.version }}
+        run: |
+          [[ $CURRENT =~ ^(.+)\+(.*)$ ]]
+          echo "meta=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
+      
+      - name: Increment the Version
         id: increment_version
         env:
           TYPE: ${{ inputs.type }}
-          BUILD: ${{ inputs.build_meta }}
+          PRE: ${{ inputs.pre_release }}
         run: |
           CURRENT=$(cat version)
-          NEW=$(semver -i $TYPE $CURRENT)
+          if [ -z $PRE ];
+            then NEW=$(semver -i $TYPE $CURRENT);
+            else NEW=$(semver $CURRENT -i pre$TYPE --preid $PRE -n false);
+          fi;
+          echo "version=$NEW" >> $GITHUB_OUTPUT
+
+      - name: Add Build Meta to New Version
+        id: new_with_build
+        env:
+          VERSION: ${{ steps.increment_version.outputs.version }}
+          CURRENT_META: ${{ steps.current_meta.outputs.meta }}
+          NEW_META: ${{ needs.call-generate-build-meta.outputs.build }}
+        run: |
+          if [ -z $NEW_META ];
+          then if [ -z $CURRENT_META ];
+            then NEW=$VERSION;
+            else NEW="${VERSION}+${CURRENT_META}";
+            fi;
+          else NEW="${VERSION}+${NEW_META}";
+          fi;
           echo $NEW > version
           echo "new_version=$NEW" >> $GITHUB_OUTPUT
 
