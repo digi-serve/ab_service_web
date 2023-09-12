@@ -1,0 +1,71 @@
+name: "Update Webpack Files"
+on:
+  workflow_call:
+    inputs:
+      web_ref:
+        description: Reference for service web to checkout
+        required: true
+        type: string
+      repository:
+        description: Full repo name with organization
+        required: true
+        type: string
+      short_name:
+        description: Short name for the repo
+        required: true
+        type: string
+      path:
+        description: Checkout path (web will checkout to /web)
+        required: true
+        type: string
+      version:
+        type: string
+        required: true
+      webpack:
+        description: webpack build command (npm run build:[command])
+        required: true
+        type: string
+    outputs:
+      branch: 
+        value: ${{ jobs.update-files.outputs.branch }}
+jobs:
+  update-files:
+    name: Update Web Files
+    runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.set_branch.outputs.branch }}
+    steps:
+      - name: Set branch name
+        id: set_branch
+        env:
+          SHORT_NAME: ${{ inputs.short_name }}
+          VERSION: ${{ inputs.version }}
+        run: echo "branch=CI/update/$SUB-$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout Service Web
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.web_ref }}
+          path: web
+        
+      - name: Checkout Webpack Repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TOKEN }}
+          repository: digi-serve/ab_platform_web
+          path: ${{ inputs.path }}
+
+      - run: npm i
+        working-directory: ./${{ inputs.path }}
+
+      - run: npm run build:${{ inputs/webpack }}
+        working-directory: ./${{ inputs.path }}
+
+      - name: Commit Change to New Branch
+        id: commit_version
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: ./web
+          message: Update platform_web to ${{ inputs.VERSION }}
+          new_branch: ${{ steps.set_branch.outputs.branch }}
+          default_author: github_actions
