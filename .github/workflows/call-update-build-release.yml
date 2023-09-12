@@ -1,0 +1,46 @@
+name: "Update Platform Web"
+run-name: Update Platform Web to ${{ github.event.client_payload.version }}
+on:
+  repository_dispatch:
+    type: [platform_web_new_version]
+jobs:
+  call-update-platform_web:
+    if: ${{ github.event.client_payload.repo == 'ab_platform_web' }}
+    strategy:
+      matrix:
+        - branch: master
+          webpack: update
+        - branch: develop
+          webpack: update
+          pre_release: dev
+    name: ${{ matrix.branch }}
+    uses: ./.github/workflows/update-build-release.yml
+    with: 
+      version: ${{ github.event.client_payload.version }}
+      type: ${{ github.event.client_payload.type }}
+      pre_release: ${{ matrix.pre_release }}
+      branch: ${{ matrix.branch }}
+      webpack_repo: digi-serve/ab_platform_web
+      webpack_repo_short: platform_web
+      webpack_path: ab_platform_web
+      webpack_command: ${{ matrix.webpack }}
+  call-update-designer:
+    if: ${{ github.event.client_payload.repo == 'plugin_ABDesigner' }}
+    strategy:
+      matrix:
+        - branch: master
+          webpack: update
+        - branch: develop
+          webpack: update
+          pre_release: dev
+    name: ${{ matrix.branch }}
+    uses: ./.github/workflows/update-build-release.yml
+    with: 
+      version: ${{ github.event.client_payload.version }}
+      type: ${{ github.event.client_payload.type }}
+      pre_release: ${{ matrix.pre_release }}
+      branch: ${{ matrix.branch }}
+      webpack_repo: digi-serve/plugin_ABDesigner
+      webpack_repo_short: ABDesigner
+      webpack_path: plugins/ABDesigner
+      webpack_command: ${{ matrix.webpack }}
