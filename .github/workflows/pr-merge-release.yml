@@ -20,7 +20,7 @@ jobs:
     name: Version
     # Only run if tests pass 
     needs: [ call-get-label, call-e2e-tests ]
-    if: ${{ needs.call-get-label.outputs.label != "no_release" }}
+    if: ${{ needs.call-get-label.outputs.label != 'no_release' }}
     uses: ./.github/workflows/bump-version.yml
     with:
       ref: ${{ github.ref }}

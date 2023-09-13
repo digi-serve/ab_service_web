@@ -23,7 +23,7 @@ on:
 jobs:
   call-generate-build-meta:
     name: Meta
-    if: ${{ inputs.platform_ver != "" }}
+    if: ${{ inputs.platform_ver != '' }}
     uses: digi-serve/.github/.github/workflows/generate-build-meta.yml@master
     with: 
       version: ${{ inputs.platform_ver }}
@@ -55,7 +55,7 @@ jobs:
         env:
           CURRENT: ${{ steps.current_version.outputs.version }}
         run: |
-          [[ $CURRENT =~ ^(.+)\+(.*)$ ]]
+          [[ $CURRENT =~ ^([^\+]+)\+?(.*)$ ]]
           echo "meta=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
       
       - name: Increment the Version
@@ -92,7 +92,7 @@ jobs:
         id: commit_version
         uses: EndBug/add-and-commit@v9
         env:
-          NEW_VERSION: ${{ steps.increment_version.outputs.new_version }}
+          NEW_VERSION: ${{ steps.new_with_build.outputs.new_version }}
         with:
           message: Update version ${{ env.NEW_VERSION }}
           tag: v${{ env.NEW_VERSION }}
