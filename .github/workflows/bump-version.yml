@@ -92,7 +92,7 @@ jobs:
         id: commit_version
         uses: EndBug/add-and-commit@v9
         env:
-          NEW_VERSION: ${{ steps.increment_version.outputs.new_version }}
+          NEW_VERSION: ${{ steps.new_with_build.outputs.new_version }}
         with:
           message: Update version ${{ env.NEW_VERSION }}
           tag: v${{ env.NEW_VERSION }}

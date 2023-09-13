@@ -1,5 +1,5 @@
 name: "Update Platform Web"
-run-name: Update Platform Web to ${{ github.event.client_payload.version }}
+run-name: Update ${{ github.event.client_payload.repo }} to ${{ github.event.client_payload.version }}
 on:
   repository_dispatch:
     type: [platform_web_new_version]
@@ -7,14 +7,18 @@ jobs:
   call-update-platform_web:
     if: ${{ github.event.client_payload.repo == 'ab_platform_web' }}
     strategy:
+      fail-fast: false
       matrix:
-        - branch: master
-          webpack: update
-        - branch: develop
-          webpack: update
-          pre_release: dev
+        include:
+          - branch: master
+            webpack: update
+          - branch: develop
+            webpack: dev
+            pre_release: dev
     name: ${{ matrix.branch }}
     uses: ./.github/workflows/update-build-release.yml
+    secrets:
+      TOKEN: ${{ secrets.PAT }}
     with: 
       version: ${{ github.event.client_payload.version }}
       type: ${{ github.event.client_payload.type }}
@@ -27,14 +31,18 @@ jobs:
   call-update-designer:
     if: ${{ github.event.client_payload.repo == 'plugin_ABDesigner' }}
     strategy:
+      fail-fast: false
       matrix:
-        - branch: master
-          webpack: update
-        - branch: develop
-          webpack: update
-          pre_release: dev
+        include:
+          - branch: master
+            webpack: update
+          - branch: develop
+            webpack: dev
+            pre_release: dev
     name: ${{ matrix.branch }}
     uses: ./.github/workflows/update-build-release.yml
+    secrets:
+      TOKEN: ${{ secrets.PAT }}
     with: 
       version: ${{ github.event.client_payload.version }}
       type: ${{ github.event.client_payload.type }}

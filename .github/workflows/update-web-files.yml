@@ -25,6 +25,12 @@ on:
         description: webpack build command (npm run build:[command])
         required: true
         type: string
+      pre_release:
+        type: string
+        required: false
+    secrets:
+      TOKEN:
+        required: true
     outputs:
       branch: 
         value: ${{ jobs.update-files.outputs.branch }}
@@ -40,7 +46,8 @@ jobs:
         env:
           SHORT_NAME: ${{ inputs.short_name }}
           VERSION: ${{ inputs.version }}
-        run: echo "branch=CI/update/$SUB-$VERSION" >> "$GITHUB_OUTPUT"
+          PRE: ${{ inputs.pre_release != '' && '-' || '' }}${{ inputs.pre_release }}
+        run: echo "branch=CI/update$PRE/$SHORT_NAME-$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Checkout Service Web
         uses: actions/checkout@v3
@@ -51,14 +58,16 @@ jobs:
       - name: Checkout Webpack Repo
         uses: actions/checkout@v3
         with:
+          ref: ${{ inputs.version }}
           token: ${{ secrets.TOKEN }}
+          submodules: recursive
           repository: digi-serve/ab_platform_web
           path: ${{ inputs.path }}
 
       - run: npm i
         working-directory: ./${{ inputs.path }}
 
-      - run: npm run build:${{ inputs/webpack }}
+      - run: npm run build:${{ inputs.webpack }}
         working-directory: ./${{ inputs.path }}
 
       - name: Commit Change to New Branch

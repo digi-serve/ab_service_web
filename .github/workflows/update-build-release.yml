@@ -26,10 +26,15 @@ on:
       webpack_command:
         type: string
         required: true
+    secrets:
+      TOKEN:
+        required: true
 jobs:
   call-update-files:
     name: Update Files
     uses: ./.github/workflows/update-web-files.yml
+    secrets:
+      TOKEN: ${{ secrets.TOKEN }}
     with:
       web_ref: ${{ inputs.branch }}
       repository: ${{ inputs.webpack_repo }}
@@ -37,21 +42,22 @@ jobs:
       path:  ${{ inputs.webpack_path }}
       version: ${{ inputs.version }}
       webpack:  ${{ inputs.webpack_command }}
+      pre_release: ${{ inputs.pre_release }}
 
   call-run-cy-test:
     name: Test
-    needs: update-files
+    needs: call-update-files
     uses: digi-serve/.github/.github/workflows/cypress-e2e-tests.yml@master
     with:
-      ref: ${{ needs.update-files.outputs.branch }}
+      ref: ${{ needs.call-update-files.outputs.branch }}
 
   call-bump-version:
     name: Version
     if: ${{ inputs.type == 'minor' || inputs.type == 'patch' }}
-    needs: [ update-files, call-run-cy-test ]
+    needs: [ call-update-files, call-run-cy-test ]
     uses: ./.github/workflows/bump-version.yml
     with:
-      ref: ${{ needs.update-files.outputs.branch }}
+      ref: ${{ needs.call-update-files.outputs.branch }}
       # Consider core version updates as patch
       type: patch
       platform_ver: ${{ inputs.version }}
@@ -59,30 +65,30 @@ jobs:
 
   call-merge-release:
     name: Merge
-    needs: [ update-files, call-bump-version ]
+    needs: [ call-update-files, call-bump-version ]
     uses: digi-serve/.github/.github/workflows/branch-merge-release.yml@master
     with: 
-      branch: ${{ needs.update-files.outputs.branch }}
+      branch: ${{ needs.call-update-files.outputs.branch }}
       tag: v${{ needs.call-bump-version.outputs.new_version }}
       body: "- platform web updated to v${{ inputs.version }}"
+      base: ${{ inputs.branch }}
 
   call-dispatch-runtime-update:
     name: Dispatch
-    needs: [ update-files, call-merge-release ]
+    needs: [ call-update-files, call-merge-release ]
     if: ${{ inputs.branch == 'master' }}
     uses: ./.github/workflows/dispatch-runtime-update.yml
     with:
-      version: ${{ needs.update-files.outputs.new_version }}
+      version: ${{ needs.call-update-files.outputs.new_version }}
       type: patch
 
   call-open-pr-fail:
     name: Tests Failed
-    needs: [ update-files, call-run-cy-test ]
+    needs: [ call-update-files, call-run-cy-test ]
     if: ${{ failure() && inputs.type != 'major' }}
     uses: digi-serve/.github/.github/workflows/open-pr.yml@master
     with: 
-    # TODO BASE BRANCH
-      branch: ${{ needs.update-files.outputs.branch }}
+      branch: ${{ needs.call-update-files.outputs.branch }}
       title: Update ${{ inputs.webpack_repo_short }} to ${{ inputs.version }} (from GitHub Actions Workflow)
       body: Automatic updated failed. Check the [E2E tests](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
       release_notes: "- ${{ inputs.webpack_repo_short }} updated to ${{ inputs.version }}"
@@ -90,11 +96,11 @@ jobs:
   
   call-open-pr-major:
     name: Major Change
-    needs: [ update-files ]
+    needs: [ call-update-files ]
     if: ${{ inputs.type == 'major' }}
     uses: digi-serve/.github/.github/workflows/open-pr.yml@master
     with: 
-      branch: ${{ needs.update-files.outputs.branch }}
+      branch: ${{ needs.call-update-files.outputs.branch }}
       title: Update ${{ inputs.webpack_repo_short }} to ${{ inputs.version }} (from GitHub Actions Workflow)
       body: This is a major ${{ inputs.webpack_repo_short }} update. Please review and merge when ready.
       release_notes: "- ${{ inputs.webpack_repo_short }} updated to ${{ inputs.version }}"
