@@ -23,7 +23,7 @@ on:
 jobs:
   call-generate-build-meta:
     name: Meta
-    if: ${{ inputs.platform_ver != "" }}
+    if: ${{ inputs.platform_ver != '' }}
     uses: digi-serve/.github/.github/workflows/generate-build-meta.yml@master
     with: 
       version: ${{ inputs.platform_ver }}
@@ -55,7 +55,7 @@ jobs:
         env:
           CURRENT: ${{ steps.current_version.outputs.version }}
         run: |
-          [[ $CURRENT =~ ^(.+)\+(.*)$ ]]
+          [[ $CURRENT =~ ^([^\+]+)\+?(.*)$ ]]
           echo "meta=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
       
       - name: Increment the Version

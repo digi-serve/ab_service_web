@@ -49,7 +49,7 @@ jobs:
     name: Version
     if: ${{ inputs.type == 'minor' || inputs.type == 'patch' }}
     needs: [ update-files, call-run-cy-test ]
-    uses: ./.github/workflows/bump-version.yml@master
+    uses: ./.github/workflows/bump-version.yml
     with:
       ref: ${{ needs.update-files.outputs.branch }}
       # Consider core version updates as patch
@@ -99,4 +99,3 @@ jobs:
       body: This is a major ${{ inputs.webpack_repo_short }} update. Please review and merge when ready.
       release_notes: "- ${{ inputs.webpack_repo_short }} updated to ${{ inputs.version }}"
       base: ${{ inputs.branch }}
-      
