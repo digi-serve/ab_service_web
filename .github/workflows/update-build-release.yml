@@ -73,9 +73,21 @@ jobs:
       body: "- platform web updated to v${{ inputs.version }}"
       base: ${{ inputs.branch }}
 
+  call-docker-build:
+    name: Build
+    uses: ./.github/workflows/docker-build-with-ref.yml
+    needs: [call-merge-release, call-bump-version]
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    with:
+      base_tag: ${{ inputs.branch }}
+      ref: ${{ inputs.branch }}
+      tags: ${{ inputs.branch }},${{ needs.call-bump-version.outputs.new_version }}
+
   call-dispatch-runtime-update:
     name: Dispatch
-    needs: [ call-update-files, call-merge-release ]
+    needs: [ call-update-files, call-docker-build ]
     if: ${{ inputs.branch == 'master' }}
     uses: ./.github/workflows/dispatch-runtime-update.yml
     with:
