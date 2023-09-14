@@ -2,7 +2,7 @@ name: "Update Platform Web"
 run-name: Update ${{ github.event.client_payload.repo }} to ${{ github.event.client_payload.version }}
 on:
   repository_dispatch:
-    type: [platform_web_new_version]
+    type: [web_new_version]
 jobs:
   call-update-platform_web:
     if: ${{ github.event.client_payload.repo == 'ab_platform_web' }}
@@ -15,7 +15,7 @@ jobs:
           - branch: develop
             webpack: dev
             pre_release: dev
-    name: ${{ matrix.branch }}
+    name: Update Service Web ${{ matrix.branch }} (Platform)
     uses: ./.github/workflows/update-build-release.yml
     secrets:
       TOKEN: ${{ secrets.PAT }}
@@ -39,7 +39,7 @@ jobs:
           - branch: develop
             webpack: dev
             pre_release: dev
-    name: ${{ matrix.branch }}
+    name: Update Service Web ${{ matrix.branch }} (Designer)
     uses: ./.github/workflows/update-build-release.yml
     secrets:
       TOKEN: ${{ secrets.PAT }}
