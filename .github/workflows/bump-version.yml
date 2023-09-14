@@ -17,6 +17,10 @@ on:
       pre_release:
         type: string
         required: false
+      build_meta_prefix:
+        type: string
+        required: false
+        default: p
     outputs:
       new_version:
         value: ${{ jobs.bump.outputs.new_version }}
@@ -27,7 +31,7 @@ jobs:
     uses: digi-serve/.github/.github/workflows/generate-build-meta.yml@master
     with: 
       version: ${{ inputs.platform_ver }}
-      identifier: p
+      identifier: ${{ inputs.build_meta_prefix }}
   bump:
     name: Bump Version
     runs-on: ubuntu-latest
@@ -57,6 +61,25 @@ jobs:
         run: |
           [[ $CURRENT =~ ^([^\+]+)\+?(.*)$ ]]
           echo "meta=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
+
+      - name: Resolve Build Meta Data
+        uses: actions/github-script@v6
+        id: resolve_meta
+        env:
+          NEW_META: ${{ needs.call-generate-build-meta.outputs.build }}
+          EXISTING_META: ${{ steps.current_meta.outputs.meta }}
+        with:
+          script: |
+            const nm = process.env["NEW_META"];
+            const em = process.env["EXISTING_META"];
+            const identifiers = ["d", "p", "c"];
+            function resovleWebBuildMeta(newMeta = "", existing = "") {
+              const resolvedMeta = identifiers.map(id => {
+              return newMeta.split(".").find(x => x[0] == id) ?? existing.split(".").find(x => x[0] == id);
+              });
+              return resolvedMeta.filter(x => x).join?.(".");
+            }
+            core.setOutput("resolved", resovleWebBuildMeta(nm, em));
       
       - name: Increment the Version
         id: increment_version
@@ -75,15 +98,11 @@ jobs:
         id: new_with_build
         env:
           VERSION: ${{ steps.increment_version.outputs.version }}
-          CURRENT_META: ${{ steps.current_meta.outputs.meta }}
-          NEW_META: ${{ needs.call-generate-build-meta.outputs.build }}
+          META: ${{ steps.resolve_meta.outputs.resolved }}
         run: |
-          if [ -z $NEW_META ];
-          then if [ -z $CURRENT_META ];
+          if [ -z $META ];
             then NEW=$VERSION;
-            else NEW="${VERSION}+${CURRENT_META}";
-            fi;
-          else NEW="${VERSION}+${NEW_META}";
+            else NEW="${VERSION}+${META}";
           fi;
           echo $NEW > version
           echo "new_version=$NEW" >> $GITHUB_OUTPUT

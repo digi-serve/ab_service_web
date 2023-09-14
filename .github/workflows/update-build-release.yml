@@ -26,6 +26,9 @@ on:
       webpack_command:
         type: string
         required: true
+      build_meta_prefix:
+        type: string
+        required: true
     secrets:
       TOKEN:
         required: true
@@ -62,6 +65,7 @@ jobs:
       type: patch
       platform_ver: ${{ inputs.version }}
       pre_release: ${{ inputs.pre_release }}
+      build_meta_prefix: ${{ inputs.build_meta_prefix }}
 
   call-merge-release:
     name: Merge
