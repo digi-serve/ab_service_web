@@ -32,6 +32,10 @@ on:
     secrets:
       TOKEN:
         required: true
+      DOCKER_USERNAME:
+        required: true
+      DOCKER_PASSWORD:
+        required: true
 jobs:
   call-update-files:
     name: Update Files
