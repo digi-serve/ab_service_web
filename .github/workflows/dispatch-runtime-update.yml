@@ -8,6 +8,9 @@ on:
       type:
         type: string
         required: true
+    secrets:
+      TOKEN:
+        required: true
 jobs:
   dispatch-runtime-update:
     name: Dipsatch AB Runtime Update
@@ -28,7 +31,7 @@ jobs:
           VERS: ${{ inputs.version }}
           NAME: ${{ steps.short-name.outputs.service }}
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.TOKEN }}
           repository: digi-serve/ab_runtime
           event-type: service_new_version
           client-payload: '{"type": "${{ env.TYPE }}", "version": "${{ env.VERS }}", "service": "${{ env.NAME }}"}'
