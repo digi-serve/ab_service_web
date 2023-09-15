@@ -1060,7 +1060,7 @@ _sentry_browser__WEBPACK_IMPORTED_MODULE_0__.init({
    normalizeDepth: 5,
    tracesSampleRate: 0.1,
    replaysSessionSampleRate: 0,
-   replaysOnErrorSampleRate: 0.1,
+   replaysOnErrorSampleRate: 0,
 });
 
 
@@ -10685,4 +10685,4 @@ class UI extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.c3beb3d83c7646c72f28.js.map
+//# sourceMappingURL=app.2467f6455f10a0004021.js.map
