@@ -58,7 +58,7 @@ jobs:
       - name: Checkout Webpack Repo
         uses: actions/checkout@v3
         with:
-          ref: ${{ inputs.version }}
+          ref: v${{ inputs.version }}
           token: ${{ secrets.TOKEN }}
           submodules: recursive
           repository: digi-serve/ab_platform_web
