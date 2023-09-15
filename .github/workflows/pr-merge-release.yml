@@ -51,4 +51,6 @@ jobs:
     with:
       type: patch
       version: ${{ needs.call-bump-version.outputs.new_version }}
+    secrets:
+      TOKEN: ${{ secrets.PAT }}
       

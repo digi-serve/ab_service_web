@@ -97,6 +97,8 @@ jobs:
     with:
       version: ${{ needs.call-update-files.outputs.new_version }}
       type: patch
+    secrets:
+      TOKEN: ${{ secrets.PAT }}
 
   call-open-pr-fail:
     name: Tests Failed
