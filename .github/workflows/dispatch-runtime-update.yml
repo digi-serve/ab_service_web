@@ -1,0 +1,34 @@
+name: "Dispatch Runtime Update"
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+      type:
+        type: string
+        required: true
+jobs:
+  dispatch-runtime-update:
+    name: Dipsatch AB Runtime Update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get short name
+        id: short-name
+        env:
+          REPO: ${{ github.repository }}
+          REGX:  /ab_service_(.+)
+        run: |
+          [[ $REPO =~ $REGX ]]
+          echo "service=${BASH_REMATCH[1]}" >> "$GITHUB_OUTPUT"
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        env: 
+          TYPE: ${{ inputs.type }}
+          VERS: ${{ inputs.version }}
+          NAME: ${{ steps.short-name.outputs.service }}
+        with:
+          token: ${{ secrets.PAT }}
+          repository: digi-serve/ab_runtime
+          event-type: service_new_version
+          client-payload: '{"type": "${{ env.TYPE }}", "version": "${{ env.VERS }}", "service": "${{ env.NAME }}"}'
