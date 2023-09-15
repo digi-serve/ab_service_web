@@ -1,0 +1,118 @@
+name: Bump Version
+# Increments the version using semver and saves it to version (text file)
+# Creates a tagged commit with using the new version
+on:
+  workflow_call:
+    inputs:
+      type:
+        description: Release type (should be major, minor or patch)
+        required: true
+        type: string
+      ref:
+        type: string
+        default: ${{ github.ref }}
+      platform_ver:
+        type: string
+        required: false
+      pre_release:
+        type: string
+        required: false
+      build_meta_prefix:
+        type: string
+        required: false
+        default: p
+    outputs:
+      new_version:
+        value: ${{ jobs.bump.outputs.new_version }}
+jobs:
+  call-generate-build-meta:
+    name: Meta
+    if: ${{ inputs.platform_ver != '' }}
+    uses: digi-serve/.github/.github/workflows/generate-build-meta.yml@master
+    with: 
+      version: ${{ inputs.platform_ver }}
+      identifier: ${{ inputs.build_meta_prefix }}
+  bump:
+    name: Bump Version
+    runs-on: ubuntu-latest
+    needs: call-generate-build-meta
+    if: ${{ always() }}
+    outputs:
+      new_version: ${{ steps.new_with_build.outputs.new_version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Install semver
+        run: npm i semver -g
+
+      - name: Get Current Version
+        id: current_version
+        run: |
+          CURRENT=$(cat version)
+          echo "version=$CURRENT" >> $GITHUB_OUTPUT
+
+      - name: Extract Current Build Meta Data
+        id: current_meta
+        env:
+          CURRENT: ${{ steps.current_version.outputs.version }}
+        run: |
+          [[ $CURRENT =~ ^([^\+]+)\+?(.*)$ ]]
+          echo "meta=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
+
+      - name: Resolve Build Meta Data
+        uses: actions/github-script@v6
+        id: resolve_meta
+        env:
+          NEW_META: ${{ needs.call-generate-build-meta.outputs.build }}
+          EXISTING_META: ${{ steps.current_meta.outputs.meta }}
+        with:
+          script: |
+            const nm = process.env["NEW_META"];
+            const em = process.env["EXISTING_META"];
+            const identifiers = ["d", "p", "c"];
+            function resovleWebBuildMeta(newMeta = "", existing = "") {
+              const resolvedMeta = identifiers.map(id => {
+              return newMeta.split(".").find(x => x[0] == id) ?? existing.split(".").find(x => x[0] == id);
+              });
+              return resolvedMeta.filter(x => x).join?.(".");
+            }
+            core.setOutput("resolved", resovleWebBuildMeta(nm, em));
+      
+      - name: Increment the Version
+        id: increment_version
+        env:
+          TYPE: ${{ inputs.type }}
+          PRE: ${{ inputs.pre_release }}
+        run: |
+          CURRENT=$(cat version)
+          if [ -z $PRE ];
+            then NEW=$(semver -i $TYPE $CURRENT);
+            else NEW=$(semver $CURRENT -i pre$TYPE --preid $PRE -n false);
+          fi;
+          echo "version=$NEW" >> $GITHUB_OUTPUT
+
+      - name: Add Build Meta to New Version
+        id: new_with_build
+        env:
+          VERSION: ${{ steps.increment_version.outputs.version }}
+          META: ${{ steps.resolve_meta.outputs.resolved }}
+        run: |
+          if [ -z $META ];
+            then NEW=$VERSION;
+            else NEW="${VERSION}+${META}";
+          fi;
+          echo $NEW > version
+          echo "new_version=$NEW" >> $GITHUB_OUTPUT
+
+      - name: Commit Change
+        id: commit_version
+        uses: EndBug/add-and-commit@v9
+        env:
+          NEW_VERSION: ${{ steps.new_with_build.outputs.new_version }}
+        with:
+          message: Update version ${{ env.NEW_VERSION }}
+          tag: v${{ env.NEW_VERSION }}
+          default_author: github_actions    

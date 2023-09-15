@@ -1,0 +1,123 @@
+name: "Update, Build and Release"
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+      type:
+        type: string
+        required: true
+      pre_release:
+        type: string
+        required: false
+      branch:
+        type: string
+        required: true
+      webpack_repo:
+        type: string
+        required: true
+      webpack_repo_short:
+        type: string
+        required: true
+      webpack_path:
+        type: string
+        required: true
+      webpack_command:
+        type: string
+        required: true
+      build_meta_prefix:
+        type: string
+        required: true
+    secrets:
+      TOKEN:
+        required: true
+jobs:
+  call-update-files:
+    name: Update Files
+    uses: ./.github/workflows/update-web-files.yml
+    secrets:
+      TOKEN: ${{ secrets.TOKEN }}
+    with:
+      web_ref: ${{ inputs.branch }}
+      repository: ${{ inputs.webpack_repo }}
+      short_name: ${{ inputs.webpack_repo_short }}
+      path:  ${{ inputs.webpack_path }}
+      version: ${{ inputs.version }}
+      webpack:  ${{ inputs.webpack_command }}
+      pre_release: ${{ inputs.pre_release }}
+
+  call-run-cy-test:
+    name: Test
+    needs: call-update-files
+    uses: digi-serve/.github/.github/workflows/cypress-e2e-tests.yml@master
+    with:
+      ref: ${{ needs.call-update-files.outputs.branch }}
+
+  call-bump-version:
+    name: Version
+    if: ${{ inputs.type == 'minor' || inputs.type == 'patch' }}
+    needs: [ call-update-files, call-run-cy-test ]
+    uses: ./.github/workflows/bump-version.yml
+    with:
+      ref: ${{ needs.call-update-files.outputs.branch }}
+      # Consider core version updates as patch
+      type: patch
+      platform_ver: ${{ inputs.version }}
+      pre_release: ${{ inputs.pre_release }}
+      build_meta_prefix: ${{ inputs.build_meta_prefix }}
+
+  call-merge-release:
+    name: Merge
+    needs: [ call-update-files, call-bump-version ]
+    uses: digi-serve/.github/.github/workflows/branch-merge-release.yml@master
+    with: 
+      branch: ${{ needs.call-update-files.outputs.branch }}
+      tag: v${{ needs.call-bump-version.outputs.new_version }}
+      body: "- platform web updated to v${{ inputs.version }}"
+      base: ${{ inputs.branch }}
+
+  call-docker-build:
+    name: Build
+    uses: ./.github/workflows/docker-build-with-ref.yml
+    needs: [call-merge-release, call-bump-version]
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    with:
+      base_tag: ${{ inputs.branch }}
+      ref: ${{ inputs.branch }}
+      tags: ${{ inputs.branch }},${{ needs.call-bump-version.outputs.new_version }}
+
+  call-dispatch-runtime-update:
+    name: Dispatch
+    needs: [ call-update-files, call-docker-build ]
+    if: ${{ inputs.branch == 'master' }}
+    uses: ./.github/workflows/dispatch-runtime-update.yml
+    with:
+      version: ${{ needs.call-update-files.outputs.new_version }}
+      type: patch
+
+  call-open-pr-fail:
+    name: Tests Failed
+    needs: [ call-update-files, call-run-cy-test ]
+    if: ${{ failure() && inputs.type != 'major' }}
+    uses: digi-serve/.github/.github/workflows/open-pr.yml@master
+    with: 
+      branch: ${{ needs.call-update-files.outputs.branch }}
+      title: Update ${{ inputs.webpack_repo_short }} to ${{ inputs.version }} (from GitHub Actions Workflow)
+      body: Automatic updated failed. Check the [E2E tests](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+      release_notes: "- ${{ inputs.webpack_repo_short }} updated to ${{ inputs.version }}"
+      base: ${{ inputs.branch }}
+  
+  call-open-pr-major:
+    name: Major Change
+    needs: [ call-update-files ]
+    if: ${{ inputs.type == 'major' }}
+    uses: digi-serve/.github/.github/workflows/open-pr.yml@master
+    with: 
+      branch: ${{ needs.call-update-files.outputs.branch }}
+      title: Update ${{ inputs.webpack_repo_short }} to ${{ inputs.version }} (from GitHub Actions Workflow)
+      body: This is a major ${{ inputs.webpack_repo_short }} update. Please review and merge when ready.
+      release_notes: "- ${{ inputs.webpack_repo_short }} updated to ${{ inputs.version }}"
+      base: ${{ inputs.branch }}
