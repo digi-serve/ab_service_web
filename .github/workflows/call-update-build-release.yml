@@ -19,6 +19,8 @@ jobs:
     uses: ./.github/workflows/update-build-release.yml
     secrets:
       TOKEN: ${{ secrets.PAT }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     with: 
       version: ${{ github.event.client_payload.version }}
       type: ${{ github.event.client_payload.type }}
@@ -44,6 +46,8 @@ jobs:
     uses: ./.github/workflows/update-build-release.yml
     secrets:
       TOKEN: ${{ secrets.PAT }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     with: 
       version: ${{ github.event.client_payload.version }}
       type: ${{ github.event.client_payload.type }}
