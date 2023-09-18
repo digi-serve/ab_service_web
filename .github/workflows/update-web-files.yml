@@ -69,6 +69,8 @@ jobs:
 
       - run: npm run build:${{ inputs.webpack }}
         working-directory: ./${{ inputs.path }}
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
       - name: Commit Change to New Branch
         id: commit_version
