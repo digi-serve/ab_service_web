@@ -36,12 +36,15 @@ on:
         required: true
       DOCKER_PASSWORD:
         required: true
+      SENTRY_AUTH_TOKEN:
+        required: true
 jobs:
   call-update-files:
     name: Update Files
     uses: ./.github/workflows/update-web-files.yml
     secrets:
       TOKEN: ${{ secrets.TOKEN }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     with:
       web_ref: ${{ inputs.branch }}
       repository: ${{ inputs.webpack_repo }}
@@ -102,7 +105,7 @@ jobs:
       version: ${{ needs.call-update-files.outputs.new_version }}
       type: patch
     secrets:
-      TOKEN: ${{ secrets.PAT }}
+      TOKEN: ${{ secrets.TOKEN }}
 
   call-open-pr-fail:
     name: Tests Failed

@@ -31,6 +31,8 @@ on:
     secrets:
       TOKEN:
         required: true
+      SENTRY_AUTH_TOKEN:
+        required: true
     outputs:
       branch: 
         value: ${{ jobs.update-files.outputs.branch }}
