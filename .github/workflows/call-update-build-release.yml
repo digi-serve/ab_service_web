@@ -21,6 +21,7 @@ jobs:
       TOKEN: ${{ secrets.PAT }}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     with: 
       version: ${{ github.event.client_payload.version }}
       type: ${{ github.event.client_payload.type }}
