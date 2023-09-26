@@ -37,7 +37,7 @@ on:
       DOCKER_PASSWORD:
         required: true
       SENTRY_AUTH_TOKEN:
-        required: true
+        required: false
 jobs:
   call-update-files:
     name: Update Files
