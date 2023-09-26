@@ -32,7 +32,7 @@ on:
       TOKEN:
         required: true
       SENTRY_AUTH_TOKEN:
-        required: true
+        required: false
     outputs:
       branch: 
         value: ${{ jobs.update-files.outputs.branch }}
