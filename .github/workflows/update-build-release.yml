@@ -98,11 +98,11 @@ jobs:
 
   call-dispatch-runtime-update:
     name: Dispatch
-    needs: [ call-update-files, call-docker-build ]
+    needs: [ call-docker-build, call-bump-version ]
     if: ${{ inputs.branch == 'master' }}
     uses: ./.github/workflows/dispatch-runtime-update.yml
     with:
-      version: ${{ needs.call-update-files.outputs.new_version }}
+      version: ${{ needs.call-bump-version.outputs.new_version }}
       type: patch
     secrets:
       TOKEN: ${{ secrets.TOKEN }}
