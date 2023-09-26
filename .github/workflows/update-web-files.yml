@@ -63,7 +63,7 @@ jobs:
           ref: v${{ inputs.version }}
           token: ${{ secrets.TOKEN }}
           submodules: recursive
-          repository: digi-serve/ab_platform_web
+          repository: ${{ inputs.repository }}
           path: ${{ inputs.path }}
 
       - run: npm i
