@@ -9,7 +9,7 @@
             self :
             {};
 
-    _global.SENTRY_RELEASE={id:"1ea2bea2f417d0db2fd0d22620199fb5d5a80367"};
+    _global.SENTRY_RELEASE={id:"5b40faca439e0a9dab56b1f578f7341ad09e512d"};
 "use strict";
 (self["webpackChunkab_platform_web"] = self["webpackChunkab_platform_web"] || []).push([["pdf.worker"],{},
 /******/ __webpack_require__ => { // webpackRuntimeModules
