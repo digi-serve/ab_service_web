@@ -9,7 +9,7 @@
             self :
             {};
 
-    _global.SENTRY_RELEASE={id:"3bf93a00ab630994435920c1d5d5533da47a331f"};
+    _global.SENTRY_RELEASE={id:"bba898267991a3ae9a0d706e3df1a175df21b263"};
 (self["webpackChunkab_platform_web"] = self["webpackChunkab_platform_web"] || []).push([["js_webix_components_querybuilder_querybuilder_min_js"],{
 
 /***/ 31301:
