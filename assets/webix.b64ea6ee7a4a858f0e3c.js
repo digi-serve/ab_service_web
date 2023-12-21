@@ -1,15 +1,3 @@
-;!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="f759d3b0-1bd2-4fba-b3dc-b5798622ccd7",e._sentryDebugIdIdentifier="sentry-dbid-f759d3b0-1bd2-4fba-b3dc-b5798622ccd7")}catch(e){}}();
-
-    var _global =
-      typeof window !== 'undefined' ?
-        window :
-        typeof global !== 'undefined' ?
-          global :
-          typeof self !== 'undefined' ?
-            self :
-            {};
-
-    _global.SENTRY_RELEASE={id:"f67a254e81e61d338760d6d8f68c1401342b67df"};
 (self["webpackChunkab_platform_web"] = self["webpackChunkab_platform_web"] || []).push([["webix"],{
 
 /***/ 47424:
