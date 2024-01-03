@@ -573,12 +573,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_formiojs_dist_formio_form_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.form.min.css */ 49879);
 /* harmony import */ var _node_modules_formiojs_dist_formio_builder_min_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../node_modules/formiojs/dist/formio.builder.min.css */ 50864);
 /* harmony import */ var _init_initConfig_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../init/initConfig.js */ 57971);
+/* harmony import */ var _init_initConnectListerner_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../init/initConnectListerner.js */ 9610);
 /* harmony import */ var _init_initDiv_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../init/initDiv.js */ 58423);
 /* harmony import */ var _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../init/initDefinitions.js */ 18042);
 /* harmony import */ var _js_selectivity_selectivity_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../js/selectivity/selectivity.min.css */ 58292);
-/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../ui/ui.js */ 68041);
+/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../ui/ui.js */ 68041);
 /* harmony import */ var _ui_loading_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ui/loading.js */ 38997);
-/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 71417);
+/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 71417);
 /* harmony import */ var _utils_performance_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/performance.js */ 18320);
 /*
  * Bootstrap.js
@@ -597,6 +598,7 @@ const EventEmitter = (events__WEBPACK_IMPORTED_MODULE_0___default().EventEmitter
 
 
 // import FormIOCSS from "../node_modules/formiojs/dist/formio.full.min.css";
+
 
 
 
@@ -697,6 +699,9 @@ class Bootstrap extends EventEmitter {
       // Make sure the BootStrap Object is available globally
       window.__ABBS = this;
 
+      // Listen 'disconnect' event
+      _init_initConnectListerner_js__WEBPACK_IMPORTED_MODULE_11__["default"].init(this);
+
       const allPluginsLoaded = [];
       const tenantInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_5__["default"].tenantConfig();
 
@@ -762,13 +767,13 @@ class Bootstrap extends EventEmitter {
       // direct them to our special ErrorNoDefsUI
       if (userInfo && userInfo.roles.length == 0) {
          _utils_performance_js__WEBPACK_IMPORTED_MODULE_6__["default"].measure("createABFactory");
-         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_11__["default"].init(this.AB);
-         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_11__["default"].attach();
+         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_12__["default"].init(this.AB);
+         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_12__["default"].attach();
          if (_config_Config_js__WEBPACK_IMPORTED_MODULE_5__["default"].userReal()) {
-            _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_11__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_5__["default"].userConfig());
+            _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_12__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_5__["default"].userConfig());
          }
          this.ui().destroy(); // remove the preloading screen
-         this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_11__["default"]);
+         this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_12__["default"]);
 
          let err = new Error("No Definitions");
          err.code = "ENODEFS";
@@ -815,9 +820,9 @@ class Bootstrap extends EventEmitter {
 
          const div = this.div();
 
-         _ui_ui_js__WEBPACK_IMPORTED_MODULE_12__["default"].attach(div.id);
+         _ui_ui_js__WEBPACK_IMPORTED_MODULE_13__["default"].attach(div.id);
          this.ui().destroy(); // remove the preloading screen
-         this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_12__["default"]);
+         this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_13__["default"]);
          this.ui()
             .init(this.AB)
             .then(() => {
@@ -947,6 +952,46 @@ __webpack_require__.r(__webpack_exports__);
          if (err.message == "Failed to fetch")
             window.location.replace(window.location.origin);
       }
+   },
+});
+
+
+/***/ }),
+
+/***/ 9610:
+/*!**************************************!*\
+  !*** ./init/initConnectListerner.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/*
+ * initConnectListerner.js
+ * listen disconnect event of WebSocket and display message when disconnect
+ */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+   init: (BS) => {
+      // BS {Bootstrap}
+      // The initial Bootstrap object found in "./Bootstrap.js"
+
+      return new Promise((resolve, reject) => {
+         const L = (...params) => BS.AB.Multilingual.label(...params);
+
+         io.socket.on("disconnect", function() {
+            const body = document.querySelector("body");
+            body.insertAdjacentHTML(
+               "afterbegin",
+               `<div id='connectionPrompt' style='height: 0px;'>
+                  ${L("*Oops, we cannot communicate with the site.")}
+               </div>`
+            );
+         });
+
+         resolve();
+      });
    },
 });
 
@@ -9390,7 +9435,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.2.34";
+   version = "1.2.35";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -9785,4 +9830,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.c300105f1fa0f0605020.js.map
+//# sourceMappingURL=app.13e4ec18d07c76f1504f.js.map
