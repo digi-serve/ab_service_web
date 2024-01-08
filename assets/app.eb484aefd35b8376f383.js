@@ -735,7 +735,9 @@ class Bootstrap extends EventEmitter {
             allPluginsLoaded.push(loading);
          });
       }
-      const pluginsLoading = Promise.all(allPluginsLoaded).then(() => _utils_performance_js__WEBPACK_IMPORTED_MODULE_6__["default"].measure("loadPlugins"));
+      const pluginsLoading = Promise.all(allPluginsLoaded).then(() =>
+         _utils_performance_js__WEBPACK_IMPORTED_MODULE_6__["default"].measure("loadPlugins")
+      );
       // 3) Now we have enough info, to create an instance of our
       //    {ABFactory} that drives the rest of the AppBuilder objects
       _utils_performance_js__WEBPACK_IMPORTED_MODULE_6__["default"].mark("createABFactory", { op: "function" });
@@ -6184,15 +6186,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClassUI.js */ 32019);
-/* harmony import */ var _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ClassUIPage.js */ 32238);
+/* harmony import */ var _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ClassUIPage.js */ 32238);
 /* harmony import */ var _portal_work_inbox_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./portal_work_inbox.js */ 9698);
-/* harmony import */ var _portal_work_inbox_taskWindow_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./portal_work_inbox_taskWindow.js */ 49854);
+/* harmony import */ var _portal_work_inbox_taskWindow_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./portal_work_inbox_taskWindow.js */ 49854);
 /* harmony import */ var _portal_work_user_profile_window_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./portal_work_user_profile_window.js */ 94260);
 /* harmony import */ var _portal_work_user_switcheroo_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./portal_work_user_switcheroo.js */ 65765);
-/* harmony import */ var _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./portal_work_user_qr_window.js */ 54753);
-/* harmony import */ var _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./portal_access_level_manager.js */ 51513);
-/* harmony import */ var _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./portal_translation_tool.js */ 88773);
-/* harmony import */ var _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./portal_tutorial_manager.js */ 70717);
+/* harmony import */ var _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./portal_work_user_qr_window.js */ 54753);
+/* harmony import */ var _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./portal_work_user_mobile_qr.js */ 92052);
+/* harmony import */ var _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./portal_access_level_manager.js */ 51513);
+/* harmony import */ var _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./portal_translation_tool.js */ 88773);
+/* harmony import */ var _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./portal_tutorial_manager.js */ 70717);
+
 
 
 
@@ -6487,8 +6491,10 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
       // Get all our ABApplications and loaded Plugins in allApplications
       const allApplications = (
-         this.AB.applications((a) =>
-            a.isAccessibleForRoles(this.AB.Account.rolesAll() ?? [])
+         this.AB.applications(
+            (a) =>
+               a.isWebApp &&
+               a.isAccessibleForRoles(this.AB.Account.rolesAll() ?? [])
          ) || []
       ).concat(this.AB.plugins() || []);
 
@@ -6504,10 +6510,22 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       $$("abSidebarMenu").define("data", menu_data);
       this.sidebarResize();
 
+      _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_4__["default"].init(AB);
+
       const userMenuOptions = [
          { id: "user_profile", label: L("User Profile"), icon: "user" },
          { id: "user_logout", label: L("Logout"), icon: "ban" },
       ];
+
+      // add in any Mobile App QR Codes:
+      const allMobile = this.AB.applications((a) => a.isMobile);
+      allMobile.forEach((m) => {
+         userMenuOptions.splice(1, 0, {
+            id: m.id, // "pwa_app",
+            label: m.label,
+            icon: m.icon.replace("fa-", ""),
+         });
+      });
 
       if (this.AB.Account.canSwitcheroo()) {
          userMenuOptions.splice(1, 0, {
@@ -6606,19 +6624,26 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
                         AB.Account.logout();
                         break;
                      case "user_qr":
-                        _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_4__["default"].init(AB);
-                        _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_4__["default"].show();
+                        _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_5__["default"].init(AB);
+                        _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_5__["default"].show();
                         break;
                      default:
-                        //eslint-disable-next-line
-                        const item = userMenuOptions.filter(
-                           (o) => o.id == id
-                        )[0];
-                        webix.message(
-                           `<b>Not yet implemented</b><br/>
+                        // was this one of our Mobile Apps?
+                        const mobileApp = this.AB.applicationByID(id);
+                        if (mobileApp) {
+                           _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_4__["default"].load(mobileApp);
+                           _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_4__["default"].show();
+                        } else {
+                           //eslint-disable-next-line
+                           const item = userMenuOptions.filter(
+                              (o) => o.id == id
+                           )[0];
+                           webix.message(
+                              `<b>Not yet implemented</b><br/>
                            Menu item:<i>${item.label}</i><br/>
                            Menu ID:<i>${item.id}</i>`
-                        );
+                           );
+                        }
                   }
                   $$("userMenu").hide();
                },
@@ -6762,7 +6787,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       }
 
       if (DefaultPage) {
-         const container = new _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_5__["default"](
+         const container = new _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_6__["default"](
             this.pageID(DefaultPage),
             DefaultPage,
             this.App,
@@ -6793,7 +6818,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
             if (pages[j].getUserAccess?.() === 0) continue;
 
             if (!DefaultPage || pages[j].id !== DefaultPage.id) {
-               const cont = new _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_5__["default"](
+               const cont = new _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_6__["default"](
                   this.pageID(pages[j]),
                   pages[j],
                   this.App,
@@ -6827,7 +6852,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       //
       // Step 7: As well as the Inbox Task Window
       //
-      allInits.push(_portal_work_inbox_taskWindow_js__WEBPACK_IMPORTED_MODULE_6__["default"].init(this.AB));
+      allInits.push(_portal_work_inbox_taskWindow_js__WEBPACK_IMPORTED_MODULE_7__["default"].init(this.AB));
 
       // Network and Queued operations Alert
       const $portalWorkServerComunicationDisabledDetected = $$(
@@ -7188,16 +7213,16 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
                onItemClick: (id /*, event */) => {
                   switch (id) {
                      case "accessLevel":
-                        _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_7__["default"].init(this);
-                        _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_7__["default"].show();
+                        _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_8__["default"].init(this);
+                        _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_8__["default"].show();
                         break;
                      case "translation":
-                        _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_8__["default"].init(this);
-                        _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_8__["default"].show();
+                        _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_9__["default"].init(this);
+                        _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_9__["default"].show();
                         break;
                      case "tutorial":
-                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_9__["default"].init(this);
-                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_9__["default"].show();
+                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_10__["default"].init(this);
+                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_10__["default"].show();
                         break;
                      default:
                         //eslint-disable-next-line
@@ -7225,7 +7250,6 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new PortalWork());
-
 
 
 /***/ }),
@@ -8020,6 +8044,185 @@ class PortalWorkInboxTaskwindow extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new PortalWorkInboxTaskwindow());
+
+
+/***/ }),
+
+/***/ 92052:
+/*!******************************************!*\
+  !*** ./ui/portal_work_user_mobile_qr.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClassUI.js */ 32019);
+
+
+class PortalWorkUserMobileQR extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   constructor() {
+      super("portal_work_user_qr_window", {
+         // taskMultiview:"",
+         description: "",
+         instructions: "",
+         title: "",
+         qrcode: "",
+         taskPager: "",
+      });
+   }
+
+   ui() {
+      var L = (...params) => {
+         return this.label(...params);
+      };
+      const ids = this.ids;
+      return {
+         id: ids.component,
+         view: "window",
+         position: function (state) {
+            state.left = state.maxWidth / 2 - 600 / 2; // fixed values
+            state.top = state.maxHeight / 2 - (state.maxHeight * 0.7) / 2;
+            state.width = 500; // relative values
+            state.height = 400;
+         },
+         modal: true,
+         head: {
+            view: "toolbar",
+            css: "webix_dark",
+            cols: [
+               { width: 17 },
+               {
+                  id: ids.title,
+                  view: "label",
+                  label: L("Connect Mobile App"),
+               },
+               {
+                  view: "button",
+                  type: "icon",
+                  css: "webix_transparent",
+                  width: 40,
+                  icon: "fa fa-repeat",
+                  click: () => {
+                     $$("qr-code-image").refresh();
+                  },
+                  on: {
+                     onAfterRender() {
+                        _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"].CYPRESS_REF(this, "qr_image_reload");
+                     },
+                  },
+               },
+               {
+                  view: "button",
+                  type: "icon",
+                  css: "webix_transparent",
+                  width: 40,
+                  icon: "nomargin fa fa-times",
+                  click: () => {
+                     $$(ids.component).hide();
+                  },
+                  on: {
+                     onAfterRender() {
+                        _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"].CYPRESS_REF(this, "qr_window_close");
+                     },
+                  },
+               },
+            ],
+         },
+         body: {
+            css: { "text-align": "center" },
+            rows: [
+               { height: 10 },
+               {
+                  id: ids.description,
+                  borderless: true,
+                  template: `<span style="font-size:14px;font-weight:500;">The App's Description should go here.</span>`,
+               },
+               {
+                  id: ids.instructions,
+                  borderless: true,
+                  template: `<span style="font-size:14px;font-weight:500;">${L(
+                     "Use your phone's camera app to scan this QR code, and it will open a webpage to the {0} mobile app. You only need to scan the code for the first time."
+                  )}</span>`,
+               },
+               {
+                  id: ids.qrcode,
+                  height: 175,
+                  borderless: true,
+                  // autoheight: true,
+                  autowidth: true,
+                  template:
+                     "<img src='/relay/user-qr' style='margin: 10px auto 20px;display:block;' />",
+               },
+
+               {},
+               // {
+               //    borderless: true,
+               //    template: `<div style="font-size:14px;font-weight:500;font-weight:500;">${L(
+               //       "This code can only be used once. It will expire after 7 days."
+               //    )}</div>`,
+               // },
+            ],
+         },
+      };
+   }
+
+   init(AB) {
+      this.AB = AB;
+      webix.ui(this.ui());
+
+      return Promise.resolve();
+   }
+
+   load(App) {
+      var L = (...params) => {
+         return this.label(...params);
+      };
+
+      // change Title
+      let $title = $$(this.ids.title);
+      $title.define("label", App.label);
+      $title.refresh();
+
+      // Change Description
+      let $desc = $$(this.ids.description);
+      $desc.define(
+         "template",
+         `<span style="font-size:14px;font-weight:500;">${App.description}</span>`
+      );
+      $desc.refresh();
+
+      let $instr = $$(this.ids.instructions);
+      $instr.define(
+         "template",
+         `<span style="font-size:14px;font-weight:500;">${L(
+            "Use your phone's camera app to scan this QR code, and it will open a webpage to the {0} mobile app. You only need to scan the code for the first time.",
+            [App.label]
+         )}</span>`
+      );
+
+      // Change QR Image
+      let $qrcode = $$(this.ids.qrcode);
+      $qrcode.define(
+         "template",
+         `<img src='/mobile/qr/${App.id}' style='margin: 10px auto 20px;display:block;' />`
+      );
+      $qrcode.refresh();
+
+      $$(this.ids.component)?.refresh?.();
+   }
+
+   hide() {
+      $$(this.ids.component).hide();
+   }
+
+   show() {
+      $$(this.ids.component).show();
+   }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new PortalWorkUserMobileQR());
 
 
 /***/ }),
@@ -9021,7 +9224,6 @@ class PortalWorkUserQRWindow extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["d
                   width: 40,
                   icon: "fa fa-repeat",
                   click: () => {
-                     console.log("refresh");
                      $$("qr-code-image").refresh();
                   },
                   on: {
@@ -9436,7 +9638,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.2.44+c20114";
+   version = "1.3.0";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -9831,4 +10033,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.aa2a05644cc915a3dcbb.js.map
+//# sourceMappingURL=app.eb484aefd35b8376f383.js.map
