@@ -13,8 +13,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var pdfjs_dist_build_pdf_worker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pdfjs-dist/build/pdf.worker */ 28088);
 /* harmony import */ var pdfjs_dist_build_pdf_worker__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(pdfjs_dist_build_pdf_worker__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var pdfjs_dist_webpack__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! pdfjs-dist/webpack */ 22110);
-/* harmony import */ var pdfjs_dist_webpack__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(pdfjs_dist_webpack__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * pdfJS - load the pdfjs dependcies including the web worker. This is a
  * seperate file so we dynamically import it where needed, reducing the inital
@@ -22,9 +20,10 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+// import pdfjs from "pdfjs-dist/webpack";
+const pdfjs = __webpack_require__(/*! pdfjs-dist/webpack */ 22110);
 
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((pdfjs_dist_webpack__WEBPACK_IMPORTED_MODULE_1___default()));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pdfjs);
 
 
 /***/ }),
@@ -90,4 +89,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=pdfjs.f6d2e9e044d9b9c067d8.js.map
+//# sourceMappingURL=pdfjs.d7cfc0c2ab3a90586d09.js.map
