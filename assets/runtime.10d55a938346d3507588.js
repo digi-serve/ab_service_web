@@ -166,7 +166,7 @@
 /******/ 			if (chunkId === "formio-init_formio_js") return "formio." + chunkId + ".17a80740e07a94500469.js";
 /******/ 			if (chunkId === "tinymce-js_webix_extras_tinymce_js") return "tinymce." + chunkId + ".d626df0630b9c8bd3a09.js";
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "." + {"0":"bc92fa885b413d49c310","webix":"b64ea6ee7a4a858f0e3c","webix.resources":"6b7111f31cfe9e460d53","AB":"eb81bb9cd43fdcc72a2b","_4a14-_fe90-_d446-_4c38-_9f5f-_afbb":"5d73a1b02309582ab198","tinymce-vendors-node_modules_tinymce_icons_default_index_js-node_modules_tinymce_plugins_link-1e1308":"d57d6559356a2023358f"}[chunkId] + ".js";
+/******/ 			return "" + chunkId + "." + {"0":"b52a6713d997c1d17138","webix":"b64ea6ee7a4a858f0e3c","webix.resources":"f1bbe17e0f952c5941ae","AB":"eb81bb9cd43fdcc72a2b","_4a14-_fe90-_d446-_4c38-_9f5f-_afbb":"5d73a1b02309582ab198","tinymce-vendors-node_modules_tinymce_icons_default_index_js-node_modules_tinymce_plugins_link-1e1308":"d57d6559356a2023358f"}[chunkId] + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -269,22 +269,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		var scriptUrl;
-/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
-/******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript)
-/******/ 				scriptUrl = document.currentScript.src
-/******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
-/******/ 			}
-/******/ 		}
-/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 		__webpack_require__.p = scriptUrl;
+/******/ 		__webpack_require__.p = "/assets/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
@@ -419,4 +404,4 @@
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=runtime.4ace8dbab438eccf81e8.js.map
+//# sourceMappingURL=runtime.10d55a938346d3507588.js.map
