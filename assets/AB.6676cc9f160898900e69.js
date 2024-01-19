@@ -13649,7 +13649,7 @@ module.exports = class ABFieldCalculateCore extends ABField {
             );
          }
          // date fields
-         else if (f.key == "date") {
+         else if (f.key == "date" || f.key == "datetime") {
             const dateVal = `"${data || ""}"`; // "date"
             formula = formula.replace(
                new RegExp("{" + colName + "}", "g"),
@@ -81358,4 +81358,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.eb81bb9cd43fdcc72a2b.js.map
+//# sourceMappingURL=AB.6676cc9f160898900e69.js.map
