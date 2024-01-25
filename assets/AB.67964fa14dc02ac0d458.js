@@ -13649,7 +13649,7 @@ module.exports = class ABFieldCalculateCore extends ABField {
             );
          }
          // date fields
-         else if (f.key == "date") {
+         else if (f.key == "date" || f.key == "datetime") {
             const dateVal = `"${data || ""}"`; // "date"
             formula = formula.replace(
                new RegExp("{" + colName + "}", "g"),
@@ -80822,7 +80822,7 @@ module.exports = class ABCustomFormIOPreview extends ABLazyCustomComponent {
             // now that it is set up we can push it into the global var
             // formBuilder = builder;
             // Provide a default submission.
-            form.submission = {
+            form.instance.submission = {
                data: formData,
             };
             (formComponents.components || []).forEach((comp) => {
@@ -80831,7 +80831,7 @@ module.exports = class ABCustomFormIOPreview extends ABLazyCustomComponent {
                   comp.action == "event" &&
                   comp.event
                ) {
-                  form.once(comp.event, function (/* click */) {
+                  form.instance.once(comp.event, function (/* click */) {
                      config?.onButton(comp.event);
                      // _this.emit("button", comp.event);
                   });
@@ -81358,4 +81358,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.eb81bb9cd43fdcc72a2b.js.map
+//# sourceMappingURL=AB.67964fa14dc02ac0d458.js.map

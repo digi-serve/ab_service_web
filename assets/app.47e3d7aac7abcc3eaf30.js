@@ -665,16 +665,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_font_awesome_min_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./styles/font-awesome.min.css */ 29030);
 /* harmony import */ var _utils_performance__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./utils/performance */ 18320);
 /* harmony import */ var _init_Bootstrap_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./init/Bootstrap.js */ 57402);
-io.sails.reconnection = true;
-// {bool}
-// by default, sails.io will not reconnect.  setting this to true will
-// tell it to auto reconnect.
-// NOTE: this is usually TOO LATE in the boot up process to set this
-// value.  The index.ejs file should have this as a parameter to the
-// <script> tag that loads the socket library.
-// (see api_sails/views/site/index.ejs)
-// I'm including this here more for documentation purposes.
-
 // Include all CSS here
 
 
@@ -9725,7 +9715,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.3.5";
+   version = "1.3.7";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10294,4 +10284,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.26dc74af112c29a4f224.js.map
+//# sourceMappingURL=app.47e3d7aac7abcc3eaf30.js.map
