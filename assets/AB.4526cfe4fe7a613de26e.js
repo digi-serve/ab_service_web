@@ -37402,7 +37402,7 @@ module.exports = class FilterComplex extends FilterComplexCore {
             notEqualListCondition: L("does not equal"),
 
             checkedCondition: L("is checked"),
-            notCheckedCondition: L("is not checked"),
+            notCheckedCondition: L("is unchecked"),
 
             isCurrentUserCondition: L("is current user"),
             isNotCurrentUserCondition: L("is not current user"),
@@ -37562,6 +37562,8 @@ module.exports = class FilterComplex extends FilterComplexCore {
                case "greater_or_equal_current":
                case "is_empty":
                case "is_not_empty":
+               case "checked":
+               case "unchecked":
                   // There are only a few rules that don't need a
                   // value
                   break;
@@ -37734,7 +37736,7 @@ module.exports = class FilterComplex extends FilterComplexCore {
 
       switch (field?.key) {
          case "boolean":
-            result = this.uiBooleanValue(field);
+            result = this.uiNoneValue(field);
             break;
          case "connectObject":
             result = []
@@ -52172,6 +52174,9 @@ module.exports = class ABViewForm extends ABViewFormCore {
       const model = dv.model;
       if (model == null) return;
 
+      // show progress icon
+      $formView.showProgress?.({ type: "icon" });
+
       // get update data
       const formVals = this.getFormValues(
          $formView,
@@ -52237,6 +52242,9 @@ module.exports = class ABViewForm extends ABViewFormCore {
          $formView?.hideProgress?.();
       };
 
+      // Load data of DCs that use in record rules
+      await this.loadDcDataOfRecordRules();
+
       // wait for our Record Rules to be ready before we continue.
       await this.recordRulesReady();
 
@@ -52246,11 +52254,9 @@ module.exports = class ABViewForm extends ABViewFormCore {
       // validate data
       if (!this.validateData($formView, obj, formVals)) {
          // console.warn("Data is invalid.");
+         $formView.hideProgress?.();
          return;
       }
-
-      // show progress icon
-      $formView.showProgress?.({ type: "icon" });
 
       let newFormVals;
       // {obj}
@@ -52331,6 +52337,30 @@ module.exports = class ABViewForm extends ABViewFormCore {
       if (childComponent && $$(childComponent.ui.id)) {
          $$(childComponent.ui.id).focus();
       }
+   }
+
+   async loadDcDataOfRecordRules() {
+      const tasks = [];
+
+      (this.settings?.recordRules ?? []).forEach((rule) => {
+         (rule?.actionSettings?.valueRules?.fieldOperations ?? []).forEach(
+            (op) => {
+               if (op.valueType !== "exist") return;
+
+               const pullDataDC = this.AB.datacollectionByID(op.value);
+
+               if (
+                  pullDataDC?.dataStatus ===
+                  pullDataDC.dataStatusFlag.notInitial
+               )
+                  tasks.push(pullDataDC.loadData());
+            }
+         );
+      });
+
+      await Promise.all(tasks)
+
+      return true;
    }
 
    get viewComponents() {
@@ -61614,28 +61644,6 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
       });
    }
 
-   async loadDcDataOfRecordRules() {
-      const tasks = [];
-
-      (this.settings?.recordRules ?? []).forEach((rule) => {
-         (rule?.actionSettings?.valueRules?.fieldOperations ?? []).forEach(
-            (op) => {
-               if (op.valueType !== "exist") return;
-
-               const pullDataDC = this.AB.datacollectionByID(op.value);
-
-               if (
-                  pullDataDC?.dataStatus ===
-                  pullDataDC.dataStatusFlag.notInitial
-               )
-                  tasks.push(pullDataDC.loadData());
-            }
-         );
-      });
-
-      return await Promise.all(tasks);
-   }
-
    async onShow(data) {
       this.saveButton?.disable();
 
@@ -61675,7 +61683,10 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
 
       if ($form) $form.adjust();
 
-      await this.loadDcDataOfRecordRules();
+      // Load data of DCs that are use in record rules here
+      // no need to wait until they are done. (Let the save button enable)
+      // It will be re-check again when saving.
+      baseView.loadDcDataOfRecordRules();
 
       this.saveButton?.enable();
    }
@@ -81357,4 +81368,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.e6dcdc2d9c239ab03524.js.map
+//# sourceMappingURL=AB.4526cfe4fe7a613de26e.js.map
