@@ -11297,8 +11297,11 @@ module.exports = class FilterComplexCore extends ABComponent {
       let result = false;
 
       switch (rule) {
-         case "equals":
-            result = value == compareValue;
+         case "checked":
+            result = value == true || value > 0 || value == "true";
+            break;
+         case "unchecked":
+            result = value == false || value <= 0 || value == "false" || value == null;
             break;
          default:
             result = this.queryFieldValid(value, rule, compareValue);
@@ -11949,7 +11952,8 @@ module.exports = class FilterComplexCore extends ABComponent {
 
    fieldsAddFiltersBoolean(field) {
       let booleanConditions = {
-         equals: this.labels.component.equalListCondition,
+         checked: this.labels.component.checkedCondition,
+         unchecked: this.labels.component.notCheckedCondition,
       };
 
       let result = [];
@@ -11958,7 +11962,7 @@ module.exports = class FilterComplexCore extends ABComponent {
          result.push({
             id: condKey,
             value: booleanConditions[condKey],
-            batch: "boolean",
+            batch: "none",
             handler: (a, b) => this.booleanValid(a, condKey, b),
          });
       }
@@ -12241,6 +12245,8 @@ module.exports = class FilterComplexCore extends ABComponent {
          "not_same_as_user",
          "is_empty",
          "is_not_empty",
+         "checked",
+         "unchecked",
       ];
 
       const isCompleteRules = (rules = []) => {
@@ -17085,20 +17091,13 @@ module.exports = class ABFieldNumberCore extends ABField {
          integerValue = integerStr;
       }
 
-      let result = "";
+      // Integer
+      let result = `${negativeSign}${integerValue}`;
 
       // Decimal
-      if (options.decimalDelimiter && options.decimalSize) {
-         result = `${negativeSign}${integerValue}${
-            decimalStr
-               ? options.decimalDelimiter +
-                 decimalStr.toString().substr(0, options.decimalSize)
-               : ""
-         }`;
-      }
-      // Integer
-      else {
-         result = `${negativeSign}${integerValue}`;
+      if (decimalStr && options.decimalDelimiter && options.decimalSize) {
+         const decimalVal = data.toFixed(options.decimalSize).split(".")[1];
+         result += `${options.decimalDelimiter}${decimalVal}`;
       }
 
       return result;
@@ -81358,4 +81357,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.67964fa14dc02ac0d458.js.map
+//# sourceMappingURL=AB.e6dcdc2d9c239ab03524.js.map
