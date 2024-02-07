@@ -41588,27 +41588,45 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
          this.populateOptionsDataCy(theEditor, field, form);
       }
       if (theEditor.getValue?.() && data?.length) {
-         let selectedVal = theEditor.getValue();
-
-         // Check exists item
-         const isExists = data.some((d) => d.id == selectedVal);
-
-         // Select option item from custom index value
-         if (
-            !isExists &&
-            field.isConnection &&
-            (field.indexField || field.indexField2)
-         ) {
-            const selectedItem = data.filter(
-               (d) =>
-                  d[field.indexField?.columnName ?? ""] == selectedVal ||
-                  d[field.indexField2?.columnName ?? ""] == selectedVal
-            )[0];
-
-            if (selectedItem) selectedVal = selectedItem.id;
+         let currVal = theEditor.getValue();
+         // in a multiselect environment, the current val can be an encoded string:
+         // "id1,id2".  Break this into an array:
+         if (field.linkType() == "many" && typeof currVal == "string") {
+            currVal = currVal.split(",");
+         }
+         if (!Array.isArray(currVal)) {
+            currVal = [currVal];
          }
 
-         theEditor.setValue(selectedVal);
+         let selectedVals = [];
+         currVal.forEach((cVal) => {
+            // Check exists item
+            const isExists = data.some((d) => d.id == cVal);
+
+            if (isExists) {
+               selectedVals.push(cVal);
+            }
+
+            // if we couldn't find it by it's .id, then check to see
+            // if there is a custom index (.indexField  .indexField2)
+            // that does match.
+            // Select option item from custom index value
+            if (
+               !isExists &&
+               field.isConnection &&
+               (field.indexField || field.indexField2)
+            ) {
+               const selectedItem = data.filter(
+                  (d) =>
+                     d[field.indexField?.columnName ?? ""] == cVal ||
+                     d[field.indexField2?.columnName ?? ""] == cVal
+               )[0];
+
+               if (selectedItem) selectedVals.push(selectedItem.id);
+            }
+         });
+
+         theEditor.setValue(selectedVals);
       }
       theEditor.unblockEvent();
    }
@@ -45442,7 +45460,7 @@ module.exports = class ABFieldUser extends ABFieldUserCore {
             val = val.replace(/ab-current-user/g, this.AB.Account.username());
          else if (Array.isArray(val))
             val = val.map((v) =>
-               (v.username ?? v.uuid ?? v.id ?? v)?.replace(
+               (v?.username ?? v?.uuid ?? v?.id ?? v)?.replace(
                   /ab-current-user/g,
                   this.AB.Account.username()
                )
@@ -45476,6 +45494,20 @@ module.exports = class ABFieldUser extends ABFieldUserCore {
          }
 
          return result;
+      });
+   }
+
+   getOptions(...params) {
+      return super.getOptions(...params).then((options) => {
+         // in a ABFieldUser, our options.id elements need to have
+         // the username, not the .uuid:
+         (options || []).forEach((o) => {
+            if (o.username) {
+               o.id = o.username;
+            }
+         });
+
+         return options;
       });
    }
 };
@@ -61706,6 +61738,12 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
             (comp instanceof ABViewFormJson && comp.settings.type === "filter")
       );
 
+      const normalFields = baseView.fieldComponents(
+         (comp) =>
+            comp instanceof ABViewFormItem &&
+            !(comp instanceof ABViewFormCustom)
+      );
+
       // Set default values
       if (!rowData) {
          customFields.forEach((f) => {
@@ -61727,20 +61765,14 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
             comp?.refresh?.(defaultRowData);
          });
 
-         const normalFields = baseView.fieldComponents(
-            (comp) =>
-               comp instanceof ABViewFormItem &&
-               !(comp instanceof ABViewFormCustom)
-         );
-
          normalFields.forEach((f) => {
+            if (f.key === "button") return;
+
             const field = f.field();
             if (!field) return;
 
             const comp = baseView.viewComponents[f.id];
             if (!comp) return;
-
-            if (f.key === "button") return;
 
             const colName = field.columnName;
 
@@ -61763,7 +61795,7 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
       }
 
       // Populate value to custom fields
-      else
+      else {
          customFields.forEach((f) => {
             const comp = baseView.viewComponents[f.id];
             if (!comp) return;
@@ -61775,6 +61807,19 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
 
             comp?.refresh?.(rowData);
          });
+
+         normalFields.forEach((f) => {
+            if (f.key === "button") return;
+
+            const field = f.field();
+            if (!field) return;
+
+            const comp = baseView.viewComponents[f.id];
+            if (!comp) return;
+
+            field.setValue($$(comp.ids.formItem), rowData);
+         });
+      }
 
       this.timerId = null;
    }
@@ -61880,6 +61925,10 @@ module.exports = class ABViewFormConnectComponent extends (
       return this.view.field();
    }
 
+   get multiselect() {
+      return this.field?.settings.linkType == "many";
+   }
+
    ui() {
       const field = this.field;
       const baseView = this.view;
@@ -61895,7 +61944,7 @@ module.exports = class ABViewFormConnectComponent extends (
          });
       }
 
-      const multiselect = field.settings.linkType == "many";
+      const multiselect = this.multiselect; // field.settings.linkType == "many";
       const formSettings = form?.settings || {};
       const ids = this.ids;
 
@@ -62022,6 +62071,12 @@ module.exports = class ABViewFormConnectComponent extends (
       const ids = this.ids;
       const field = this.field;
       const baseView = this.view;
+
+      if (this.multiselect) {
+         if (typeof data == "string") {
+            data = data.split(",");
+         }
+      }
 
       let selectedValues;
       if (Array.isArray(data)) {
@@ -81402,4 +81457,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.e0f8583aea9fd50605ff.js.map
+//# sourceMappingURL=AB.4853f99acd6bc4d87864.js.map

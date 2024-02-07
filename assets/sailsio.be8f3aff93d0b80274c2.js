@@ -20,6 +20,8 @@ io.sails.reconnection = true;
 // by default, sails.io will not reconnect.  setting this to true will
 // tell it to auto reconnect.
 
+window.__AB_socketReady_resolve();
+
 
 /***/ }),
 
@@ -40,4 +42,4 @@ io.sails.reconnection = true;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=sailsio.2bc0fa8dfd9c3732ecfc.js.map
+//# sourceMappingURL=sailsio.be8f3aff93d0b80274c2.js.map

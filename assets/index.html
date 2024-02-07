@@ -8,6 +8,25 @@
       <title>AppBuilder</title>
       <!-- https://www.filamentgroup.com/lab/load-css-simpler/#the-code -->
       <link href="/__getCookie" rel="stylesheet" media="print" onload="this.media='all'" />
+<!--      <script type='text/javascript' src='/assets/dependencies/sails.io.js' reconnection="true" defer></script>  -->
+      <script> 
+
+         //
+         // Setup some promises used during our boot up process.
+         //
+
+         // .__AB_preload  {Promise} our index.js script will await this 
+         // before continuing the Bootstrap.init();  This way all resources will
+         // be loaded before we start the initialization.
+         window.__AB_preload = new Promise(async (resolve, reject) => {
+            window.__AB_preload_resolve = resolve;
+         });
+
+         window.__AB_socketReady = new Promise((resolve) => {
+            window.__AB_socketReady_resolve = resolve;
+         });
+      </script>
+      <script type='text/javascript' src='/config/preloader' defer></script>  
    </head>
 
    <body style="margin:0q;">
@@ -74,6 +93,6 @@
             </div>
          </div>
       </div>
-   <script defer src="/assets/runtime.81223dee488338924e2a.js"></script><script defer src="/assets/vendor.vendor-node_modules_sentry-internal_tracing_esm_browser_browsertracing_js-node_modules_sentry-0e5eae.0505331fe11ec57eccf2.js"></script><script defer src="/assets/app.e64f9e56dfe53f7d7a62.js"></script><script defer src="/assets/vendor.vendor-node_modules_sails_io_js_sails_io_js-node_modules_socket_io-client_lib_index_js.8e4329c2901e6236f582.js"></script><script defer src="/assets/sailsio.2bc0fa8dfd9c3732ecfc.js"></script></body>
+   <script defer src="/assets/runtime.1d0e6c0cee2fbb6406b1.js"></script><script defer src="/assets/vendor.vendor-node_modules_sentry-internal_tracing_esm_browser_browsertracing_js-node_modules_sentry-95710f.0a5ce522420a69e86b3c.js"></script><script defer src="/assets/app.64b7c3226c0145eecfff.js"></script><script defer src="/assets/vendor.vendor-node_modules_sails_io_js_sails_io_js-node_modules_socket_io-client_lib_index_js.8e4329c2901e6236f582.js"></script><script defer src="/assets/sailsio.be8f3aff93d0b80274c2.js"></script></body>
 
    </html>

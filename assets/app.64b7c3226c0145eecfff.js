@@ -359,6 +359,12 @@ class Config {
       // these are the configuration settings returned from the server. These
       // are more detailed configuration settings for the running of the site.
 
+      this._configUser = null;
+      // {obj} _configUser
+      // the default settings for the current user of the system.
+      //    .user {obj}  the current info for who we think is using the site
+      //    .userReal {obj}  if switheroo'd, this is the actual user
+
       this._settings = {};
       // {obj} _settings
       // settings are the configuration parameters found on the base <div>
@@ -367,8 +373,21 @@ class Config {
    }
 
    config(json) {
-      this._config = json;
+      this._config = this._config || {};
+      Object.keys(json).forEach((k) => {
+         this._config[k] = json[k];
+      });
       (0,lodash__WEBPACK_IMPORTED_MODULE_0__.defaultsDeep)(this._config, configDefaults);
+   }
+
+   configInbox(json) {
+      this._config = this._config || {};
+      this._config.inbox = json.inbox || [];
+      this._config.inboxMeta = json.inboxMeta || [];
+   }
+
+   configUser(json) {
+      this._configUser = json;
    }
 
    setting(key, value) {
@@ -495,14 +514,11 @@ class Config {
     * @returns {User}
     */
    userConfig() {
-      if (this._config && this._config.user) {
-         return this._config.user;
-      }
-      return null;
+      return this._configUser?.user ?? null;
    }
 
    userReal() {
-      return this._config?.userReal ?? false;
+      return this._configUser?.userReal ?? false;
    }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new Config());
@@ -686,11 +702,15 @@ _utils_performance__WEBPACK_IMPORTED_MODULE_10__["default"].init();
 // Bootstrap is responsible for initializing the platform.
 
 // Import webix dynamically so we load it before we load other files that need it
-__webpack_require__.e(/*! import() | webix */ "webix").then(__webpack_require__.t.bind(__webpack_require__, /*! ./js/webix/webix.min.js */ 47424, 23)).then((webix) => {
+__webpack_require__.e(/*! import() | webix */ "webix").then(__webpack_require__.t.bind(__webpack_require__, /*! ./js/webix/webix.min.js */ 47424, 23)).then(async (webix) => {
    // Make sure webix is global object
    window.webix = webix;
    // Now load additional webix resources
    __webpack_require__.e(/*! import() | webix.resources */ "webix.resources").then(__webpack_require__.bind(__webpack_require__, /*! ./js/webix/webixResources */ 32928));
+
+   // __AB_preload should be created by our /config/preload script that gets
+   // loaded on the initial page load.
+   await window.__AB_preload;
 
    _init_Bootstrap_js__WEBPACK_IMPORTED_MODULE_11__["default"].init().catch((err) => {
       // This is a known error that has already been handled.
@@ -725,12 +745,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config/Config.js */ 97146);
 /* harmony import */ var _init_initConfig_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../init/initConfig.js */ 57971);
-/* harmony import */ var _init_initConnectListerner_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../init/initConnectListerner.js */ 9610);
 /* harmony import */ var _init_initDiv_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../init/initDiv.js */ 58423);
-/* harmony import */ var _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../init/initDefinitions.js */ 18042);
+/* harmony import */ var _init_initUser_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../init/initUser.js */ 12664);
 /* harmony import */ var _js_selectivity_selectivity_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../js/selectivity/selectivity.min.css */ 58292);
-/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../ui/ui.js */ 68041);
-/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 71417);
+/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../ui/ui.js */ 68041);
+/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 71417);
 /* harmony import */ var _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/performance.js */ 18320);
 /*
  * Bootstrap.js
@@ -749,6 +768,8 @@ const EventEmitter = (events__WEBPACK_IMPORTED_MODULE_0___default().EventEmitter
 
 
 
+
+// import initResources from "../init/initResources.js";
 
 // import JSZipUtils from "jszip-utils/dist/jszip-utils.min.js";
 
@@ -798,7 +819,7 @@ class Bootstrap extends EventEmitter {
       // happening inconsitently.
       if (ab) this.AB = ab;
 
-      const loadABFactory = Promise.all(/*! import() | AB */[__webpack_require__.e("vendor-node_modules_atomicjs_dist_atomic_min_js-node_modules_atomicjs_dist_atomic_polyfills_m-60d965"), __webpack_require__.e("AB")]).then(__webpack_require__.bind(__webpack_require__, /*! ../AppBuilder/ABFactory */ 28434));
+      const loadABFactory = Promise.all(/*! import() | AB */[__webpack_require__.e("vendor-node_modules_atomicjs_dist_atomic_min_js-node_modules_atomicjs_dist_atomic_polyfills_m-e9750c"), __webpack_require__.e("AB")]).then(__webpack_require__.bind(__webpack_require__, /*! ../AppBuilder/ABFactory */ 28434));
       // @const {Promise} loadABFactory Defer loading the ABFactory for a smaller
       // inital file size, allowing us to show the loading UI sooner.
       /**
@@ -825,7 +846,7 @@ class Bootstrap extends EventEmitter {
             const $uiWarning = document.getElementById(
                "preload_network_warning"
             );
-            networkIsSlow ? $uiWarning.show() : $uiWarning.hide();
+            $uiWarning.hidden = !networkIsSlow;
             // Tell sentry our network speed changed
             _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].setContext("breadcrumb", {
                category: "network",
@@ -847,38 +868,44 @@ class Bootstrap extends EventEmitter {
       _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("initDiv", { op: "ui.render" });
       await _init_initDiv_js__WEBPACK_IMPORTED_MODULE_4__["default"].init(this);
       _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("initDiv");
+
       // 2) Request the User's Configuration Information from the server.
       _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("initConfig", { op: "function" });
       preloadMessage("Getting Configuration Settings");
       await _init_initConfig_js__WEBPACK_IMPORTED_MODULE_5__["default"].init(this);
       _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("initConfig");
+
+      await _init_initUser_js__WEBPACK_IMPORTED_MODULE_6__["default"].init(this);
       const userInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].userConfig();
-      let definitionsLoading;
+
       if (userInfo) {
          // load definitions for current user
          _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].setContext("user", {
             id: userInfo.id,
          });
-         preloadMessage("Loading App Definitions");
-         _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("initDefinitions", { op: "function" });
-         definitionsLoading = _init_initDefinitions_js__WEBPACK_IMPORTED_MODULE_6__["default"].init(this)
-            .then(() => _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("initDefinitions"));
       }
       // 2.5) Load any plugins
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("loadPlugins", { op: "fucntion" });
-      // Make sure the BootStrap Object is available globally
-      window.__ABBS = this;
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("loadPlugins", { op: "function" });
 
+      // Plugins are now loaded via the Preloader and stored in
+      (window.__AB_Plugins || []).forEach((p) => {
+         this.addPlugin(p);
+      });
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("loadPlugins");
+
+      // Make sure the BootStrap Object is available globally
+      // window.__ABBS = this;
+      /*
       // Listen 'disconnect' event
-      _init_initConnectListerner_js__WEBPACK_IMPORTED_MODULE_7__["default"].init(this);
+      initConnectListerner.init(this);
 
       const allPluginsLoaded = [];
-      const tenantInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].tenantConfig();
+      const tenantInfo = Config.tenantConfig();
 
       if (tenantInfo) {
-         _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].setContext("tenant", tenantInfo);
-         _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].setContext("tags", { tenant: tenantInfo.id });
-         const plugins = _config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].plugins() || [];
+         performance.setContext("tenant", tenantInfo);
+         performance.setContext("tags", { tenant: tenantInfo.id });
+         const plugins = Config.plugins() || [];
 
          // Short Term Fix: Don't load ABDesigner for non builders (need a way
          // to assign plugins to users/roles);
@@ -898,22 +925,23 @@ class Bootstrap extends EventEmitter {
          }
          plugins.forEach((p) => {
             preloadMessage(`plugin (${p})`);
-            _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark(`plugin:${p}`, { op: "resource.script" });
+            performance.mark(`plugin:${p}`, { op: "resource.script" });
             const loading = loadScript(tenantInfo.id, p).then(() =>
-               _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure(`plugin:${p}`)
+               performance.measure(`plugin:${p}`)
             );
             allPluginsLoaded.push(loading);
          });
       }
       const pluginsLoading = Promise.all(allPluginsLoaded).then(() =>
-         _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("loadPlugins")
+         performance.measure("loadPlugins")
       );
+*/
+
       // 3) Now we have enough info, to create an instance of our
       //    {ABFactory} that drives the rest of the AppBuilder objects
       _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("createABFactory", { op: "function" });
       preloadMessage("Starting AppBuilder");
 
-      if (definitionsLoading) await definitionsLoading;
       const { default: ABFactory } = await loadABFactory;
       let definitions = _config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].definitions() || null;
 
@@ -921,7 +949,6 @@ class Bootstrap extends EventEmitter {
          // NOTE: when loading up an unauthorized user,
          // definitions will be null: we can skip the plugins
          // Q: is it possible to load a plugin when unauthorized?
-         await pluginsLoading;
          this._plugins.forEach((p) => {
             definitions = definitions.concat(p.definitions());
          });
@@ -942,13 +969,13 @@ class Bootstrap extends EventEmitter {
       // direct them to our special ErrorNoDefsUI
       if (userInfo && userInfo.roles.length == 0) {
          _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("createABFactory");
-         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_8__["default"].init(this.AB);
-         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_8__["default"].attach();
+         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].init(this.AB);
+         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].attach();
          if (_config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].userReal()) {
-            _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_8__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].userConfig());
+            _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].userConfig());
          }
          destroyPreloadUI();
-         this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_8__["default"]);
+         this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"]);
 
          let err = new Error("No Definitions");
          err.code = "ENODEFS";
@@ -995,9 +1022,9 @@ class Bootstrap extends EventEmitter {
 
          const div = this.div();
 
-         _ui_ui_js__WEBPACK_IMPORTED_MODULE_9__["default"].attach(div.id);
+         _ui_ui_js__WEBPACK_IMPORTED_MODULE_8__["default"].attach(div.id);
          destroyPreloadUI();
-         this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_9__["default"]);
+         this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_8__["default"]);
          this.ui()
             .init(this.AB)
             .then(() => {
@@ -1083,37 +1110,37 @@ __webpack_require__.r(__webpack_exports__);
       // BS {Bootstrap}
       // The initial Bootstrap object found in "./Bootstrap.js"
       try {
-         let configData;
+         let configData = window.__AB_Config;
          // Use `AB.Network` if available
-         if (BS.AB) {
-            configData = await BS.AB.Network.get(
-               { url: "/config" },
-               { key: "init_config" }
-            );
-         } else {
-            const headers = new Headers();
-            const token = BS.Config.setting("tenant");
-            if (token) {
-               headers.append("tenant-token", token);
-            }
+         // if (BS.AB) {
+         //    configData = await BS.AB.Network.get(
+         //       { url: "/config" },
+         //       { key: "init_config" }
+         //    );
+         // } else {
+         //    const headers = new Headers();
+         //    const token = BS.Config.setting("tenant");
+         //    if (token) {
+         //       headers.append("tenant-token", token);
+         //    }
 
-            //// DEV TESTING:
-            //// uncomment the api_sails/authTenant.js && index.ejs entries for these values
-            //// to test url prefix route resolutions:
-            // var prefix = AB.setting("prefix");
-            // if (prefix) {
-            //    headers.append("Tenant-Test-Prefix", prefix);
-            // }
-            //// DEV TESTING
+         //    //// DEV TESTING:
+         //    //// uncomment the api_sails/authTenant.js && index.ejs entries for these values
+         //    //// to test url prefix route resolutions:
+         //    // var prefix = AB.setting("prefix");
+         //    // if (prefix) {
+         //    //    headers.append("Tenant-Test-Prefix", prefix);
+         //    // }
+         //    //// DEV TESTING
 
-            const response = await fetch("/config", { headers });
-            if (response.ok) {
-               const { data } = await response.json();
-               configData = data;
-            } else {
-               BS.error(`Error communicating with Server: ${response.status}`);
-            }
-         }
+         //    const response = await fetch("/config", { headers });
+         //    if (response.ok) {
+         //       const { data } = await response.json();
+         //       configData = data;
+         //    } else {
+         //       BS.error(`Error communicating with Server: ${response.status}`);
+         //    }
+         // }
          // Hotfix 11/30/22, Since we no longer send settings on the div including in config.
          BS.Config.settings(configData.settings);
          delete configData.settings;
@@ -1127,125 +1154,6 @@ __webpack_require__.r(__webpack_exports__);
          if (err.message == "Failed to fetch")
             window.location.replace(window.location.origin);
       }
-   },
-});
-
-
-/***/ }),
-
-/***/ 9610:
-/*!**************************************!*\
-  !*** ./init/initConnectListerner.js ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/*
- * initConnectListerner.js
- * listen disconnect event of WebSocket and display message when disconnect
- */
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-   init: (BS) => {
-      // BS {Bootstrap}
-      // The initial Bootstrap object found in "./Bootstrap.js"
-
-      return new Promise((resolve, reject) => {
-         const L = (...params) => BS.AB.Multilingual.label(...params);
-
-         io.socket.on("disconnect", function() {
-            const body = document.querySelector("body");
-            body.insertAdjacentHTML(
-               "afterbegin",
-               `<div id='connectionPrompt' style='height: 0px;'>
-                  ${L("*Oops, we cannot communicate with the site.")}
-               </div>`
-            );
-         });
-
-         resolve();
-      });
-   },
-});
-
-
-/***/ }),
-
-/***/ 18042:
-/*!*********************************!*\
-  !*** ./init/initDefinitions.js ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanoid */ 31222);
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-   init: async (BS) => {
-      // BS {Bootstrap}
-      // The initial Bootstrap object found in "./Bootstrap.js"
-      let updated;
-      try {
-         if (BS.AB) {
-            updated = await BS.AB.Network.get(
-               { url: "/definition/check-update" },
-               { key: "def_check_update" }
-            );
-         } else {
-            const headers = new Headers();
-            const token = BS.Config.setting("tenant");
-            if (token) {
-               headers.append("tenant-token", token);
-            }
-
-            const response = await fetch("/definition/check-update", {
-               headers,
-               credentials: "include",
-            });
-            if (!response.ok) {
-               BS.error(`Error communicating with Server: ${response.status}`);
-            }
-            const res = await response.json();
-            updated = res.data;
-         }
-      } catch (err) {
-         BS.error("initDefinitions: GET /definition/check-update", err);
-         return;
-      }
-
-      // if we are Switcherood to another user, we need to ignore our current
-      // cached definition.  Current way to do that is to simply give a random
-      // hash for our 'updated' value.
-      if (BS.Config?.userReal()) {
-         updated = (0,nanoid__WEBPACK_IMPORTED_MODULE_0__.nanoid)();
-      }
-      await new Promise((resolve, reject) => {
-         var cb = () => resolve();
-         // Adding the script tag to the head as suggested before
-         const head = document.head;
-         const script = document.createElement("script");
-         script.type = "text/javascript";
-         script.src = `/definition/myapps?v=${updated}`;
-
-         // Then bind the event to the callback function.
-         // There are several events for cross browser compatibility.
-         script.onreadystatechange = cb;
-         script.onload = cb;
-         script.onerror = () => {
-            reject(
-               new Error(
-                  `initDefinitions: Error loading definitions (/definition/myapps?v=${updated})`
-               )
-            );
-         };
-         // Fire the loading
-         head.appendChild(script);
-      });
    },
 });
 
@@ -1309,6 +1217,41 @@ __webpack_require__.r(__webpack_exports__);
          BS.Config.settingsFromDiv(div); // set the autoEnter config
          resolve();
       });
+   },
+});
+
+
+/***/ }),
+
+/***/ 12664:
+/*!**************************!*\
+  !*** ./init/initUser.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+   init: async (BS) => {
+      // BS {Bootstrap}
+      // The initial Bootstrap object found in "./Bootstrap.js"
+      try {
+         let configData = {
+            user: window.__AB_Config_User,
+            userReal: window.__AB_Config_User_real,
+         };
+         BS.Config.configUser(configData);
+      } catch (err) {
+         BS.error("initConfig: GET /config:", err);
+         // HOTFIX: (12/15/2022) If the user visits /home directly /config is
+         // the first request made to sails and if we're not authenticated but
+         // using OKTA or CAS, we get a CORS error when trying to authenticate.
+         // Send the user to / to get authenticated correctly.
+         if (err.message == "Failed to fetch")
+            window.location.replace(window.location.origin);
+      }
    },
 });
 
@@ -7521,6 +7464,16 @@ class PortalWorkInbox extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"
    init(AB) {
       this.AB = AB;
 
+      //  Load the { items, meta } data structure before continuing with
+      // the rest of the init process.
+      this.AB.Network.get({ url: "/config/inbox" }).then((inboxConfig) => {
+         this.AB.Config.configInbox(inboxConfig);
+
+         this.initDelayed(AB);
+      });
+   }
+
+   initDelayed(AB) {
       webix.ui(this.ui());
 
       this.allAppAccordions = {};
@@ -7624,6 +7577,8 @@ class PortalWorkInbox extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"
    }
 
    createAccordian(app) {
+      if (!app) return;
+
       // convert config info with current language labels
       this.translate(app, this.lang);
 
@@ -7715,7 +7670,7 @@ class PortalWorkInbox extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"
     *        the language_code of the translations to use.
     */
    translate(obj, lang) {
-      if (obj.translations) {
+      if (obj?.translations) {
          var entry = obj.translations.find((t) => t.language_code == lang);
          if (!entry) {
             entry = obj.translations[0];
@@ -9787,7 +9742,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.4.0";
+   version = "1.4.1";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10354,9 +10309,17 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
+/******/ /* webpack/runtime/startup prefetch */
+/******/ (() => {
+/******/ 	__webpack_require__.O(0, ["app"], () => {
+/******/ 		__webpack_require__.E("vendor-node_modules_atomicjs_dist_atomic_min_js-node_modules_atomicjs_dist_atomic_polyfills_m-e9750c");
+/******/ 		__webpack_require__.E("AB");
+/******/ 	}, 5);
+/******/ })();
+/******/ 
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ __webpack_require__.O(0, ["vendor-node_modules_sentry-internal_tracing_esm_browser_browsertracing_js-node_modules_sentry-0e5eae"], () => (__webpack_exec__(5924)));
+/******/ __webpack_require__.O(0, ["vendor-node_modules_sentry-internal_tracing_esm_browser_browsertracing_js-node_modules_sentry-95710f"], () => (__webpack_exec__(5924)));
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.e64f9e56dfe53f7d7a62.js.map
+//# sourceMappingURL=app.64b7c3226c0145eecfff.js.map
