@@ -43412,6 +43412,18 @@ module.exports = class ABFieldImage extends ABFieldImageCore {
       if (this.uploadInProgress)
          validator.addError(this.columnName, L("Image still uploading"));
    }
+
+   rotateLeft(imgFile) {
+      return this.AB.Network.put({
+         url: `/image/rotate/${imgFile}?direction=left`,
+      });
+   }
+
+   rotateRight(imgFile) {
+      return this.AB.Network.put({
+         url: `/image/rotate/${imgFile}?direction=right`,
+      });
+   }
 };
 
 
@@ -57168,9 +57180,9 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
             <link rel="preload" href="${
                row.src
             }" as="image" fetchpriotity="low"/>
-            <img src="${
-               row.src
-            }" class="content" ondragstart="return false" loading="lazy" />
+            <img id="${this.ids.component}-${row.id}" src="${
+            row.src
+         }" class="content" ondragstart="return false" loading="lazy" />
             ${
                settings.showLabel
                   ? `<div class="ab-carousel-image-title">${
@@ -57189,6 +57201,12 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
                   ? `<span ab-row-id="${row.id}" class="ab-carousel-edit webix_icon fa fa-pencil"></span>`
                   : ""
             }
+               <span ab-row-id="${row.id}" ab-img-file="${
+            row.imgFile
+         }" class="webix_icon ab-carousel-rotate-left fa fa-rotate-left"></span>
+               <span ab-row-id="${row.id}" ab-img-file="${
+            row.imgFile
+         }" class="webix_icon ab-carousel-rotate-right fa fa-rotate-right"></span>
                <span class="webix_icon ab-carousel-fullscreen fa fa-arrows-alt"></span>
                <span style="display: none;" class="webix_icon ab-carousel-exit-fullscreen fa fa-times"></span>
             </div>
@@ -57285,6 +57303,7 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
             const imgData = {
                id: r.id,
                src: `/file/${imgFile}`,
+               imgFile,
             };
 
             // label of row data
@@ -57354,7 +57373,7 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
          const detailsPage = settings.detailsPage;
 
          // if (detailsPage || editPage) {
-         $carousel.$view.onclick = (e) => {
+         $carousel.$view.onclick = async (e) => {
             if (e.target.className) {
                if (e.target.className.indexOf("ab-carousel-edit") > -1) {
                   abWebix.html.removeCss($carousel.getNode(), "fullscreen");
@@ -57392,6 +57411,18 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
                         ],
                      },
                   });
+               } else if (
+                  e.target.className.indexOf("ab-carousel-rotate-left") > -1
+               ) {
+                  const rowId = e.target.getAttribute("ab-row-id");
+                  const imgFile = e.target.getAttribute("ab-img-file");
+                  this.rotateImage(rowId, imgFile, field, "left");
+               } else if (
+                  e.target.className.indexOf("ab-carousel-rotate-right") > -1
+               ) {
+                  const rowId = e.target.getAttribute("ab-row-id");
+                  const imgFile = e.target.getAttribute("ab-img-file");
+                  this.rotateImage(rowId, imgFile, field, "right");
                }
             }
          };
@@ -57400,6 +57431,23 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
 
    showFilterPopup($view) {
       this.filterUI.showPopup($view);
+   }
+
+   async rotateImage(rowId, imgFile, field, direction = "right") {
+      this.busy();
+
+      // call api to rotate
+      if (direction == "left") await field.rotateLeft(imgFile);
+      else await field.rotateRight(imgFile);
+
+      // refresh image
+      const imgElm = document.getElementById(`${this.ids.component}-${rowId}`);
+      if (imgElm) {
+         const newImgElm = imgElm.cloneNode(true);
+         imgElm.parentNode.replaceChild(newImgElm, imgElm);
+      }
+
+      this.ready();
    }
 }
 
@@ -81457,4 +81505,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.4853f99acd6bc4d87864.js.map
+//# sourceMappingURL=AB.fbd873e2f98aa69db37c.js.map
