@@ -77019,12 +77019,18 @@ module.exports = class ABViewRuleActionObjectUpdater extends ABViewRuleAction {
 
          var value = op.value;
 
-         if (value == "ab-current-user") {
-            value = this.currentForm.AB.Account.username();
+         switch (value) {
+            case "ab-current-user":
+               value = this.currentForm.AB.Account.username();
+               break;
+            case "ab-current-date":
+               value = new Date();
+               break;
+         }
 
-            // in the case of a connected Field, we use op.value to get the
-            // datacollection, and find it's currently selected value:
-         } else if (field.isConnection || op.valueType == "exist") {
+         // in the case of a connected Field, we use op.value to get the
+         // datacollection, and find it's currently selected value:
+         if (field.isConnection || op.valueType == "exist") {
             // NOTE: 30 May 2018 :current decision from Ric is to limit this
             // to only handle 1:x connections where we update the current obj
             // with the PK of the value from the DC.
@@ -81505,4 +81511,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.fbd873e2f98aa69db37c.js.map
+//# sourceMappingURL=AB.cf7557efe83903eb784e.js.map
