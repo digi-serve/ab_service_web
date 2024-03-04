@@ -3157,10 +3157,14 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
     *    it finds it's parents current set cursor and then filters its data
     *    based off of the cursor.
     */
-   refreshLinkCursor() {
+   refreshLinkCursor(force = false) {
+      // our filter conditions need to know there was an updated cursor.
+      // some of our filters are based upon our linked data.
+      this.refreshFilterConditions();
+
       // NOTE: If DC does not set load all data, then it does not need to filter by the parent DC.
       // because it fetch data when the cursor of the parent DC changes.
-      if (!this.settings.loadAll) return;
+      if (!this.settings.loadAll && !force) return;
 
       // do not set the filter unless this dc is initialized "dataStatusFlag==2"
       // if (this.dataStatus != this.dataStatusFlag.initialized) return;
@@ -3176,6 +3180,9 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       }
 
       let filterData = (rowData) => {
+         // This row is not loaded yet. It will be loaded when scrolling.
+         if (rowData == null) return true;
+
          // if link dc cursor is null:
          // ... if there's no parent show all data
          // ... if we have a parent hide all data - address cases where user see
@@ -3578,6 +3585,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                   }
                }
 
+               this.updateRelationalDataFromLinkDC(data.objectId, data.data);
                // filter link data collection's cursor
                this.refreshLinkCursor();
                this.setStaticCursor();
@@ -3599,8 +3607,12 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
          if (!values) return;
 
          // DC who is following cursor should update only current cursor.
-         if (this.getCursor()?.id != (values[obj.PK()] ?? values.id))
+         if (
+            this.isCursorFollow &&
+            this.getCursor()?.id != (values[obj.PK()] ?? values.id)
+         ) {
             return;
+         }
 
          let needUpdate = false;
          let isExists = false;
@@ -3701,8 +3713,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                   if (currData && currData.id == updatedVals.id) {
                      this.emit("changeCursor", currData);
                   }
-               } 
-               else {
+               } else {
                   // Johnny: Here we are simply removing the DataCollection Entries that are
                   // no longer valid.
                   // Just cycle through the collected updatedIds and remove them.
@@ -3746,8 +3757,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
          // update relation data
          if (
             obj instanceof this.AB.Class.ABObject &&
-            connectedFields &&
-            connectedFields.length > 0
+            connectedFields?.length > 0
          ) {
             // various PK name
             let PK = connectedFields[0].object.PK();
@@ -3873,7 +3883,8 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
             }
          }
 
-         this.refreshLinkCursor();
+         this.updateRelationalDataFromLinkDC(data.objectId, values);
+         this.refreshLinkCursor(true);
          this.setStaticCursor();
       });
 
@@ -4101,7 +4112,10 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
             eventName: "changeCursor",
             listener: (currentCursor) => {
                // NOTE: we can clear data here to update UI display, then data will be fetched when webix.dataFeed event
-               if (!this.settings?.loadAll && currentCursor?.id != linkDC.previousCursorId)
+               if (
+                  !this.settings?.loadAll &&
+                  currentCursor?.id != linkDC.previousCursorId
+               )
                   this.clearAll();
 
                this.refreshLinkCursor();
@@ -4121,7 +4135,10 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                const currentCursor = this.getCursor();
 
                // If the cursor is not the new, then it should not reload.
-               if (followCursor?.[followDC.datasource.PK()] == currentCursor?.[this.datasource.PK()])
+               if (
+                  followCursor?.[followDC.datasource.PK()] ==
+                  currentCursor?.[this.datasource.PK()]
+               )
                   return;
 
                this.clearAll();
@@ -4181,6 +4198,53 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       });
    }
 
+   /**
+    * @method whereCleanUp()
+    * Parse through the current where condition and remove any null or
+    * empty logical blocks.
+    * @param {obj} curr
+    *        1) The current where condition in ABQuery Format:
+    *        {
+    *           glue: [AND, OR],
+    *           rules: [ {rule} ]
+    *        }
+    *        or 2) The current {rule} to validate
+    *        {
+    *          key:{string},
+    *          rule:{string},
+    *          vlaue:{mixed}
+    *        }
+    * @return {ABQuery.where} / { Rule }
+    */
+   whereCleanUp(curr) {
+      if (curr) {
+         if (curr.glue && curr.rules) {
+            // this is a logical Block (AND, OR)
+            // we need to filter the children
+            let newValue = { glue: curr.glue, rules: [] };
+            curr.rules.forEach((r) => {
+               let cleanRule = this.whereCleanUp(r);
+               // don't add values that didn't pass
+               if (cleanRule) {
+                  newValue.rules.push(cleanRule);
+               }
+            });
+
+            // if we have a non empty block, then return it:
+            if (newValue.rules.length > 0) {
+               return newValue;
+            }
+
+            // this isn't really a valid conditional, so null
+            return null;
+         }
+
+         // This is a specific rule, that isn't null so:
+         return curr;
+      }
+      return null;
+   }
+
    async loadData(start, limit) {
       // mark data status is initializing
       if (this._dataStatus == this.dataStatusFlag.notInitial) {
@@ -4222,20 +4286,9 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       }
 
       // Filter by a selected cursor of a link DC
-      const dataCollectionLink = this.datacollectionLink;
-      const fieldLink = this.fieldLink;
-      if (!this.settings.loadAll && dataCollectionLink && fieldLink) {
-         const linkCursorId = dataCollectionLink?.getCursor()?.id;
-         if (linkCursorId) {
-            __additionalWheres.rules.push({
-               alias: fieldLink.alias, // ABObjectQuery
-               key: fieldLink.id,
-               rule: fieldLink.alias ? "contains" : "equals", // NOTE: If object is query, then use "contains" because ABOBjectQuery return JSON
-               value: fieldLink.getRelationValue(
-                  dataCollectionLink.__dataCollection.getItem(linkCursorId)
-               ),
-            });
-         }
+      let linkRule = this.ruleLinkedData();
+      if (!this.settings.loadAll && linkRule) {
+         __additionalWheres.rules.push(linkRule);
       }
       // pull data rows following the follow data collection
       else if (this.datacollectionFollow) {
@@ -4279,12 +4332,15 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
 
       // Combine setting & program filters
       if (__additionalWheres.rules.length) {
-         __additionalWheres.rules.unshift(wheres);
+         if (wheres.rules.length) {
+            __additionalWheres.rules.unshift(wheres);
+         }
          wheres = __additionalWheres;
       }
 
       // remove any null in the .rules
-      if (wheres?.rules?.filter) wheres.rules = wheres.rules.filter((r) => r);
+      // if (wheres?.rules?.filter) wheres.rules = wheres.rules.filter((r) => r);
+      wheres = this.whereCleanUp(wheres);
 
       // set query condition
       var cond = {
@@ -4734,6 +4790,32 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
    }
 
    /**
+    * @method ruleLinkedData()
+    * return a QueryFilter rule that also checks that incoming data is linked
+    * to our .datacollectionLink (if it exists).
+    * @return {obj} {QueryFilterRule}
+    */
+   ruleLinkedData() {
+      let rule = null;
+      const dataCollectionLink = this.datacollectionLink;
+      const fieldLink = this.fieldLink;
+      if (dataCollectionLink && fieldLink) {
+         const linkCursorId = dataCollectionLink?.getCursor()?.id;
+         if (linkCursorId) {
+            rule = {
+               alias: fieldLink.alias, // ABObjectQuery
+               key: fieldLink.id,
+               rule: fieldLink.alias ? "contains" : "equals", // NOTE: If object is query, then use "contains" because ABOBjectQuery return JSON
+               value: fieldLink.getRelationValue(
+                  dataCollectionLink.__dataCollection.getItem(linkCursorId)
+               ),
+            };
+         }
+      }
+      return rule;
+   }
+
+   /**
     * @method refreshFilterConditions()
     * This is called in two primary cases:
     *    - on initialization of a DC to setup our filters.
@@ -4801,16 +4883,52 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
          this.datasource ? this.datasource.fields() : []
       );
 
+      // if we pass in wheres, then Save that value to our internal .filterConditions
       if (wheres) this.settings.objectWorkspace.filterConditions = wheres;
 
-      if (
-         this.settings &&
-         this.settings.objectWorkspace &&
-         this.settings.objectWorkspace.filterConditions
-      ) {
-         this.__filterDatacollection.setValue(
-            this.settings.objectWorkspace.filterConditions
-         );
+      let filter = this.AB.cloneDeep(
+         this.settings.objectWorkspace?.filterConditions ?? {
+            glue: "and",
+            rules: [],
+         }
+      );
+
+      // if there is a linkRule, add it to filter
+      let linkRule = this.ruleLinkedData(); // returns a rule if we are linked
+      if (linkRule) {
+         // NOTE: linkRule was originally designed to produce a rule for the
+         // loadData() routine.  In SQL, our linkRule might have an "equals"
+         // rule, to match.  But in this context if our linktype is "many"
+         // we need to change the rule to "contains":
+         if (this.fieldLink?.linkType() == "many") {
+            linkRule.rule = "contains";
+         }
+
+         // if linkRule not already IN filter:
+         let isAlreadyThere = false;
+         let keys = Object.keys(linkRule);
+         (filter.rules || []).forEach((r) => {
+            if (isAlreadyThere) return;
+            let allMatch = true;
+            keys.forEach((k) => {
+               if (r[k] != linkRule[k]) {
+                  allMatch = false;
+               }
+            });
+            isAlreadyThere = allMatch;
+         });
+         if (!isAlreadyThere) {
+            // link Rule needs to be ANDed to our current Rules:
+            if (filter.glue == "and") {
+               filter.rules.push(linkRule);
+            } else {
+               filter = { glue: "and", rules: [filter, linkRule] };
+            }
+         }
+      }
+
+      if (filter.rules.length > 0) {
+         this.__filterDatacollection.setValue(filter);
       } else {
          this.__filterDatacollection.setValue(
             DefaultValues.settings.objectWorkspace.filterConditions
@@ -5064,6 +5182,38 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
          result = result && this.__filterScope.isValid(rowData);
 
       return result;
+   }
+
+   updateRelationalDataFromLinkDC(objectId, rowData) {
+      const dcLink = this.datacollectionLink;
+      const cursorLink = dcLink?.getCursor();
+
+      // Add the new data that just relate to the Link DC
+      if (
+         dcLink?.datasource.id == objectId &&
+         cursorLink &&
+         cursorLink.id == rowData?.id
+      ) {
+         const obj = this.datasource;
+         const linkedField = this.fieldLink;
+         let relatedData = rowData[linkedField.fieldLink.relationName()];
+         if (relatedData && !Array.isArray(relatedData))
+            relatedData = [relatedData];
+
+         (relatedData ?? []).forEach((item) => {
+            if (item == null) return;
+
+            if (!this.__dataCollection.exists(item[obj.PK()])) {
+               // QUESTION: Should we .find to get fully info here ?
+               const newItem = this.AB.cloneDeep(item);
+               newItem[linkedField.relationName()] = [rowData];
+               this.__dataCollection.add(newItem);
+            }
+         });
+
+         // trigger to components to know there are updated data.
+         this.emit("warnRefresh");
+      }
    }
 
    // Clone
@@ -36042,6 +36192,12 @@ module.exports = class ABObject extends ABObjectCore {
       );
       return this.AB.isUUID(text);
    }
+
+   async getDbInfo() {
+      return this.AB.Network.get({
+         url: `/definition/info/object/${this.id}`,
+      });
+   }
 };
 
 
@@ -40553,6 +40709,12 @@ module.exports = class ABField extends ABFieldCore {
    warningsMessage(msg, data = {}) {
       let message = `${this.fieldKey()}[${this.label}]: ${msg}`;
       this._warnings.push({ message, data });
+   }
+
+   async getDbInfo() {
+      return this.AB.Network.get({
+         url: `/definition/info/object/${this.object.id}/field/${this.id}`,
+      });
    }
 };
 
@@ -52430,6 +52592,42 @@ module.exports = class ABViewForm extends ABViewFormCore {
          // TODO: scan submitRules for warnings.
       }
    }
+
+   /**
+    * @method deleteData
+    * delete data in to database
+    * @param $formView - webix's form element
+    *
+    * @return {Promise}
+    */
+   async deleteData($formView) {
+      // get ABDatacollection
+      const dc = this.datacollection;
+      if (dc == null) return;
+
+      // get ABObject
+      const obj = dc.datasource;
+      if (obj == null) return;
+
+      // get ABModel
+      const model = dc.model;
+      if (model == null) return;
+
+      // get update data
+      const formVals = $formView.getValues();
+
+      if (formVals?.id) {
+         const result = await model.delete(formVals.id);
+
+         // clear form
+         if (result) {
+            dc.setCursor(null);
+            $formView.clear();
+         }
+
+         return result;
+      }
+   }
 };
 
 
@@ -57201,7 +57399,9 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
                   ? `<span ab-row-id="${row.id}" class="ab-carousel-edit webix_icon fa fa-pencil"></span>`
                   : ""
             }
-               <span ab-row-id="${row.id}" ab-img-file="${
+            <span class="webix_icon ab-carousel-zoom-in fa fa-search-plus"></span>
+            <span class="webix_icon ab-carousel-zoom-out fa fa-search-minus"></span>
+                  <span ab-row-id="${row.id}" ab-img-file="${
             row.imgFile
          }" class="webix_icon ab-carousel-rotate-left fa fa-rotate-left"></span>
                <span ab-row-id="${row.id}" ab-img-file="${
@@ -57423,6 +57623,14 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
                   const rowId = e.target.getAttribute("ab-row-id");
                   const imgFile = e.target.getAttribute("ab-img-file");
                   this.rotateImage(rowId, imgFile, field, "right");
+               } else if (
+                  e.target.className.indexOf("ab-carousel-zoom-in") > -1
+               ) {
+                  this.zoom("in");
+               } else if (
+                  e.target.className.indexOf("ab-carousel-zoom-out") > -1
+               ) {
+                  this.zoom("out");
                }
             }
          };
@@ -57448,6 +57656,25 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
       }
 
       this.ready();
+   }
+
+   zoom(inOrOut = "in") {
+      const imgContainer = document.getElementsByClassName(
+         "ab-carousel-image-container"
+      )[0];
+      if (!imgContainer) return;
+
+      const imgElem = imgContainer.getElementsByTagName("img")[0];
+      if (!imgElem) return;
+
+      const step = 15;
+      const height = parseInt(
+         (imgElem.style.height || 100).toString().replace("%", "")
+      );
+      const newHeight = inOrOut == "in" ? height + step : height - step;
+      imgElem.style.height = `${newHeight}%`;
+
+      imgContainer.style.overflow = newHeight > 100 ? "auto" : "";
    }
 }
 
@@ -61186,6 +61413,32 @@ module.exports = class ABViewFormButton extends ABViewFormItemComponent {
          _ui.cols.push({});
       }
 
+      // delete button
+      if (settings.includeDelete) {
+         _ui.cols.push(
+            {
+               view: "button",
+               autowidth: true,
+               value: settings.deleteLabel || this.label("Delete"),
+               css: "webix_danger",
+               click: function () {
+                  self.onDelete(this);
+               },
+               on: {
+                  onAfterRender: function () {
+                     this.getInputNode().setAttribute(
+                        "data-cy",
+                        `button delete ${form.id}`
+                     );
+                  },
+               },
+            },
+            {
+               width: 10,
+            }
+         );
+      }
+
       // cancel button
       if (settings.includeCancel) {
          _ui.cols.push(
@@ -61344,6 +61597,31 @@ module.exports = class ABViewFormButton extends ABViewFormItemComponent {
                });
             }
          });
+   }
+
+   onDelete(deleteButton) {
+      this.AB.Webix.confirm({
+         title: this.label("Delete data"),
+         text: this.label("Do you want to delete this data?"),
+         callback: async (confirm) => {
+            if (!confirm) return;
+
+            deleteButton.disable?.();
+
+            try {
+               // get form component
+               const form = this.view.parentFormComponent();
+               const $formView = deleteButton.getFormView();
+
+               // delete a record row
+               await form.deleteData($formView);
+            } catch (err) {
+               console.error(err);
+            } finally {
+               deleteButton.enable?.();
+            }
+         },
+      });
    }
 };
 
@@ -81511,4 +81789,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.cf7557efe83903eb784e.js.map
+//# sourceMappingURL=AB.00f47ed44ae1a9699455.js.map
