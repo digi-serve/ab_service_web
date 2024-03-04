@@ -40595,7 +40595,11 @@ module.exports = class ABField extends ABFieldCore {
          val = rowData;
       }
 
-      item.setValue(val);
+      try {
+         item.setValue(val);
+      } catch (err) {
+         // this error is fine because we handled it already
+      }
    }
 
    /**
@@ -57651,8 +57655,8 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
       // refresh image
       const imgElm = document.getElementById(`${this.ids.component}-${rowId}`);
       if (imgElm) {
-         const newImgElm = imgElm.cloneNode(true);
-         imgElm.parentNode.replaceChild(newImgElm, imgElm);
+         await fetch(imgElm.src, { cache: "reload", mode: "no-cors" });
+         imgElm.src = `${imgElm.src}#${new Date().getTime()}`;
       }
 
       this.ready();
@@ -61537,7 +61541,7 @@ module.exports = class ABViewFormButton extends ABViewFormItemComponent {
       else {
          const noPopupFilter = (p) => p.settings && p.settings.type != "popup";
 
-         const pageCurr = this.pageParent();
+         const pageCurr = this.view.pageParent();
          if (pageCurr) {
             const pageParent = pageCurr.pageParent(noPopupFilter) ?? pageCurr;
 
@@ -81789,4 +81793,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.00f47ed44ae1a9699455.js.map
+//# sourceMappingURL=AB.13eb9ce2919dbd307822.js.map
