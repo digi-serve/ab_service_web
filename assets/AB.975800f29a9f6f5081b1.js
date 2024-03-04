@@ -35084,9 +35084,9 @@ module.exports = class ABModel extends ABModelCore {
 
          context.resolve?.(data);
 
-         if (key) {
-            no_socket_trigger(this, key, data);
-         }
+         // if (key) {
+         //    no_socket_trigger(this, key, data);
+         // }
       };
    }
 
@@ -35203,10 +35203,15 @@ module.exports = class ABModel extends ABModelCore {
                key: jobID,
                context: { resolve, reject },
             }
-         ).catch((err) => {
-            errorPopup(err);
-            reject(err);
-         });
+         )
+            .then((newVal) => {})
+            .catch((err) => {
+               errorPopup(err);
+               reject(err);
+            });
+      }).then((newVal) => {
+         no_socket_trigger(this, "ab.datacollection.create", newVal);
+         return newVal;
       });
    }
 
@@ -35226,12 +35231,17 @@ module.exports = class ABModel extends ABModelCore {
             },
             {
                key: jobID,
+               id,
                context: { resolve, reject },
             }
          ).catch((err) => {
             errorPopup(err);
             reject(err);
          });
+      }).then((res) => {
+         // properly issue the delete
+         no_socket_trigger(this, "ab.datacollection.delete", id);
+         return res;
       });
    }
 
@@ -35503,6 +35513,10 @@ module.exports = class ABModel extends ABModelCore {
                errorPopup(err);
                reject(err);
             });
+      }).then((newVal) => {
+         // properly issue the update
+         no_socket_trigger(this, "ab.datacollection.update", newVal);
+         return newVal;
       });
    }
 
@@ -36439,11 +36453,13 @@ module.exports = class ABObject extends ABObjectCore {
       // report both OUR warnings, and any warnings from any of our fields
       var allWarnings = super.warningsAll();
       this.fields().forEach((f) => {
-         allWarnings = allWarnings.concat(f.warnings());
+         if (!f) return;
+         allWarnings = allWarnings.concat(f?.warnings());
       });
 
       this.indexes().forEach((i) => {
-         allWarnings = allWarnings.concat(i.warnings());
+         if (!i) return;
+         allWarnings = allWarnings.concat(i?.warnings());
       });
 
       return allWarnings.filter((w) => w);
@@ -36467,11 +36483,11 @@ module.exports = class ABObject extends ABObjectCore {
       });
 
       allFields.forEach((f) => {
-         f.warningsEval();
+         f?.warningsEval();
       });
 
       this.indexes().forEach((i) => {
-         i.warningsEval();
+         i?.warningsEval();
       });
    }
 
@@ -42187,11 +42203,15 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
          $list.refresh();
       }
 
-      item.setValue(
-         Array.isArray(val)
-            ? val.map((e) => e.id ?? e.uuid ?? e).join(",")
-            : val.id ?? val.uuid ?? val
-      );
+      // try to prevent form flicker:
+      // Only reset the value if the value changes:
+      let currVal = item.getValue();
+      let newVal = Array.isArray(val)
+         ? val.map((e) => e.id ?? e.uuid ?? e).join(",")
+         : val.id ?? val.uuid ?? val;
+      if (currVal != newVal) {
+         item.setValue(newVal);
+      }
    }
 
    /**
@@ -45945,8 +45965,18 @@ module.exports = class ABFieldUser extends ABFieldUserCore {
 
    setValue(item, rowData) {
       let val = rowData[this.columnName];
-      // Select "[Current user]" to update
-      if (val == "ab-current-user") val = this.AB.Account.username();
+
+      if (this.linkType() == "many") {
+         // val should be an array.
+         // if any of those contain "ab-current-user" replace it:
+         val = val.map((v) =>
+            v == "ab-current-user" ? this.AB.Account.username() : v
+         );
+      } else {
+         // val is a single entry string
+         // Select "[Current user]" to update
+         if (val == "ab-current-user") val = this.AB.Account.username();
+      }
 
       rowData[this.columnName] = val;
 
@@ -45982,6 +46012,36 @@ module.exports = class ABFieldUser extends ABFieldUserCore {
 
          return options;
       });
+   }
+
+   pullRelationValues(row) {
+      let values = super.pullRelationValues(row);
+      // remember, our .id == .username
+
+      if (Array.isArray(values)) {
+         values = values.map((v) => {
+            v.id = v.username || v.id;
+            return v;
+         });
+      } else {
+         values.id = values.username || values.id;
+      }
+
+      return values;
+   }
+
+   pullRecordRelationValues(record) {
+      let data = super.pullRecordRelationValues(record);
+      if (Array.isArray(data)) {
+         data = data.map((d) => {
+            d.id = d.username ?? d.id;
+            return d;
+         });
+      } else {
+         data.id = data.username || data.id;
+      }
+
+      return data;
    }
 };
 
@@ -52364,9 +52424,6 @@ const L = (...params) => AB.Multilingual.label(...params);
 // let PopupRecordRule = null;
 // let PopupSubmitRule = null;
 
-////
-//// LEFT OFF HERE: Review and Refactor
-////
 const ABViewFormPropertyComponentDefaults = ABViewFormCore.defaultValues();
 
 module.exports = class ABViewForm extends ABViewFormCore {
@@ -52863,7 +52920,7 @@ module.exports = class ABViewForm extends ABViewFormCore {
          );
       });
 
-      await Promise.all(tasks)
+      await Promise.all(tasks);
 
       return true;
    }
@@ -57594,8 +57651,10 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
       dv.on("initializedData", this._handler_ready);
 
       if (this.settings.filterByCursor) {
-         dv.removeListener("changeCursor", this._handler_doOnShow);
-         dv.on("changeCursor", this._handler_doOnShow);
+         ["changeCursor", "cursorStale"].forEach((key) => {
+            dv.removeListener(key, this._handler_doOnShow);
+            dv.on(key, this._handler_doOnShow);
+         });
       }
 
       const baseView = this.view;
@@ -57664,7 +57723,9 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
       dv.removeListener("initializedData", this._handler_ready);
 
       if (this.settings.filterByCursor)
-         dv.removeListener("changeCursor", this._handler_doOnShow);
+         ["changeCursor", "cursorStale"].forEach((key) => {
+            dv.removeListener(key, this._handler_doOnShow);
+         });
 
       this.filterUI.removeListener("filter.data", this._handler_doOnShow);
    }
@@ -58135,23 +58196,28 @@ module.exports = class ABViewChartComponent extends ABViewContainerComponent {
       if (dc) {
          const eventNames = [
             "changeCursor",
+            "cursorStale",
             "create",
             "update",
             "delete",
             "initializedData",
          ];
 
-         if (
-            dc.datacollectionLink &&
-            !("changeCursor" in (dc.datacollectionLink._events ?? []))
-         )
-            baseView.eventAdd({
-               emitter: dc.datacollectionLink,
-               eventName: "changeCursor",
-               listener: () => {
-                  baseView.refreshData();
-               },
-            });
+         ["changeCursor", "cursorStale"].forEach((key) => {
+            // QUESTION: is this a problem if the check !(key in (...)) finds
+            // an event that some OTHER widget has added and not this one?
+            if (
+               dc.datacollectionLink &&
+               !(key in (dc.datacollectionLink._events ?? []))
+            )
+               baseView.eventAdd({
+                  emitter: dc.datacollectionLink,
+                  eventName: key,
+                  listener: () => {
+                     baseView.refreshData();
+                  },
+               });
+         });
 
          eventNames.forEach((evtName) => {
             baseView.eventAdd({
@@ -58949,10 +59015,12 @@ module.exports = class ABViewConditionalContainerComponent extends (
             listener: () => this.displayView(), // Q? does this need to remain empty param?
          });
 
-         baseView.eventAdd({
-            emitter: dc,
-            eventName: "changeCursor",
-            listener: (...p) => this.displayView(...p),
+         ["changeCursor", "cursorStale"].forEach((key) => {
+            baseView.eventAdd({
+               emitter: dc,
+               eventName: key,
+               listener: (...p) => this.displayView(...p),
+            });
          });
       }
 
@@ -60243,10 +60311,12 @@ module.exports = class ABViewDetailComponent extends ABViewContainerComponent {
 
          if (currData) this.displayData(currData);
 
-         this.eventAdd({
-            emitter: dv,
-            eventName: "changeCursor",
-            listener: (...p) => this.displayData(...p),
+         ["changeCursor", "cursorStale"].forEach((key) => {
+            this.eventAdd({
+               emitter: dv,
+               eventName: key,
+               listener: (...p) => this.displayData(...p),
+            });
          });
 
          this.eventAdd({
@@ -62113,39 +62183,41 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
       if (!dc) return;
 
       // listen DC events
-      this.eventAdd({
-         emitter: dc,
-         eventName: "changeCursor",
-         listener: (rowData) => {
-            const baseView = this.view;
-            const linkViaOneConnection = baseView.fieldComponents(
-               (comp) => comp instanceof ABViewFormConnect
-            );
-            // clear previous xxx->one selections and add new from
-            // cursor change
-            linkViaOneConnection.forEach((f) => {
-               const field = f.field();
-               if (
-                  field?.settings?.linkViaType == "one" &&
-                  field?.linkViaOneValues
-               ) {
-                  delete field.linkViaOneValues;
-                  if (rowData?.[field.columnName]) {
-                     if (Array.isArray(rowData[field.columnName])) {
-                        let valArray = [];
-                        rowData[field.columnName].forEach((v) => {
-                           valArray.push(v[field.object.PK()]);
-                        });
-                        field.linkViaOneValues = valArray.join();
-                     } else {
-                        field.linkViaOneValues = rowData[field.columnName];
+      ["changeCursor", "cursorStale"].forEach((key) => {
+         this.eventAdd({
+            emitter: dc,
+            eventName: key,
+            listener: (rowData) => {
+               const baseView = this.view;
+               const linkViaOneConnection = baseView.fieldComponents(
+                  (comp) => comp instanceof ABViewFormConnect
+               );
+               // clear previous xxx->one selections and add new from
+               // cursor change
+               linkViaOneConnection.forEach((f) => {
+                  const field = f.field();
+                  if (
+                     field?.settings?.linkViaType == "one" &&
+                     field?.linkViaOneValues
+                  ) {
+                     delete field.linkViaOneValues;
+                     if (rowData?.[field.columnName]) {
+                        if (Array.isArray(rowData[field.columnName])) {
+                           let valArray = [];
+                           rowData[field.columnName].forEach((v) => {
+                              valArray.push(v[field.object.PK()]);
+                           });
+                           field.linkViaOneValues = valArray.join();
+                        } else {
+                           field.linkViaOneValues = rowData[field.columnName];
+                        }
                      }
                   }
-               }
-            });
+               });
 
-            this.displayData(rowData);
-         },
+               this.displayData(rowData);
+            },
+         });
       });
 
       const ids = this.ids;
@@ -62205,12 +62277,14 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
 
       if (linkDv)
          // update the value of link field when data of the parent dc is changed
-         this.eventAdd({
-            emitter: linkDv,
-            eventName: "changeCursor",
-            listener: (rowData) => {
-               this.displayParentData(rowData);
-            },
+         ["changeCursor", "cursorStale"].forEach((key) => {
+            this.eventAdd({
+               emitter: linkDv,
+               eventName: key,
+               listener: (rowData) => {
+                  this.displayParentData(rowData);
+               },
+            });
          });
    }
 
@@ -65068,7 +65142,9 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
 
    detatch() {
       this.view.filterHelper.removeAllListeners("filter.data");
-      this.datacollection?.removeListener("changeCursor", this.handler_select);
+      ["changeCursor", "cursorStale", "cursorSelect"].forEach((key) => {
+         this.datacollection?.removeListener(key, this.handler_select);
+      });
    }
 
    /**
@@ -66503,10 +66579,12 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
       const dv = this.datacollection;
 
       if (dv)
-         this.eventAdd({
-            emitter: dv,
-            eventName: "changeCursor",
-            listener: this.handler_select.bind(this),
+         ["changeCursor", "cursorStale", "cursorSelect"].forEach((key) => {
+            this.eventAdd({
+               emitter: dv,
+               eventName: key,
+               listener: this.handler_select.bind(this),
+            });
          });
    }
 
@@ -66982,14 +67060,23 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
     *        rowData.id should match an existing entry.
     */
    selectRow(rowData) {
-      const $DataTable = this.getDataTable();
+      let id = rowData?.id ?? rowData;
+      if (this.__timeout_selectRow) {
+         console.log("Duplicate selectRow():", id);
+         clearTimeout(this.__timeout_selectRow);
+      }
+      this.__timeout_selectRow = setTimeout(() => {
+         const $DataTable = this.getDataTable();
+         if (!$DataTable) return;
 
-      if (!$DataTable) return;
+         if (!id) $DataTable.unselect();
+         else if ($DataTable.exists(id)) {
+            $DataTable.select(id, false);
+            $DataTable.showItem(id);
+         } else $DataTable.select(null, false);
 
-      if (!rowData) $DataTable.unselect();
-      else if (rowData?.id && $DataTable.exists(rowData.id))
-         $DataTable.select(rowData.id, false);
-      else $DataTable.select(null, false);
+         this.__timeout_selectRow = null;
+      }, 15);
    }
 
    /**
@@ -71237,12 +71324,15 @@ module.exports = class ABViewTextComponent extends ABViewComponent {
       const dataview = this.datacollection;
       const baseView = this.view;
 
-      if (dataview && baseView.parent.key !== "dataview")
-         baseView.eventAdd({
-            emitter: dataview,
-            eventName: "changeCursor",
-            listener: (...p) => this.displayText(...p),
+      if (dataview && baseView.parent.key !== "dataview") {
+         ["changeCursor", "cursorStale"].forEach((key) => {
+            baseView.eventAdd({
+               emitter: dataview,
+               eventName: key,
+               listener: (...p) => this.displayText(...p),
+            });
          });
+      }
 
       this.displayText();
    }
@@ -82088,4 +82178,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.0610cda36ec5b9143419.js.map
+//# sourceMappingURL=AB.975800f29a9f6f5081b1.js.map

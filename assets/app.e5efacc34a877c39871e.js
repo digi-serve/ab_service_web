@@ -957,9 +957,8 @@ class Bootstrap extends EventEmitter {
 
       if (!window.AB) window.AB = this.AB;
       // Make our Factory Global.
-      // Transition: we still have some UI code that depends on accessing
-      // our Factory as a Global var.  So until those are rewritten we will
-      // make our factory Global.
+      // NOTE: our tests are expecting to access our ABFactory this way.
+
       this.AB.Network.registerNetworkTestWorker(
          networkTestWorker,
          networkIsSlow
@@ -9742,7 +9741,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.4.10+c20120";
+   version = "1.4.11";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10322,4 +10321,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.69c4c008cf51248b3061.js.map
+//# sourceMappingURL=app.e5efacc34a877c39871e.js.map
