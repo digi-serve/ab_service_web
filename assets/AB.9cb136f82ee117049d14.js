@@ -57651,8 +57651,8 @@ class ABViewCarouselComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_
       // refresh image
       const imgElm = document.getElementById(`${this.ids.component}-${rowId}`);
       if (imgElm) {
-         const newImgElm = imgElm.cloneNode(true);
-         imgElm.parentNode.replaceChild(newImgElm, imgElm);
+         await fetch(imgElm.src, { cache: "reload", mode: "no-cors" });
+         imgElm.src = `${imgElm.src}#${new Date().getTime()}`;
       }
 
       this.ready();
@@ -81789,4 +81789,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.00f47ed44ae1a9699455.js.map
+//# sourceMappingURL=AB.9cb136f82ee117049d14.js.map
