@@ -55537,7 +55537,20 @@ module.exports = class ABViewCSVExporterComponent extends ABViewComponent {
    downloadCsvFile() {
       let url = `/appbuilder/csv-export/${this.view.id}`;
 
-      const where = this.clientFilter.getValue();
+      const where = {
+         glue: "and",
+         rules: [],
+      };
+
+      const whereWidget = this.view.settings?.where;
+      if ((whereWidget?.rules ?? []).length) {
+         where.rules.push(whereWidget);
+      }
+
+      const whereClient = this.clientFilter.getValue();
+      if ((whereClient?.rules ?? []).length) {
+         where.rules.push(whereClient);
+      }
 
       if ((where?.rules || []).length) {
          let qsWhere = JSON.stringify(where);
@@ -63212,19 +63225,26 @@ module.exports = class ABViewFormConnectComponent extends (
 
       $node.refresh();
 
-      this.busy();
-      await field.getAndPopulateOptions(
-         // $node,
-         $formItem,
-         baseView.options,
-         field,
-         baseView.parentFormComponent()
-      );
-      this.ready();
-
       // Add data-cy attributes
       const dataCy = `${field.key} ${field.columnName} ${field.id} ${baseView.parent.id}`;
       node.setAttribute("data-cy", dataCy);
+
+      this.busy();
+      try {
+         await field.getAndPopulateOptions(
+            // $node,
+            $formItem,
+            baseView.options,
+            field,
+            baseView.parentFormComponent()
+         );
+      } catch (err) {
+         this.AB.notify.developer(err, {
+            context:
+               "ABViewFormConnectComponent > onShow() error calling field.getAndPopulateOptions",
+         });
+      }
+      this.ready();
 
       // Need to refresh selected values when they are custom index
       this._onChange($formItem.getValue());
@@ -82178,4 +82198,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.975800f29a9f6f5081b1.js.map
+//# sourceMappingURL=AB.6caba0023302e5e0588d.js.map
