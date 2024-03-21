@@ -42207,8 +42207,8 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
       // Only reset the value if the value changes:
       let currVal = item.getValue();
       let newVal = Array.isArray(val)
-         ? val.map((e) => e.id ?? e.uuid ?? e).join(",")
-         : val.id ?? val.uuid ?? val;
+         ? val.map((e) => this.getRelationValue(e, { forUpdate: true }) ?? e.id ?? e.uuid ?? e).join(",")
+         : this.getRelationValue(val, { forUpdate: true }) ?? val.id ?? val.uuid ?? val;
       if (currVal != newVal) {
          item.setValue(newVal);
       }
@@ -55537,7 +55537,20 @@ module.exports = class ABViewCSVExporterComponent extends ABViewComponent {
    downloadCsvFile() {
       let url = `/appbuilder/csv-export/${this.view.id}`;
 
-      const where = this.clientFilter.getValue();
+      const where = {
+         glue: "and",
+         rules: [],
+      };
+
+      const whereWidget = this.view.settings?.where;
+      if ((whereWidget?.rules ?? []).length) {
+         where.rules.push(whereWidget);
+      }
+
+      const whereClient = this.clientFilter.getValue();
+      if ((whereClient?.rules ?? []).length) {
+         where.rules.push(whereClient);
+      }
 
       if ((where?.rules || []).length) {
          let qsWhere = JSON.stringify(where);
@@ -62201,15 +62214,23 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
                      field?.linkViaOneValues
                   ) {
                      delete field.linkViaOneValues;
-                     if (rowData?.[field.columnName]) {
-                        if (Array.isArray(rowData[field.columnName])) {
-                           let valArray = [];
-                           rowData[field.columnName].forEach((v) => {
-                              valArray.push(v[field.object.PK()]);
+                     const relationVals =
+                        rowData?.[field.relationName()] ??
+                        rowData?.[field.columnName];
+                     if (relationVals) {
+                        if (Array.isArray(relationVals)) {
+                           const valArray = [];
+                           relationVals.forEach((v) => {
+                              valArray.push(
+                                 field.getRelationValue(v, { forUpdate: true })
+                              );
                            });
-                           field.linkViaOneValues = valArray.join();
+                           field.linkViaOneValues = valArray.join(",");
                         } else {
-                           field.linkViaOneValues = rowData[field.columnName];
+                           field.linkViaOneValues = field.getRelationValue(
+                              relationVals,
+                              { forUpdate: true }
+                           );
                         }
                      }
                   }
@@ -63212,19 +63233,26 @@ module.exports = class ABViewFormConnectComponent extends (
 
       $node.refresh();
 
-      this.busy();
-      await field.getAndPopulateOptions(
-         // $node,
-         $formItem,
-         baseView.options,
-         field,
-         baseView.parentFormComponent()
-      );
-      this.ready();
-
       // Add data-cy attributes
       const dataCy = `${field.key} ${field.columnName} ${field.id} ${baseView.parent.id}`;
       node.setAttribute("data-cy", dataCy);
+
+      this.busy();
+      try {
+         await field.getAndPopulateOptions(
+            // $node,
+            $formItem,
+            baseView.options,
+            field,
+            baseView.parentFormComponent()
+         );
+      } catch (err) {
+         this.AB.notify.developer(err, {
+            context:
+               "ABViewFormConnectComponent > onShow() error calling field.getAndPopulateOptions",
+         });
+      }
+      this.ready();
 
       // Need to refresh selected values when they are custom index
       this._onChange($formItem.getValue());
@@ -82178,4 +82206,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.975800f29a9f6f5081b1.js.map
+//# sourceMappingURL=AB.4a60426f5092331fdb06.js.map
