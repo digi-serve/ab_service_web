@@ -781,7 +781,6 @@ const EventEmitter = (events__WEBPACK_IMPORTED_MODULE_0___default().EventEmitter
 
 
 
-
 // import initResources from "../init/initResources.js";
 
 // import JSZipUtils from "jszip-utils/dist/jszip-utils.min.js";
@@ -795,7 +794,7 @@ const EventEmitter = (events__WEBPACK_IMPORTED_MODULE_0___default().EventEmitter
 
 
 class Bootstrap extends EventEmitter {
-   constructor(definitions) {
+   constructor() {
       super();
       this.setMaxListeners(0);
 
@@ -896,6 +895,19 @@ class Bootstrap extends EventEmitter {
          _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].setContext("user", {
             id: userInfo.id,
          });
+      } else {
+         let { options: tenantConfig } = _config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].tenantConfig();
+         tenantConfig =
+            typeof tenantConfig === "string"
+               ? JSON.parse(tenantConfig)
+               : tenantConfig;
+         // If no user and tenant isn't using local auth start
+         // the external auth workflow:
+         if (tenantConfig.authType !== "login") {
+            window.location.assign("/auth/login");
+            return;
+         }
+         // Keep going if the tenant is using local auth
       }
       // 2.5) Load any plugins
       _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("loadPlugins", { op: "function" });
@@ -905,50 +917,6 @@ class Bootstrap extends EventEmitter {
          this.addPlugin(p);
       });
       _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("loadPlugins");
-
-      // Make sure the BootStrap Object is available globally
-      // window.__ABBS = this;
-      /*
-      // Listen 'disconnect' event
-      initConnectListerner.init(this);
-
-      const allPluginsLoaded = [];
-      const tenantInfo = Config.tenantConfig();
-
-      if (tenantInfo) {
-         performance.setContext("tenant", tenantInfo);
-         performance.setContext("tags", { tenant: tenantInfo.id });
-         const plugins = Config.plugins() || [];
-
-         // Short Term Fix: Don't load ABDesigner for non builders (need a way
-         // to assign plugins to users/roles);
-         const designerIndex = plugins.indexOf("ABDesigner.js");
-         if (designerIndex > -1) {
-            const builderRoles = [
-               "6cc04894-a61b-4fb5-b3e5-b8c3f78bd331",
-               "e1be4d22-1d00-4c34-b205-ef84b8334b19",
-            ];
-            const userBuilderRoles = userInfo?.roles.filter(
-               (role) => builderRoles.indexOf(role.uuid) > -1
-            ).length;
-            // Remove if no builder roles
-            if (userBuilderRoles < 1 || userInfo == null) {
-               plugins.splice(designerIndex, 1);
-            }
-         }
-         plugins.forEach((p) => {
-            preloadMessage(`plugin (${p})`);
-            performance.mark(`plugin:${p}`, { op: "resource.script" });
-            const loading = loadScript(tenantInfo.id, p).then(() =>
-               performance.measure(`plugin:${p}`)
-            );
-            allPluginsLoaded.push(loading);
-         });
-      }
-      const pluginsLoading = Promise.all(allPluginsLoaded).then(() =>
-         performance.measure("loadPlugins")
-      );
-*/
 
       // 3) Now we have enough info, to create an instance of our
       //    {ABFactory} that drives the rest of the AppBuilder objects
@@ -983,6 +951,7 @@ class Bootstrap extends EventEmitter {
          _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("createABFactory");
          _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].init(this.AB);
          _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].attach();
+         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].show();
          if (_config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].userReal()) {
             _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].userConfig());
          }
@@ -1080,29 +1049,6 @@ class Bootstrap extends EventEmitter {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new Bootstrap());
-
-function loadScript(tenant, p) {
-   return new Promise((resolve, reject) => {
-      const cb = () => resolve();
-
-      // Adding the script tag to the head as suggested before
-      const head = document.head;
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = `/plugin/${tenant || "??"}/${p}`;
-
-      // Then bind the event to the callback function.
-      // There are several events for cross browser compatibility.
-      script.onreadystatechange = cb;
-      script.onload = cb;
-      script.onerror = () => {
-         reject(new Error(`Error loading plugin ${p}`));
-      };
-
-      // Fire the loading
-      head.appendChild(script);
-   });
-}
 
 
 /***/ }),
@@ -9841,7 +9787,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.4.17+c20122";
+   version = "1.5.0";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10421,4 +10367,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.1a1a9b64e549aab8eb95.js.map
+//# sourceMappingURL=app.5c5a76b13639557f0e53.js.map
