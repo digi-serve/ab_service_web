@@ -5154,7 +5154,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
          }
       }
 
-      if ((filter.rules || []).length > 0) {
+      if ((filter.rules || []).length > 0 && !this.isCursorFollow) {
          this.__filterDatacollection.setValue(filter);
       } else {
          this.__filterDatacollection.setValue(
@@ -11752,24 +11752,22 @@ module.exports = class FilterComplexCore extends ABComponent {
             result = value != this.Account.username;
             break;
          case "contain_current_user":
+            compareValue = this.Account.username;
+         case "equals":
             if (!Array.isArray(value)) value = [value];
 
             result =
-               value.filter((v) => (v.username || v) == this.Account.username)
+               value.filter((v) => (v.username || v) == compareValue)
                   .length > 0;
             break;
          case "not_contain_current_user":
+            compareValue = this.Account.username;
+         case "not_equal":
             if (!Array.isArray(value)) value = [value];
 
             result =
-               value.filter((v) => (v.username || v) == this.Account.username)
+               value.filter((v) => (v.username || v) == compareValue)
                   .length < 1;
-            break;
-         case "equals":
-            result = (value ?? []).indexOf(compareValue) > -1;
-            break;
-         case "not_equal":
-            result = (value ?? []).indexOf(compareValue) < 0;
             break;
          default:
             result = this.queryFieldValid(value, rule, compareValue);
@@ -29597,7 +29595,7 @@ module.exports = class ABViewFormButtonCore extends ABView {
       this.unTranslate(this.settings, this.settings, labels);
 
       this.settings.includeSave = JSON.parse(
-         this.settings.includeSave &&
+         (this.settings?.includeSave ?? true) && 
             ABViewFormButtonPropertyComponentDefaults.includeSave
       );
       this.settings.includeCancel = JSON.parse(
@@ -62754,23 +62752,41 @@ module.exports = class ABViewFormConnectComponent extends (
             },
          };
 
-         _ui = {
-            inputId: ids.formItem,
-            rows: [
-               {
-                  cols: [
-                     {
-                        view: "label",
-                        label: field.label,
-                        width: formSettings.labelWidth,
-                        align: "left",
-                     },
-                     apcUI,
-                     _ui,
-                  ],
-               },
-            ],
-         };
+         if (_ui.labelPosition == "top") {
+            _ui.labelPosition = "left";
+            _ui = {
+               inputId: ids.formItem,
+               rows: [
+                  {
+                     view: "label",
+                     label: field.label,
+                     // width: formSettings.labelWidth,
+                     align: "left",
+                  },
+                  {
+                     cols: [apcUI, _ui],
+                  },
+               ],
+            };
+         } else {
+            _ui = {
+               inputId: ids.formItem,
+               rows: [
+                  {
+                     cols: [
+                        {
+                           view: "label",
+                           label: field.label,
+                           width: formSettings.labelWidth,
+                           align: "left",
+                        },
+                        apcUI,
+                        _ui,
+                     ],
+                  },
+               ],
+            };
+         }
 
          _ui = super.ui(_ui);
       } else {
@@ -82206,4 +82222,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.4a60426f5092331fdb06.js.map
+//# sourceMappingURL=AB.bd8bbd3b9618caf49fa7.js.map
