@@ -36507,6 +36507,21 @@ module.exports = class ABObject extends ABObjectCore {
          url: `/definition/info/object/${this.id}`,
       });
    }
+
+   /**
+    * @method formCleanValues()
+    * perform a final review of the data a form will try to submit for
+    * this object.  The lets individual fields have a chance to update or
+    * remove values before they are sent.
+    * @param {obj} rowData
+    *        The {data} a form has collected and is about to save.
+    * @return {undefined}
+    */
+   formCleanValues(rowData) {
+      this.fields().forEach((f) => {
+         f.formCleanData(rowData);
+      });
+   }
 };
 
 
@@ -41029,6 +41044,18 @@ module.exports = class ABField extends ABFieldCore {
          url: `/definition/info/object/${this.object.id}/field/${this.id}`,
       });
    }
+
+   /**
+    * @method formCleanData()
+    * Review the data a form is about to submit and change/remove it as
+    * appropriate.
+    * @param {obj} rowData
+    *        The {data} a form has collected and is about to save.
+    * @return {undefined}
+    */
+   formCleanData(rowData) {
+      // default is to just leave data as is.
+   }
 };
 
 
@@ -43986,6 +44013,23 @@ module.exports = class ABFieldJson extends ABFieldJsonCore {
       super.setValue(item, rowData, "");
       item.config.value = rowData[this.columnName];
    }
+
+   /**
+    * @method formCleanData()
+    * Review the data a form is about to submit and change/remove it as
+    * appropriate.
+    * @param {obj} rowData
+    *        The {data} a form has collected and is about to save.
+    * @return {undefined}
+    */
+   formCleanData(rowData) {
+      let val = rowData[this.columnName];
+      if (val === "") {
+         // "" isn't a valid json value, so just remove the data and
+         // let the DB handle the default value.
+         delete rowData[this.columnName];
+      }
+   }
 };
 
 
@@ -45963,9 +46007,19 @@ module.exports = class ABFieldUser extends ABFieldUserCore {
 
    setValue(item, rowData) {
       let val = rowData[this.columnName];
+      if (val === "") {
+         // this means this value isn't set.
+         // can we remove this from the data?
+         delete rowData[this.columnName];
+         super.setValue(item, rowData);
+         return;
+      }
 
       if (this.linkType() == "many") {
          // val should be an array.
+         if (!Array.isArray(val)) {
+            val = [val];
+         }
          // if any of those contain "ab-current-user" replace it:
          val = val.map((v) =>
             v == "ab-current-user" ? this.AB.Account.username() : v
@@ -52595,6 +52649,9 @@ module.exports = class ABViewForm extends ABViewFormCore {
 
       if (allVals.translations?.length > 0)
          formVals.translations = allVals.translations;
+
+      // give the Object a final chance to review the data being handled.
+      obj.formCleanValues(formVals);
 
       return formVals;
    }
@@ -62269,27 +62326,29 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
          },
       });
 
-      this.eventAdd({
-         emitter: dc,
-         eventName: "ab.datacollection.update",
-         listener: (msg, data) => {
-            if (!data?.objectId) return;
+      // I think this case is currently handled by the DC.[changeCursor, cursorStale]
+      // events:
+      // this.eventAdd({
+      //    emitter: dc,
+      //    eventName: "ab.datacollection.update",
+      //    listener: (msg, data) => {
+      //       if (!data?.objectId) return;
 
-            const object = dc.datasource;
+      //       const object = dc.datasource;
 
-            if (!object) return;
+      //       if (!object) return;
 
-            if (
-               object.id === data.objectId ||
-               object.fields((f) => f.settings.linkObject === data.objectId)
-                  .length > 0
-            ) {
-               const currData = dc.getCursor();
+      //       if (
+      //          object.id === data.objectId ||
+      //          object.fields((f) => f.settings.linkObject === data.objectId)
+      //             .length > 0
+      //       ) {
+      //          const currData = dc.getCursor();
 
-               if (currData) this.displayData(currData);
-            }
-         },
-      });
+      //          if (currData) this.displayData(currData);
+      //       }
+      //    },
+      // });
 
       // bind the cursor event of the parent DC
       const linkDv = dc.datacollectionLink;
@@ -82222,4 +82281,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.bd8bbd3b9618caf49fa7.js.map
+//# sourceMappingURL=AB.1e206331184d8e83b38a.js.map
