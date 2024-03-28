@@ -62819,7 +62819,7 @@ module.exports = class ABViewFormConnectComponent extends (
                   {
                      view: "label",
                      label: field.label,
-                     // width: formSettings.labelWidth,
+                     // height: 22,
                      align: "left",
                   },
                   {
@@ -82281,4 +82281,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.1e206331184d8e83b38a.js.map
+//# sourceMappingURL=AB.fc5b50c8eba13fff4aff.js.map
