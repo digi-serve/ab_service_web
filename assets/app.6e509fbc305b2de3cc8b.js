@@ -1,32 +1,6 @@
 "use strict";
 (self["webpackChunkab_platform_web"] = self["webpackChunkab_platform_web"] || []).push([["app"],{
 
-/***/ 49340:
-/*!********************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js?url=false!./js/selectivity/selectivity.min.css ***!
-  \********************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ 60445);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ 60352);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".selectivity-clearfix{clear:both}.selectivity-input{display:inline-block;width:250px}.selectivity-input select{display:none}.selectivity-input:focus{outline:0}.selectivity-placeholder{color:#999}.selectivity-dropdown{background:#fff;border-radius:4px;-webkit-box-shadow:0 1px 5px 1px rgba(0,0,0,.15),0 10px 16px 0 rgba(0,0,0,.2);box-shadow:0 1px 5px 1px rgba(0,0,0,.15),0 10px 16px 0 rgba(0,0,0,.2);position:fixed;z-index:1046}.selectivity-search-input-container{border-bottom:1px solid #eee}.selectivity-search-input{background:0 0;border:0;outline:0;width:100%}.selectivity-results-container{max-height:28em;overflow:auto;position:relative}.selectivity-load-more,.selectivity-result-item{cursor:pointer;padding:7px}.selectivity-result-children .selectivity-result-item{padding-left:17px}.selectivity-load-more.highlight,.selectivity-result-item.highlight{background:#4484c7;color:#fff}.selectivity-result-item.disabled{cursor:default;color:#999}.selectivity-result-item:first-child{border-radius:4px 4px 0 0}.selectivity-dropdown.has-search-input .selectivity-result-item:first-child{border-radius:0}.selectivity-result-label{font-weight:700}.selectivity-load-more,.selectivity-result-children:last-child .selectivity-result-item:last-child,.selectivity-result-item:last-child{border-radius:0 0 4px 4px}.selectivity-result-children .selectivity-result-item:last-child{border-radius:0}.selectivity-error,.selectivity-loading,.selectivity-result-label,.selectivity-search-input-container{padding:7px}.selectivity-multiple-input-container{background:#eee;border-radius:2px;cursor:text;max-height:10em;min-height:calc(2em + 4px);overflow:auto;padding:5px}.selectivity-multiple-input-container .selectivity-placeholder{height:calc(2em + 4px);line-height:calc(2em + 4px)}.selectivity-multiple-input,input[type=text].selectivity-multiple-input{background-color:transparent;border:0;float:left;font:inherit;height:calc(2em + 4px);max-width:100%;outline:0;padding:0}.selectivity-multiple-input:focus,input[type=text].selectivity-multiple-input:focus{background-color:transparent;-webkit-box-shadow:none;box-shadow:none;outline:0}.selectivity-multiple-input::-ms-clear{display:none}.selectivity-multiple-selected-item{background:#4484c7;border-radius:3px;color:#fff;cursor:default;float:left;line-height:2em;margin:2px;padding:0 5px;position:relative;-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;user-select:none;white-space:nowrap}.selectivity-multiple-selected-item.highlighted{background-color:#ccc}.selectivity-multiple-selected-item-remove{color:#fff;cursor:pointer;margin-left:-5px;padding:5px}.selectivity-single-select{background:#eee;border-radius:2px;cursor:pointer;min-height:2em;padding:5px;position:relative;-webkit-box-sizing:content-box;box-sizing:content-box}.selectivity-single-select-input{opacity:0}.selectivity-single-result-container{position:absolute;top:.8em;right:15px;left:5px;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;white-space:nowrap}.selectivity-single-selected-item{color:#000}.selectivity-single-selected-item-remove{color:#000;float:right;padding:0 5px}.selectivity-caret{position:absolute;right:5px;top:.7em}@media only screen and (max-device-width:480px){.selectivity-single-select{background:#eee;border-radius:2px}.selectivity-single-result-container{right:5px}.selectivity-caret{display:none}}.selectivity-submenu-icon{position:absolute;right:4px}", "",{"version":3,"sources":["webpack://./js/selectivity/selectivity.min.css"],"names":[],"mappings":"AAAA,sBAAsB,UAAU,CAAC,mBAAmB,oBAAoB,CAAC,WAAW,CAAC,0BAA0B,YAAY,CAAC,yBAAyB,SAAS,CAAC,yBAAyB,UAAU,CAAC,sBAAsB,eAAe,CAAC,iBAAiB,CAAC,6EAA6E,CAAC,qEAAqE,CAAC,cAAc,CAAC,YAAY,CAAC,oCAAoC,4BAA4B,CAAC,0BAA0B,cAAc,CAAC,QAAQ,CAAC,SAAS,CAAC,UAAU,CAAC,+BAA+B,eAAe,CAAC,aAAa,CAAC,iBAAiB,CAAC,gDAAgD,cAAc,CAAC,WAAW,CAAC,sDAAsD,iBAAiB,CAAC,oEAAoE,kBAAkB,CAAC,UAAU,CAAC,kCAAkC,cAAc,CAAC,UAAU,CAAC,qCAAqC,yBAAyB,CAAC,4EAA4E,eAAe,CAAC,0BAA0B,eAAe,CAAC,uIAAuI,yBAAyB,CAAC,iEAAiE,eAAe,CAAC,sGAAsG,WAAW,CAAC,sCAAsC,eAAe,CAAC,iBAAiB,CAAC,WAAW,CAAC,eAAe,CAAC,0BAA0B,CAAC,aAAa,CAAC,WAAW,CAAC,+DAA+D,sBAAsB,CAAC,2BAA2B,CAAC,wEAAwE,4BAA4B,CAAC,QAAQ,CAAC,UAAU,CAAC,YAAY,CAAC,sBAAsB,CAAC,cAAc,CAAC,SAAS,CAAC,SAAS,CAAC,oFAAoF,4BAA4B,CAAC,uBAAuB,CAAC,eAAe,CAAC,SAAS,CAAC,uCAAuC,YAAY,CAAC,oCAAoC,kBAAkB,CAAC,iBAAiB,CAAC,UAAU,CAAC,cAAc,CAAC,UAAU,CAAC,eAAe,CAAC,UAAU,CAAC,aAAa,CAAC,iBAAiB,CAAC,qBAAqB,CAAC,oBAAoB,CAAC,wBAAwB,CAAC,gBAAgB,CAAC,kBAAkB,CAAC,gDAAgD,qBAAqB,CAAC,2CAA2C,UAAU,CAAC,cAAc,CAAC,gBAAgB,CAAC,WAAW,CAAC,2BAA2B,eAAe,CAAC,iBAAiB,CAAC,cAAc,CAAC,cAAc,CAAC,WAAW,CAAC,iBAAiB,CAAC,8BAA8B,CAAC,sBAAsB,CAAC,iCAAiC,SAAS,CAAC,qCAAqC,iBAAiB,CAAC,QAAQ,CAAC,UAAU,CAAC,QAAQ,CAAC,eAAe,CAAC,yBAAyB,CAAC,sBAAsB,CAAC,kBAAkB,CAAC,kCAAkC,UAAU,CAAC,yCAAyC,UAAU,CAAC,WAAW,CAAC,aAAa,CAAC,mBAAmB,iBAAiB,CAAC,SAAS,CAAC,QAAQ,CAAC,gDAAgD,2BAA2B,eAAe,CAAC,iBAAiB,CAAC,qCAAqC,SAAS,CAAC,mBAAmB,YAAY,CAAC,CAAC,0BAA0B,iBAAiB,CAAC,SAAS","sourcesContent":[".selectivity-clearfix{clear:both}.selectivity-input{display:inline-block;width:250px}.selectivity-input select{display:none}.selectivity-input:focus{outline:0}.selectivity-placeholder{color:#999}.selectivity-dropdown{background:#fff;border-radius:4px;-webkit-box-shadow:0 1px 5px 1px rgba(0,0,0,.15),0 10px 16px 0 rgba(0,0,0,.2);box-shadow:0 1px 5px 1px rgba(0,0,0,.15),0 10px 16px 0 rgba(0,0,0,.2);position:fixed;z-index:1046}.selectivity-search-input-container{border-bottom:1px solid #eee}.selectivity-search-input{background:0 0;border:0;outline:0;width:100%}.selectivity-results-container{max-height:28em;overflow:auto;position:relative}.selectivity-load-more,.selectivity-result-item{cursor:pointer;padding:7px}.selectivity-result-children .selectivity-result-item{padding-left:17px}.selectivity-load-more.highlight,.selectivity-result-item.highlight{background:#4484c7;color:#fff}.selectivity-result-item.disabled{cursor:default;color:#999}.selectivity-result-item:first-child{border-radius:4px 4px 0 0}.selectivity-dropdown.has-search-input .selectivity-result-item:first-child{border-radius:0}.selectivity-result-label{font-weight:700}.selectivity-load-more,.selectivity-result-children:last-child .selectivity-result-item:last-child,.selectivity-result-item:last-child{border-radius:0 0 4px 4px}.selectivity-result-children .selectivity-result-item:last-child{border-radius:0}.selectivity-error,.selectivity-loading,.selectivity-result-label,.selectivity-search-input-container{padding:7px}.selectivity-multiple-input-container{background:#eee;border-radius:2px;cursor:text;max-height:10em;min-height:calc(2em + 4px);overflow:auto;padding:5px}.selectivity-multiple-input-container .selectivity-placeholder{height:calc(2em + 4px);line-height:calc(2em + 4px)}.selectivity-multiple-input,input[type=text].selectivity-multiple-input{background-color:transparent;border:0;float:left;font:inherit;height:calc(2em + 4px);max-width:100%;outline:0;padding:0}.selectivity-multiple-input:focus,input[type=text].selectivity-multiple-input:focus{background-color:transparent;-webkit-box-shadow:none;box-shadow:none;outline:0}.selectivity-multiple-input::-ms-clear{display:none}.selectivity-multiple-selected-item{background:#4484c7;border-radius:3px;color:#fff;cursor:default;float:left;line-height:2em;margin:2px;padding:0 5px;position:relative;-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;user-select:none;white-space:nowrap}.selectivity-multiple-selected-item.highlighted{background-color:#ccc}.selectivity-multiple-selected-item-remove{color:#fff;cursor:pointer;margin-left:-5px;padding:5px}.selectivity-single-select{background:#eee;border-radius:2px;cursor:pointer;min-height:2em;padding:5px;position:relative;-webkit-box-sizing:content-box;box-sizing:content-box}.selectivity-single-select-input{opacity:0}.selectivity-single-result-container{position:absolute;top:.8em;right:15px;left:5px;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;white-space:nowrap}.selectivity-single-selected-item{color:#000}.selectivity-single-selected-item-remove{color:#000;float:right;padding:0 5px}.selectivity-caret{position:absolute;right:5px;top:.7em}@media only screen and (max-device-width:480px){.selectivity-single-select{background:#eee;border-radius:2px}.selectivity-single-result-container{right:5px}.selectivity-caret{display:none}}.selectivity-submenu-icon{position:absolute;right:4px}"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 1724:
 /*!*************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js?url=false!./js/webix/components/gantt/gantt.min.css ***!
@@ -715,17 +689,17 @@ _utils_performance__WEBPACK_IMPORTED_MODULE_10__["default"].init();
 // Bootstrap is responsible for initializing the platform.
 
 // Import webix dynamically so we load it before we load other files that need it
-__webpack_require__.e(/*! import() | webix */ "webix").then(__webpack_require__.t.bind(__webpack_require__, /*! ./js/webix/webix.min.js */ 47424, 23)).then(async (webix) => {
+const webixLoading = __webpack_require__.e(/*! import() | webix */ "webix").then(__webpack_require__.t.bind(__webpack_require__, /*! ./js/webix/webix.min.js */ 47424, 23)).then(async (webix) => {
    // Make sure webix is global object
    window.webix = webix;
    // Now load additional webix resources
    __webpack_require__.e(/*! import() | webix.resources */ "webix.resources").then(__webpack_require__.bind(__webpack_require__, /*! ./js/webix/webixResources */ 32928));
+});
 
-   // __AB_preload should be created by our /config/preload script that gets
-   // loaded on the initial page load.
-   await window.__AB_preload;
-
-   _init_Bootstrap_js__WEBPACK_IMPORTED_MODULE_11__["default"].init().catch((err) => {
+// __AB_preload should be created by our /config/preload script that gets
+// loaded on the initial page load.
+window.__AB_preload.then(() => {
+   _init_Bootstrap_js__WEBPACK_IMPORTED_MODULE_11__["default"].init(webixLoading).catch((err) => {
       // This is a known error that has already been handled.
       if (err.code == "ENODEFS") return;
 
@@ -756,14 +730,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! events */ 5939);
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config/Config.js */ 97146);
-/* harmony import */ var _init_initConfig_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../init/initConfig.js */ 57971);
-/* harmony import */ var _init_initDiv_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../init/initDiv.js */ 58423);
-/* harmony import */ var _init_initUser_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../init/initUser.js */ 12664);
-/* harmony import */ var _js_selectivity_selectivity_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../js/selectivity/selectivity.min.css */ 58292);
-/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../ui/ui.js */ 68041);
-/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 71417);
-/* harmony import */ var _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/performance.js */ 18320);
+/* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config/Config.js */ 97146);
+/* harmony import */ var _init_initConfig_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../init/initConfig.js */ 57971);
+/* harmony import */ var _init_initDiv_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../init/initDiv.js */ 58423);
+/* harmony import */ var _init_initUser_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../init/initUser.js */ 12664);
+/* harmony import */ var _ui_ui_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ui/ui.js */ 68041);
+/* harmony import */ var _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ui/error_noDefs.js */ 71417);
+/* harmony import */ var _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/performance.js */ 18320);
 /*
  * Bootstrap.js
  * This file drives the setup and preparation of the Web Platform.
@@ -785,8 +758,8 @@ const EventEmitter = (events__WEBPACK_IMPORTED_MODULE_0___default().EventEmitter
 
 // import JSZipUtils from "jszip-utils/dist/jszip-utils.min.js";
 
-
-
+// import Selectivity from "../js/selectivity/selectivity.min.js";
+// import selectivityCSS from "../js/selectivity/selectivity.min.css";
 
 
 
@@ -799,7 +772,7 @@ class Bootstrap extends EventEmitter {
       this.setMaxListeners(0);
 
       // Common Reference to Configuration Values
-      this.Config = _config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"];
+      this.Config = _config_Config_js__WEBPACK_IMPORTED_MODULE_1__["default"];
 
       //
       // UI Related
@@ -820,17 +793,14 @@ class Bootstrap extends EventEmitter {
       // the Webix Object that is our UI display
 
       this.on("error", (err) => {
-         _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].error(err);
+         _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].error(err);
       });
    }
 
-   async init(ab) {
-      // We rerun init after a sucessful login, at that point we already have AB.
-      // This means we can use `AB.Network` over the fetch API when loading
-      // config again. This prevents the session from being reset, which was
-      // happening inconsitently.
-      if (ab) this.AB = ab;
-
+   /**
+    * @param {Promise} webixLoading - so we know when webix is finished loading
+    */
+   async init(webixLoading) {
       const loadABFactory = Promise.all(/*! import() | AB */[__webpack_require__.e("vendor-node_modules_atomicjs_dist_atomic_min_js-node_modules_atomicjs_dist_atomic_polyfills_m-e9750c"), __webpack_require__.e("AB")]).then(__webpack_require__.bind(__webpack_require__, /*! ../AppBuilder/ABFactory */ 28434));
       // @const {Promise} loadABFactory Defer loading the ABFactory for a smaller
       // inital file size, allowing us to show the loading UI sooner.
@@ -860,7 +830,7 @@ class Bootstrap extends EventEmitter {
             );
             $uiWarning.hidden = !networkIsSlow;
             // Tell sentry our network speed changed
-            _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].setContext("breadcrumb", {
+            _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].setContext("breadcrumb", {
                category: "network",
                message: networkIsSlow
                   ? "Slow network detected"
@@ -872,31 +842,31 @@ class Bootstrap extends EventEmitter {
 
       preloadMessage("Waiting for the API Server");
 
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("bootstrap", { op: "function" });
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].mark("bootstrap", { op: "function" });
       // on the web platform, we need to gather the appropriate configuration
       // information before we can show the UI
       // 1) Find or create the DIV element our UI is to attach to
       //    this DIV element can contain settings pertainent to our setup
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("initDiv", { op: "ui.render" });
-      await _init_initDiv_js__WEBPACK_IMPORTED_MODULE_4__["default"].init(this);
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("initDiv");
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].mark("initDiv", { op: "ui.render" });
+      await _init_initDiv_js__WEBPACK_IMPORTED_MODULE_3__["default"].init(this);
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].measure("initDiv");
 
       // 2) Request the User's Configuration Information from the server.
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("initConfig", { op: "function" });
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].mark("initConfig", { op: "function" });
       preloadMessage("Getting Configuration Settings");
-      await _init_initConfig_js__WEBPACK_IMPORTED_MODULE_5__["default"].init(this);
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("initConfig");
+      await _init_initConfig_js__WEBPACK_IMPORTED_MODULE_4__["default"].init(this);
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].measure("initConfig");
 
-      await _init_initUser_js__WEBPACK_IMPORTED_MODULE_6__["default"].init(this);
-      const userInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].userConfig();
+      await _init_initUser_js__WEBPACK_IMPORTED_MODULE_5__["default"].init(this);
+      const userInfo = _config_Config_js__WEBPACK_IMPORTED_MODULE_1__["default"].userConfig();
 
       if (userInfo) {
          // load definitions for current user
-         _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].setContext("user", {
+         _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].setContext("user", {
             id: userInfo.id,
          });
       } else {
-         let { options: tenantConfig } = _config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].tenantConfig();
+         let { options: tenantConfig } = _config_Config_js__WEBPACK_IMPORTED_MODULE_1__["default"].tenantConfig();
          tenantConfig =
             typeof tenantConfig === "string"
                ? JSON.parse(tenantConfig)
@@ -910,21 +880,21 @@ class Bootstrap extends EventEmitter {
          // Keep going if the tenant is using local auth
       }
       // 2.5) Load any plugins
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("loadPlugins", { op: "function" });
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].mark("loadPlugins", { op: "function" });
 
       // Plugins are now loaded via the Preloader and stored in
       (window.__AB_Plugins || []).forEach((p) => {
          this.addPlugin(p);
       });
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("loadPlugins");
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].measure("loadPlugins");
 
       // 3) Now we have enough info, to create an instance of our
       //    {ABFactory} that drives the rest of the AppBuilder objects
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("createABFactory", { op: "function" });
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].mark("createABFactory", { op: "function" });
       preloadMessage("Starting AppBuilder");
 
       const { default: ABFactory } = await loadABFactory;
-      let definitions = _config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].definitions() || null;
+      let definitions = _config_Config_js__WEBPACK_IMPORTED_MODULE_1__["default"].definitions() || null;
 
       if (definitions) {
          // NOTE: when loading up an unauthorized user,
@@ -945,18 +915,19 @@ class Bootstrap extends EventEmitter {
          networkIsSlow
       );
       await this.AB.init();
+      await webixLoading;
       // NOTE: special case: User has no Roles defined.
       // direct them to our special ErrorNoDefsUI
       if (userInfo && userInfo.roles.length == 0) {
-         _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("createABFactory");
-         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].init(this.AB);
-         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].attach();
-         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].show();
-         if (_config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].userReal()) {
-            _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_2__["default"].userConfig());
+         _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].measure("createABFactory");
+         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_6__["default"].init(this.AB);
+         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_6__["default"].attach();
+         _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_6__["default"].show();
+         if (_config_Config_js__WEBPACK_IMPORTED_MODULE_1__["default"].userReal()) {
+            _ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_6__["default"].switcherooUser(_config_Config_js__WEBPACK_IMPORTED_MODULE_1__["default"].userConfig());
          }
          destroyPreloadUI();
-         this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_7__["default"]);
+         this.ui(_ui_error_noDefs_js__WEBPACK_IMPORTED_MODULE_6__["default"]);
 
          let err = new Error("No Definitions");
          err.code = "ENODEFS";
@@ -969,10 +940,10 @@ class Bootstrap extends EventEmitter {
          const labels = p.labels(this.AB.Multilingual.currentLanguage());
          this.AB.Multilingual.pluginLoadLabels(p.key, labels);
       });
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("createABFactory");
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].measure("createABFactory");
 
       // 4) Now we can create the UI and send it the {ABFactory}
-      _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].mark("initUI", { op: "ui.render" });
+      _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].mark("initUI", { op: "ui.render" });
       // webix recommends wrapping any webix code in the .ready()
       // function that executes after page loading.
       webix.ready(() => {
@@ -1003,14 +974,14 @@ class Bootstrap extends EventEmitter {
 
          const div = this.div();
 
-         _ui_ui_js__WEBPACK_IMPORTED_MODULE_8__["default"].attach(div.id);
+         _ui_ui_js__WEBPACK_IMPORTED_MODULE_7__["default"].attach(div.id);
          destroyPreloadUI();
-         this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_8__["default"]);
+         this.ui(_ui_ui_js__WEBPACK_IMPORTED_MODULE_7__["default"]);
          this.ui()
             .init(this.AB)
             .then(() => {
-               _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("initUI");
-               _utils_performance_js__WEBPACK_IMPORTED_MODULE_3__["default"].measure("bootstrap");
+               _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].measure("initUI");
+               _utils_performance_js__WEBPACK_IMPORTED_MODULE_2__["default"].measure("bootstrap");
             });
          // this.ui().init() routine handles the remaining
          // bootup/display process.
@@ -9787,7 +9758,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.5.4";
+   version = "1.5.5";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10030,35 +10001,6 @@ function getPerformance() {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getPerformance());
 
-
-/***/ }),
-
-/***/ 58292:
-/*!********************************************!*\
-  !*** ./js/selectivity/selectivity.min.css ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ 75701);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_url_false_selectivity_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js?url=false!./selectivity.min.css */ 49340);
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_url_false_selectivity_min_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_url_false_selectivity_min_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -10367,4 +10309,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.276a4ab6137dd53ed93b.js.map
+//# sourceMappingURL=app.6e509fbc305b2de3cc8b.js.map
