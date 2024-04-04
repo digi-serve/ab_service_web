@@ -63423,6 +63423,13 @@ module.exports = class ABViewFormCustomComponent extends (
       let height = 38;
       let width = this.new_width;
 
+      if (typeof field == "undefined") {
+         console.warn(
+            `BaseView[${baseView.id}] returned an undefined field()`,
+            baseView.toObj()
+         );
+      }
+
       if (field instanceof ABFieldImage) {
          if (settings.useHeight) {
             if (formSettings.labelPosition === "top") {
@@ -63447,7 +63454,7 @@ module.exports = class ABViewFormCustomComponent extends (
          formSettings.labelPosition == "top" ? "" : templateLabel
       }#template#</div>`
          .replace(/#width#/g, formSettings.labelWidth)
-         .replace(/#label#/g, field.label)
+         .replace(/#label#/g, field?.label ?? "")
          .replace(
             /#template#/g,
             field
@@ -82295,4 +82302,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.03f1320b4e312120d0dd.js.map
+//# sourceMappingURL=AB.643d2bb2eaa0a88fa0c9.js.map
