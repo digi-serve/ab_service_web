@@ -3888,7 +3888,9 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                         updateItemData[f.relationName()] = rowRelateVal;
                         updateItemData[f.columnName] = updateItemData[
                            f.relationName()
-                        ].map((v) => v.id || v[PK] || v);
+                        ].map(
+                           (v) => f.getRelationValue(v) /*v.id || v[PK] || v*/
+                        );
                      } else if (
                         !Array.isArray(rowRelateVal) &&
                         (rowRelateVal != values.id ||
@@ -3897,7 +3899,9 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                         valIsRelated
                      ) {
                         updateItemData[f.relationName()] = values;
-                        updateItemData[f.columnName] = values.id || values;
+                        // make ConnectedField use .getRelationValue() here!
+                        updateItemData[f.columnName] =
+                           f.getRelationValue(values);
                      }
                   });
 
@@ -4477,7 +4481,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
 
       // pull filter conditions
       let wheres = this.AB.cloneDeep(
-         this.settings.objectWorkspace.filterConditions ?? null
+         this.settings.objectWorkspace.filterConditions ?? {}
       );
       // if we pass new wheres with a reload use them instead
       if (this.__reloadWheres) {
@@ -11728,7 +11732,11 @@ module.exports = class FilterComplexCore extends ABComponent {
             result = value == true || value > 0 || value == "true";
             break;
          case "unchecked":
-            result = value == false || value <= 0 || value == "false" || value == null;
+            result =
+               value == false ||
+               value <= 0 ||
+               value == "false" ||
+               value == null;
             break;
          default:
             result = this.queryFieldValid(value, rule, compareValue);
@@ -11753,21 +11761,23 @@ module.exports = class FilterComplexCore extends ABComponent {
             break;
          case "contain_current_user":
             compareValue = this.Account.username;
+            break;
          case "equals":
             if (!Array.isArray(value)) value = [value];
 
             result =
-               value.filter((v) => (v.username || v) == compareValue)
-                  .length > 0;
+               value.filter((v) => (v.username || v) == compareValue).length >
+               0;
             break;
          case "not_contain_current_user":
             compareValue = this.Account.username;
+            break;
          case "not_equal":
             if (!Array.isArray(value)) value = [value];
 
             result =
-               value.filter((v) => (v.username || v) == compareValue)
-                  .length < 1;
+               value.filter((v) => (v.username || v) == compareValue).length <
+               1;
             break;
          default:
             result = this.queryFieldValid(value, rule, compareValue);
@@ -11902,7 +11912,12 @@ module.exports = class FilterComplexCore extends ABComponent {
             connectedVal;
       }
 
-      let compareValueLowercase = (compareValue || "").toLowerCase();
+      // Compare value isn't always a string?
+      // https://appdev-designs.sentry.io/issues/5056850389/
+      let compareValueLowercase =
+         typeof compareValue === "string"
+            ? compareValue.toLowerCase?.()
+            : compareValue;
 
       switch (rule) {
          case "contains":
@@ -82280,4 +82295,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.13e6a23aea22e4d3367e.js.map
+//# sourceMappingURL=AB.03f1320b4e312120d0dd.js.map
