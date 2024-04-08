@@ -4374,6 +4374,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       DC.init();
 
       return new Promise((resolve, reject) => {
+         /* eslint-disable no-fallthrough */
          switch (DC.dataStatus) {
             // if that DC hasn't started initializing yet, start it!
             case DC.dataStatusFlag.notInitial:
@@ -4381,7 +4382,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
             // no break;
 
             // once in the process of initializing
-            /* eslint-disable no-fallthrough*/
+
             case DC.dataStatusFlag.initializing:
                /* eslint-enable no-fallthrough*/
                // listen for "initializedData" event from the DC
@@ -4407,6 +4408,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                resolve();
                break;
          }
+         /* eslint-enable no-fallthrough */
       });
    }
 
@@ -6555,7 +6557,7 @@ class ABFactory extends EventEmitter {
          var newStep = new ABStep(params, this);
          return newStep;
       }
-      return null;
+      // return null;
    }
 
    //
@@ -7000,9 +7002,8 @@ module.exports = class ABHintCore extends ABMLClass {
       }
     }
     */
-      let active = attributes?.settings.hasOwnProperty("active")
-         ? attributes?.settings?.active
-         : "1";
+
+      let active = attributes?.settings?.active ?? "1";
 
       this.id = attributes?.id || "";
       this.name = attributes?.name || "New Tutorial";
@@ -7715,7 +7716,8 @@ module.exports = class ABModelCore {
       };
       return this.request("get", params)
          .then((numberOfRows) => {
-            resolve(numberOfRows);
+            // resolve(numberOfRows);
+            return numberOfRows;
          })
          .catch((err) => {
             // TODO: this should be done in platform/ABModel
@@ -7935,7 +7937,7 @@ module.exports = class ABModelCore {
                if (fields.length == 1) {
                   let data =
                      myObj[
-                        fields[0].replace(/[^a-z0-9\.]/gi, "") + "__relation"
+                        fields[0].replace(/[^a-z0-9.]/gi, "") + "__relation"
                      ];
                   if (!data) return resolve([]);
 
@@ -7958,7 +7960,7 @@ module.exports = class ABModelCore {
                var returnData = {};
                fields.forEach((colName) => {
                   returnData[colName] =
-                     myObj[colName.replace(/[^a-z0-9\.]/gi, "") + "__relation"];
+                     myObj[colName.replace(/[^a-z0-9.]/gi, "") + "__relation"];
                });
 
                resolve(returnData);
@@ -10721,7 +10723,7 @@ module.exports = class ABProcessCore extends ABMLClass {
       //       : values[0]
       //    : null;
 
-      var tasksToAsk = this.allPreviousTasks(currElement)
+      var tasksToAsk = this.allPreviousTasks(currElement);
       var values = queryPreviousTasks(tasksToAsk, "processData", params, this);
       return values.length > 0
          ? values.length > 1
@@ -11751,7 +11753,7 @@ module.exports = class FilterComplexCore extends ABComponent {
       let result = false;
 
       // if (Array.isArray(value)) value = [value];
-
+      /* eslint-disable no-fallthrough */
       switch (rule) {
          case "is_current_user":
             result = value == this.Account.username;
@@ -11761,7 +11763,8 @@ module.exports = class FilterComplexCore extends ABComponent {
             break;
          case "contain_current_user":
             compareValue = this.Account.username;
-            break;
+         // break;  <-- NO BREAK HERE: fall through to "equals"
+
          case "equals":
             if (!Array.isArray(value)) value = [value];
 
@@ -11771,7 +11774,8 @@ module.exports = class FilterComplexCore extends ABComponent {
             break;
          case "not_contain_current_user":
             compareValue = this.Account.username;
-            break;
+         // break;  <-- NO BREAK HERE: fall through to "not_equals"
+
          case "not_equal":
             if (!Array.isArray(value)) value = [value];
 
@@ -11783,6 +11787,7 @@ module.exports = class FilterComplexCore extends ABComponent {
             result = this.queryFieldValid(value, rule, compareValue);
             break;
       }
+      /* eslint-enable no-fallthrough */
 
       return result;
    }
@@ -13699,7 +13704,6 @@ module.exports = class ABFieldAutoIndexCore extends ABField {
 };
 
 
-
 /***/ }),
 
 /***/ 85410:
@@ -15527,9 +15531,11 @@ module.exports = class ABFieldDateCore extends ABField {
    // }
 
    exportValue(value) {
-      return value ? this.AB.rules.toDateFormat(value, {
-         format: "YYYY-MM-DD",
-      }) : "";
+      return value
+         ? this.AB.rules.toDateFormat(value, {
+              format: "YYYY-MM-DD",
+           })
+         : "";
       // return this.convertToMoment(value).format("YYYY-MM-DD");
    }
 
@@ -15907,7 +15913,8 @@ module.exports = class ABFieldEmailCore extends ABField {
     */
    isValidData(data, validator) {
       if (data[this.columnName]) {
-         const Reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+         const Reg =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
          let value = data[this.columnName];
          value = String(value).toLowerCase();
@@ -16109,7 +16116,9 @@ module.exports = class ABFieldFileCore extends ABField {
       if ("string" === typeof val) {
          try {
             myParameter[this.columnName] = JSON.parse(val);
-         } catch (e) {}
+         } catch (e) {
+            /* ignore */
+         }
       }
 
       return myParameter;
@@ -17438,7 +17447,7 @@ module.exports = class ABFieldNumberCore extends ABField {
 
    format(rowData) {
       if (
-	 rowData?.[this.columnName] == null ||
+         rowData?.[this.columnName] == null ||
          (rowData[this.columnName] != 0 && rowData[this.columnName] == "")
       )
          return "";
@@ -21906,16 +21915,14 @@ AllProcessElements.forEach((ELEMENT) => {
    switch (ELEMENT.defaults().category) {
       case "start":
       case "end":
-         DEFINITIONTYPES[
-            ELEMENT.DiagramReplace().target.eventDefinitionType
-         ] = ELEMENT.defaults();
+         DEFINITIONTYPES[ELEMENT.DiagramReplace().target.eventDefinitionType] =
+            ELEMENT.defaults();
          break;
 
       case "gateway":
       case "task":
-         DEFINITIONTYPES[
-            ELEMENT.DiagramReplace().target.type
-         ] = ELEMENT.defaults();
+         DEFINITIONTYPES[ELEMENT.DiagramReplace().target.type] =
+            ELEMENT.defaults();
          break;
    }
 });
@@ -21991,7 +21998,6 @@ module.exports = {
       return DEFINITIONTYPES[key];
    },
 };
-
 
 
 /***/ }),
@@ -22242,7 +22248,7 @@ module.exports = class ABProcessTaskCore extends ABMLClass {
 
       var myDiagramObj = instance.hashDiagramObjects[this.diagramID];
       if (!myDiagramObj) {
-         var error = new Error(
+         let error = new Error(
             `Configuration Error: Did not find my definition for dID[${this.diagramID}]`
          );
          this.onError(instance, error);
@@ -22259,7 +22265,7 @@ module.exports = class ABProcessTaskCore extends ABMLClass {
       // find my possible exits:
       var exitFlows = myDiagramObj["bpmn2:outgoing"];
       if (!exitFlows) {
-         var error = new Error(
+         let error = new Error(
             `Configuration Error: Did not find any outgoing flows for dID[${this.diagramID}]`
          );
          this.AB.notify.builder(error, { task: this });
@@ -22292,7 +22298,7 @@ module.exports = class ABProcessTaskCore extends ABMLClass {
                   nextTasks.push(targetTask);
                }
             } else {
-               var error = new Error(
+               let error = new Error(
                   `Configuration Error: No ProcessTask instance for diagramID[${tid}]`
                );
                this.AB.notify.builder(error, { task: this });
@@ -22718,7 +22724,6 @@ module.exports = class ABProcessGatewayExclusiveCore extends ABProcessElement {
    ////
    //// Process Instance Methods
    ////
-
 
    /**
     * initState()
@@ -24948,7 +24953,7 @@ module.exports = class ABProcessTaskUserApprovalCore extends ABProcessElement {
                options: options,
             },
          },
-         myObj,
+         myObj
       );
 
       // NOTE: We are pretending our response is a type of ABFieldList. But our
@@ -25455,9 +25460,16 @@ module.exports = class ABProcessTriggerLifecycle extends ABProcessTrigger {
             } else if (parts[1] == "uuid") {
                return myState["data"]["uuid"];
             } else {
+               ///
+               /// Questioning the validity of this section of code.
+               /// In order to get here, we tried to find field, and it
+               /// didn't exist.
+               /// then we turn around and REPEAT the same attempt
+               /// and check for field again.
+               /*
                // parts[1] should be a field.id
-               var object = this.AB.objectByID(this.objectID);
-               var field = object.fields((f) => {
+               object = this.AB.objectByID(this.objectID);
+               field = object.fields((f) => {
                   return f.id == parts[1];
                })[0];
                if (field) {
@@ -25468,6 +25480,7 @@ module.exports = class ABProcessTriggerLifecycle extends ABProcessTrigger {
                      return myState["data"][field.columnName];
                   }
                }
+               */
             }
          }
       }
@@ -26691,7 +26704,7 @@ module.exports = class ABViewCSVImporterCore extends ABViewWidget {
 
    get RecordRule() {
       let object = this.datacollection?.datasource;
-      if (!object) return;
+      if (!object) return null;
 
       if (this._recordRule == null) {
          this._recordRule = new ABRecordRule();
@@ -29610,7 +29623,7 @@ module.exports = class ABViewFormButtonCore extends ABView {
       this.unTranslate(this.settings, this.settings, labels);
 
       this.settings.includeSave = JSON.parse(
-         (this.settings?.includeSave ?? true) && 
+         (this.settings?.includeSave ?? true) &&
             ABViewFormButtonPropertyComponentDefaults.includeSave
       );
       this.settings.includeCancel = JSON.parse(
@@ -29686,7 +29699,6 @@ module.exports = class ABViewFormCheckboxCore extends ABViewFormItem {
       return [];
    }
 };
-
 
 
 /***/ }),
@@ -29768,7 +29780,6 @@ module.exports = class ABViewFormConnectCore extends ABViewFormItem {
       return [];
    }
 };
-
 
 
 /***/ }),
@@ -30019,7 +30030,6 @@ module.exports = class ABViewFormCore extends ABViewContainer {
 };
 
 
-
 /***/ }),
 
 /***/ 88356:
@@ -30119,7 +30129,6 @@ module.exports = class ABViewFormDatepickerCore extends ABViewFormItem {
       return [];
    }
 };
-
 
 
 /***/ }),
@@ -30325,7 +30334,6 @@ module.exports = class ABViewFormNumberCore extends ABViewFormItem {
 };
 
 
-
 /***/ }),
 
 /***/ 87771:
@@ -30420,7 +30428,6 @@ module.exports = class ABViewFormSelectMultipleCore extends ABViewFormItem {
 };
 
 
-
 /***/ }),
 
 /***/ 97241:
@@ -30467,7 +30474,6 @@ module.exports = class ABViewFormSelectSingleCore extends ABViewFormItem {
       return [];
    }
 };
-
 
 
 /***/ }),
@@ -32854,7 +32860,7 @@ module.exports = class ABViewTabCore extends ABViewWidget {
       this.settings.stackTabs = parseInt(this.settings.stackTabs);
       this.settings.darkTheme = parseInt(this.settings.darkTheme);
       this.settings.sidebarWidth = parseInt(this.settings.sidebarWidth);
-      this.settings.sidebarPos = this.settings.sidebarPos;
+      // this.settings.sidebarPos = this.settings.sidebarPos;
       this.settings.iconOnTop = parseInt(this.settings.iconOnTop);
    }
 
@@ -33920,28 +33926,15 @@ module.exports = class ABDataCollection extends ABDataCollectionCore {
       //// Now connect our platform hub to our Object Triggers:
 
       // events
-      this.AB.on("ab.datacollection.create", (data) => {
-         // debugger;
-         this.emit("ab.datacollection.create", data);
-      });
-
-      this.AB.on("ab.datacollection.update", (data) => {
-         // debugger;
-         this.emit("ab.datacollection.update", data);
-      });
-
-      // We are subscribing to notifications from the server that an item may
-      // be stale and needs updating
-      // We will improve this later and verify that it needs updating before
-      // attempting the update on the client side
-      this.AB.on("ab.datacollection.stale", (data) => {
-         // debugger;
-         this.emit("ab.datacollection.stale", data);
-      });
-
-      this.AB.on("ab.datacollection.delete", (data) => {
-         // debugger;
-         this.emit("ab.datacollection.delete", data);
+      [
+         "ab.datacollection.create",
+         "ab.datacollection.update",
+         "ab.datacollection.stale",
+         "ab.datacollection.delete",
+      ].forEach((key) => {
+         this.AB.on(key, (data) => {
+            this.emit(key, data);
+         });
       });
 
       this.bindParentDc();
@@ -80576,6 +80569,37 @@ const listSocketEvents = [
 // The io.socket.* events we are listening for that relate to our datacollection
 // maintainence.
 
+function socketDataSave(key, length) {
+   if (!HashSocketJobs[key]) {
+      HashSocketJobs[key] = {
+         packets: 0,
+         length: 0,
+      };
+   }
+
+   HashSocketJobs[key].packets++;
+   HashSocketJobs[key].length += length;
+}
+function socketDataLog(key, data) {
+   let length = "??";
+   try {
+      length = JSON.stringify(data).length;
+   } catch (e) {
+      console.log(e);
+      //
+   }
+
+   console.warn(`socket: ${key} (${length})`, data);
+   if (data.jobID) {
+      socketDataSave(data.jobID, length);
+      socketDataSave(`${data.jobID}-${key}`, length);
+   }
+}
+
+let HashSocketJobs = {
+   /* jobID : { #packets, length } */
+};
+
 class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["default"] {
    constructor(parent) {
       // {Network} parent
@@ -80589,6 +80613,8 @@ class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["defau
       // Pass the io.socket.on(*) events to our AB factory.
       listSocketEvents.forEach((ev) => {
          io.socket.on(ev, (data) => {
+            socketDataLog(ev, data);
+
             // check if the ev contains 'datacollection'
             // and do a single normalizeData() on the incoming data here
             // before sending it off to be processed.
@@ -80618,6 +80644,10 @@ class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["defau
    //
    // Interface API
    //
+
+   socketLog() {
+      console.warn(JSON.stringify(HashSocketJobs, null, 4));
+   }
 
    ////
    //// Network Utilities
@@ -82302,4 +82332,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.643d2bb2eaa0a88fa0c9.js.map
+//# sourceMappingURL=AB.a8fbeed6585ab62adccf.js.map
