@@ -2243,8 +2243,7 @@ class PortalAccessLevelManager extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__[
                         view: "label",
                         align: "center",
                         height: 200,
-                        label:
-                           "<div style='display: block; font-size: 180px; background-color: #666; color: transparent; text-shadow: 0px 1px 1px rgba(255,255,255,0.5); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text;' class='fa fa-unlock-alt'></div>",
+                        label: "<div style='display: block; font-size: 180px; background-color: #666; color: transparent; text-shadow: 0px 1px 1px rgba(255,255,255,0.5); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text;' class='fa fa-unlock-alt'></div>",
                      },
                      {
                         view: "label",
@@ -2345,9 +2344,8 @@ class PortalAccessLevelManager extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__[
                               id: "role_popup_options_add",
                               css: "webix_primary",
                               click: () => {
-                                 const role = $$(
-                                    "role_popup_options"
-                                 ).getValue();
+                                 const role =
+                                    $$("role_popup_options").getValue();
                                  if ($$(`amp_accordionitem_${role}`)) {
                                     $$(`amp_accordionitem_${role}`).show();
                                     $$("amp_accordion").config.roles.push(role);
@@ -2541,9 +2539,8 @@ class PortalAccessLevelManager extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__[
                            });
 
                            $$(`amp_accordionitem_${role}`).hide();
-                           const itemToRemove = $$(
-                              "amp_accordion"
-                           ).config.roles.indexOf(role);
+                           const itemToRemove =
+                              $$("amp_accordion").config.roles.indexOf(role);
                            if (itemToRemove > -1) {
                               $$("amp_accordion").config.roles.splice(
                                  itemToRemove,
@@ -3420,20 +3417,19 @@ class PortalAuthLoginResetPassword extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_
                                                       "portal_auth_login_reset_password_form"
                                                    ).validate()
                                                 ) {
-                                                   let password = $$(
-                                                      "password-new"
-                                                   ).getValue();
+                                                   let password =
+                                                      $$(
+                                                         "password-new"
+                                                      ).getValue();
                                                    this.AB.Network.post(
                                                       {
-                                                         url:
-                                                            "/auth/password/reset",
+                                                         url: "/auth/password/reset",
                                                          data: {
                                                             password,
                                                          },
                                                       },
                                                       {
-                                                         key:
-                                                            "portal_auth_password_reset",
+                                                         key: "portal_auth_password_reset",
                                                          context: {},
                                                       }
                                                    ).catch((err) => {
@@ -5405,9 +5401,7 @@ class PortalTutorialManager extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["de
          let currentTutorial = this.AB.hints((h) => {
             return h.id == id;
          })[0];
-         let active = currentTutorial?.settings.hasOwnProperty("active")
-            ? currentTutorial.settings.active
-            : "1";
+         let active = currentTutorial?.settings?.active ?? "1";
          return {
             view: "form",
             id: "stepform" + id,
@@ -6635,7 +6629,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
                         _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_5__["default"].init(AB);
                         _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_5__["default"].show();
                         break;
-                     default:
+                     default: {
                         // was this one of our Mobile Apps?
                         const mobileApp = this.AB.applicationByID(id);
                         if (mobileApp) {
@@ -6651,6 +6645,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
                            Menu ID:<i>${item.id}</i>`
                            );
                         }
+                     }
                   }
                   $$("userMenu").hide();
                },
@@ -9375,16 +9370,17 @@ class PortalWorkUserQRWindow extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["d
                   borderless: true,
                   autoheight: true,
                   autowidth: true,
-                  template:
-                     `<img src='/relay/user-qr' class='${this.classQrImageDom}' style='margin: 10px auto 20px;display:block;' />`,
+                  template: `<img src='/relay/user-qr' class='${this.classQrImageDom}' style='margin: 10px auto 20px;display:block;' />`,
                   on: {
                      onAfterRender: () => {
-                        const $img = $$("qr-code-image").$view.getElementsByClassName(this.classQrImageDom)[0];
+                        const $img = $$(
+                           "qr-code-image"
+                        ).$view.getElementsByClassName(this.classQrImageDom)[0];
                         $img.onload = () => {
                            $$("qr-code-image").adjust();
                         };
-                     }
-                  }
+                     },
+                  },
                },
 
                {
@@ -9758,7 +9754,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.5.8+c20126";
+   version = "1.5.9";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10309,4 +10305,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.3d94fff49545eb92f43a.js.map
+//# sourceMappingURL=app.b354109e5e306a765434.js.map

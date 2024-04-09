@@ -35902,7 +35902,8 @@ module.exports = class ABObject extends ABObjectCore {
       var validator = this.AB.Validation.validator();
       this.fields().forEach((f) => {
          // check if value was passed, if so validate it
-         if (data.hasOwnProperty(f.columnName)) f.isValidData(data, validator);
+         if (Object.prototype.hasOwnProperty.call(data, f.columnName))
+            f.isValidData(data, validator);
       });
 
       return validator;
@@ -41777,12 +41778,12 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
                // were reporting not seeing the correct options list with either
                // new, updated or deleted records that should or should not appear
                return false;
-               // Get Local Storage unless xxx->one connected field
-               if (this?.settings?.linkViaType != "one") {
-                  // We store the .findAll() results locally and return that for a
-                  // quick response:
-                  return await this.AB.Storage.get(storageID);
-               }
+               // // Get Local Storage unless xxx->one connected field
+               // if (this?.settings?.linkViaType != "one") {
+               //    // We store the .findAll() results locally and return that for a
+               //    // quick response:
+               //    return await this.AB.Storage.get(storageID);
+               // }
             })
             .then(async (storedOptions) => {
                if (storedOptions) {
@@ -42234,8 +42235,19 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
       // Only reset the value if the value changes:
       let currVal = item.getValue();
       let newVal = Array.isArray(val)
-         ? val.map((e) => this.getRelationValue(e, { forUpdate: true }) ?? e.id ?? e.uuid ?? e).join(",")
-         : this.getRelationValue(val, { forUpdate: true }) ?? val.id ?? val.uuid ?? val;
+         ? val
+              .map(
+                 (e) =>
+                    this.getRelationValue(e, { forUpdate: true }) ??
+                    e.id ??
+                    e.uuid ??
+                    e
+              )
+              .join(",")
+         : this.getRelationValue(val, { forUpdate: true }) ??
+           val.id ??
+           val.uuid ??
+           val;
       if (currVal != newVal) {
          item.setValue(newVal);
       }
@@ -45193,23 +45205,23 @@ module.exports = class ABFieldString extends ABFieldStringCore {
       return formComponentSetting;
    }
 
-   formComponentMobile() {
-      // NOTE: what is being returned here needs to mimic an ABView CLASS.
-      // primarily the .common() and .newInstance() methods.
-      const formComponentSetting = super.formComponent();
+   // formComponentMobile() {
+   //    // NOTE: what is being returned here needs to mimic an ABView CLASS.
+   //    // primarily the .common() and .newInstance() methods.
+   //    const formComponentSetting = super.formComponent();
 
-      // .common() is used to create the display in the list
-      formComponentSetting.common = () => {
-         return {
-            key: "mobile-textbox",
-            settings: {
-               type: "single",
-            },
-         };
-      };
+   //    // .common() is used to create the display in the list
+   //    formComponentSetting.common = () => {
+   //       return {
+   //          key: "mobile-textbox",
+   //          settings: {
+   //             type: "single",
+   //          },
+   //       };
+   //    };
 
-      return formComponentSetting;
-   }
+   //    return formComponentSetting;
+   // }
 
    /**
     * @method formComponentMobile
@@ -46171,7 +46183,7 @@ module.exports = class ABMobilePage extends ABMobilePageCore {
             pg.removeAllListeners("definition.updated");
          });
       } catch (e) {
-         debugger;
+         // debugger;
          console.error(e);
       }
 
@@ -46458,8 +46470,10 @@ module.exports = class ABMobileViewFormConnect extends (
       );
 
       this.__filterComponent.setValue(
-         this.settings.filterConditions ??
+         this.settings.filterConditions
+         /* ??
             ABViewFormConnectPropertyComponentDefaults.filterConditions
+         */
       );
    }
 
@@ -51720,7 +51734,6 @@ module.exports = class ABViewChart extends ABViewChartCore {
             `can't resolve value field[${this.settings.columnValue}]`
          );
       }
-
    }
 };
 
@@ -53820,8 +53833,10 @@ class ABWorkObjectPopupExport extends _ui_ClassUI__WEBPACK_IMPORTED_MODULE_0__["
 
       // If there are checked items, then export them only
       // Otherwise export all items
-      const noCheckedRow = _grid.data.find({appbuilder_select_item: 1}).length < 1;
-      const filterRow = (row) => noCheckedRow || row?.appbuilder_select_item == 1;
+      const noCheckedRow =
+         _grid.data.find({ appbuilder_select_item: 1 }).length < 1;
+      const filterRow = (row) =>
+         noCheckedRow || row?.appbuilder_select_item == 1;
 
       switch (name) {
          case "CSV":
@@ -53831,7 +53846,7 @@ class ABWorkObjectPopupExport extends _ui_ClassUI__WEBPACK_IMPORTED_MODULE_0__["
                filename:
                   _filename || (_currentObject ? _currentObject.label : null),
                columns: columns,
-               filter: filterRow
+               filter: filterRow,
             });
             break;
          case "Excel":
@@ -53842,7 +53857,7 @@ class ABWorkObjectPopupExport extends _ui_ClassUI__WEBPACK_IMPORTED_MODULE_0__["
                   _filename || (_currentObject ? _currentObject.label : null),
                columns: columns,
                filterHTML: true,
-               filter: filterRow
+               filter: filterRow,
             });
             break;
          case "PDF":
@@ -53850,7 +53865,7 @@ class ABWorkObjectPopupExport extends _ui_ClassUI__WEBPACK_IMPORTED_MODULE_0__["
                filename:
                   _filename || (_currentObject ? _currentObject.label : null),
                filterHTML: true,
-               filter: filterRow
+               filter: filterRow,
             });
             break;
          case "PNG":
@@ -54069,7 +54084,10 @@ class ABViewGridPopupMassUpdate extends _ui_ClassUI__WEBPACK_IMPORTED_MODULE_0__
       $datatable.data.each(function (row) {
          if (
             row &&
-            row.hasOwnProperty("appbuilder_select_item") &&
+            Object.prototype.hasOwnProperty.call(
+               row,
+               "appbuilder_select_item"
+            ) &&
             row.appbuilder_select_item == 1
          ) {
             updatedRowIds.push(row.id);
@@ -54883,15 +54901,6 @@ module.exports = class ABWorkObjectKanBan extends ABViewComponent {
 
    async init(AB) {
       this.AB = AB;
-   }
-
-   /**
-    * @method CurrentObject()
-    * A helper to return the current ABObject we are working with.
-    * @return {ABObject}
-    */
-   get CurrentObject() {
-      return this.AB.objectByID(this.CurrentObjectID);
    }
 
    objectLoad(object) {
@@ -57254,7 +57263,7 @@ module.exports = class ABViewCSVImporterComponent extends ABViewComponent {
                   : connectField.object.PK();
                const uuid =
                   hashLookups[connectField.id][
-                  newRowData[connectField.columnName]
+                     newRowData[connectField.columnName]
                   ];
 
                if (!uuid) {
@@ -58425,8 +58434,6 @@ module.exports = class ABViewChartLineComponent extends (
          // width: settings.chartWidth,
       });
    }
-
-
 };
 
 
@@ -58467,8 +58474,6 @@ module.exports = class ABViewChartPieComponent extends (
          // width: settings.chartWidth,
       });
    }
-
-
 };
 
 
@@ -60050,7 +60055,6 @@ module.exports = class ABViewDataviewComponent extends ABViewComponent {
       const item_width = this.getItemWidth(base_element);
       $dataview.customize({ width: item_width });
       $dataview.getTopParentView?.().resize?.();
-
    }
 
    initDetailComponent() {
@@ -60149,8 +60153,7 @@ module.exports = class ABViewDataviewComponent extends ABViewComponent {
       if (!parentWidth)
          parentWidth = $dataview?.getParentView?.().$width || window.innerWidth;
 
-      if (parentWidth > window.innerWidth)
-         parentWidth = window.innerWidth;
+      if (parentWidth > window.innerWidth) parentWidth = window.innerWidth;
 
       // check if the browser window minus webix default padding is the same as the parent window
       // if so we need to check to see if there is a sidebar and reduce the usable space by the
@@ -60787,7 +60790,31 @@ module.exports = class ABViewDetailImageComponent extends (
 
 const ABViewComponent = (__webpack_require__(/*! ./ABViewComponent */ 44363)["default"]);
 
-const SAFE_HTML_TAGS = ["abbr", "acronym", "b", "blockquote", "br", "code", "div", "em", "i", "li", "ol", "p", "span", "strong", "table", "td", "tr", "ul", "h1", "h2", "h3", "h4", "h5"];
+const SAFE_HTML_TAGS = [
+   "abbr",
+   "acronym",
+   "b",
+   "blockquote",
+   "br",
+   "code",
+   "div",
+   "em",
+   "i",
+   "li",
+   "ol",
+   "p",
+   "span",
+   "strong",
+   "table",
+   "td",
+   "tr",
+   "ul",
+   "h1",
+   "h2",
+   "h3",
+   "h4",
+   "h5",
+];
 
 module.exports = class ABViewDetailItemComponent extends ABViewComponent {
    constructor(baseView, idBase, ids) {
@@ -60881,15 +60908,19 @@ module.exports = class ABViewDetailItemComponent extends ABViewComponent {
 
       switch (field?.key) {
          case "string":
-         case "LongText":
+         case "LongText": {
             const strVal = val
                // Sanitize all of HTML tags
                .replace(/[<]/gm, "&lt;")
                // Allow safe HTML tags
-               .replace(new RegExp(`(&lt;(\/)?(${SAFE_HTML_TAGS.join("|")}))`, "gm"), "<$2$3");
+               .replace(
+                  new RegExp(`(&lt;(/)?(${SAFE_HTML_TAGS.join("|")}))`, "gm"),
+                  "<$2$3"
+               );
 
             $detailItem.setValues({ display: strVal });
             break;
+         }
          default:
             $detailItem.setValues({ display: val });
             break;
@@ -69304,7 +69335,7 @@ const ABViewComponent = (__webpack_require__(/*! ./ABViewComponent */ 44363)["de
 const ABFieldCalculate = __webpack_require__(/*! ../../dataFields/ABFieldCalculate */ 59675);
 const ABFieldFormula = __webpack_require__(/*! ../../dataFields/ABFieldFormula */ 37900);
 const ABFieldNumber = __webpack_require__(/*! ../../dataFields/ABFieldNumber */ 18799);
-
+/* global pivot */
 module.exports = class ABViewPivotComponent extends ABViewComponent {
    constructor(baseView, idBase, ids) {
       super(
@@ -72758,8 +72789,7 @@ class ABViewPropertyLinkPageComponent extends _viewComponent_ABViewComponent__WE
             this.view?.changePage(pageId);
          });
          this.datacollection.setCursor(rowId);
-      }
-      else {
+      } else {
          this.view?.changePage(pageId);
       }
    }
@@ -76173,9 +76203,10 @@ module.exports = class ABViewRuleActionFormSubmitRuleEmail extends (
                         // field
                         if (rec.emailType == "field") {
                            var emailFieldUrl = rec.value.split("|")[1]; // linkFieldId|emailFieldUrl
-                           var emailField = this.queryObject.application.urlResolve(
-                              emailFieldUrl
-                           );
+                           var emailField =
+                              this.queryObject.application.urlResolve(
+                                 emailFieldUrl
+                              );
                            if (emailField) {
                               // Pull email source object
                               if (emailField.object.id == this.queryObject.id) {
@@ -76226,9 +76257,8 @@ module.exports = class ABViewRuleActionFormSubmitRuleEmail extends (
                            var dcId = dvIdAndFieldId.split("|")[0];
                            var fieldId = dvIdAndFieldId.split("|")[1];
 
-                           var dcQuery = this.currentForm.AB.datacollectionByID(
-                              dcId
-                           );
+                           var dcQuery =
+                              this.currentForm.AB.datacollectionByID(dcId);
                            if (!dcQuery) return next();
 
                            var field = dcQuery.datasource.fieldByID(fieldId);
@@ -77874,15 +77904,15 @@ module.exports = class ABViewRuleActionObjectUpdater extends ABViewRuleAction {
                // and using that value.
                // TODO: rename to 'select-cursor'
                case "select-one":
-               default:
-                  value = clonedDataCollection.getCursor(); // dataView.getItem(dataView.getCursor());
+               default: // dataView.getItem(dataView.getCursor());
+                  value = clonedDataCollection.getCursor();
 
                   if (value) {
                      // NOTE: webix documentation issue: .getCursor() is supposed to return
                      // the .id of the item.  However it seems to be returning the {obj}
 
                      if (op.valueType == "exist") {
-                        var fieldWithValue =
+                        let fieldWithValue =
                            clonedDataCollection.datasource.fieldByID(
                               op.queryField
                            );
@@ -77959,8 +77989,8 @@ module.exports = class ABViewRuleActionObjectUpdater extends ABViewRuleAction {
                         // case: datacollection is a query
                         // our field is a pointer to an object. we want to pull out that object
                         // from the query data.
-                        case "query":
-                           var fieldWithValue =
+                        case "query": {
+                           let fieldWithValue =
                               clonedDataCollection.datasource.fieldByID(
                                  op.queryField
                               );
@@ -77984,6 +78014,7 @@ module.exports = class ABViewRuleActionObjectUpdater extends ABViewRuleAction {
                            );
 
                            break;
+                        }
                      }
 
                      currRow = clonedDataCollection.getNextRecord(currRow);
@@ -78021,7 +78052,7 @@ module.exports = class ABViewRuleActionObjectUpdater extends ABViewRuleAction {
                         clonedDataCollection.sourceType == "query" ||
                         (op.valueType == "exist" && op.queryField)
                      ) {
-                        fieldWithValue =
+                        let fieldWithValue =
                            clonedDataCollection.datasource.fieldByID(
                               op.queryField
                            );
@@ -79626,6 +79657,7 @@ __webpack_require__.r(__webpack_exports__);
  * Network.js
  * A network manager for interfacing with our AppBuilder server.
  */
+/* global Connection */
 var EventEmitter = (__webpack_require__(/*! events */ 5939).EventEmitter);
 
 
@@ -80144,7 +80176,7 @@ __webpack_require__.r(__webpack_exports__);
  * and outlines the basic Network interface.
  */
 
-/* global navigator Connection */
+/* global Connection */
 // import Account from "./Account";
 // import analytics from "./Analytics";
 // import EventEmitter from "eventemitter2";
@@ -80442,7 +80474,9 @@ class NetworkRest extends EventEmitter {
                   if (err.responseText) {
                      try {
                         packet = JSON.parse(err.responseText);
-                     } catch (e) {}
+                     } catch (e) {
+                        /* ignore */
+                     }
                   }
                   // if this is an req.ab.error() response:
                   if (packet && packet.status == "error") {
@@ -81003,17 +81037,17 @@ module.exports = class ABCustomActiveList {
       var labels = {
          common: App.labels,
 
-         component: {}
+         component: {},
       };
 
       // internal list of Webix IDs to reference our UI components.
       var ids = {
-         component: App.unique(this.key)
+         component: App.unique(this.key),
       };
 
       // Our webix UI definition:
       var _ui = {
-         name: this.key
+         name: this.key,
       };
       this.view = this.key;
 
@@ -81188,17 +81222,17 @@ module.exports = class ABCustomDateTimePicker {
       var labels = {
          common: App.labels,
 
-         component: {}
+         component: {},
       };
 
       // internal list of Webix IDs to reference our UI components.
       var ids = {
-         component: App.unique(this.key)
+         component: App.unique(this.key),
       };
 
       // Our webix UI definition:
       var _ui = {
-         name: App.unique("custom_datetimepicker") // keep this unique for this App instance.
+         name: App.unique("custom_datetimepicker"), // keep this unique for this App instance.
       };
       this.view = this.key;
 
@@ -81216,13 +81250,13 @@ module.exports = class ABCustomDateTimePicker {
             view: "calendar",
             icons: true,
             borderless: true,
-            timepicker: true
-         }
+            timepicker: true,
+         },
       };
 
       webix.editors.datetime = webix.extend(
          {
-            popupType: "datetime"
+            popupType: "datetime",
          },
          webix.editors.date
       );
@@ -81263,17 +81297,17 @@ module.exports = class ABCustomEditList {
       var labels = {
          common: App.labels,
 
-         component: {}
+         component: {},
       };
 
       // internal list of Webix IDs to reference our UI components.
       var ids = {
-         component: App.unique(this.key)
+         component: App.unique(this.key),
       };
 
       // Our webix UI definition:
       var _ui = {
-         name: this.key
+         name: this.key,
       };
       this.view = this.key;
 
@@ -81320,17 +81354,17 @@ module.exports = class ABCustomEditTree {
       var labels = {
          common: App.labels,
 
-         component: {}
+         component: {},
       };
 
       // internal list of Webix IDs to reference our UI components.
       var ids = {
-         component: App.unique(this.key)
+         component: App.unique(this.key),
       };
 
       // Our webix UI definition:
       var _ui = {
-         name: this.key
+         name: this.key,
       };
       this.view = this.key;
 
@@ -81432,20 +81466,20 @@ module.exports = class ABCustomFocusableTemplate {
       var labels = {
          common: App.labels,
 
-         component: {}
+         component: {},
       };
 
       // internal list of Webix IDs to reference our UI components.
       var ids = {
-         component: App.unique(this.key)
+         component: App.unique(this.key),
       };
 
       // Our webix UI definition:
       var _ui = {
          name: this.key,
-         focus: function() {
+         focus: function () {
             return false;
-         }
+         },
       };
       this.view = this.key;
 
@@ -81902,12 +81936,12 @@ module.exports = class ABCustomNumberText {
       var labels = {
          common: App.labels,
 
-         component: {}
+         component: {},
       };
 
       // internal list of Webix IDs to reference our UI components.
       var ids = {
-         component: App.unique(this.key)
+         component: App.unique(this.key),
       };
 
       // Our webix UI definition:
@@ -81915,16 +81949,16 @@ module.exports = class ABCustomNumberText {
          name: this.key,
 
          defaults: {
-            css: "webix_el_text"
+            css: "webix_el_text",
          },
 
          // override this function to return number value type
-         $getValue: function() {
+         $getValue: function () {
             var val = this.getInputNode().value;
             if (val) return JSON.parse(val);
             // Convert to number
             else return "";
-         }
+         },
       };
       this.view = this.key;
 
@@ -82101,17 +82135,17 @@ module.exports = class ABCustomTimePicker {
       var labels = {
          common: App.labels,
 
-         component: {}
+         component: {},
       };
 
       // internal list of Webix IDs to reference our UI components.
       var ids = {
-         component: App.unique(this.key)
+         component: App.unique(this.key),
       };
 
       // Our webix UI definition:
       var _ui = {
-         name: App.unique("custom_timepicker") // keep this unique for this App instance.
+         name: App.unique("custom_timepicker"), // keep this unique for this App instance.
       };
       this.view = this.key;
 
@@ -82126,13 +82160,13 @@ module.exports = class ABCustomTimePicker {
             view: "calendar",
             width: 220,
             height: 200,
-            type: "time"
-         }
+            type: "time",
+         },
       };
 
       webix.editors.time = webix.extend(
          {
-            popupType: "time"
+            popupType: "time",
          },
          webix.editors.date
       );
@@ -82277,12 +82311,12 @@ module.exports = class ABCustomEditList {
       var labels = {
          common: App.labels,
 
-         component: {}
+         component: {},
       };
 
       // internal list of Webix IDs to reference our UI components.
       var ids = {
-         component: App.unique(this.key)
+         component: App.unique(this.key),
       };
 
       // Our webix UI definition:
@@ -82294,28 +82328,28 @@ module.exports = class ABCustomEditList {
             body: {
                borderless: true,
                select: true,
-               template: function(obj, common) {
+               template: function (obj, common) {
                   return (
                      "<span>" +
                      (obj.$count ? "<b>" + obj.value + "</b>" : obj.value) +
                      "</span>"
                   );
                },
-               ready: function() {
+               ready: function () {
                   this.openAll();
                },
                on: {
-                  onAfterSelect: function(id, e) {
+                  onAfterSelect: function (id, e) {
                      if (this.getItem(id).$count) {
                         this.getParentView().setMasterValue("");
                         this.show(
                            $$(this.getParentView().config.master).getInputNode()
                         );
                      }
-                  }
-               }
-            }
-         }
+                  },
+               },
+            },
+         },
       };
       this.view = this.key;
 
@@ -82332,4 +82366,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.a8fbeed6585ab62adccf.js.map
+//# sourceMappingURL=AB.691726e38722b5e6dc88.js.map
