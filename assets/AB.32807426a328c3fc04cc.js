@@ -60683,7 +60683,9 @@ module.exports = class ABViewDetailCustomComponent extends (
       });
       // Hack: remove the extra webix_template class here, which adds padding so
       // the item is not alligned with the others
-      node.getElementsByClassName("webix_template")[1].removeAttribute("class");
+      node
+         .getElementsByClassName("webix_template")[1]
+         ?.removeAttribute("class");
    }
 
    setValue(val) {
@@ -82366,4 +82368,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.691726e38722b5e6dc88.js.map
+//# sourceMappingURL=AB.32807426a328c3fc04cc.js.map
