@@ -46082,15 +46082,19 @@ module.exports = class ABFieldUser extends ABFieldUserCore {
 
    pullRelationValues(row) {
       let values = super.pullRelationValues(row);
-      // remember, our .id == .username
 
+      // remember, our .id == .username
       if (Array.isArray(values)) {
+         // prevent any null or undefined:
+         values = values.filter((v) => v);
          values = values.map((v) => {
             v.id = v.username || v.id;
             return v;
          });
       } else {
-         values.id = values.username || values.id;
+         if (values) {
+            values.id = values.username || values.id;
+         }
       }
 
       return values;
@@ -80685,6 +80689,10 @@ class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["defau
       console.warn(JSON.stringify(HashSocketJobs, null, 4));
    }
 
+   socketLogClear() {
+      HashSocketJobs = {};
+   }
+
    ////
    //// Network Utilities
    ////
@@ -82368,4 +82376,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.32807426a328c3fc04cc.js.map
+//# sourceMappingURL=AB.94ee835f44a152ef6dbe.js.map
