@@ -6241,6 +6241,14 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
                      align: "center",
                   },
                   {
+                     id: "portal_work_switcheroo_user_switched_loading",
+                     view: "label",
+                     hidden: true,
+                     align: "center",
+                     width: 30,
+                     label: '<i class="fa fa-refresh fa-spin" aria-hidden="true"></i>',
+                  },
+                  {
                      view: "button",
                      value: '<div style="text-align: center; font-size: 12px; color:#FFFFFF"><i class="fa-fw fa fa-times"></i></div>',
                      align: "center",
@@ -6250,8 +6258,10 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
                         onAfterRender: function () {
                            _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"].CYPRESS_REF(this, "switcheroo_clear_button");
                         },
-                        onItemClick: () => {
-                           _portal_work_user_switcheroo_js__WEBPACK_IMPORTED_MODULE_1__["default"].switcherooClear();
+                        onItemClick: async () => {
+                           this.busy();
+                           await _portal_work_user_switcheroo_js__WEBPACK_IMPORTED_MODULE_1__["default"].switcherooClear();
+                           this.ready();
                            $$("portal_work_switcheroo_user_switched").hide();
                         },
                      },
@@ -7299,6 +7309,14 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
             },
          },
       });
+   }
+
+   busy() {
+      $$("portal_work_switcheroo_user_switched_loading")?.show();
+   }
+
+   ready() {
+      $$("portal_work_switcheroo_user_switched_loading")?.hide();
    }
 }
 
@@ -9754,7 +9772,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.5.11";
+   version = "1.5.12";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10305,4 +10323,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.057499b00a4125242970.js.map
+//# sourceMappingURL=app.49b7df4748643e41f727.js.map
