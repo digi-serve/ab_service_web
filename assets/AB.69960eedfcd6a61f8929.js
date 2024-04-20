@@ -7845,7 +7845,13 @@ module.exports = class ABModelCore {
             );
          }
          allKeys.forEach((key) => {
-            var resolve = responseHash[key].resolve;
+            let entry = responseHash[key];
+            let resolve;
+            if (Array.isArray(entry)) {
+               resolve = entry[0].resolve;
+            } else {
+               resolve = entry.resolve;
+            }
             resolve({ data: [] });
             delete responseHash[key];
          });
@@ -82376,4 +82382,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.94ee835f44a152ef6dbe.js.map
+//# sourceMappingURL=AB.69960eedfcd6a61f8929.js.map
