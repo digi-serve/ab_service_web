@@ -44031,7 +44031,9 @@ module.exports = class ABFieldJson extends ABFieldJsonCore {
 
    setValue(item, rowData) {
       super.setValue(item, rowData, "");
-      item.config.value = rowData[this.columnName];
+      if (item) {
+         item.config.value = rowData[this.columnName];
+      }
    }
 
    /**
@@ -80625,7 +80627,7 @@ function socketDataSave(key, length) {
    HashSocketJobs[key].packets++;
    HashSocketJobs[key].length += length;
 }
-function socketDataLog(key, data) {
+function socketDataLog(AB, key, data) {
    let length = "??";
    try {
       length = JSON.stringify(data).length;
@@ -80634,7 +80636,13 @@ function socketDataLog(key, data) {
       //
    }
 
-   console.warn(`socket: ${key} (${length})`, data);
+   if (data.objectId) {
+      let obj = AB.objectByID(data.objectId);
+      console.warn(`socket: ${key} ${obj.label ?? obj.name}(${length})`, data);
+   } else {
+      console.warn(`socket: ${key} (${length})`, data);
+   }
+
    if (data.jobID) {
       socketDataSave(data.jobID, length);
       socketDataSave(`${data.jobID}-${key}`, length);
@@ -80658,7 +80666,7 @@ class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["defau
       // Pass the io.socket.on(*) events to our AB factory.
       listSocketEvents.forEach((ev) => {
          io.socket.on(ev, (data) => {
-            socketDataLog(ev, data);
+            socketDataLog(this.AB, ev, data);
 
             // check if the ev contains 'datacollection'
             // and do a single normalizeData() on the incoming data here
@@ -82381,4 +82389,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.baabe3508b6b22019955.js.map
+//# sourceMappingURL=AB.6a4dc3aee0a09623037c.js.map
