@@ -1194,7 +1194,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
          console.error(message);
       }
 
-      if (rest && rest.length > 0) {
+      if (rest.length > 0) {
          rest.forEach((r) => {
             if (r instanceof Error) {
                emitData.error = r;
@@ -36590,7 +36590,7 @@ module.exports = class ABObjectApi extends ABObjectApiCore {
 
          pendingModelCreate.push(model.create(data));
 
-         if (pendingModelCreate % insertDataMax === 0)
+         if (pendingModelCreate.length % insertDataMax === 0)
             await Promise.all(pendingModelCreate);
       }
 
@@ -41784,7 +41784,7 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
                // were reporting not seeing the correct options list with either
                // new, updated or deleted records that should or should not appear
                return false;
-               // // Get Local Storage unless xxx->one connected field
+               // Get Local Storage unless xxx->one connected field
                // if (this?.settings?.linkViaType != "one") {
                //    // We store the .findAll() results locally and return that for a
                //    // quick response:
@@ -60673,7 +60673,7 @@ module.exports = class ABViewDetailCustomComponent extends (
    }
 
    onShow() {
-      super.onShow;
+      super.onShow();
 
       const baseView = this.view;
       const field = baseView.field();
@@ -61226,7 +61226,7 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
    }
 
    async onShow() {
-      super.onShow;
+      super.onShow();
 
       const tasks = [];
 
@@ -63678,7 +63678,7 @@ module.exports = class ABViewFormDatepickerComponent extends (
          _ui.value = new Date(_ui.value);
 
       // if we have webix locale set, will use the date format form there.
-      if (field !== null && !window.webixLocale) _ui.format = field.getFormat();
+      if (!window.webixLocale) _ui.format = field.getFormat();
 
       return super.ui(_ui);
    }
@@ -65406,9 +65406,11 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
                   this.onAfterSelect(data, preserve);
                }
             },
-            onBeforeEditStart: function (id) {
-               if (!this.getItem(id) == "appbuilder_select_item") return false;
-            },
+            // onBeforeEditStart: function (/*id*/) {
+            //    // Not sure what this is suposed to check, but this condition
+            //    // will always be false.
+            //    if (!this.getItem(id) == "appbuilder_select_item") return false;
+            // },
             onCheck: function (row, col, val) {
                // Update checkbox data
                if (col == "appbuilder_select_item") {
@@ -67127,16 +67129,13 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
       // find our last displayed column (that isn't one we added);
       let lastCol = null;
 
-      for (let i = columnHeaders.length - 1; i >= 0; i--)
-         if (!lastCol) {
-            const col = columnHeaders[i];
-
-            if (!col.hidden && addedColumns.indexOf(col.id) === -1) {
-               lastCol = col;
-
-               break;
-            }
+      for (let i = columnHeaders.length - 1; i >= 0; i--) {
+         const col = columnHeaders[i];
+         if (!col.hidden && addedColumns.indexOf(col.id) === -1) {
+            lastCol = col;
+            break;
          }
+      }
 
       if (lastCol) {
          lastCol.fillspace = true;
@@ -82382,4 +82381,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.69960eedfcd6a61f8929.js.map
+//# sourceMappingURL=AB.baabe3508b6b22019955.js.map
