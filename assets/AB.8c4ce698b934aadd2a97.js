@@ -59757,12 +59757,11 @@ class ABViewDataFilterComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODUL
    }
 
    ui() {
-      if (this.settings.viewType == "advanced") {
-         if (!this?.settings?.dataviewID) return { height: 1 };
-      } else {
-         if (!this?.settings?.dataviewID || !this?.settings?.field)
-            return { height: 1 };
-      }
+      if (
+         !this.settings?.dataviewID ||
+         (this.settings?.viewType !== "advanced" && !this.settings?.field)
+      )
+         return { height: 1, id: this.ids.component };
 
       const ui =
          this.settings.viewType == "advanced"
@@ -60373,6 +60372,7 @@ module.exports = class ABViewDetailComponent extends ABViewContainerComponent {
       // details functions to work when clicked
       return {
          type: "form",
+         id: this.ids.component,
          borderless: true,
          rows: [
             {
@@ -82389,4 +82389,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.6a4dc3aee0a09623037c.js.map
+//# sourceMappingURL=AB.8c4ce698b934aadd2a97.js.map
