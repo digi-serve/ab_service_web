@@ -1241,6 +1241,10 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
       });
    }
 
+   isNil(value) {
+      return lodash__WEBPACK_IMPORTED_MODULE_0___default().isNil(value);
+   }
+
    /**
     * @method rules.isUUID
     * evaluate a given value to see if it matches the format of a uuid
@@ -42200,19 +42204,24 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
    }
 
    getValue(item) {
+      let val = item.getValue();
       var multiselect = this.settings.linkType == "many";
       if (multiselect) {
          let vals = [];
-         if (item.getValue()) {
-            let val = item.getValue().split(",");
+         if (val) {
+            val = val.split(",");
             val.forEach((record) => {
-               vals.push(item.getList().getItem(record));
+               // make sure we are returning the .uuid values and
+               // not full {Record} values.
+               vals.push(this.getRelationValue(item.getList().getItem(record)));
             });
          }
+
          return vals;
       } else {
-         if (item.getValue()) {
-            return item.getList().getItem(item.getValue());
+         if (val) {
+            // return just the .uuid and not the full {Record}
+            return this.getRelationValue(item.getList().getItem(val));
          } else {
             return "";
          }
@@ -60401,7 +60410,7 @@ module.exports = class ABViewDetailComponent extends ABViewContainerComponent {
 
          if (currData) this.displayData(currData);
 
-         ["changeCursor", "cursorStale"].forEach((key) => {
+         ["changeCursor", "cursorStale", "collectionEmpty"].forEach((key) => {
             this.eventAdd({
                emitter: dv,
                eventName: key,
@@ -71412,8 +71421,8 @@ module.exports = class ABViewTabComponent extends ABViewComponent {
             vc.component.onShow();
 
          if (settings.stackTabs && vc?.view?.id === viewId) {
-            $$(viewId).show(false, false);
-            $sidebar.select(`${viewId}_menu`);
+            $$(viewId)?.show(false, false);
+            $sidebar?.select(`${viewId}_menu`);
          }
       });
    }
@@ -82389,4 +82398,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.8c4ce698b934aadd2a97.js.map
+//# sourceMappingURL=AB.4208d9ff9c66f882e81b.js.map
