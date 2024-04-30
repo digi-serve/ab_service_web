@@ -65460,7 +65460,18 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
                }
             },
             onBeforeEditStop: function (state, editor) {
-               // console.warn("!! ToDo: onBeforeEditStop()");
+               // Check if data loading is complete
+               let newValue = state.value;
+               if (!Array.isArray(newValue)) newValue = [newValue];
+               if (
+                  // If options does not load completely, then Webix returns state.value as ['', '', '']
+                  newValue.filter((val) => val != null && val != "").length <
+                     1 &&
+                  // Check if no data load to the option
+                  editor.getPopup?.().getList?.().data?.find({}).length < 1
+               ) {
+                  return false;
+               }
             },
             onAfterEditStop: (state, editor, ignoreUpdate) => {
                if (this.validationError == false)
@@ -82398,4 +82409,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.4208d9ff9c66f882e81b.js.map
+//# sourceMappingURL=AB.337a20c97559efadf563.js.map
