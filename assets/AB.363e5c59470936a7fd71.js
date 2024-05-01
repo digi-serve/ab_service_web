@@ -3276,6 +3276,10 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                // if (rowId) {
                this.__dataCollection.setCursor(rowId || null);
 
+               if (this.__dataCollection.data.count() == 0) {
+                  this.emit("collectionEmpty", {});
+               }
+
                this.setCursorTree(rowId);
                // }
             }
@@ -9288,7 +9292,7 @@ module.exports = class ABObjectCore extends ABMLClass {
     * @return {string}
     */
    urlRestCount() {
-      return `/app_builder/model/count/${this.id}`;
+      return `/app_builder/model/${this.id}/count`;
    }
 
    ///
@@ -82409,4 +82413,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.337a20c97559efadf563.js.map
+//# sourceMappingURL=AB.363e5c59470936a7fd71.js.map
