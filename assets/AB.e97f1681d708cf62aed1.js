@@ -3298,7 +3298,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
 
          // If no data but the parent DC set cursor, then this should be reload data.
          const dcFollow = this.datacollectionFollow;
-         if (!rowId && dcFollow.getCursor()) {
+         if (!rowId && dcFollow?.getCursor()) {
             this.loadData();
          }
       }
@@ -5626,6 +5626,21 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
 
    get previousCursorId() {
       return this.__previousCursorId;
+   }
+
+   waitReady() {
+      // if (this.dataStatus == this.dataStatusFlag.initialized) {
+      //    return Promise.resolve();
+      // }
+      // console.log(`DC[${this.label}] waiting for initializedData.`);
+      // return new Promise((resolve /*, reject */) => {
+      //    this.once("initializedData", ()=>{
+      //       resolve();
+      //    })
+
+      // })
+
+      return this.waitForDataCollectionToInitialize(this);
    }
 };
 
@@ -82416,4 +82431,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.41416cf6e23dca877673.js.map
+//# sourceMappingURL=AB.e97f1681d708cf62aed1.js.map
