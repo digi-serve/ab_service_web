@@ -65465,9 +65465,12 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
             },
             onBeforeEditStop: function (state, editor) {
                // Check if data loading is complete
+               const oldValue = state.old;
                let newValue = state.value;
                if (!Array.isArray(newValue)) newValue = [newValue];
                if (
+                  oldValue != null &&
+                  oldValue != "" &&
                   // If options does not load completely, then Webix returns state.value as ['', '', '']
                   newValue.filter((val) => val != null && val != "").length <
                      1 &&
@@ -66534,7 +66537,7 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
          }
 
       if (state.value !== state.old) {
-         const item = $DataTable.getItem(editor.row);
+         const item = $DataTable?.getItem(editor.row);
 
          item[editor.column] = state.value;
 
@@ -82413,4 +82416,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.363e5c59470936a7fd71.js.map
+//# sourceMappingURL=AB.41416cf6e23dca877673.js.map
