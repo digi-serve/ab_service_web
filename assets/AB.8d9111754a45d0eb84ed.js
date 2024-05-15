@@ -322,11 +322,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ 36105);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! nanoid */ 31222);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! uuid */ 98170);
-/* harmony import */ var _utils_performance__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../utils/performance */ 18320);
+/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! nanoid */ 31222);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! uuid */ 98170);
+/* harmony import */ var _utils_performance__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../utils/performance */ 18320);
 /* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./platform/FilterComplex */ 67483);
 /* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _platform_views_ABViewGridPopupSortFields__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./platform/views/ABViewGridPopupSortFields */ 83595);
 /* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config/Config.js */ 97146);
 /* harmony import */ var _resources_Account_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../resources/Account.js */ 7018);
 /* harmony import */ var _ui_ClassUI_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../ui/ClassUI.js */ 32019);
@@ -337,7 +338,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./core/ABViewManagerCore */ 60979);
 /* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../resources/Tenant.js */ 95324);
-/* harmony import */ var _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./uiSettings/config.js */ 96253);
+/* harmony import */ var _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./uiSettings/config.js */ 96253);
+
 
 
 
@@ -451,6 +453,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
       // additional Class definitions
       this.Class.FilterComplex = (_platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11___default());
       this.Class.ABViewManager = (_core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12___default());
+      this.Class.SortPopup = _platform_views_ABViewGridPopupSortFields__WEBPACK_IMPORTED_MODULE_13__["default"];
 
       // Temp placeholders until Resources are implemented:
       this.Analytics = {
@@ -468,7 +471,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
          }
       };
 
-      this.UISettings = _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_13__["default"];
+      this.UISettings = _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_14__["default"];
 
       this.Validation = {
          validator: () => {
@@ -1161,7 +1164,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
     * @param {json} info Additional related information concerning the issue.
     */
    notify(domain, error, info) {
-      _utils_performance__WEBPACK_IMPORTED_MODULE_14__["default"].notify(domain, error, info);
+      _utils_performance__WEBPACK_IMPORTED_MODULE_15__["default"].notify(domain, error, info);
    }
 
    plugins() {
@@ -1214,7 +1217,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
    }
 
    jobID() {
-      return (0,nanoid__WEBPACK_IMPORTED_MODULE_15__.nanoid)();
+      return (0,nanoid__WEBPACK_IMPORTED_MODULE_16__.nanoid)();
    }
 
    Label() {
@@ -1292,7 +1295,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
    }
 
    uuid() {
-      return (0,uuid__WEBPACK_IMPORTED_MODULE_16__["default"])();
+      return (0,uuid__WEBPACK_IMPORTED_MODULE_17__["default"])();
    }
 
    warn(message, ...rest) {
@@ -42232,7 +42235,11 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
             val.forEach((record) => {
                // make sure we are returning the .uuid values and
                // not full {Record} values.
-               vals.push(this.getRelationValue(item.getList().getItem(record)));
+               vals.push(
+                  this.getRelationValue(item.getList().getItem(record), {
+                     forUpdate: true,
+                  })
+               );
             });
          }
 
@@ -54256,7 +54263,6 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
       return {
          view: "form",
          id: this.ids.form,
-         // autoheight: true,
          borderless: true,
          elements: [
             {
@@ -54288,6 +54294,11 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
          // autoheight:true,
          width: 600,
          body: this.uiForm(),
+         on: {
+            onShow: () => {
+               this.onShow();
+            },
+         },
       };
    }
 
@@ -54297,8 +54308,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
          this.AB = AB;
       }
 
-      // if popup does not already exist add it
-      if (!$$(this.ids.component)) webix.ui(this.ui());
+      (this.AB.Webix ?? webix).ui(this.ui());
    }
 
    /**
@@ -54319,7 +54329,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
       var listFields = this.getFieldList(true);
       sort_form.addView(
          {
-            id: "sort" + webix.uid(),
+            id: `sort_${viewIndex + 1}`,
             cols: [
                {
                   view: "combo",
@@ -54332,22 +54342,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
                      },
                   },
                },
-               {
-                  view: "segmented",
-                  width: 200,
-                  options: [
-                     {
-                        id: "",
-                        value: L("Please select field"),
-                     },
-                  ],
-                  on: {
-                     onChange: (/* newv, oldv */) => {
-                        // 'asc' or 'desc' values
-                        this.triggerOnChange();
-                     },
-                  },
-               },
+               this._valueElement(),
                {
                   view: "button",
                   css: "webix_danger",
@@ -54376,10 +54371,16 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
       }
       // select direction
       if (dir) {
-         var segmentButton = sort_form
-            .getChildViews()
-            [viewIndex].getChildViews()[1];
-         segmentButton.setValue(dir);
+         var dirElem = sort_form.getChildViews()[viewIndex].getChildViews()[1];
+         dirElem.setValue?.(dir);
+
+         // [ABFieldList] Sorting following order
+         dirElem.sort?.((a, b) => {
+            return (dir ?? "").indexOf(a.id ?? a) >
+               (dir ?? "").indexOf(b.id ?? b)
+               ? 1
+               : -1;
+         });
       }
    }
 
@@ -54397,7 +54398,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
          listFields = [];
 
       var allFields = this.CurrentObject.fields();
-      if (allFields.length == 0) return listFields;
+      if (!allFields || !allFields.length) return listFields;
 
       // Get all fields include hidden fields
       allFields.forEach((f) => {
@@ -54474,7 +54475,11 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
             if (childViews.length - 1 <= index) return false;
 
             var fieldId = cView.getChildViews()[0].getValue();
-            var dir = cView.getChildViews()[1].getValue();
+            const dirElem = cView.getChildViews()[1];
+            var dir =
+               dirElem?.getValue?.() ??
+               dirElem?.data?.getRange?.()?.map((opt) => opt.id) ?? // Select list field type
+               "";
             sortFields.push({
                key: fieldId,
                dir: dir,
@@ -54527,8 +54532,13 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
             break;
       }
 
-      sortDir.define("options", options);
-      sortDir.refresh();
+      if (chosenField.key == "list") {
+         AB.Webix.ui(this._valueListElement(chosenField), sortDir);
+      } else {
+         const valElem = this._valueElement();
+         valElem.options = options;
+         AB.Webix.ui(valElem, sortDir);
+      }
 
       // if (columnConfig.settings.supportMultilingual)
       //    isMulti = columnConfig.settings.supportMultilingual;
@@ -54559,7 +54569,11 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
       if (sorts == null || sorts.length == 0) {
          this.clickAddNewSort();
       }
-      $$(this.ids.component).show(view, options);
+
+      const $popup = $$(this.ids.component);
+      $popup?.blockEvent();
+      $popup?.show(view, options);
+      $popup?.unblockEvent();
    }
 
    /**
@@ -54580,13 +54594,15 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
          childViews.forEach(function (cView, index) {
             if (childViews.length - 1 <= index) return false;
 
-            var fieldId = cView.getChildViews()[0].getValue(),
+            let fieldId = cView.getChildViews()[0].getValue(),
                // fieldObj = $.grep(listFields, function (f) { return f.id == fieldId });
-               fieldObj = listFields.find((f) => f.id == fieldId);
+               fieldObj = listFields.filter((f) => {
+                  return f.id == fieldId;
+               });
 
-            if (fieldObj) {
+            if (fieldObj.length > 0) {
                // Add selected field to list
-               selectedFields.push(fieldObj);
+               selectedFields.push(fieldObj[0]);
             } else {
                // Add condition to remove
                removeChildViews.push(cView);
@@ -54596,7 +54612,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
 
       // Remove filter conditions when column is deleted
       if (!ignoreRemoveViews) {
-         removeChildViews.forEach(function (cView) {
+         removeChildViews.forEach((cView /*, index */) => {
             sort_form.removeView(cView);
          });
       }
@@ -54605,19 +54621,17 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
       childViews = sort_form.getChildViews();
       if (childViews.length > 1) {
          // Ignore 'Add new sort' button
-         childViews.forEach(function (cView, index) {
+         childViews.forEach((cView, index) => {
             if (childViews.length - 1 <= index) return false;
 
-            var fieldId = cView.getChildViews()[0].getValue(),
+            let fieldId = cView.getChildViews()[0].getValue(),
                // fieldObj = $.grep(listFields, function (f) { return f.id == fieldId }),
-               fieldObj = listFields.filter(function (f) {
+               fieldObj = listFields.filter((f) => {
                   return f.id == fieldId;
                });
 
             // var selectedFieldsExcludeCurField = $(selectedFields).not(fieldObj);
-            var selectedFieldsExcludeCurField = selectedFields.filter(function (
-               x
-            ) {
+            var selectedFieldsExcludeCurField = selectedFields.filter((x) => {
                if (Array.isArray(fieldObj) && fieldObj.indexOf(x) !== -1) {
                   return false;
                }
@@ -54625,7 +54639,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
             });
 
             // var enableFields = $(listFields).not(selectedFieldsExcludeCurField).get();
-            var enableFields = listFields.filter(function (x) {
+            var enableFields = listFields.filter((x) => {
                if (
                   Array.isArray(selectedFieldsExcludeCurField) &&
                   selectedFieldsExcludeCurField.indexOf(x) !== -1
@@ -54702,7 +54716,11 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
             if (childViews.length - 1 <= index || result != 0) return;
 
             const fieldId = cView.getChildViews()[0].getValue();
-            const dir = cView.getChildViews()[1].getValue();
+            const dirElem = cView.getChildViews()[1];
+            const dir =
+               dirElem?.getValue?.() ??
+               dirElem?.data?.getRange?.()?.map((opt) => opt.id) ?? // Select list field type
+               "";
 
             const field = this.CurrentObject.fieldByID(fieldId);
             if (!field) return;
@@ -54712,11 +54730,14 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
             let aValue = a[by],
                bValue = b[by];
 
+            if (field.key == "list") {
+               aValue = dir.indexOf(aValue);
+               bValue = dir.indexOf(bValue);
+            }
+
             if (Array.isArray(aValue)) {
                aValue = (aValue || [])
-                  .map(function (item) {
-                     return item.text || item;
-                  })
+                  .map((item) => item.text || item)
                   .join(" ");
             }
 
@@ -54727,7 +54748,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
             }
 
             if (aValue != bValue) {
-               if (dir == "asc") {
+               if (dir == "asc" || field.key == "list") {
                   result = aValue > bValue ? 1 : -1;
                } else {
                   result = aValue < bValue ? 1 : -1;
@@ -54737,6 +54758,47 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
       }
 
       return result;
+   }
+
+   _valueElement() {
+      return {
+         view: "segmented",
+         width: 200,
+         options: [
+            {
+               id: "",
+               value: L("Please select field"),
+            },
+         ],
+         on: {
+            onChange: (/* newv, oldv */) => {
+               // 'asc' or 'desc' values
+               this.triggerOnChange();
+            },
+         },
+      };
+   }
+
+   _valueListElement(field) {
+      return {
+         view: "list",
+         template: "<div class='webix_drag_handle'></div> #text#",
+         type: {
+            height: 35,
+         },
+         height: 150,
+         select: true,
+         drag: "order",
+         data: field.options(),
+         on: {
+            onChange: () => {
+               this.triggerOnChange();
+            },
+            onAfterDrop: () => {
+               this.triggerOnChange();
+            },
+         },
+      };
    }
 }
 
@@ -82431,4 +82493,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.e97f1681d708cf62aed1.js.map
+//# sourceMappingURL=AB.8d9111754a45d0eb84ed.js.map
