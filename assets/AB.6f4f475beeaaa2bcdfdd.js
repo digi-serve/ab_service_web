@@ -54253,7 +54253,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
 
       if (!L) {
          L = (...params) => {
-            return this.AB.Multilingual.label(...params);
+            return (this.AB ?? AB).Multilingual.label(...params);
          };
       }
    }
@@ -82493,4 +82493,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.8d9111754a45d0eb84ed.js.map
+//# sourceMappingURL=AB.6f4f475beeaaa2bcdfdd.js.map
