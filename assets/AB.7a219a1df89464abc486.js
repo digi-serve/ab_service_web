@@ -54239,6 +54239,8 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
          form: `${idBase}_popupSort_form`,
       });
 
+      this.AB = AB;
+
       this.CurrentObject = null;
       // {ABObject}
       // The current ABObject we are working with.
@@ -54253,7 +54255,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
 
       if (!L) {
          L = (...params) => {
-            return (this.AB ?? AB).Multilingual.label(...params);
+            return this.AB.Multilingual.label(...params);
          };
       }
    }
@@ -82493,4 +82495,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.6f4f475beeaaa2bcdfdd.js.map
+//# sourceMappingURL=AB.7a219a1df89464abc486.js.map
