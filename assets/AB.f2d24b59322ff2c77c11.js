@@ -38049,7 +38049,7 @@ module.exports = class FilterComplex extends FilterComplexCore {
       let isComplete = true;
       // start optimistically.
 
-      if (cond.glue) {
+      if (cond?.glue) {
          (cond.rules ?? []).forEach((r) => {
             isComplete = isComplete && this.isConditionComplete(r);
          });
@@ -54239,8 +54239,6 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
          form: `${idBase}_popupSort_form`,
       });
 
-      this.AB = AB;
-
       this.CurrentObject = null;
       // {ABObject}
       // The current ABObject we are working with.
@@ -54255,7 +54253,7 @@ class AB_Work_Object_Workspace_PopupSortFields extends _ui_ClassUI__WEBPACK_IMPO
 
       if (!L) {
          L = (...params) => {
-            return this.AB.Multilingual.label(...params);
+            return (this.AB ?? AB).Multilingual.label(...params);
          };
       }
    }
@@ -75420,7 +75418,7 @@ module.exports = class ABViewRuleActionFormRecordRuleUpdateConnected extends (
 
          // FIX: make sure qbCond root element has a 'glue'
          if (qbCond) {
-            qbCond.glue = qbCond.glue || "and";
+            qbCond.glue = qbCond?.glue || "and";
          }
       }
       settings.qbCondition = qbCond;
@@ -82495,4 +82493,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.7a219a1df89464abc486.js.map
+//# sourceMappingURL=AB.f2d24b59322ff2c77c11.js.map
