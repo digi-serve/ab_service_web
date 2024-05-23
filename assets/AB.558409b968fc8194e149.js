@@ -11571,6 +11571,8 @@ module.exports = class FilterComplexCore extends ABComponent {
                condResult = this.textValid(value, filter.rule, filter.value);
                break;
             case "date":
+               condResult = this.dateValid(value, filter.rule, filter.value);
+               break;
             case "datetime":
                condResult = this.dateValid(value, filter.rule, filter.value);
                break;
@@ -11679,7 +11681,6 @@ module.exports = class FilterComplexCore extends ABComponent {
 
       if (!(compareValue instanceof Date))
          compareValue = new Date(compareValue);
-
       switch (rule) {
          case "less":
             result = value < compareValue;
@@ -11693,11 +11694,13 @@ module.exports = class FilterComplexCore extends ABComponent {
          case "greater_or_equal":
             result = value >= compareValue;
             break;
+         case "is_current_date":
+            result = value == compareValue;
+            break;
          default:
             result = this.queryFieldValid(value, rule, compareValue);
             break;
       }
-
       return result;
    }
 
@@ -12317,6 +12320,7 @@ module.exports = class FilterComplexCore extends ABComponent {
          greater: this.labels.component.afterCondition,
          less_or_equal: this.labels.component.onOrBeforeCondition,
          greater_or_equal: this.labels.component.onOrAfterCondition,
+         is_current_date: this.labels.component.isCurrentDateCondition,
          less_current: this.labels.component.beforeCurrentCondition,
          greater_current: this.labels.component.afterCurrentCondition,
          less_or_equal_current:
@@ -12330,14 +12334,22 @@ module.exports = class FilterComplexCore extends ABComponent {
       let result = [];
 
       for (let condKey in dateConditions) {
-         result.push({
-            id: condKey,
-            value: dateConditions[condKey],
-            batch: "datepicker",
-            handler: (a, b) => this.dateValid(a, condKey, b),
-         });
+         if (condKey == "is_current_date") {
+            result.push({
+               id: condKey,
+               value: dateConditions[condKey],
+               batch: "none",
+               handler: (a, b) => this.dateValid(a, condKey, b),
+            });
+         } else {
+            result.push({
+               id: condKey,
+               value: dateConditions[condKey],
+               batch: "datepicker",
+               handler: (a, b) => this.dateValid(a, condKey, b),
+            });
+         }
       }
-
       return result;
    }
 
@@ -12724,6 +12736,7 @@ module.exports = class FilterComplexCore extends ABComponent {
          "is_not_empty",
          "checked",
          "unchecked",
+         "is_current_date",
       ];
 
       const isCompleteRules = (rules = []) => {
@@ -37823,15 +37836,40 @@ function _toExternal(cond, fields = []) {
             values.push(cond.condition.filter);
       }
 
-      cond.value = values
-         .map((v) => {
-            // Convert date format
-            if (field && (field.key == "date" || field.key == "datetime"))
-               return field.exportValue(new Date(v));
+      if (cond.rule === "is_current_date") {
+         let now = new Date();
+         let year = now.getFullYear();
+         let month = now.getMonth();
+         let date = now.getDate();
 
-            return v;
-         })
-         .join(",");
+         let startOfDay = new Date(year, month, date, 0, 0, 0);
+         let endOfDay = new Date(year, month, date, 23, 59, 59);
+
+         // Convert to UTC by subtracting the timezone offset
+         let startOfDayUTC = new Date(
+            startOfDay.getTime() + startOfDay.getTimezoneOffset() * 60000
+         );
+         let endOfDayUTC = new Date(
+            endOfDay.getTime() + endOfDay.getTimezoneOffset() * 60000
+         );
+         let formatDate = (date) => {
+            let isoString = date.toISOString();
+            return `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`;
+         };
+         cond.value = formatDate(startOfDayUTC).concat(
+            "|",
+            formatDate(endOfDayUTC)
+         );
+      } else {
+         cond.value = values
+            .map((v) => {
+               // Convert date format
+               if (field && (field.key === "date" || field.key === "datetime"))
+                  return field.exportValue(new Date(v));
+               return v;
+            })
+            .join(",");
+      }
 
       delete cond.field;
       delete cond.type;
@@ -37894,7 +37932,7 @@ module.exports = class FilterComplex extends FilterComplexCore {
             isNotCondition: L("is not"),
             isEmpty: L("is empty"),
             isNotEmpty: L("is not empty"),
-
+            isCurrentDateCondition: L("is current date"),
             beforeCondition: L("is before"),
             afterCondition: L("is after"),
             onOrBeforeCondition: L("is on or before"),
@@ -38079,6 +38117,7 @@ module.exports = class FilterComplex extends FilterComplexCore {
                case "is_not_empty":
                case "checked":
                case "unchecked":
+               case "is_current_date":
                   // There are only a few rules that don't need a
                   // value
                   break;
@@ -38263,7 +38302,9 @@ module.exports = class FilterComplex extends FilterComplexCore {
             break;
          case "date":
          case "datetime":
-            result = ["datepicker", "daterangepicker"];
+            result = ["datepicker", "daterangepicker"]
+               .concat(this.uiNoneValue())
+               .concat(this.uiContextValue(field));
             break;
          case "list":
             result = this.uiListValue(field);
@@ -38917,6 +38958,10 @@ module.exports = class RowFilter extends RowFilterCore {
                               value: L("next ... days"),
                               id: "next_days",
                            },
+                           {
+                              value: L("is current date"),
+                              id: "is_current_date",
+                           },
                         ]
                            .concat(instance.queryFieldOptions)
                            .concat(instance.recordRuleOptions),
@@ -39531,6 +39576,7 @@ module.exports = class RowFilter extends RowFilterCore {
             case "greater_or_equal_current":
             case "is_empty":
             case "is_not_empty":
+            case "is_current_date":
                // clear and disable the value field
                $viewCond.$$(ids.inputValue).showBatch("empty");
                _logic.onChange();
@@ -82493,4 +82539,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.f2d24b59322ff2c77c11.js.map
+//# sourceMappingURL=AB.558409b968fc8194e149.js.map
