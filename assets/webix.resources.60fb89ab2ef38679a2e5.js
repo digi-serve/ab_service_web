@@ -222,7 +222,7 @@ Usage without proper license is prohibited.
 /*Thai (Thailand) locale
  * modified to use Budhist Era Years
  */
-
+ 
 webix.i18n.locales["th-TH"] = {
    groupDelimiter: ",",
    groupSize: 3,
@@ -248,7 +248,8 @@ webix.i18n.locales["th-TH"] = {
       else if (typeof date == "string") return date;
 
       const format = webix.Date.dateToStr(
-         `%j %F ${date.getFullYear() + 543} %G:%i`
+         // `%j %F ${date.getFullYear() + 543} %G:%i`
+         `%d/%m/${date.getFullYear() + 543} %G:%i`
       );
       return format(date);
    },
@@ -371,4 +372,4 @@ Promise.resolve(/*! import() eager */).then(__webpack_require__.t.bind(__webpack
 /***/ })
 
 }]);
-//# sourceMappingURL=webix.resources.f1bbe17e0f952c5941ae.js.map
+//# sourceMappingURL=webix.resources.60fb89ab2ef38679a2e5.js.map

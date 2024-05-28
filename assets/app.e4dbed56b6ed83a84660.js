@@ -1869,7 +1869,7 @@ class ClassUIPage extends _ClassUI__WEBPACK_IMPORTED_MODULE_0__["default"] {
                // }
                this.pageComponents[showPageID].onShow();
                if (viewId) {
-                  $$(viewId).show();
+                  $$(viewId)?.show();
                }
             }
          }, 60);
@@ -9772,7 +9772,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.6.1+c20200";
+   version = "1.7.0";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10323,4 +10323,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.34a38929244f95ccef4f.js.map
+//# sourceMappingURL=app.e4dbed56b6ed83a84660.js.map

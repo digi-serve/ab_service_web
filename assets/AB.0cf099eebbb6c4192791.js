@@ -63763,6 +63763,12 @@ module.exports = class ABViewFormDatepickerComponent extends (
                   this.AB.Account?._config?.languageCode == "th"
                      ? "thaicalendar"
                      : "calendar",
+               type: field.settings?.dateFormat === 1 ? "time" : "",
+               timepicker:
+                  field.key === "datetime" && field.settings?.timeFormat !== 1
+                     ? true
+                     : false,
+               editable: true,
                on: {
                   onAfterDateSelect: function (date) {
                      this.getParentView().setMasterValue({
@@ -63841,7 +63847,10 @@ module.exports = class ABViewFormDatepickerComponent extends (
       }
       const date = this.AB.Webix.Date.strToDate(field.getFormat())(text);
 
-      if (this.AB.Account?._config?.languageCode == "th")
+      if (
+         this.AB.Account?._config?.languageCode == "th" &&
+         field.settings?.dateFormat !== 1
+      )
          date.setFullYear(date.getFullYear() - 543);
 
       return date;
@@ -82538,4 +82547,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.2fcd352d4b4407625db1.js.map
+//# sourceMappingURL=AB.0cf099eebbb6c4192791.js.map
