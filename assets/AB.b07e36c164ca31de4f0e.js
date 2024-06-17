@@ -78002,7 +78002,7 @@ module.exports = class ABViewRuleActionObjectUpdater extends ABViewRuleAction {
          var field = this.getUpdateObjectField(op.fieldID);
          if (!field) return;
 
-         var value = op.value;
+         let value = op?.value?.id ?? op?.value;
 
          switch (value) {
             case "ab-current-user":
@@ -82547,4 +82547,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.0cf099eebbb6c4192791.js.map
+//# sourceMappingURL=AB.b07e36c164ca31de4f0e.js.map
