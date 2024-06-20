@@ -61242,6 +61242,7 @@ const Docxtemplater = __webpack_require__(/*! ../../../../js/docxtemplater.v3.0.
 const ImageModule = __webpack_require__(/*! ../../../../js/docxtemplater-image-module.v3.0.2.min.js */ 11619);
 const JSZipUtils = __webpack_require__(/*! jszip-utils/dist/jszip-utils.min.js */ 63075);
 const JSZip = __webpack_require__(/*! ../../../../js/jszip.min.js */ 58296);
+const sizeOf = __webpack_require__(/*! image-size */ 91137);
 
 const ABFieldConnect = __webpack_require__(/*! ../../dataFields/ABFieldConnect */ 89981);
 const ABFieldImage = __webpack_require__(/*! ../../dataFields/ABFieldImage */ 15884);
@@ -61797,9 +61798,7 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
 
                      return false;
                   });
-
-                  return defaultVal;
-               } else return defaultVal;
+               }
             } else {
                let obj = dc.datasource;
 
@@ -61833,7 +61832,19 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
                   imageField.settings.imageHeight
                )
                   defaultVal[1] = imageField.settings.imageHeight;
+            }
+            // Find aspect ratio image dimensions
+            try {
+               var img = new Uint8Array(imgBuffer);
+               var image = sizeOf(img);
+               var ratio = Math.min(
+                  defaultVal[0] / image.width,
+                  defaultVal[1] / image.height
+               );
 
+               return [image.width * ratio, image.height * ratio];
+            } catch (err) {
+               // if invalid image, then should return 0, 0 sizes
                return defaultVal;
             }
          },
@@ -82573,7 +82584,37 @@ module.exports = class ABCustomEditList {
 };
 
 
+/***/ }),
+
+/***/ 47990:
+/*!********************!*\
+  !*** fs (ignored) ***!
+  \********************/
+/***/ (() => {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 38497:
+/*!********************!*\
+  !*** fs (ignored) ***!
+  \********************/
+/***/ (() => {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 77585:
+/*!**********************!*\
+  !*** path (ignored) ***!
+  \**********************/
+/***/ (() => {
+
+/* (ignored) */
+
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.7b1a89b8bbf0cdcf213d.js.map
+//# sourceMappingURL=AB.ac2d68fa9e20b82d8051.js.map
