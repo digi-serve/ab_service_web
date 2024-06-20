@@ -59142,9 +59142,17 @@ class ABViewComponent extends _ui_ClassUI__WEBPACK_IMPORTED_MODULE_0__["default"
 
       if (!dc) return;
 
-      if (dc.dataStatus === dc.dataStatusFlag.notInitial)
-         // load data when a widget is showing
-         dc.loadData();
+      if (Array.isArray(dc)) {
+         dc.forEach((item) => {
+            if (item.dataStatus === item.dataStatusFlag.notInitial)
+               // load data when a widget is showing
+               item.loadData();
+         });
+      } else {
+         if (dc.dataStatus === dc.dataStatusFlag.notInitial)
+            // load data when a widget is showing
+            dc.loadData();
+      }
    }
 }
 
@@ -61405,7 +61413,7 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
    async renderFile() {
       this.busy();
 
-      const reportValues = this.getReportData();
+      const reportValues = await this.getReportData();
 
       // console.log("DOCX data: ", reportValues);
 
@@ -61431,8 +61439,9 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
       this.ready();
    }
 
-   getReportData() {
+   async getReportData() {
       const result = {};
+      const tasks = [];
 
       // Get current cursor
       const datacollections = this.view.datacollections;
@@ -61441,120 +61450,140 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
       datacollections
          .filter((dc) => dc?.datasource)
          .forEach(async (dc) => {
-            const obj = dc.datasource;
-            const objModel = obj.model();
-            const dcCursor = dc.getCursor();
-            const dcValues = [];
-            // const dataList = [];
+            tasks.push(
+               new Promise((resolve, reject) => {
+                  const obj = dc.datasource;
+                  const objModel = obj.model();
+                  const dcCursor = dc.getCursor();
+                  const dcValues = [];
+                  // const dataList = [];
 
-            // merge cursor to support dc and tree cursor in the report
-            // if (dcCursor) {
-            //    const treeCursor = dc.getCursor(true);
+                  // merge cursor to support dc and tree cursor in the report
+                  // if (dcCursor) {
+                  //    const treeCursor = dc.getCursor(true);
 
-            //    dataList.push(this.AB.merge({}, dcCursor, treeCursor));
-            // } else {
-            //    dataList.push(...this.AB.cloneDeep(dc.getData()));
-            // }
+                  //    dataList.push(this.AB.merge({}, dcCursor, treeCursor));
+                  // } else {
+                  //    dataList.push(...this.AB.cloneDeep(dc.getData()));
+                  // }
 
-            let where = {};
-            if (dcCursor) {
-               where = {
-                  glue: "and",
-                  rules: [
-                     {
-                        key: obj.PK(),
-                        rule: "equals",
-                        value: dcCursor[obj.PK()],
-                     },
-                  ],
-               };
-            } else {
-               where = this.AB.merge(
-                  where,
-                  dc.settings?.objectWorkspace?.filterConditions ?? {}
-               );
-            }
-
-            // Pull data that have full relation values.
-            // NOTE: When get data from DataCollection, those data is pruned.
-            const dataList = (
-               await objModel.findAll({
-                  disableMinifyRelation: true,
-                  populate: true,
-                  skip: 0,
-                  where,
-               })
-            ).data;
-
-            // update property names to column labels to match format names in docx file
-            const mlFields = obj.multilingualFields();
-
-            dataList.forEach((data) => {
-               let resultData;
-
-               // For support label of columns every languages
-               obj.fields().forEach((f) => {
-                  const fieldLabels = [];
-
-                  // Query Objects
-                  if (obj instanceof ABObjectQuery) {
-                     if (typeof f.object.translations === "string")
-                        f.object.translations = JSON.parse(
-                           f.object.translations
-                        );
-
-                     if (typeof f.translations === "string")
-                        f.translations = JSON.parse(f.translations);
-
-                     (f.object.translations || []).forEach((objTran) => {
-                        const fieldTran = (f.translations || []).filter(
-                           (fieldTran) =>
-                              fieldTran.language_code === objTran.language_code
-                        )[0];
-
-                        if (!fieldTran) return;
-
-                        const objectLabel = objTran.label;
-                        const fieldLabel = fieldTran.label;
-
-                        // Replace alias with label of object
-                        fieldLabels.push(`${objectLabel}.${fieldLabel}`);
-                     });
+                  let where = {};
+                  if (dcCursor) {
+                     where = {
+                        glue: "and",
+                        rules: [
+                           {
+                              key: obj.PK(),
+                              rule: "equals",
+                              value: dcCursor[obj.PK()],
+                           },
+                        ],
+                     };
+                  } else {
+                     where = this.AB.merge(
+                        where,
+                        dc.settings?.objectWorkspace?.filterConditions ?? {}
+                     );
                   }
-                  // Normal Objects
-                  else if (typeof f.translations === "string")
-                     f.translations = JSON.parse(f.translations);
 
-                  f.translations.forEach((tran) => {
-                     fieldLabels.push(tran.label);
-                  });
+                  // Pull data that have full relation values.
+                  // NOTE: When get data from DataCollection, those data is pruned.
+                  objModel
+                     .findAll({
+                        disableMinifyRelation: true,
+                        populate: true,
+                        skip: 0,
+                        where,
+                     })
+                     .then((dataList) => {
+                        // update property names to column labels to match format names in docx file
+                        const mlFields = obj.multilingualFields();
 
-                  resultData = Object.assign(
-                     resultData ?? {},
-                     this.setReportValues(data, f, fieldLabels, mlFields) ?? {}
-                  );
+                        dataList?.data.forEach((data) => {
+                           let resultData;
 
-                  // Keep ABObject into .scope of DOCX templater
-                  resultData._object = obj;
-               });
+                           // For support label of columns every languages
+                           obj.fields().forEach((f) => {
+                              const fieldLabels = [];
 
-               dcValues.push(resultData);
-            });
+                              // Query Objects
+                              if (obj instanceof ABObjectQuery) {
+                                 if (typeof f.object.translations === "string")
+                                    f.object.translations = JSON.parse(
+                                       f.object.translations
+                                    );
 
-            // If data sources have more than 1 or the result data more than 1 items, then add label of data source
-            const datacollectionData =
-               dcValues.length > 1 ? dcValues : dcValues[0];
+                                 if (typeof f.translations === "string")
+                                    f.translations = JSON.parse(f.translations);
 
-            if (
-               isDcLabelAdded ||
-               (Array.isArray(datacollectionData) &&
-                  datacollectionData.length > 1)
-            )
-               (dc.translations || []).forEach((tran) => {
-                  result[tran.label] = datacollectionData;
-               });
-            else Object.assign(result, datacollectionData);
+                                 (f.object.translations || []).forEach(
+                                    (objTran) => {
+                                       const fieldTran = (
+                                          f.translations || []
+                                       ).filter(
+                                          (fieldTran) =>
+                                             fieldTran.language_code ===
+                                             objTran.language_code
+                                       )[0];
+
+                                       if (!fieldTran) return;
+
+                                       const objectLabel = objTran.label;
+                                       const fieldLabel = fieldTran.label;
+
+                                       // Replace alias with label of object
+                                       fieldLabels.push(
+                                          `${objectLabel}.${fieldLabel}`
+                                       );
+                                    }
+                                 );
+                              }
+                              // Normal Objects
+                              else if (typeof f.translations === "string")
+                                 f.translations = JSON.parse(f.translations);
+
+                              f.translations.forEach((tran) => {
+                                 fieldLabels.push(tran.label);
+                              });
+
+                              resultData = Object.assign(
+                                 resultData ?? {},
+                                 this.setReportValues(
+                                    data,
+                                    f,
+                                    fieldLabels,
+                                    mlFields
+                                 ) ?? {}
+                              );
+
+                              // Keep ABObject into .scope of DOCX templater
+                              resultData._object = obj;
+                           });
+
+                           dcValues.push(resultData);
+                        });
+
+                        // If data sources have more than 1 or the result data more than 1 items, then add label of data source
+                        const datacollectionData =
+                           dcValues.length > 1 ? dcValues : dcValues[0];
+
+                        if (
+                           isDcLabelAdded ||
+                           (Array.isArray(datacollectionData) &&
+                              datacollectionData.length > 1)
+                        )
+                           (dc.translations || []).forEach((tran) => {
+                              result[tran.label] = datacollectionData;
+                           });
+                        else Object.assign(result, datacollectionData);
+
+                        resolve();
+                     });
+               })
+            );
          });
+
+      await Promise.all(tasks);
 
       return result;
    }
@@ -78002,7 +78031,7 @@ module.exports = class ABViewRuleActionObjectUpdater extends ABViewRuleAction {
          var field = this.getUpdateObjectField(op.fieldID);
          if (!field) return;
 
-         var value = op.value;
+         let value = op?.value?.id ?? op?.value;
 
          switch (value) {
             case "ab-current-user":
@@ -82547,4 +82576,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.0cf099eebbb6c4192791.js.map
+//# sourceMappingURL=AB.7b1a89b8bbf0cdcf213d.js.map
