@@ -61614,7 +61614,7 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
          // {
          //    fieldName: {Object} or [Array]
          // }
-         val = data[field.columnName];
+         val = data[this.AB.rules.toFieldRelationFormat(field.columnName)];
 
          if (val?.forEach)
             val.forEach((v) => {
@@ -82617,4 +82617,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.ac2d68fa9e20b82d8051.js.map
+//# sourceMappingURL=AB.ac2d8caedb2bb4f94b07.js.map
