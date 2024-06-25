@@ -42490,17 +42490,21 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
       var multiselect = this.settings.linkType == "many";
       if (multiselect) {
          let vals = [];
-         if (val) {
-            val = val.split(",");
-            val.forEach((record) => {
-               // make sure we are returning the .uuid values and
-               // not full {Record} values.
-               vals.push(
-                  this.getRelationValue(item.getList().getItem(record), {
-                     forUpdate: true,
-                  })
-               );
-            });
+         if (!Array.isArray(val)) {
+            if (val) {
+               val = val.split(",");
+               val.forEach((record) => {
+                  // make sure we are returning the .uuid values and
+                  // not full {Record} values.
+                  vals.push(
+                     this.getRelationValue(item.getList().getItem(record), {
+                        forUpdate: true,
+                     })
+                  );
+               });
+            }
+         } else {
+            vals = val;
          }
 
          return vals;
@@ -62406,8 +62410,11 @@ module.exports = class ABViewFormButton extends ABViewFormItemComponent {
       // get ABDatacollection
       const dc = form.datacollection;
 
-      // clear cursor of DC
-      dc?.setCursor(null);
+      // clear cursor of DC if not set to follow another
+      if (!dc?.isCursorFollow) {
+         dc?.setCursor(null);
+      }
+      // dc?.setStaticCursor(); // unless it should be static
 
       cancelButton?.getFormView?.().clear();
 
@@ -62919,6 +62926,7 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
          }
 
          // pull data of current cursor
+         // await dc.waitReady();
          const rowData = dc.getCursor();
 
          if ($form) dc.bind($form);
@@ -78622,11 +78630,18 @@ module.exports = class ABViewRuleActionObjectUpdater extends ABViewRuleAction {
 
       // make sure UI is updated:
       // set our updateObject
-      if (settings.updateObjectURL) {
-         var updateObject = this.currentForm.application.urlResolve(
-            settings.updateObjectURL
+      if (settings.updateObjectID) {
+         this.updateObject = this.currentForm.AB.objectByID(
+            settings.updateObjectID
          );
-         this.updateObject = updateObject;
+      } else {
+         // DEPRECIATED method of resolving objects .urlResolve()
+         if (settings.updateObjectURL) {
+            var updateObject = this.currentForm.application.urlResolve(
+               settings.updateObjectURL
+            );
+            this.updateObject = updateObject;
+         }
       }
 
       // if we have a display component, then populate it:
@@ -80112,6 +80127,13 @@ class Network extends EventEmitter {
       // {int} _queueCount
       // the # of network operations currently queued, pending Network
       // reconnect.
+
+      this.cachJobResponse = {};
+      // { jobID : { jobResponse } }
+      // hash of the queued jobResponses for network requests that are in
+      // our queue.
+      // We need to keep our own cache that isn't serialized so that once
+      // we complete the request, we can resume the resolve() promise chains
    }
 
    init(AB) {
@@ -80420,7 +80442,9 @@ class Network extends EventEmitter {
             })
             .then((queue) => {
                queue = queue || [];
-               queue.push({ data, jobResponse });
+               let jID = this.AB.jobID();
+               this.cachJobResponse[jID] = jobResponse;
+               queue.push({ data, jobResponse: jID });
                this.AB.log(
                   `:::: ${queue.length} request${
                      queue.length > 1 ? "s" : ""
@@ -80483,6 +80507,24 @@ class Network extends EventEmitter {
                // default to [] if not found
                queue = queue || [];
 
+               let hasResponded = false;
+               let resCount = 0;
+               let resNumber = queue.length;
+
+               let done = (res, rej, err) => {
+                  if (!hasResponded) {
+                     if (err) {
+                        rej(err);
+                        hasResponded = true;
+                        return;
+                     }
+                     resCount++;
+                     if (resCount >= resNumber) {
+                        hasResponded = true;
+                        res();
+                     }
+                  }
+               };
                // recursively process each pending queue request
                var processRequest = (cb) => {
                   if (queue.length == 0) {
@@ -80490,11 +80532,14 @@ class Network extends EventEmitter {
                   } else {
                      var entry = queue.shift();
                      var params = entry.data;
-                     var job = entry.jobResponse;
+                     let job = this.cachJobResponse[entry.jobResponse];
+                     // var job = entry.jobResponse;
                      this._network
                         .resend(params, job)
                         .then(() => {
-                           processRequest(cb);
+                           delete this.cachJobResponse[entry.jobResponse];
+                           // processRequest(cb);
+                           cb();
                         })
                         .catch((err) => {
                            // if the err was due to a network connection error
@@ -80503,18 +80548,20 @@ class Network extends EventEmitter {
                               return;
                            }
                            // otherwise, try the next
-                           processRequest(cb);
+                           // processRequest(cb);
                         });
+                     processRequest(cb);
                   }
                };
 
                return new Promise((res, rej) => {
                   processRequest((err) => {
-                     if (err) {
-                        rej(err);
-                     } else {
-                        res();
-                     }
+                     done(res, rej, err);
+                     // if (err) {
+                     //    rej(err);
+                     // } else {
+                     //    res();
+                     // }
                   });
                });
             })
@@ -80523,6 +80570,7 @@ class Network extends EventEmitter {
             // Clear queue contents
             //
             .then(() => {
+               this.cachJobResponse = {};
                this._queueCount = 0;
                return this.AB.Storage.set(refQueue, []);
             })
@@ -81044,6 +81092,7 @@ function socketDataLog(AB, key, data) {
    let length = "??";
    try {
       length = JSON.stringify(data).length;
+      data.__length = length;
    } catch (e) {
       console.log(e);
       //
@@ -81066,6 +81115,80 @@ let HashSocketJobs = {
    /* jobID : { #packets, length } */
 };
 
+let keyBlacklist = {
+   /* key : true */
+};
+// a list of incoming message keys, that indicate wether or not we have
+// processed this message.  If a message has been processed, we skip it.
+
+/**
+ * @function blacklistKey()
+ * create a unique key for this network event.
+ * @param {event} ev
+ *        the incoming network event key (ab.datacollection.create)
+ * @param {obj} data
+ *        the related network packet of the incoming event.
+ * @return {string}
+ */
+function blacklistKey(AB, ev, data) {
+   let parts = [ev];
+
+   if (data.jobID) {
+      parts.push(data.jobID);
+   }
+
+   if (data.data) {
+      let PK = "uuid";
+      let obj = AB.objectByID(data.objectId);
+      if (obj) {
+         PK = obj.PK();
+      }
+      parts.push(data.data[PK] || data.data.id);
+   }
+
+   if (data.__length) {
+      parts.push(data.__length);
+   } else {
+      let length = "??";
+      try {
+         length = JSON.stringify(data).length;
+      } catch (e) {
+         // ignore
+      }
+      parts.push(length);
+   }
+
+   return parts.join("-");
+}
+
+/**
+ * @function isBlacklisted()
+ * return True/False if a given key is already blacklisted.
+ * @param {string} key
+ *        the () we are checking
+ * @return {bool}
+ */
+function isBlacklisted(key) {
+   return keyBlacklist[key] ?? false;
+}
+
+/**
+ * @function blacklist()
+ * mark a given key as blacklisted. This prevents additional calls with
+ * the same key from being processed.
+ * A Key is only blacklisted for a given amount of time (1s by default).
+ * @param {string} key
+ *        the blacklistKey() we are checking
+ * @param {int} time
+ *        The duration in ms of how long to keep the key blacklisted.
+ */
+function blacklist(key, time = 1000) {
+   keyBlacklist[key] = true;
+   setTimeout(() => {
+      delete keyBlacklist[key];
+   }, time);
+}
+
 class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["default"] {
    constructor(parent) {
       // {Network} parent
@@ -81080,6 +81203,11 @@ class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["defau
       listSocketEvents.forEach((ev) => {
          io.socket.on(ev, (data) => {
             socketDataLog(this.AB, ev, data);
+
+            // ensure we only process a network update 1x
+            let blKey = blacklistKey(this.AB, ev, data);
+            if (isBlacklisted(blKey)) return;
+            blacklist(blKey, 5000); // now prevent additional ones
 
             // check if the ev contains 'datacollection'
             // and do a single normalizeData() on the incoming data here
@@ -82832,4 +82960,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.87007d96e0fa0b2fc455.js.map
+//# sourceMappingURL=AB.e40eb0fce1003b2c8616.js.map
