@@ -61706,6 +61706,11 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
                      );
                   }
 
+                  // add the filterCond from user filters if there are rules to add
+                  if (dc?.__filterCond?.rules?.length > 0) {
+                     where.rules.push(dc?.__filterCond);
+                  }
+
                   // Pull data that have full relation values.
                   // NOTE: When get data from DataCollection, those data is pruned.
                   objModel
@@ -82960,4 +82965,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.e40eb0fce1003b2c8616.js.map
+//# sourceMappingURL=AB.d15e20c5541322cc77ce.js.map
