@@ -29749,7 +29749,8 @@ module.exports = class ABViewDocxBuilderCore extends ABViewWidget {
       // TODO: Convert this to use ABFactory.urlFileUpload() or a ABFieldFile
       // to get the URL:
 
-      const object = this.datacollection.datasource;
+      // support uploading template when more than one data source is selected
+      const object = this.datacollections[0].datasource;
 
       // NOTE: file-upload API needs to have the id of ANY field.
       const field = object ? object.fields()[0] : null;
@@ -61706,6 +61707,11 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
                      );
                   }
 
+                  // add the filterCond from user filters if there are rules to add
+                  if (dc?.__filterCond?.rules?.length > 0) {
+                     where.rules.push(dc?.__filterCond);
+                  }
+
                   // Pull data that have full relation values.
                   // NOTE: When get data from DataCollection, those data is pruned.
                   objModel
@@ -82960,4 +82966,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.e40eb0fce1003b2c8616.js.map
+//# sourceMappingURL=AB.582eccf6c3103388ad4a.js.map
