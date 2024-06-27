@@ -61675,6 +61675,7 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
                new Promise((resolve, reject) => {
                   const obj = dc.datasource;
                   const objModel = obj.model();
+                  const dcCursor = dc.getCursor();
                   const dcValues = [];
 
                   // pull the defined sort values
@@ -61684,8 +61685,21 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
                   let wheres = this.AB.cloneDeep(
                      dc.settings.objectWorkspace.filterConditions ?? {}
                   );
-                  // if we pass new wheres with a reload use them instead
-                  if (dc.__reloadWheres) {
+                  // if there is a selected cursor set the filter here
+                  if (dcCursor) {
+                     // if there is a selected cursor set the filter here
+                     wheres = {
+                        glue: "and",
+                        rules: [
+                           {
+                              key: obj.PK(),
+                              rule: "equals",
+                              value: dcCursor[obj.PK()],
+                           },
+                        ],
+                     };
+                  } else if (dc.__reloadWheres) {
+                     // if we pass new wheres with a reload use them instead
                      wheres = dc.__reloadWheres;
                   }
                   wheres.glue = wheres.glue || "and";
@@ -83009,4 +83023,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.1991de02d7f6eb50bbc1.js.map
+//# sourceMappingURL=AB.2e3cdf422b6140a98fa2.js.map
