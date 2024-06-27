@@ -60088,7 +60088,11 @@ class ABViewDataFilterComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODUL
                               relative: true,
                               disabled: true,
                               on: {
-                                 onChange: (id) => this.applyConnectFilter(id),
+                                 onChange: (id) => {
+                                    this.applyConnectFilter(
+                                       $$(this.ids.filter).getList().getItem(id)
+                                    );
+                                 },
                               },
                            },
                            {
@@ -60213,15 +60217,33 @@ class ABViewDataFilterComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODUL
       this.updateUI();
    }
 
-   applyConnectFilter(connectId) {
+   applyConnectFilter(rowData) {
+      let connectedVal = rowData?.id ?? null;
+
+      if (
+         connectedVal &&
+         this.field.settings?.isCustomFK &&
+         this.field.settings?.isSource
+      ) {
+         connectedVal =
+            (this.field.indexField
+               ? rowData[this.field.indexField.columnName]
+               : null) ?? // custom index
+            (this.field.indexField2
+               ? rowData[this.field.indexField2.columnName]
+               : null) ?? // custom index 2
+            rowData.id ??
+            rowData;
+      }
+
       let filterRule = [];
-      if (connectId) {
+      if (connectedVal) {
          $$(this.ids.reset).show();
          filterRule = [
             {
                key: this.field.id,
                rule: "equals",
-               value: connectId,
+               value: connectedVal,
             },
          ];
       } else {
@@ -83023,4 +83045,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.b725a09364416899d79b.js.map
+//# sourceMappingURL=AB.d8ea3b25750720b2cba9.js.map
