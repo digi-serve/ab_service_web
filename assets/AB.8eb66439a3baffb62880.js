@@ -60397,7 +60397,8 @@ module.exports = class ABViewDataviewComponent extends ABViewComponent {
             scroll: "y",
             sizeToContent: true,
             css: "borderless transparent",
-            xCount: this.settings.xCount,
+            xCount: this.settings.xCount != 1 ? this.settings.xCount : 0,
+            height: this.settings.height,
             template: (item) => this.itemTemplate(item),
             on: {
                onAfterRender: () => {
@@ -61981,6 +61982,9 @@ module.exports = class ABViewDocxBuilderComponent extends ABViewComponent {
       const images = {};
       const tasks = [];
       const addDownloadTask = (fieldImage, data = []) => {
+         if (Array.isArray(data) == false) {
+            data = [data];
+         }
          data.forEach((d) => {
             const imageVal = fieldImage.format(d);
 
@@ -83045,4 +83049,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.d8ea3b25750720b2cba9.js.map
+//# sourceMappingURL=AB.8eb66439a3baffb62880.js.map
