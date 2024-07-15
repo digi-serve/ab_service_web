@@ -11359,6 +11359,7 @@ var AllViews = [
    __webpack_require__(/*! ../platform/views/ABViewLayout */ 30077),
    __webpack_require__(/*! ../platform/views/ABViewList */ 47363),
    __webpack_require__(/*! ../platform/views/ABViewMenu */ 46672),
+   __webpack_require__(/*! ../platform/views/ABViewOrgChart */ 51601),
    __webpack_require__(/*! ../platform/views/ABViewPage */ 44),
    __webpack_require__(/*! ../platform/views/ABViewPDFImporter */ 51547),
    __webpack_require__(/*! ../platform/views/ABViewPivot */ 86087),
@@ -29749,8 +29750,7 @@ module.exports = class ABViewDocxBuilderCore extends ABViewWidget {
       // TODO: Convert this to use ABFactory.urlFileUpload() or a ABFieldFile
       // to get the URL:
 
-      // support uploading template when more than one data source is selected
-      const object = this.datacollections[0].datasource;
+      const object = this.datacollection.datasource;
 
       // NOTE: file-upload API needs to have the id of ANY field.
       const field = object ? object.fields()[0] : null;
@@ -32069,6 +32069,148 @@ module.exports = class ABViewMenuCore extends ABViewWidget {
          });
       });
    }
+};
+
+
+/***/ }),
+
+/***/ 88870:
+/*!*****************************************************!*\
+  !*** ./AppBuilder/core/views/ABViewOrgChartCore.js ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABViewWidget = __webpack_require__(/*! ../../platform/views/ABViewWidget */ 87039);
+
+const ABViewOrgChartPropertyComponentDefaults = {
+   datacollectionID: "",
+   fields: "",
+   direction: "t2b",
+   depth: 99,
+   color: "#00BCD4",
+   // visibleLevel: 2,
+   pan: 1,
+   zoom: 1,
+   height: 0,
+   export: 0,
+   exportFilename: "",
+};
+
+const ABViewOrgChartDefaults = {
+   key: "orgchart", // {string} unique key for this view
+   icon: "sitemap", // {string} fa-[icon] reference for this view
+   labelKey: "OrgChart", // {string} the multilingual label key for the class label
+};
+
+module.exports = class ABViewOrgChartCore extends ABViewWidget {
+   constructor(values, application, parent, defaultValues) {
+      super(
+         values,
+         application,
+         parent,
+         defaultValues || ABViewOrgChartDefaults
+      );
+   }
+
+   static common() {
+      return ABViewOrgChartDefaults;
+   }
+
+   static defaultValues() {
+      return ABViewOrgChartPropertyComponentDefaults;
+   }
+
+   ///
+   /// Instance Methods
+   ///
+
+   /**
+    * @method fromValues()
+    *
+    * initialze this object with the given set of values.
+    * @param {obj} values
+    */
+   fromValues(values) {
+      super.fromValues(values);
+
+      this.settings.datacollectionID =
+         this.settings.datacollectionID ??
+         ABViewOrgChartPropertyComponentDefaults.datacollectionID;
+
+      this.settings.fields =
+         this.settings.fields ?? ABViewOrgChartPropertyComponentDefaults.fields;
+
+      this.settings.direction =
+         this.settings.direction ??
+         ABViewOrgChartPropertyComponentDefaults.direction;
+
+      this.settings.depth = parseInt(
+         this.settings.depth ?? ABViewOrgChartPropertyComponentDefaults.depth
+      );
+
+      this.settings.color =
+         this.settings.color ?? ABViewOrgChartPropertyComponentDefaults.color;
+
+      this.settings.pan = JSON.parse(
+         this.settings.pan ?? ABViewOrgChartPropertyComponentDefaults.pan
+      );
+
+      this.settings.zoom = JSON.parse(
+         this.settings.zoom ?? ABViewOrgChartPropertyComponentDefaults.zoom
+      );
+
+      this.settings.height = parseInt(
+         this.settings.height ?? ABViewOrgChartPropertyComponentDefaults.height
+      );
+
+      this.settings.export = JSON.parse(
+         this.settings.export ?? ABViewOrgChartPropertyComponentDefaults.export
+      );
+
+      this.settings.exportFilename =
+         this.settings.exportFilename ??
+         ABViewOrgChartPropertyComponentDefaults.exportFilename;
+   }
+
+   get datacollection() {
+      const datacollectionID = (this.settings || {}).datacollectionID;
+
+      return this.AB.datacollectionByID(datacollectionID);
+   }
+
+   getValueFields(object) {
+      return (
+         object?.connectFields(
+            (f) => f.linkType() == "many" && f.linkViaType() == "one"
+         ) ?? []
+      );
+   }
+
+   valueFields() {
+      let fieldValues = (this.settings?.fields ?? "").split(",");
+      if (!Array.isArray(fieldValues)) fieldValues = [fieldValues];
+
+      const result = [];
+
+      let obj = this.datacollection?.datasource;
+      fieldValues.forEach((fId) => {
+         if (!fId) return;
+
+         const field = obj?.fieldByID?.(fId);
+         if (!field) return;
+
+         result.push(field);
+         obj = field.datasourceLink;
+      });
+
+      return result;
+   }
+
+   // descriptionField() {
+   //    return this.valueField()?.datasourceLink?.fieldByID?.(
+   //       this.settings.columnDescription
+   //    );
+   // }
 };
 
 
@@ -55556,6 +55698,44 @@ module.exports = class ABViewMenu extends ABViewMenuCore {
 
 /***/ }),
 
+/***/ 51601:
+/*!*****************************************************!*\
+  !*** ./AppBuilder/platform/views/ABViewOrgChart.js ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABViewOrgChartCore = __webpack_require__(/*! ../../core/views/ABViewOrgChartCore */ 88870);
+const ABViewOrgChartComponent = __webpack_require__(/*! ./viewComponent/ABViewOrgChartComponent */ 62125);
+
+module.exports = class ABViewOrgChart extends ABViewOrgChartCore {
+   // constructor(values, application, parent, defaultValues) {
+   //    super(values, application, parent, defaultValues);
+   // }
+
+   /**
+    * @method component()
+    * return a UI component based upon this view.
+    * @param {obj} App
+    * @return {obj} UI component
+    */
+   /**
+    * @method component()
+    * return a UI component based upon this view.
+    * @return {obj} UI component
+    */
+   component() {
+      return new ABViewOrgChartComponent(this);
+   }
+
+   fromValues(values) {
+      super.fromValues(values);
+      // this.refreshData();
+   }
+};
+
+
+/***/ }),
+
 /***/ 51547:
 /*!********************************************************!*\
   !*** ./AppBuilder/platform/views/ABViewPDFImporter.js ***!
@@ -69121,6 +69301,234 @@ module.exports = class ABViewMenuComponent extends ABViewComponent {
             `menu-item ${viewInfo?.name} ${item.id} ${this.view.id}`
          );
       });
+   }
+};
+
+
+/***/ }),
+
+/***/ 62125:
+/*!****************************************************************************!*\
+  !*** ./AppBuilder/platform/views/viewComponent/ABViewOrgChartComponent.js ***!
+  \****************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABViewComponent = (__webpack_require__(/*! ./ABViewComponent */ 23687)["default"]);
+
+module.exports = class ABViewOrgChartComponent extends ABViewComponent {
+   constructor(baseView, idBase, ids) {
+      super(
+         baseView,
+         idBase || `ABViewOrgChart_${baseView.id}`,
+         Object.assign(
+            {
+               chartView: "",
+               chartDom: "",
+            },
+            ids
+         )
+      );
+   }
+
+   ui() {
+      const ids = this.ids;
+      const _ui = super.ui([
+         {
+            view: "template",
+            template: `<div id="${ids.chartDom}"></div>`,
+            css: {
+               position: "relative",
+            },
+         },
+      ]);
+
+      delete _ui.type;
+
+      return _ui;
+   }
+
+   async init(AB, accessLevel) {
+      await super.init(AB, accessLevel);
+
+      const $chartView = $$(this.ids.chartView);
+      if ($chartView)
+         this.AB.Webix.extend($chartView, this.AB.Webix.ProgressBar);
+   }
+
+   async loadOrgChartJs() {
+      this.busy();
+
+      const [orgChartLoader] = await Promise.all([
+         __webpack_require__.e(/*! import() */ "orgchart-js_orgchart-webcomponents_js").then(__webpack_require__.bind(__webpack_require__, /*! ../../../../js/orgchart-webcomponents.js */ 49150)),
+         __webpack_require__.e(/*! import() */ "styles_orgchart-webcomponents_css").then(__webpack_require__.bind(__webpack_require__, /*! ../../../../styles/orgchart-webcomponents.css */ 87597)),
+      ]);
+
+      this.OrgChart = orgChartLoader.default;
+
+      this.ready();
+   }
+
+   async onShow() {
+      super.onShow();
+
+      this.busy();
+      await this.loadOrgChartJs();
+      await this.pullData();
+      this.displayOrgChart();
+      this.ready();
+   }
+
+   async displayOrgChart() {
+      const baseView = this.view;
+      const chartData = this.AB.cloneDeep(this.chartData);
+
+      const orgchart = new this.OrgChart({
+         data: chartData,
+         direction: baseView.settings.direction,
+         // depth: baseView.settings.depth,
+         pan: baseView.settings.pan,
+         zoom: baseView.settings.zoom,
+         // visibleLevel: baseView.settings.visibleLevel,
+
+         exportButton: baseView.settings.export,
+         exportFilename: baseView.settings.exportFilename,
+
+         // ajaxURLs: {
+         //    children: function (nodeData) {
+         //       console.info("nodeData: ", nodeData);
+         //       return null;
+         //    },
+         // },
+         nodeContent: "description",
+      });
+
+      const chartDom = document.querySelector(`#${this.ids.chartDom}`);
+      if (chartDom) {
+         chartDom.textContent = "";
+         chartDom.innerHTML = "";
+         chartDom.appendChild(orgchart);
+      }
+
+      setTimeout(() => {
+         this._setColor();
+      }, 1);
+   }
+
+   async pullData() {
+      const view = this.view;
+      const dc = view.datacollection;
+      const cursor = dc?.getCursor();
+      if (!cursor) return null;
+
+      const valueFields = view.valueFields();
+      // const descriptionField = view.descriptionField?.();
+
+      const chartData = this.chartData;
+      chartData.name = dc?.datasource?.displayData(cursor) ?? "";
+      chartData.description = "";
+      // description:
+      //    descriptionField?.format?.(f) ??
+      //    f[descriptionField?.columnName] ??
+      //    "",
+      chartData._rawData = cursor;
+
+      let parentChartData = [chartData];
+      let currChildren;
+
+      valueFields.forEach((field) => {
+         let _tempParentChartData = [];
+
+         parentChartData.forEach(async (chartItem) => {
+            if (!chartItem) return;
+
+            const rawData = chartItem?._rawData;
+            currChildren = rawData?.[field?.relationName()];
+
+            // Pull data from the server
+            if (!currChildren) {
+               const objLink = field.object;
+               const where = {
+                  glue: "and",
+                  rules: [],
+               };
+               where.rules.push({
+                  key: objLink.PK(),
+                  rule: "equals",
+                  value: rawData[objLink.PK()],
+               });
+               const returnData = await objLink
+                  .model()
+                  .findAll({ where, populate: true });
+               chartItem._rawData = returnData?.data[0];
+               currChildren = chartItem._rawData?.[field?.relationName()];
+
+               this.displayOrgChart();
+            }
+
+            chartItem.children = [];
+            if (currChildren?.length) {
+               currChildren.forEach((childData) => {
+                  chartItem.children.push({
+                     name: field.datasourceLink.displayData(childData),
+                     description: "",
+                     _rawData: childData,
+                  });
+               });
+            }
+
+            _tempParentChartData = _tempParentChartData.concat(
+               chartItem.children
+            );
+         });
+
+         parentChartData = _tempParentChartData;
+      });
+   }
+
+   get chartData() {
+      if (this._chartData == null) {
+         this._chartData = {};
+      }
+      return this._chartData;
+   }
+
+   _setColor() {
+      const view = this.view;
+      let doms = document.querySelectorAll(`org-chart`);
+      doms.forEach((dom) => {
+         dom.style.backgroundImage = "none";
+      });
+
+      doms = document.querySelectorAll(`
+         org-chart .verticalNodes>td::before,
+         org-chart .verticalNodes ul>li::before,
+         org-chart .verticalNodes ul>li::after,
+         org-chart .node .content,
+         org-chart tr.lines .topLine,
+         org-chart tr.lines .rightLine,
+         org-chart tr.lines .leftLine`);
+      doms.forEach((dom) => {
+         dom.style.borderColor = view.settings.color;
+      });
+
+      doms = document.querySelectorAll(`
+         org-chart tr.lines .downLine,
+         org-chart .node .title`);
+      doms.forEach((dom) => {
+         dom.style.backgroundColor = view.settings.color;
+      });
+   }
+
+   busy() {
+      const $chartView = $$(this.ids.chartView);
+      $chartView?.disable?.();
+      $chartView?.showProgress?.({ type: "icon" });
+   }
+
+   ready() {
+      const $chartView = $$(this.ids.chartView);
+      $chartView?.enable?.();
+      $chartView?.hideProgress?.();
    }
 };
 
@@ -83049,4 +83457,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.8eb66439a3baffb62880.js.map
+//# sourceMappingURL=AB.e91a5f2a0bddfa0251ff.js.map
