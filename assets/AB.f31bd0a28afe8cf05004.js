@@ -4896,7 +4896,8 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
 
       let nextData;
       if (data.length > 250) {
-         let pos = this.__dataCollection.count();
+         // let pos = this.__dataCollection.count();
+         let pos = this.__dataCollection.find({}).length;
          let remain = data.splice(250);
          nextData = {
             data: remain,
@@ -11649,24 +11650,32 @@ function getFieldVal(rowData, field) {
 function getConnectFieldValue(rowData, field) {
    let connectedVal = "";
 
-   if (rowData) {
-      let relationName = field.relationName();
-      if (rowData[relationName]) {
-         connectedVal =
+   const extractVal = (itemData) => {
+      let val;
+      const relationName = field.relationName();
+      if (itemData[relationName]) {
+         val =
             (field.indexField
-               ? rowData[relationName][field.indexField.columnName]
+               ? itemData[relationName][field.indexField.columnName]
                : null) ?? // custom index
             (field.indexField2
-               ? rowData[relationName][field.indexField2.columnName]
+               ? itemData[relationName][field.indexField2.columnName]
                : null) ?? // custom index 2
-            rowData[relationName].id ??
-            rowData[relationName];
+            itemData[relationName].id ??
+            itemData[relationName];
       } else {
-         let fieldVal = getFieldVal(rowData, field);
+         let fieldVal = getFieldVal(itemData, field);
          if (fieldVal != null) {
-            connectedVal = fieldVal;
+            val = fieldVal;
          }
       }
+      return val;
+   };
+
+   if (Array.isArray(rowData)) {
+      connectedVal = rowData.map((data) => extractVal(data));
+   } else if (rowData) {
+      connectedVal = extractVal(rowData);
    }
    return connectedVal;
 }
@@ -11999,27 +12008,30 @@ module.exports = class FilterComplexCore extends ABComponent {
    }
 
    userValid(value, rule, compareValue) {
-      if (!value) return false;
+      if (!value || !value?.length) return false;
       let result = false;
 
-      // if (Array.isArray(value)) value = [value];
+      if (!Array.isArray(value)) value = [value];
+
       /* eslint-disable no-fallthrough */
       switch (rule) {
          case "is_current_user":
-            result = value == this.Account.username;
+            result =
+               value.filter((v) => (v?.username || v) == this.Account.username)
+                  .length > 0;
             break;
          case "is_not_current_user":
-            result = value != this.Account.username;
+            result =
+               value.filter((v) => (v?.username || v) != this.Account.username)
+                  .length > 0;
             break;
          case "contain_current_user":
             compareValue = this.Account.username;
          // break;  <-- NO BREAK HERE: fall through to "equals"
 
          case "equals":
-            if (!Array.isArray(value)) value = [value];
-
             result =
-               value.filter((v) => (v.username || v) == compareValue).length >
+               value.filter((v) => (v?.username || v) == compareValue).length >
                0;
             break;
          case "not_contain_current_user":
@@ -12027,10 +12039,8 @@ module.exports = class FilterComplexCore extends ABComponent {
          // break;  <-- NO BREAK HERE: fall through to "not_equals"
 
          case "not_equal":
-            if (!Array.isArray(value)) value = [value];
-
             result =
-               value.filter((v) => (v.username || v) == compareValue).length <
+               value.filter((v) => (v?.username || v) == compareValue).length <
                1;
             break;
          default:
@@ -83466,4 +83476,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.fdcb0df323d9cf560ade.js.map
+//# sourceMappingURL=AB.f31bd0a28afe8cf05004.js.map
