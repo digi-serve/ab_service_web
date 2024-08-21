@@ -67824,8 +67824,8 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
 
             // now we can push the rules into the hash
             complexValidations[f.columnName].push({
-               filters: $$(f.view).getFilterHelper(),
-               values: $DataTable.getSelectedItem(),
+               filters: f.filter.getValue(),
+               values: $DataTable.getSelectedItem[f.columnName],
                invalidMessage: f.invalidMessage,
             });
          });
@@ -67850,10 +67850,21 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
                   });
 
                   // for the case of "this_object" conditions:
-                  if (data.uuid) newData["this_object"] = data.uuid;
+                  if (data.uuid) {
+                     newData["this_object"] = data.uuid;
+                     data["this_object"] = data.uuid;
+                  }
 
                   // use helper funtion to check if valid
-                  const ruleValid = filter.filters(newData);
+                  // const ruleValid = filter.filters(newData);
+                  const filterComplex = ab.filterComplexNew(
+                     `rule-validate-${key}`
+                  );
+                  filterComplex.fieldsLoad(
+                     CurrentObject.fields(),
+                     CurrentObject
+                  );
+                  const ruleValid = filterComplex.isValid(data, filter.filters);
 
                   // if invalid we need to tell the field
                   if (!ruleValid) {
@@ -83609,4 +83620,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.ff12116d14674c7f24d9.js.map
+//# sourceMappingURL=AB.0bb28f9d0c4c5654a99f.js.map
