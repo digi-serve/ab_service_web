@@ -67359,13 +67359,33 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
 
       if (state.value !== state.old) {
          const item = $DataTable?.getItem(editor.row);
+         const CurrentObject = this.datacollection.datasource;
 
          item[editor.column] = state.value;
 
          $DataTable.removeCellCss(item.id, editor.column, "webix_invalid");
          $DataTable.removeCellCss(item.id, editor.column, "webix_invalid_cell");
 
-         const CurrentObject = this.datacollection.datasource;
+         //maxlength field
+         const f = CurrentObject.fieldByID(editor.config.fieldID);
+         if (
+            f.settings.maxLength &&
+            state.value.length > f.settings.maxLength
+         ) {
+            this.AB.alert({
+               title: this.label("Limit max length"),
+               text: this.label(
+                  "You can enter a maximum of " +
+                     f.settings.maxLength +
+                     " characters"
+               ),
+            });
+            $DataTable.addCellCss(item.id, editor.column, "webix_invalid_cell");
+            $DataTable.refresh(editor.row);
+            $DataTable.clearSelection();
+            return false;
+         }
+
          const validator = CurrentObject.isValidData(item);
 
          if (validator.pass()) {
@@ -83625,4 +83645,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.70809e56b6e9021c0147.js.map
+//# sourceMappingURL=AB.3660d12ff97d75006fdc.js.map
