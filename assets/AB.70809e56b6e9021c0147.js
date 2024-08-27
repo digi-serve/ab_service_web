@@ -3430,8 +3430,14 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                .then(() => {
                   if (needAdd) {
                      (updatedVals || []).forEach((updatedV) => {
+                        // If this DC uses a query, it pulls refreshed data from the server in the previous step,
+                        // so there is no need to recheck the query's filter.
+                        const skipDatasourceFilter =
+                           obj instanceof this.AB.Class.ABObjectQuery;
+
                         // filter condition before add
-                        if (!this.isValidData(updatedV)) return;
+                        if (!this.isValidData(updatedV, skipDatasourceFilter))
+                           return;
 
                         // filter the cursor of parent DC
                         const dcLink = this.datacollectionLink;
@@ -5622,12 +5628,12 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       return updatedVals;
    }
 
-   isValidData(rowData) {
+   isValidData(rowData, skipDatasourceFilter = false) {
       let result = true;
 
       // NOTE: should we use filter of the current view of object to filter
       //        if yes, update .wheres condition in .loadData too
-      if (this.__filterDatasource)
+      if (this.__filterDatasource && !skipDatasourceFilter)
          result = result && this.__filterDatasource.isValid(rowData);
 
       if (this.__filterDatacollection)
@@ -5857,7 +5863,6 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       return this.waitForDataCollectionToInitialize(this);
    }
 };
-
 
 /***/ }),
 
@@ -67824,8 +67829,8 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
 
             // now we can push the rules into the hash
             complexValidations[f.columnName].push({
-               filters: $$(f.view).getFilterHelper(),
-               values: $DataTable.getSelectedItem(),
+               filters: f.filter.getValue(),
+               values: $DataTable.getSelectedItem[f.columnName],
                invalidMessage: f.invalidMessage,
             });
          });
@@ -67850,10 +67855,21 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
                   });
 
                   // for the case of "this_object" conditions:
-                  if (data.uuid) newData["this_object"] = data.uuid;
+                  if (data.uuid) {
+                     newData["this_object"] = data.uuid;
+                     data["this_object"] = data.uuid;
+                  }
 
                   // use helper funtion to check if valid
-                  const ruleValid = filter.filters(newData);
+                  // const ruleValid = filter.filters(newData);
+                  const filterComplex = ab.filterComplexNew(
+                     `rule-validate-${key}`
+                  );
+                  filterComplex.fieldsLoad(
+                     CurrentObject.fields(),
+                     CurrentObject
+                  );
+                  const ruleValid = filterComplex.isValid(data, filter.filters);
 
                   // if invalid we need to tell the field
                   if (!ruleValid) {
@@ -83609,4 +83625,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.ff12116d14674c7f24d9.js.map
+//# sourceMappingURL=AB.70809e56b6e9021c0147.js.map
