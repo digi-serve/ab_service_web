@@ -850,6 +850,42 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
          addDate: (date, number, unit) => {
             return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).add(number, unit).toDate();
          },
+
+         /**
+          * Get today's UTC time range in "YYYY-MM-DD HH:MM:SS" format.
+          *
+          * It converts the start and end of today to UTC to keep things consistent
+          * across time zones. Handy when you need to deal with dates in different regions.
+          *
+          * @returns {string} UTC time range for today.
+          */
+
+         getUTCDayTimeRange: () => {
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = now.getMonth();
+            let date = now.getDate();
+            let startOfDay = new Date(year, month, date, 0, 0, 0);
+            let endOfDay = new Date(year, month, date, 23, 59, 59);
+
+            // Convert to UTC by subtracting the timezone offset
+            let startOfDayUTC = new Date(
+               startOfDay.getTime() + startOfDay.getTimezoneOffset() * 60000
+            );
+            let endOfDayUTC = new Date(
+               endOfDay.getTime() + endOfDay.getTimezoneOffset() * 60000
+            );
+
+            //  Format the date in "YYYY-MM-DD HH:MM:SS" format
+            let formatDate = (date) => {
+               let isoString = date.toISOString();
+               return `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`;
+            };
+            return formatDate(startOfDayUTC).concat(
+               "|",
+               formatDate(endOfDayUTC)
+            );
+         },
       };
       (Object.keys(platformRules) || []).forEach((k) => {
          this.rules[k] = platformRules[k];
@@ -35697,6 +35733,20 @@ module.exports = class ABModel extends ABModelCore {
    async findAll(cond) {
       cond = cond || {};
 
+      // scan the rules and convert any is_current_date rules to UTC daytime range.
+      let rules = cond.where.rules;
+      while (rules?.length) {
+         let nestedRules = [];
+         rules.forEach((rule) => {
+            if (rule.rule === "is_current_date")
+               rule.value = this.AB.rules.getUTCDayTimeRange();
+            else if (rule.rules?.length)
+               nestedRules = nestedRules.concat(rule.rules);
+         });
+
+         rules = nestedRules;
+      }
+
       // 		// prepare our condition:
       // 		var newCond = {};
 
@@ -38237,29 +38287,7 @@ function _toExternal(cond, fields = []) {
       }
 
       if (cond.rule === "is_current_date") {
-         let now = new Date();
-         let year = now.getFullYear();
-         let month = now.getMonth();
-         let date = now.getDate();
-
-         let startOfDay = new Date(year, month, date, 0, 0, 0);
-         let endOfDay = new Date(year, month, date, 23, 59, 59);
-
-         // Convert to UTC by subtracting the timezone offset
-         let startOfDayUTC = new Date(
-            startOfDay.getTime() + startOfDay.getTimezoneOffset() * 60000
-         );
-         let endOfDayUTC = new Date(
-            endOfDay.getTime() + endOfDay.getTimezoneOffset() * 60000
-         );
-         let formatDate = (date) => {
-            let isoString = date.toISOString();
-            return `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`;
-         };
-         cond.value = formatDate(startOfDayUTC).concat(
-            "|",
-            formatDate(endOfDayUTC)
-         );
+         cond.value = AB.rules.getUTCDayTimeRange();
       } else if (
          cond.rule === "in_query_field" ||
          cond.rule === "not_in_query_field"
@@ -83660,4 +83688,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.6aebac2372493969210a.js.map
+//# sourceMappingURL=AB.405c0626e3611223e8c1.js.map
