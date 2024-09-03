@@ -4650,7 +4650,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                /* eslint-enable no-fallthrough*/
                // listen for "initializedData" event from the DC
                // then we can continue.
-               this.eventRemove("initializedData");
+               this.eventRemove("initializedData", DC);
                this.eventAdd({
                   emitter: DC,
                   eventName: "initializedData",
@@ -5849,11 +5849,13 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
     * @method eventRemove()
     * unsubscribe a event.
     *
+    * @param {string} eventName - Name of the event
+    * @param {object} emitter - Emitter object
     */
-   eventRemove(eventName) {
+   eventRemove(eventName, emitter = null) {
       if (this.__events?.length > 0 && eventName) {
          this.__events.forEach((e) => {
-            if (eventName == e.eventName)
+            if (eventName == e.eventName && (!emitter || emitter == e.emitter))
                e.emitter.removeListener(e.eventName, e.listener);
          });
 
@@ -83688,4 +83690,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.405c0626e3611223e8c1.js.map
+//# sourceMappingURL=AB.b9e8a712b621f7b95532.js.map
