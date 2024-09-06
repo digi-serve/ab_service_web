@@ -1039,39 +1039,8 @@ __webpack_require__.r(__webpack_exports__);
       // BS {Bootstrap}
       // The initial Bootstrap object found in "./Bootstrap.js"
       try {
+         BS.Config.settings(window.__AB_Settings);
          let configData = window.__AB_Config;
-         // Use `AB.Network` if available
-         // if (BS.AB) {
-         //    configData = await BS.AB.Network.get(
-         //       { url: "/config" },
-         //       { key: "init_config" }
-         //    );
-         // } else {
-         //    const headers = new Headers();
-         //    const token = BS.Config.setting("tenant");
-         //    if (token) {
-         //       headers.append("tenant-token", token);
-         //    }
-
-         //    //// DEV TESTING:
-         //    //// uncomment the api_sails/authTenant.js && index.ejs entries for these values
-         //    //// to test url prefix route resolutions:
-         //    // var prefix = AB.setting("prefix");
-         //    // if (prefix) {
-         //    //    headers.append("Tenant-Test-Prefix", prefix);
-         //    // }
-         //    //// DEV TESTING
-
-         //    const response = await fetch("/config", { headers });
-         //    if (response.ok) {
-         //       const { data } = await response.json();
-         //       configData = data;
-         //    } else {
-         //       BS.error(`Error communicating with Server: ${response.status}`);
-         //    }
-         // }
-         // Hotfix 11/30/22, Since we no longer send settings on the div including in config.
-         BS.Config.settings(configData.settings);
          delete configData.settings;
          BS.Config.config(configData);
       } catch (err) {
@@ -3146,6 +3115,7 @@ class PortalAuthLoginForm extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["defa
                                           {
                                              view: "button",
                                              label: L("Forgot password?"),
+                                             id: "portal_auth_login_forgot",
                                              css: "webix_transparent",
                                              click: () => {
                                                 this.emit("request.reset");
@@ -3153,6 +3123,11 @@ class PortalAuthLoginForm extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["defa
                                                 // $$("password_reset_email").show();
                                              },
                                              width: 150,
+                                             on: {
+                                                onAfterRender() {
+                                                   _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"].CYPRESS_REF(this);
+                                                },
+                                             },
                                           },
                                           {},
                                        ],
@@ -3380,6 +3355,10 @@ class PortalAuthLoginResetPassword extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_
                                        ),
                                        validateEvent: "blur",
                                        bottomPadding: 20,
+                                       attributes: {
+                                          "data-cy":
+                                             "portal_reset_password_new",
+                                       },
                                     },
                                     {
                                        id: "password-confirm",
@@ -3397,6 +3376,10 @@ class PortalAuthLoginResetPassword extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_
                                        ),
                                        validateEvent: "blur",
                                        bottomPadding: 20,
+                                       attributes: {
+                                          "data-cy":
+                                             "portal_reset_password_confirm",
+                                       },
                                     },
                                     {
                                        margin: 10,
@@ -3408,6 +3391,7 @@ class PortalAuthLoginResetPassword extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_
                                              view: "button",
                                              label: L("Save"),
                                              type: "form",
+                                             id: "portal_reset_password_submit",
                                              css: "webix_primary",
                                              width: 150,
                                              hotkey: "enter",
@@ -3436,6 +3420,11 @@ class PortalAuthLoginResetPassword extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_
                                                       console.log(err);
                                                    });
                                                 }
+                                             },
+                                             on: {
+                                                onAfterRender() {
+                                                   _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"].CYPRESS_REF(this);
+                                                },
                                              },
                                           },
                                           {},
@@ -3590,6 +3579,9 @@ class PortalAuthLoginResetRequest extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0
                                                 "Please enter a valid email."
                                              ),
                                              validateEvent: "blur",
+                                             attributes: {
+                                                "data-cy": "portal_reset_request_email",
+                                             },
                                           },
                                           {
                                              rows: [
@@ -3598,6 +3590,7 @@ class PortalAuthLoginResetRequest extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0
                                                    icon: "fa fa-paper-plane",
                                                    type: "icon",
                                                    css: "webix_primary",
+                                                   id: "portal_reset_request_send",
                                                    autowidth: true,
                                                    hotkey: "enter",
                                                    click() {
@@ -3635,6 +3628,11 @@ class PortalAuthLoginResetRequest extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0
                                                             console.log(err);
                                                          });
                                                       }
+                                                   },
+                                                   on: {
+                                                      onAfterRender() {
+                                                         _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"].CYPRESS_REF(this);
+                                                      },
                                                    },
                                                 },
                                                 {},
@@ -9772,7 +9770,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.8.3+c20213";
+   version = "1.8.4";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10323,4 +10321,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.c55611f27ea1e36fc127.js.map
+//# sourceMappingURL=app.9ac275c5dc40a3bf4a8b.js.map

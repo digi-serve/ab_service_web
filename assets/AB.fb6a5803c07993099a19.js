@@ -35736,7 +35736,7 @@ module.exports = class ABModel extends ABModelCore {
       cond = cond || {};
 
       // scan the rules and convert any is_current_date rules to UTC daytime range.
-      let rules = cond.where.rules;
+      let rules = cond.where?.rules;
       while (rules?.length) {
          let nestedRules = [];
          rules.forEach((rule) => {
@@ -83690,4 +83690,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.b9e8a712b621f7b95532.js.map
+//# sourceMappingURL=AB.fb6a5803c07993099a19.js.map
