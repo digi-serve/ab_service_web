@@ -70110,13 +70110,15 @@ module.exports = class ABViewPDFImporterComponent extends ABViewComponent {
    }
 
    async _uploadImage(pageNumber) {
+      // set quality of the saving image
+      const WIDTH_OF_SAVE_IMAGE = 1200;
+
       // Create a temporary CANVAS dom to render page image with specify the height
-      const $carousel = $$(this.ids.fullImageCarousel);
       const canvasId = `${this.view.id}_temp_canvas`;
       const canvas =
          document.getElementById(canvasId) ?? document.createElement("canvas");
       canvas.id = canvasId;
-      canvas.width = $carousel.config.width - 20;
+      canvas.width = WIDTH_OF_SAVE_IMAGE;
 
       await this.showPage(pageNumber, canvas);
       const fileBlob = await this._toBlob(pageNumber, canvas);
@@ -83690,4 +83692,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.fb6a5803c07993099a19.js.map
+//# sourceMappingURL=AB.e327ee2abe69ce60b664.js.map
