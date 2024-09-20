@@ -67378,7 +67378,7 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
          (!state.old && state.value === "") ||
          (state.old === "" && state.value === "")
       ) {
-         $DataTable.clearSelection();
+         $DataTable?.clearSelection();
 
          return false;
       }
@@ -83692,4 +83692,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.e327ee2abe69ce60b664.js.map
+//# sourceMappingURL=AB.a05608f99f7f657ee3dd.js.map
