@@ -4958,8 +4958,12 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       return new Promise((resolve) => {
          setTimeout(async () => {
             await this.queuedParse(nextData);
-            cb?.();
-            resolve();
+
+            // Introduce a delay to ensure the UI has fully rendered the list before proceeding
+            setTimeout(async () => {
+               cb?.();
+               resolve();
+            }, 50);
          }, 15);
       });
    }
@@ -15472,10 +15476,10 @@ module.exports = class ABFieldCore extends ABMLClass {
 
 const ABField = __webpack_require__(/*! ../../platform/dataFields/ABField */ 35709);
 
-function L(key, altText) {
-   // TODO:
-   return altText; // AD.lang.label.getLabel(key) || altText;
-}
+/*function L(key, altText) {
+   // TODO:git 
+   // return altText; // AD.lang.label.getLabel(key) || altText;
+}*/
 
 const ABFieldDateDefaults = {
    key: "date",
@@ -15623,6 +15627,10 @@ module.exports = class ABFieldDateCore extends ABField {
     */
    isValidData(data, validator) {
       super.isValidData(data, validator);
+      var L = this.AB.Label();
+
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
 
       if (data[this.columnName]) {
          let value = data[this.columnName];
@@ -15764,6 +15772,30 @@ module.exports = class ABFieldDateCore extends ABField {
                         validator.addError(
                            this.columnName,
                            L("Should before or equal {0}", [startDateDisplay])
+                        );
+                     break;
+                  case "lessCurrentDate":
+                     isValid =
+                        value.getTime &&
+                        value.getTime() < currentDate.getTime();
+                     if (!isValid)
+                        validator.addError(
+                           this.columnName,
+                           L("Should before {0}", [
+                              this.getDateDisplay(currentDate),
+                           ])
+                        );
+                     break;
+                  case "lessEqualCurrentDate":
+                     isValid =
+                        value.getTime &&
+                        value.getTime() <= currentDate.getTime();
+                     if (!isValid)
+                        validator.addError(
+                           this.columnName,
+                           L("Should before or equal {0}", [
+                              this.getDateDisplay(currentDate),
+                           ])
                         );
                      break;
                }
@@ -83762,4 +83794,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.9d92547fd4238f292e62.js.map
+//# sourceMappingURL=AB.459081fb643a87715719.js.map
