@@ -51092,8 +51092,8 @@ class ABQL extends ABQLCore {
                      view: "button",
                      label: displayLabel,
                      on: {
-                        onItemClick: () => {
-                           Filter.popUp($$(this.ids.shorthand), null, {
+                        onItemClick: function () {
+                           Filter.popUp(this.$view, null, {
                               pos: "center",
                            });
                         },
@@ -83794,4 +83794,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.459081fb643a87715719.js.map
+//# sourceMappingURL=AB.77dff5f6de76312b2a8d.js.map
