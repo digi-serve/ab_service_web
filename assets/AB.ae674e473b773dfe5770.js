@@ -15069,7 +15069,7 @@ module.exports = class ABFieldConnectCore extends ABField {
          } else {
             colName = indexField
                ? indexField.columnName
-               : this.fieldLink.columnName;
+               : datasourceLink.PK();
          }
       }
       // NO CUSTOM INDEX
@@ -83794,4 +83794,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.77dff5f6de76312b2a8d.js.map
+//# sourceMappingURL=AB.ae674e473b773dfe5770.js.map
