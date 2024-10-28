@@ -63602,6 +63602,15 @@ module.exports = class ABViewFormComponent extends ABViewComponent {
 
             const comp = baseView.viewComponents[f.id];
             if (!comp) return;
+            //
+            if (f.key === "datepicker") {
+               // Not sure why, but the local format isn't applied correctly
+               // without a timeout here
+               setTimeout(() => {
+                  field.setValue($$(comp.ids.formItem), rowData);
+               }, 200);
+               return;
+            }
 
             field.setValue($$(comp.ids.formItem), rowData);
          });
@@ -83794,4 +83803,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.ae674e473b773dfe5770.js.map
+//# sourceMappingURL=AB.a5d7819febde062a4bde.js.map
