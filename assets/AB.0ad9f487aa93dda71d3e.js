@@ -12624,23 +12624,29 @@ module.exports = class FilterComplexCore extends ABComponent {
 
       let result = [];
 
-      for (let condKey in dateConditions) {
-         if (condKey == "is_current_date") {
-            result.push({
-               id: condKey,
-               value: dateConditions[condKey],
-               batch: "none",
-               handler: (a, b) => this.dateValid(a, condKey, b),
-            });
-         } else {
-            result.push({
-               id: condKey,
-               value: dateConditions[condKey],
-               batch: "datepicker",
-               handler: (a, b) => this.dateValid(a, condKey, b),
-            });
+      for (let condKey in dateConditions)
+         switch (condKey) {
+            case "is_current_date":
+            case "less_current":
+            case "greater_current":
+            case "less_or_equal_current":
+            case "greater_or_equal_current":
+               result.push({
+                  id: condKey,
+                  value: dateConditions[condKey],
+                  batch: "none",
+                  handler: (a, b) => this.dateValid(a, condKey, b),
+               });
+               break;
+            default:
+               result.push({
+                  id: condKey,
+                  value: dateConditions[condKey],
+                  batch: "datepicker",
+                  handler: (a, b) => this.dateValid(a, condKey, b),
+               });
+               break;
          }
-      }
       return result;
    }
 
@@ -15955,7 +15961,7 @@ const ABFieldDateDefaults = {
    // if a {fn} is provided, it will be called with the ABField as a parameter:
    //  (field) => field.setting.something == true
 
-   isSortable: false,
+   isSortable: true,
    // {bool} / {fn}
    // determines if the current ABField can be used to Sort data.
    // if a {fn} is provided, it will be called with the ABField as a parameter:
@@ -83803,4 +83809,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.a5d7819febde062a4bde.js.map
+//# sourceMappingURL=AB.0ad9f487aa93dda71d3e.js.map
