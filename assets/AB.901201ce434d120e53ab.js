@@ -38725,6 +38725,13 @@ module.exports = class FilterComplex extends FilterComplexCore {
          this._fnBaseGetValue = $filterView.prototype.GetValue;
       $filterView.prototype.GetValue = function () {
          const rule = _this._fnBaseGetValue.call(this);
+         if (!rule) {
+            // Not sure if its a problem, so report in case it is.
+            this.AB.notify.developer(new Error("No rule found"), {
+               context: "No rule from $filterView.GetValue()",
+            });
+            return;
+         }
 
          if (
             rule.condition.type == "in_query_field" ||
@@ -45268,8 +45275,9 @@ function _getSelectedOptions(field, rowData = {}) {
       if (field.settings) {
          result = (field.settings.options || []).filter((opt) => {
             return (
-               (result || []).filter((v) => (opt.id || opt) == (v.id || v))
-                  .length > 0
+               (result || []).filter(
+                  (v) => opt && v && (opt.id || opt) == (v.id || v)
+               ).length > 0
             );
          });
       }
@@ -60927,6 +60935,14 @@ module.exports = class ABViewDataviewComponent extends ABViewComponent {
 
    resize(base_element) {
       const $dataview = $$(this.ids.dataview);
+      if (!$dataview) {
+         // Not sure if its a problem so notify
+         this.AB.notify.developer(
+            new Error("Resize called on missing dataview component"),
+            { context: "ABViewDataviewComponent.resize()", ids: this.ids }
+         );
+         return;
+      }
       $dataview.resize();
 
       const item_width = this.getItemWidth(base_element);
@@ -81954,7 +81970,14 @@ function socketDataLog(AB, key, data) {
 
    if (data.objectId) {
       let obj = AB.objectByID(data.objectId);
-      console.warn(`socket: ${key} ${obj.label ?? obj.name}(${length})`, data);
+      if (!obj) {
+         console.warn(`socket: ${key} unkown object (${length})`, data);
+      } else {
+         console.warn(
+            `socket: ${key} ${obj.label ?? obj.name}(${length})`,
+            data
+         );
+      }
    } else {
       console.warn(`socket: ${key} (${length})`, data);
    }
@@ -83814,4 +83837,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.f030272b638291dac581.js.map
+//# sourceMappingURL=AB.901201ce434d120e53ab.js.map
