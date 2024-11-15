@@ -12242,8 +12242,12 @@ module.exports = class FilterComplexCore extends ABComponent {
       // If value will be the connected object, then pull value (string)
       if (typeof connectedVal == "object") {
          connectedVal =
-            connectedVal[field.indexField.columnName] ??
-            connectedVal[field.indexField2.columnName] ??
+            (field.indexField
+               ? connectedVal[field.indexField.columnName]
+               : null) ??
+            (field.indexField2
+               ? connectedVal[field.indexField2.columnName]
+               : null) ??
             connectedVal[field.columnName] ??
             connectedVal;
       }
@@ -83837,4 +83841,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.901201ce434d120e53ab.js.map
+//# sourceMappingURL=AB.03ab7e53b515cca787ee.js.map
