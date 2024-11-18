@@ -12249,6 +12249,7 @@ module.exports = class FilterComplexCore extends ABComponent {
                ? connectedVal[field.indexField2.columnName]
                : null) ??
             connectedVal[field.columnName] ??
+            connectedVal.id
             connectedVal;
       }
 
@@ -83841,4 +83842,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.03ab7e53b515cca787ee.js.map
+//# sourceMappingURL=AB.41448d0d76f7dc9f0c7e.js.map
