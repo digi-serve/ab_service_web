@@ -9835,6 +9835,11 @@ module.exports = class ABObjectCore extends ABMLClass {
       // ['{colId1}', ..., '{colIdN}']
       var colIds = labelData.match(/\{[^}]+\}/g);
 
+      // Using rawString to catch actual values we are pulling out.
+      // the label data might have additional characters "-" and such that will
+      // remain, and doing a .trim() on that wont catch that the label data
+      // is actually empty.
+      let rawString = "";
       if (colIds && colIds.forEach) {
          colIds.forEach((colId) => {
             var colIdNoBracket = colId.replace("{", "").replace("}", "");
@@ -9842,12 +9847,14 @@ module.exports = class ABObjectCore extends ABMLClass {
             var field = this.fieldByID(colIdNoBracket);
             if (field == null) return;
 
-            labelData = labelData.replace(colId, field.format(rowData) || "");
+            let valField = field.format(rowData) || "";
+            labelData = labelData.replace(colId, valField);
+            rawString = `${rawString}${valField}`;
          });
       }
 
       // if label is empty, then show .id
-      if (!labelData.trim()) {
+      if (!rawString.trim()) {
          let labelSettings = this.labelSettings || {};
          if (labelSettings && labelSettings.isNoLabelDisplay) {
             labelData = L(labelSettings.noLabelText || "[No Label]");
@@ -14937,7 +14944,7 @@ module.exports = class ABFieldConnectCore extends ABField {
             .join(", ");
       // string
       else if (val) {
-         if (val.text == null) return linkedObject.displayData(rowData) || "";
+         if (val.text == null) return linkedObject.displayData(val) || "";
          else if (val.text) return val.text || "";
       }
       // empty string
@@ -83846,4 +83853,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.7fa003b6dd4287cdd363.js.map
+//# sourceMappingURL=AB.5d0356c65c16cafb2abf.js.map
