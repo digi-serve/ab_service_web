@@ -11430,6 +11430,7 @@ var AllViews = [
    __webpack_require__(/*! ../platform/views/ABViewCSVExporter */ 73006),
    __webpack_require__(/*! ../platform/views/ABViewCSVImporter */ 9869),
    __webpack_require__(/*! ../platform/views/ABViewDataFilter */ 70153),
+   __webpack_require__(/*! ../platform/views/ABViewDataSelect */ 55835),
    __webpack_require__(/*! ../platform/views/ABViewDataview */ 6286),
    __webpack_require__(/*! ../platform/views/ABViewDocxBuilder */ 4634),
    __webpack_require__(/*! ../platform/views/ABViewGrid */ 87627),
@@ -29167,6 +29168,63 @@ module.exports = class ABViewDataFilterCore extends ABViewWidget {
 
    static defaultValues() {
       return ABViewDataFilterPropertyComponentDefaults;
+   }
+
+   ///
+   /// Instance Methods
+   ///
+
+   /**
+    * @method fromValues()
+    *
+    * initialze this object with the given set of values.
+    * @param {obj} values
+    */
+   fromValues(values) {
+      super.fromValues(values);
+   }
+
+   /**
+    * @method componentList
+    * return the list of components available on this view to display in the editor.
+    */
+   componentList() {
+      return [];
+   }
+};
+
+
+/***/ }),
+
+/***/ 26052:
+/*!*******************************************************!*\
+  !*** ./AppBuilder/core/views/ABViewDataSelectCore.js ***!
+  \*******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABViewWidget = __webpack_require__(/*! ../../platform/views/ABViewWidget */ 87039);
+
+const ABViewDataSelectPropertyComponentDefaults = {
+   dataviewID: null, // uuid of ABDatacollection
+};
+
+const ABViewDefaults = {
+   key: "data-select", // {string} unique key for this view
+   icon: "chevron-circle-down", // {string} fa-[icon] reference for this view
+   labelKey: "Data Select", // {string} the multilingual label key for the class label
+};
+
+module.exports = class ABViewDataSelectCore extends ABViewWidget {
+   constructor(values, application, parent, defaultValues) {
+      super(values, application, parent, defaultValues ?? ABViewDefaults);
+   }
+
+   static common() {
+      return ABViewDefaults;
+   }
+
+   static defaultValues() {
+      return ABViewDataSelectPropertyComponentDefaults;
    }
 
    ///
@@ -52884,6 +52942,59 @@ class ABViewDataFilter extends (_core_views_ABViewDataFilterCore__WEBPACK_IMPORT
 
 /***/ }),
 
+/***/ 55835:
+/*!*******************************************************!*\
+  !*** ./AppBuilder/platform/views/ABViewDataSelect.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ABViewDataSelect)
+/* harmony export */ });
+/* harmony import */ var _core_views_ABViewDataSelectCore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/views/ABViewDataSelectCore */ 26052);
+/* harmony import */ var _core_views_ABViewDataSelectCore__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_views_ABViewDataSelectCore__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _viewComponent_ABViewDataSelectComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewComponent/ABViewDataSelectComponent */ 46687);
+
+
+
+class ABViewDataSelect extends (_core_views_ABViewDataSelectCore__WEBPACK_IMPORTED_MODULE_0___default()) {
+   /**
+    * @method component()
+    * return a UI component based upon this view.
+    * @param {obj} App
+    * @return {obj} UI component
+    */
+   component() {
+      return new _viewComponent_ABViewDataSelectComponent__WEBPACK_IMPORTED_MODULE_1__["default"](this);
+   }
+
+   warningsEval() {
+      super.warningsEval();
+
+      let DC = this.datacollection;
+      if (!DC) {
+         this.warningsMessage(
+            `can't resolve it's datacollection[${this.settings.dataviewID}]`
+         );
+      } else {
+         if (this.settings.viewType == "connected") {
+            const object = DC.datasource;
+            const [field] = object.fields(
+               (f) => f.columnName === this.settings.field
+            );
+            if (!field) {
+               this.warningsMessage(`can't resolve field reference`);
+            }
+         }
+      }
+   }
+}
+
+
+/***/ }),
+
 /***/ 6286:
 /*!*****************************************************!*\
   !*** ./AppBuilder/platform/views/ABViewDataview.js ***!
@@ -60857,6 +60968,77 @@ class ABViewDataFilterComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODUL
 
 /***/ }),
 
+/***/ 46687:
+/*!******************************************************************************!*\
+  !*** ./AppBuilder/platform/views/viewComponent/ABViewDataSelectComponent.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ABViewDataSelectComponent)
+/* harmony export */ });
+/* harmony import */ var _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABViewComponent */ 23687);
+
+class ABViewDataSelectComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   constructor(baseView, idbase, ids) {
+      super(
+         baseView,
+         idbase || `ABViewDataSelect_${baseView.id}`,
+         Object.assign(
+            {
+               select: "",
+            },
+            ids
+         )
+      );
+   }
+
+   ui() {
+      const _ui = super.ui([
+         {
+            view: "richselect",
+            id: this.ids.select,
+            on: {
+               onChange: (n, o) => {
+                  if (n !== o) this.cursorChange(n);
+               },
+            },
+         },
+      ]);
+      delete _ui.type;
+
+      return _ui;
+   }
+
+   async init(AB) {
+      await super.init(AB);
+      this.dc = AB.datacollectionByID(this.settings.dataviewID);
+   }
+
+   async onShow() {
+      if (!this.dc) return;
+      await this.dc.waitForDataCollectionToInitialize(this.dc);
+      const labelField = this.AB.definitionByID(
+         this.settings.labelField
+      )?.columnName;
+      const options = this.dc
+         .getData()
+         .map((o) => ({ id: o.id, value: o[labelField] }));
+      $$(this.ids.select).define("options", options);
+      $$(this.ids.select).refresh();
+      $$(this.ids.select).setValue(this.dc.getCursor().id);
+   }
+
+   cursorChange(n) {
+      this.dc.setCursor(n);
+   }
+}
+
+
+/***/ }),
+
 /***/ 65812:
 /*!****************************************************************************!*\
   !*** ./AppBuilder/platform/views/viewComponent/ABViewDataviewComponent.js ***!
@@ -61282,7 +61464,7 @@ module.exports = class ABViewDetailComponent extends ABViewContainerComponent {
       try {
          const dataCy = `Detail ${baseView.name?.split(".")[0]} ${baseView.id}`;
 
-         $$(this.ids.component).$view.setAttribute("data-cy", dataCy);
+         $$(this.ids.component)?.$view.setAttribute("data-cy", dataCy);
       } catch (e) {
          console.warn("Problem setting data-cy", e);
       }
@@ -83853,4 +84035,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.5d0356c65c16cafb2abf.js.map
+//# sourceMappingURL=AB.20d075a5bb12ecf9da32.js.map
