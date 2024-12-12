@@ -64913,7 +64913,13 @@ module.exports = class ABViewFormDatepickerComponent extends (
             throw errNoAB;
          }
       }
-      const date = this.AB.Webix.Date.strToDate(field.getFormat())(text);
+      // NOTE: if we are using the Thai language we force the format to be "%d/%m/%Y" in th-TH.js:13
+      //       so we have to use that format here
+      let dateVal = this.AB.Webix.Date.strToDate(field.getFormat())(text);
+      if (this.AB.Account?._config?.languageCode == "th") {
+         dateVal = this.AB.Webix.Date.strToDate("%j/%m/%Y")(text);
+      }
+      const date = dateVal;
 
       if (
          this.AB.Account?._config?.languageCode == "th" &&
@@ -84048,4 +84054,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.1048a8ebca0f4226cb19.js.map
+//# sourceMappingURL=AB.0b97e99c658bfdf9a8ff.js.map
