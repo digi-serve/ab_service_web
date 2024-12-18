@@ -19169,6 +19169,13 @@ const defaultValues = {
 module.exports = class ABFieldUserCore extends ABFieldConnect {
    constructor(values, object) {
       super(values, object, ABFieldUserDefaults);
+
+      this.isUser = true;
+      // {bool}
+      // is this an ABFieldUser type of field.
+      // this is a simplified helper to identify if an ABField is a type
+      // of User field.  Since this is the only place it is defined,
+      // all other field types will be falsy
    }
 
    // return the default values for this DataField
@@ -84107,4 +84114,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.fd7fa7a02f09862d21aa.js.map
+//# sourceMappingURL=AB.2560d5c3a0f04499318e.js.map
