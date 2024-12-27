@@ -4529,9 +4529,9 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                      // lets start by assuming all the current values in cursor are #3
                      // -> all the values into valuesToAdd:
 
-                     let colName = this.fieldLink.fieldLink.relationName();
+                     let colName = this.fieldLink?.fieldLink?.relationName?.();
                      let valuesToAdd = {};
-                     let valuesIn = linkCursor[colName] || [];
+                     let valuesIn = colName ? (linkCursor[colName] || []) : [];
                      if (!Array.isArray(valuesIn)) valuesIn = [valuesIn];
                      valuesIn = valuesIn.filter((v) => v);
                      valuesIn.forEach((v) => {
@@ -84117,4 +84117,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.c69b1d0e8ade91df8953.js.map
+//# sourceMappingURL=AB.d86d0f34812a06765a28.js.map
