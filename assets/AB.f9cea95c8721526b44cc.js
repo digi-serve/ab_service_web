@@ -12257,7 +12257,7 @@ module.exports = class FilterComplexCore extends ABComponent {
                ? connectedVal[field.indexField2.columnName]
                : null) ??
             connectedVal[field.columnName] ??
-            connectedVal.id
+            connectedVal.id ??
             connectedVal;
       }
 
@@ -12480,6 +12480,11 @@ module.exports = class FilterComplexCore extends ABComponent {
                            opt.id == "is_not_empty"
                      );
                      conditions = stringResults.concat(conditions);
+
+                     // By Query Field
+                     conditions = conditions.concat(
+                        this.fieldsAddFiltersQuery(f, true)
+                     );
                   }
 
                   hasQueryField = false;
@@ -84117,4 +84122,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.d86d0f34812a06765a28.js.map
+//# sourceMappingURL=AB.f9cea95c8721526b44cc.js.map
