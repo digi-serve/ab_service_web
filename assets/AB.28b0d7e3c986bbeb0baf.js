@@ -12000,6 +12000,12 @@ module.exports = class FilterComplexCore extends ABComponent {
             result =
                value.setHours(0, 0, 0, 0) == compareValue.setHours(0, 0, 0, 0);
             break;
+         case "is_empty":
+            result = !value;
+            break;
+         case "is_not_empty":
+            result = !!value;
+            break;
          default:
             result = this.queryFieldValid(value, rule, compareValue);
             break;
@@ -12643,6 +12649,8 @@ module.exports = class FilterComplexCore extends ABComponent {
             this.labels.component.onOrAfterCurrentCondition,
          last_days: this.labels.component.onLastDaysCondition,
          next_days: this.labels.component.onNextDaysCondition,
+         is_empty: this.labels.component.isEmpty,
+         is_not_empty: this.labels.component.isNotEmpty,
       };
 
       let result = [];
@@ -12654,6 +12662,8 @@ module.exports = class FilterComplexCore extends ABComponent {
             case "greater_current":
             case "less_or_equal_current":
             case "greater_or_equal_current":
+            case "is_empty":
+            case "is_not_empty":
                result.push({
                   id: condKey,
                   value: dateConditions[condKey],
@@ -38366,15 +38376,15 @@ function _toInternal(cond, fields = []) {
       };
 
       if (Array.isArray(cond.value)) cond.includes = cond.value;
-      else cond.includes = cond.value?.split?.(/,|:/) ?? [];
+      // else cond.includes = cond.value?.split?.(/,|:/) ?? [];
 
-      if (field?.key == "date" || field?.key == "datetime") {
-         cond.condition.filter = cond.condition.filter
-            ? AB.rules.toDate(cond.condition.filter)
-            : null;
-
-         cond.includes = cond.includes.map((v) => AB.rules.toDate(v));
-      }
+      // if (field?.key == "date" || field?.key == "datetime") {
+      //    cond.condition.filter = cond.condition.filter
+      //       ? AB.rules.toDate(cond.condition.filter)
+      //       : null;
+      //
+      //    cond.includes = cond.includes.map((v) => AB.rules.toDate(v));
+      // }
 
       delete cond.key;
       delete cond.rule;
@@ -38413,7 +38423,7 @@ function _toExternal(cond, fields = []) {
       cond.rule = cond.condition.type;
 
       let values =
-         cond.includes.map((v) => (v instanceof Date ? v.toISOString() : v)) ??
+         cond.includes?.map((v) => (v instanceof Date ? v.toISOString() : v)) ??
          [];
 
       // Convert multi-values to a string
@@ -38831,6 +38841,11 @@ module.exports = class FilterComplex extends FilterComplexCore {
 
    fieldsLoad(fields = [], object = null) {
       super.fieldsLoad(fields, object);
+      // Format date types
+      fields.forEach((f) => {
+         if (f.type === "date")
+            f.format = (v) => this.AB.Webix.il8n.dateFormatStr(v);
+      });
       this.uiInit();
    }
 
@@ -84122,4 +84137,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.f9cea95c8721526b44cc.js.map
+//# sourceMappingURL=AB.28b0d7e3c986bbeb0baf.js.map
