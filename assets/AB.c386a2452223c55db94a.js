@@ -3894,6 +3894,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
          // }
 
          let needUpdate = false;
+         let skipDatasourceFilter = false;
          let isExists = false;
          let updatedIds = [];
          // {array}
@@ -3916,6 +3917,10 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
             let objList = obj.objects((o) => o.id == data.objectId) || [];
             needUpdate = objList.length > 0;
             if (needUpdate) {
+               // NOTE: Data needs to be updated in the query even if it doesn't match the filter conditions.
+               skipDatasourceFilter =
+                  obj instanceof this.AB.Class.ABObjectQuery;
+
                (objList || []).forEach((o) => {
                   updatedIds = updatedIds.concat(
                      this.__dataCollection
@@ -3971,7 +3976,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
          // if it is the source object
          if (needUpdate) {
             if (isExists) {
-               if (this.isValidData(updatedVals)) {
+               if (this.isValidData(updatedVals, skipDatasourceFilter)) {
                   // only spread around cloned copies because some objects (I'm
                   // looking at you ABFieldUser) will modify some data for local
                   // usage.
@@ -84141,4 +84146,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.4c776503b85ec42b1f19.js.map
+//# sourceMappingURL=AB.c386a2452223c55db94a.js.map
