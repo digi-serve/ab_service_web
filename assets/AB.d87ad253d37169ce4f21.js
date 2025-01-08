@@ -38381,6 +38381,13 @@ function _toInternal(cond, fields = []) {
       };
 
       if (Array.isArray(cond.value)) cond.includes = cond.value;
+      if (
+         cond.rule === "in_query_field" ||
+         cond.rule === "not_in_query_field"
+      ) {
+         cond.includes = cond.value.split(":");
+      }
+
       // else cond.includes = cond.value?.split?.(/,|:/) ?? [];
 
       // if (field?.key == "date" || field?.key == "datetime") {
@@ -84146,4 +84153,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.c386a2452223c55db94a.js.map
+//# sourceMappingURL=AB.d87ad253d37169ce4f21.js.map
