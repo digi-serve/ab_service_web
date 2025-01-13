@@ -12676,6 +12676,14 @@ module.exports = class FilterComplexCore extends ABComponent {
                   handler: (a, b) => this.dateValid(a, condKey, b),
                });
                break;
+            case "last_days":
+               result.push({
+                  id: condKey,
+                  value: dateConditions[condKey],
+                  batch: "text",
+                  handler: (a, b) => this.dateValid(a, condKey, b),
+               });
+               break;
             default:
                result.push({
                   id: condKey,
@@ -38460,8 +38468,13 @@ function _toExternal(cond, fields = []) {
          cond.value = values
             .map((v) => {
                // Convert date format
-               if (field && (field.key === "date" || field.key === "datetime"))
+               if (
+                  field &&
+                  (field.key === "date" || field.key === "datetime") &&
+                  cond.rule != "last_days"
+               ) {
                   return field.exportValue(new Date(v));
+               }
                return v;
             })
             .join(",");
@@ -84224,4 +84237,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.b35885db85d416253561.js.map
+//# sourceMappingURL=AB.91289675fb56cbff72be.js.map
