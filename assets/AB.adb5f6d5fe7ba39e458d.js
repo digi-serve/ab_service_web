@@ -4536,7 +4536,7 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
 
                      let colName = this.fieldLink?.fieldLink?.relationName?.();
                      let valuesToAdd = {};
-                     let valuesIn = colName ? (linkCursor[colName] || []) : [];
+                     let valuesIn = colName ? linkCursor[colName] || [] : [];
                      if (!Array.isArray(valuesIn)) valuesIn = [valuesIn];
                      valuesIn = valuesIn.filter((v) => v);
                      valuesIn.forEach((v) => {
@@ -5308,10 +5308,26 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       if (dataCollectionLink && fieldLink) {
          const linkCursorId = dataCollectionLink?.getCursor()?.id;
          if (linkCursorId) {
+            const linkType = `${fieldLink.linkType()}:${fieldLink.linkViaType()}`;
+
+            let filterRule;
+            // NOTE: If object is query, then use "contains" because ABOBjectQuery return JSON
+            if (fieldLink.alias) {
+               filterRule = "contains";
+            }
+            // M:1
+            else if (linkType == "many:one") {
+               filterRule = "have_relation";
+            }
+            // 1:M
+            else {
+               filterRule = "equals";
+            }
+
             rule = {
                alias: fieldLink.alias, // ABObjectQuery
                key: fieldLink.id,
-               rule: fieldLink.alias ? "contains" : "equals", // NOTE: If object is query, then use "contains" because ABOBjectQuery return JSON
+               rule: filterRule,
                value: fieldLink.getRelationValue(
                   dataCollectionLink.__dataCollection.getItem(linkCursorId)
                ),
@@ -5410,9 +5426,10 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
          // loadData() routine.  In SQL, our linkRule might have an "equals"
          // rule, to match.  But in this context if our linktype is "many"
          // we need to change the rule to "contains":
-         if (this.fieldLink?.linkType() == "many") {
-            linkRule.rule = "contains";
-         }
+         // QUESTION: If this is still required, consider moving it into the `ruleLinkedData` function for maintainability. ??
+         // if (this.fieldLink?.linkType() == "many") {
+         //    linkRule.rule = "contains";
+         // }
 
          // if linkRule not already IN filter:
          let isAlreadyThere = false;
@@ -84237,4 +84254,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.91289675fb56cbff72be.js.map
+//# sourceMappingURL=AB.adb5f6d5fe7ba39e458d.js.map
