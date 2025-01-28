@@ -11099,6 +11099,13 @@ module.exports = class ABProcessCore extends ABMLClass {
          null,
          this
       );
+      // Include data from the main process as well
+      if (this.key === "SubProcess") {
+         const parentFields = this.process.processDataFields(this);
+         if (parentFields) {
+            fields.push(...parentFields);
+         }
+      }
       return fields.length > 0 ? fields : null;
    }
 
@@ -24996,10 +25003,10 @@ module.exports = class SubProcessCore extends ABProcessElement {
       // Filter none data items
       if (Array.isArray(data)) data = data.filter((d) => d != null);
 
-      if (data == null || !data.length)
+      if (data == null || data.length == 0)
          data = this.process.processData.call(this, currElement, params);
 
-      if (data == null || !data.length)
+      if (data == null || data.length == 0)
          data = this.process.processData(this, params);
 
       return data;
@@ -50949,7 +50956,8 @@ class ABQL extends ABQLCore {
     * @return {obj}
     */
    uiNextRow(id) {
-      const options = this.constructor.NextQLOps.map((op) => {
+      const nextOptions = this.NextQLOps ?? this.constructor.NextQLOps;
+      const options = nextOptions.map((op) => {
          return { id: op.key, value: op.label };
       });
 
@@ -50977,7 +50985,7 @@ class ABQL extends ABQLCore {
 
                      if (newValue === oldValue) return;
 
-                     const newOP = this.constructor.NextQLOps.find(
+                     const newOP = nextOptions.find(
                         (op) => op.key === newValue
                      );
 
@@ -51269,7 +51277,7 @@ class ABQL extends ABQLCore {
                         }
                      }
                   ]);
-                  
+
                }); */
             }
 
@@ -51755,7 +51763,7 @@ const ABQLManager = {
 
             const nextRow = parseCurrent(
                rows,
-               currOP.constructor.NextQLOps,
+               currOP.NextQLOps ?? currOP.constructor.NextQLOps,
                currOP
             );
 
@@ -84254,4 +84262,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.adb5f6d5fe7ba39e458d.js.map
+//# sourceMappingURL=AB.550420200f9e1a7814f6.js.map
