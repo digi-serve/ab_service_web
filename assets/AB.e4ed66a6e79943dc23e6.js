@@ -322,8 +322,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ 41655);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! nanoid */ 27869);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! uuid */ 15460);
+/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! nanoid */ 27869);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! uuid */ 15460);
 /* harmony import */ var _utils_performance__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../utils/performance */ 76431);
 /* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./platform/FilterComplex */ 46334);
 /* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11__);
@@ -338,7 +338,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./core/ABViewManagerCore */ 74834);
 /* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../resources/Tenant.js */ 38913);
-/* harmony import */ var _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./uiSettings/config.js */ 37468);
+/* harmony import */ var _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./uiSettings/config.js */ 37468);
+/* harmony import */ var _platform_views_viewComponent_ABViewComponent_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./platform/views/viewComponent/ABViewComponent.js */ 23687);
 
 
 
@@ -376,6 +377,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Tenant: manages the Tenant information of the current instance
+
 
 
 // UISettings: detailed settings for our common UI elements
@@ -454,6 +456,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
       this.Class.FilterComplex = (_platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11___default());
       this.Class.ABViewManager = (_core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12___default());
       this.Class.SortPopup = _platform_views_ABViewGridPopupSortFields__WEBPACK_IMPORTED_MODULE_13__["default"];
+      this.Class.ABViewComponent = _platform_views_viewComponent_ABViewComponent_js__WEBPACK_IMPORTED_MODULE_14__["default"];
 
       // Temp placeholders until Resources are implemented:
       this.Analytics = {
@@ -471,7 +474,9 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
          }
       };
 
-      this.UISettings = _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_14__["default"];
+      this.performance = _utils_performance__WEBPACK_IMPORTED_MODULE_15__["default"];
+
+      this.UISettings = _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_16__["default"];
 
       this.Validation = {
          validator: () => {
@@ -1253,7 +1258,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
    }
 
    jobID() {
-      return (0,nanoid__WEBPACK_IMPORTED_MODULE_16__.nanoid)();
+      return (0,nanoid__WEBPACK_IMPORTED_MODULE_17__.nanoid)();
    }
 
    Label() {
@@ -1331,7 +1336,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
    }
 
    uuid() {
-      return (0,uuid__WEBPACK_IMPORTED_MODULE_17__["default"])();
+      return (0,uuid__WEBPACK_IMPORTED_MODULE_18__["default"])();
    }
 
    warn(message, ...rest) {
@@ -61210,7 +61215,7 @@ class ABViewDataSelectComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODUL
    ui() {
       const _ui = super.ui([
          {
-            view: "richselect",
+            view: "combo",
             id: this.ids.select,
             on: {
                onChange: (n, o) => {
@@ -61224,27 +61229,26 @@ class ABViewDataSelectComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODUL
       return _ui;
    }
 
-   async init(AB) {
-      await super.init(AB);
-      this.dc = AB.datacollectionByID(this.settings.dataviewID);
-   }
-
    async onShow() {
-      if (!this.dc) return;
-      await this.dc.waitForDataCollectionToInitialize(this.dc);
+      super.onShow();
+      const dc = this.datacollection;
+      if (!dc) return;
+      await dc.waitReady();
       const labelField = this.AB.definitionByID(
          this.settings.labelField
       )?.columnName;
-      const options = this.dc
+      const options = dc
          .getData()
-         .map((o) => ({ id: o.id, value: o[labelField] }));
-      $$(this.ids.select).define("options", options);
-      $$(this.ids.select).refresh();
-      $$(this.ids.select).setValue(this.dc.getCursor().id);
+         .map((o) => ({ id: o.id, value: o[labelField] }))
+         .sort((a, b) => (a.value > b.value ? 1 : -1));
+      const $select = $$(this.ids.select);
+      $select.define("options", options);
+      $select.refresh();
+      $select.setValue(dc.getCursor().id);
    }
 
    cursorChange(n) {
-      this.dc.setCursor(n);
+      this.datacollection.setCursor(n);
    }
 }
 
@@ -84327,4 +84331,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.215e5b713e459f729ba0.js.map
+//# sourceMappingURL=AB.e4ed66a6e79943dc23e6.js.map
