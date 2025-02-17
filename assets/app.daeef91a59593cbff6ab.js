@@ -9770,7 +9770,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.10.21+c20409";
+   version = "1.10.22+c20500";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10321,4 +10321,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.2cbf9ca7e3f8d0aa566a.js.map
+//# sourceMappingURL=app.daeef91a59593cbff6ab.js.map
