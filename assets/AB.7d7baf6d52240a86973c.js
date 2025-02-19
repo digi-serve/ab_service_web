@@ -1349,6 +1349,57 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
    isString(...params) {
       return lodash__WEBPACK_IMPORTED_MODULE_0___default().isString(params);
    }
+
+   async scriptLoad(url) {
+      await new Promise((resolve, reject) => {
+         var cb = () => resolve();
+         // Adding the script tag to the head as suggested before
+         const head = document.head;
+         const script = document.createElement("script");
+         script.type = "text/javascript";
+         script.src = url;
+
+         // Then bind the event to the callback function.
+         // There are several events for cross browser compatibility.
+         script.onreadystatechange = cb;
+         script.onload = cb;
+         script.onerror = () => {
+            reject(
+               new Error(
+                  `Preloader:ScriptLoad(): Error loading script (${url})`
+               )
+            );
+         };
+         // Fire the loading
+         head.appendChild(script);
+      });
+   }
+
+   async scriptLoadAll(urls) {
+      urls = urls.filter((u) => u);
+      await Promise.all(urls.map((url) => this.scriptLoad(url)));
+   }
+
+   async cssLoad(url) {
+      await new Promise((resolve, reject) => {
+         const head = document.head;
+         const link = document.createElement("link");
+         link.rel = "stylesheet";
+         link.href = url;
+
+         link.onload = () => resolve();
+         link.onerror = () => {
+            reject(new Error(`Error loading CSS file (${url})`));
+         };
+
+         head.appendChild(link);
+      });
+   }
+
+   async cssLoadAll(urls) {
+      urls = urls.filter((u) => u);
+      await Promise.all(urls.map((url) => this.cssLoad(url)));
+   }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ABFactory);
@@ -11629,6 +11680,7 @@ var Views = {};
 [
    __webpack_require__(/*! ../platform/mobile/ABMobilePage */ 38241),
    __webpack_require__(/*! ../platform/mobile/ABMobileView */ 94463),
+   __webpack_require__(/*! ../platform/mobile/ABMobileViewCustom */ 44496),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewForm */ 57753),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewFormButton */ 49985),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewFormCheckbox */ 92944),
@@ -11646,6 +11698,7 @@ var Views = {};
    __webpack_require__(/*! ../platform/mobile/ABMobileViewFormTextbox */ 72805),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewLabel */ 521),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewList */ 53767),
+   __webpack_require__(/*! ../platform/mobile/ABMobileViewTimeline */ 41768),
 ].forEach((v) => {
    if (v.default?.common) {
       v = v.default;
@@ -20814,6 +20867,74 @@ module.exports = class ABMobileViewCore extends ABMLClass {
 
 /***/ }),
 
+/***/ 94411:
+/*!**********************************************************!*\
+  !*** ./AppBuilder/core/mobile/ABMobileViewCustomCore.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABMobileView = __webpack_require__(/*! ../../platform/mobile/ABMobileView */ 94463);
+
+const ABViewCustomPropertyComponentDefaults = {
+   dataviewID: null,
+   field: null,
+   height: 0,
+   hideTitle: 0,
+   hideTabs: 0,
+};
+
+const ABViewDefaults = {
+   key: "mobile-custom", // {string} unique key for this view
+   icon: "palette", // {string} fa-[icon] reference for this view
+   labelKey: "Custom", // {string} the multilingual label key for the class label
+};
+
+module.exports = class ABViewCustomCore extends ABMobileView {
+   constructor(values, application, parent, defaultValues) {
+      super(values, application, parent, defaultValues || ABViewDefaults);
+   }
+
+   static common() {
+      return ABViewDefaults;
+   }
+
+   static defaultValues() {
+      return ABViewCustomPropertyComponentDefaults;
+   }
+
+   /**
+    * @method componentList
+    * return the list of components available on this view to display in the editor.
+    */
+   componentList() {
+      return [];
+   }
+
+   // field() {
+   //    var dv = this.datacollection;
+   //    if (!dv) return null;
+
+   //    var object = dv.datasource;
+   //    if (!object) return null;
+
+   //    return object.fieldByID(this.settings.field);
+   // }
+
+   /**
+    * @method wantsAdd()
+    * Some widgets can indicate to their containing ABMobilePage that
+    * it wants to provide an [Add] feature.
+    * @return {bool}
+    */
+   get wantsAdd() {
+      // we do if we have a setting for linkPageAdd
+      return this.settings.wantsAdd ?? false;
+   }
+};
+
+
+/***/ }),
+
 /***/ 32894:
 /*!**************************************************************!*\
   !*** ./AppBuilder/core/mobile/ABMobileViewFormButtonCore.js ***!
@@ -22093,6 +22214,74 @@ module.exports = class ABViewLabelCore extends ABMobileView {
 
    static defaultValues() {
       return ABViewListPropertyComponentDefaults;
+   }
+
+   /**
+    * @method componentList
+    * return the list of components available on this view to display in the editor.
+    */
+   componentList() {
+      return [];
+   }
+
+   field() {
+      var dv = this.datacollection;
+      if (!dv) return null;
+
+      var object = dv.datasource;
+      if (!object) return null;
+
+      return object.fieldByID(this.settings.field);
+   }
+
+   /**
+    * @method wantsAdd()
+    * Some widgets can indicate to their containing ABMobilePage that
+    * it wants to provide an [Add] feature.
+    * @return {bool}
+    */
+   get wantsAdd() {
+      // we do if we have a setting for linkPageAdd
+      return this.settings.linkPageAdd != "";
+   }
+};
+
+
+/***/ }),
+
+/***/ 12355:
+/*!************************************************************!*\
+  !*** ./AppBuilder/core/mobile/ABMobileViewTimelineCore.js ***!
+  \************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABMobileView = __webpack_require__(/*! ../../platform/mobile/ABMobileView */ 94463);
+
+const ABViewTimelinePropertyComponentDefaults = {
+   dataviewID: null,
+   field: null,
+   height: 0,
+   hideTitle: 0,
+   hideTabs: 0,
+};
+
+const ABViewDefaults = {
+   key: "mobile-timeline", // {string} unique key for this view
+   icon: "timeline", // {string} fa-[icon] reference for this view
+   labelKey: "Timeline", // {string} the multilingual label key for the class label
+};
+
+module.exports = class ABViewTimelineCore extends ABMobileView {
+   constructor(values, application, parent, defaultValues) {
+      super(values, application, parent, defaultValues || ABViewDefaults);
+   }
+
+   static common() {
+      return ABViewDefaults;
+   }
+
+   static defaultValues() {
+      return ABViewTimelinePropertyComponentDefaults;
    }
 
    /**
@@ -42097,6 +42286,10 @@ module.exports = class ABFieldAutoIndex extends ABFieldAutoIndexCore {
       return super.formComponent("fieldreadonly");
    }
 
+   formComponentMobile() {
+      return super.formComponent("mobile-fieldreadonly");
+   }
+
    detailComponent() {
       const detailComponentSetting = super.detailComponent();
 
@@ -46395,6 +46588,10 @@ module.exports = class ABFieldTextFormula extends ABFieldTextFormulaCore {
       return null;
    }
 
+   formComponentMobile() {
+      return null;
+   }
+
    detailComponent() {
       const detailComponentSetting = super.detailComponent();
 
@@ -47368,6 +47565,29 @@ module.exports = class ABMobileView extends ABMobileViewCore {
 
 /***/ }),
 
+/***/ 44496:
+/*!**********************************************************!*\
+  !*** ./AppBuilder/platform/mobile/ABMobileViewCustom.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABMobileViewCustomCore = __webpack_require__(/*! ../../core/mobile/ABMobileViewCustomCore */ 94411);
+
+module.exports = class ABMobileViewCustom extends ABMobileViewCustomCore {
+   // constructor(values, application, parent, defaultValues) {
+   //    super(values, application, parent, defaultValues);
+   // }
+   warningsEval() {
+      super.warningsEval();
+
+      // Add in here any missing or unfindable setting reference
+      // like datacollection ...
+   }
+};
+
+
+/***/ }),
+
 /***/ 57753:
 /*!********************************************************!*\
   !*** ./AppBuilder/platform/mobile/ABMobileViewForm.js ***!
@@ -47825,6 +48045,35 @@ module.exports = class ABMobileViewLabel extends ABMobileViewLabelCore {
 const ABMobileViewListCore = __webpack_require__(/*! ../../core/mobile/ABMobileViewListCore */ 22448);
 
 module.exports = class ABMobileViewList extends ABMobileViewListCore {
+   // constructor(values, application, parent, defaultValues) {
+   //    super(values, application, parent, defaultValues);
+   // }
+   warningsEval() {
+      super.warningsEval();
+
+      ["linkPageAdd", "linkPageDetail"].forEach((k) => {
+         if (this.settings[k]) {
+            let page = this.application.pageByID(this.settings[k], true);
+            if (!page) {
+               this.warningsMessage(`${k} references an unknown Page.`);
+            }
+         }
+      });
+   }
+};
+
+
+/***/ }),
+
+/***/ 41768:
+/*!************************************************************!*\
+  !*** ./AppBuilder/platform/mobile/ABMobileViewTimeline.js ***!
+  \************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABMobileViewTimelineCore = __webpack_require__(/*! ../../core/mobile/ABMobileViewTimelineCore */ 12355);
+
+module.exports = class ABMobileViewTimeline extends ABMobileViewTimelineCore {
    // constructor(values, application, parent, defaultValues) {
    //    super(values, application, parent, defaultValues);
    // }
@@ -84331,4 +84580,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.e4ed66a6e79943dc23e6.js.map
+//# sourceMappingURL=AB.7d7baf6d52240a86973c.js.map
