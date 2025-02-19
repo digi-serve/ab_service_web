@@ -1349,6 +1349,57 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
    isString(...params) {
       return lodash__WEBPACK_IMPORTED_MODULE_0___default().isString(params);
    }
+
+   async scriptLoad(url) {
+      await new Promise((resolve, reject) => {
+         var cb = () => resolve();
+         // Adding the script tag to the head as suggested before
+         const head = document.head;
+         const script = document.createElement("script");
+         script.type = "text/javascript";
+         script.src = url;
+
+         // Then bind the event to the callback function.
+         // There are several events for cross browser compatibility.
+         script.onreadystatechange = cb;
+         script.onload = cb;
+         script.onerror = () => {
+            reject(
+               new Error(
+                  `Preloader:ScriptLoad(): Error loading script (${url})`
+               )
+            );
+         };
+         // Fire the loading
+         head.appendChild(script);
+      });
+   }
+
+   async scriptLoadAll(urls) {
+      urls = urls.filter((u) => u);
+      await Promise.all(urls.map((url) => this.scriptLoad(url)));
+   }
+
+   async cssLoad(url) {
+      await new Promise((resolve, reject) => {
+         const head = document.head;
+         const link = document.createElement("link");
+         link.rel = "stylesheet";
+         link.href = url;
+
+         link.onload = () => resolve();
+         link.onerror = () => {
+            reject(new Error(`Error loading CSS file (${url})`));
+         };
+
+         head.appendChild(link);
+      });
+   }
+
+   async cssLoadAll(urls) {
+      urls = urls.filter((u) => u);
+      await Promise.all(urls.map((url) => this.cssLoad(url)));
+   }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ABFactory);
@@ -6069,6 +6120,7 @@ const ABObject = __webpack_require__(/*! ../platform/ABObject */ 84154);
 const ABObjectExternal = __webpack_require__(/*! ../platform/ABObjectExternal */ 31761);
 const ABObjectImport = __webpack_require__(/*! ../platform/ABObjectImport */ 9983);
 const ABObjectApi = __webpack_require__(/*! ../platform/ABObjectApi */ 30008);
+const ABObjectApiNetsuite = __webpack_require__(/*! ../platform/ABObjectApiNetsuite */ 25285);
 const ABDataCollection = __webpack_require__(/*! ../platform/ABDataCollection */ 66429);
 const ABObjectQuery = __webpack_require__(/*! ../platform/ABObjectQuery */ 55532);
 
@@ -6158,6 +6210,7 @@ class ABFactory extends EventEmitter {
          ABObjectExternal,
          ABObjectImport,
          ABObjectApi,
+         ABObjectApiNetsuite,
          ABObjectQuery,
          ABProcessParticipant,
          // ABRole      // Do we need this anymore?
@@ -6729,6 +6782,8 @@ class ABFactory extends EventEmitter {
          newObj = new ABObjectExternal(values, this);
       else if (values.isImported == true)
          newObj = new ABObjectImport(values, this);
+      else if (values.isNetsuite == true)
+         newObj = new ABObjectApiNetsuite(values, this);
       else if (values.isAPI == true) newObj = new ABObjectApi(values, this);
       else newObj = new ABObject(values, this);
 
@@ -8548,6 +8603,17 @@ module.exports = class ABModelCore {
             // if (d[c.columnName] == null)
             //  d[c.columnName] = '';
 
+            // Our client side tools need to know that this value is null if it
+            // isn't provided:
+            if (
+               typeof d[relationName] == "undefined" &&
+               typeof d[c.columnName] == "undefined"
+            ) {
+               d[relationName] = null;
+               d[c.columnName] = null;
+               return;
+            }
+
             // if there is no data we can exit now
             if (d[relationName] == null) return;
 
@@ -8867,6 +8933,137 @@ module.exports = class ABObjectApiCore extends ABObject {
 
       return headers;
    }
+};
+
+
+/***/ }),
+
+/***/ 70074:
+/*!****************************************************!*\
+  !*** ./AppBuilder/core/ABObjectApiNetsuiteCore.js ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABObjectApi = __webpack_require__(/*! ../platform/ABObjectApi */ 30008);
+const ABModelApiNetsuite = __webpack_require__(/*! ../platform/ABModelApiNetsuite */ 95627);
+
+module.exports = class ABObjectApiNetsuiteCore extends ABObjectApi {
+   constructor(attributes, AB) {
+      super(attributes, AB);
+
+      this.isNetsuite = true;
+
+      this.fromValues(attributes);
+   }
+
+   ///
+   /// Instance Methods
+   ///
+
+   /// ABApplication data methods
+
+   fromValues(attributes) {
+      super.fromValues(attributes);
+
+      this.credentials = attributes.credentials ?? {};
+      this.columnRef = attributes.columnRef ?? {};
+   }
+
+   /**
+    * @method toObj()
+    *
+    * properly compile the current state of this ABObjectQuery instance
+    * into the values needed for saving to the DB.
+    *
+    * @return {json}
+    */
+   toObj() {
+      const result = super.toObj();
+
+      result.isNetsuite = true;
+      result.credentials = this.credentials;
+      result.columnRef = this.columnRef;
+
+      return result;
+   }
+
+   /**
+    * @method model
+    * return a Model object that will allow you to interact with the data for
+    * this ABObjectQuery.
+    */
+   model() {
+      var model = new ABModelApiNetsuite(this);
+
+      // default the context of this model's operations to this object
+      model.contextKey(this.constructor.contextKey());
+      model.contextValues({ id: this.id }); // the datacollection.id
+
+      return model;
+   }
+
+   /**
+    * @function getPagingValues()
+    *
+    * @return {Object} - {
+    *                       start: "Property name of the API for start index",
+    *                       limit: "Property name of the API for limit return the item number"
+    *                     }
+    */
+   /*
+   getPagingValues({ skip, limit }) {
+      const result = {};
+      const pagingSettings = this.request?.paging ?? {};
+
+      if (pagingSettings.start && skip != null) {
+         result[pagingSettings.start] = skip;
+      }
+      if (pagingSettings.limit && limit != null) {
+         result[pagingSettings.limit] = limit;
+      }
+
+      return result;
+   }
+
+   dataFromKey(data) {
+      let result = [];
+
+      if (!Array.isArray(data)) data = [data];
+
+      data.forEach((item) => {
+         // Clone item
+         let itemResult = { ...item };
+
+         // Pull data from `Data key` of the API object
+         // FORMAT: "Property.Name.Value"
+         (this.response.dataKey ?? "").split(".").forEach((key) => {
+            if (key == "" || key == null) return;
+            itemResult = itemResult?.[key];
+         });
+
+         if (Array.isArray(itemResult)) {
+            result = result.concat(itemResult);
+         } else if (itemResult) {
+            result.push(itemResult);
+         }
+      });
+
+      return result;
+   }
+
+   get headers() {
+      const headers = {};
+
+      (this.request.headers ?? []).forEach((header) => {
+         if (header?.value == null) return;
+
+         headers[header.key] = header.value;
+      });
+
+      return headers;
+   }
+
+   */
 };
 
 
@@ -11473,7 +11670,6 @@ var AllViews = [
    __webpack_require__(/*! ../platform/views/ABViewLayout */ 30077),
    __webpack_require__(/*! ../platform/views/ABViewList */ 47363),
    __webpack_require__(/*! ../platform/views/ABViewMenu */ 46672),
-   __webpack_require__(/*! ../platform/views/ABViewOrgChart */ 51601),
    __webpack_require__(/*! ../platform/views/ABViewPage */ 44),
    __webpack_require__(/*! ../platform/views/ABViewPDFImporter */ 51547),
    __webpack_require__(/*! ../platform/views/ABViewPivot */ 86087),
@@ -11565,8 +11761,8 @@ module.exports = class ABViewManagerCore {
             if (!isPlugin(values.key)) {
                console.error(
                   "!! View[" +
-                     values.key +
-                     "] not yet defined.  Have an ABView instead:"
+                  values.key +
+                  "] not yet defined.  Have an ABView instead:"
                );
             }
             return new Views["view"](values, application, parent);
@@ -11629,6 +11825,7 @@ var Views = {};
 [
    __webpack_require__(/*! ../platform/mobile/ABMobilePage */ 38241),
    __webpack_require__(/*! ../platform/mobile/ABMobileView */ 94463),
+   __webpack_require__(/*! ../platform/mobile/ABMobileViewCustom */ 44496),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewForm */ 57753),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewFormButton */ 49985),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewFormCheckbox */ 92944),
@@ -11646,6 +11843,7 @@ var Views = {};
    __webpack_require__(/*! ../platform/mobile/ABMobileViewFormTextbox */ 72805),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewLabel */ 521),
    __webpack_require__(/*! ../platform/mobile/ABMobileViewList */ 53767),
+   __webpack_require__(/*! ../platform/mobile/ABMobileViewTimeline */ 41768),
 ].forEach((v) => {
    if (v.default?.common) {
       v = v.default;
@@ -20814,6 +21012,74 @@ module.exports = class ABMobileViewCore extends ABMLClass {
 
 /***/ }),
 
+/***/ 94411:
+/*!**********************************************************!*\
+  !*** ./AppBuilder/core/mobile/ABMobileViewCustomCore.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABMobileView = __webpack_require__(/*! ../../platform/mobile/ABMobileView */ 94463);
+
+const ABViewCustomPropertyComponentDefaults = {
+   dataviewID: null,
+   field: null,
+   height: 0,
+   hideTitle: 0,
+   hideTabs: 0,
+};
+
+const ABViewDefaults = {
+   key: "mobile-custom", // {string} unique key for this view
+   icon: "palette", // {string} fa-[icon] reference for this view
+   labelKey: "Custom", // {string} the multilingual label key for the class label
+};
+
+module.exports = class ABViewCustomCore extends ABMobileView {
+   constructor(values, application, parent, defaultValues) {
+      super(values, application, parent, defaultValues || ABViewDefaults);
+   }
+
+   static common() {
+      return ABViewDefaults;
+   }
+
+   static defaultValues() {
+      return ABViewCustomPropertyComponentDefaults;
+   }
+
+   /**
+    * @method componentList
+    * return the list of components available on this view to display in the editor.
+    */
+   componentList() {
+      return [];
+   }
+
+   // field() {
+   //    var dv = this.datacollection;
+   //    if (!dv) return null;
+
+   //    var object = dv.datasource;
+   //    if (!object) return null;
+
+   //    return object.fieldByID(this.settings.field);
+   // }
+
+   /**
+    * @method wantsAdd()
+    * Some widgets can indicate to their containing ABMobilePage that
+    * it wants to provide an [Add] feature.
+    * @return {bool}
+    */
+   get wantsAdd() {
+      // we do if we have a setting for linkPageAdd
+      return this.settings.wantsAdd ?? false;
+   }
+};
+
+
+/***/ }),
+
 /***/ 32894:
 /*!**************************************************************!*\
   !*** ./AppBuilder/core/mobile/ABMobileViewFormButtonCore.js ***!
@@ -22093,6 +22359,74 @@ module.exports = class ABViewLabelCore extends ABMobileView {
 
    static defaultValues() {
       return ABViewListPropertyComponentDefaults;
+   }
+
+   /**
+    * @method componentList
+    * return the list of components available on this view to display in the editor.
+    */
+   componentList() {
+      return [];
+   }
+
+   field() {
+      var dv = this.datacollection;
+      if (!dv) return null;
+
+      var object = dv.datasource;
+      if (!object) return null;
+
+      return object.fieldByID(this.settings.field);
+   }
+
+   /**
+    * @method wantsAdd()
+    * Some widgets can indicate to their containing ABMobilePage that
+    * it wants to provide an [Add] feature.
+    * @return {bool}
+    */
+   get wantsAdd() {
+      // we do if we have a setting for linkPageAdd
+      return this.settings.linkPageAdd != "";
+   }
+};
+
+
+/***/ }),
+
+/***/ 12355:
+/*!************************************************************!*\
+  !*** ./AppBuilder/core/mobile/ABMobileViewTimelineCore.js ***!
+  \************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABMobileView = __webpack_require__(/*! ../../platform/mobile/ABMobileView */ 94463);
+
+const ABViewTimelinePropertyComponentDefaults = {
+   dataviewID: null,
+   field: null,
+   height: 0,
+   hideTitle: 0,
+   hideTabs: 0,
+};
+
+const ABViewDefaults = {
+   key: "mobile-timeline", // {string} unique key for this view
+   icon: "timeline", // {string} fa-[icon] reference for this view
+   labelKey: "Timeline", // {string} the multilingual label key for the class label
+};
+
+module.exports = class ABViewTimelineCore extends ABMobileView {
+   constructor(values, application, parent, defaultValues) {
+      super(values, application, parent, defaultValues || ABViewDefaults);
+   }
+
+   static common() {
+      return ABViewDefaults;
+   }
+
+   static defaultValues() {
+      return ABViewTimelinePropertyComponentDefaults;
    }
 
    /**
@@ -32402,156 +32736,6 @@ module.exports = class ABViewMenuCore extends ABViewWidget {
 
 /***/ }),
 
-/***/ 88870:
-/*!*****************************************************!*\
-  !*** ./AppBuilder/core/views/ABViewOrgChartCore.js ***!
-  \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-const ABViewWidget = __webpack_require__(/*! ../../platform/views/ABViewWidget */ 87039);
-
-const ABViewOrgChartPropertyComponentDefaults = {
-   datacollectionID: "",
-   fields: "",
-   direction: "t2b",
-   depth: 99,
-   color: "#00BCD4",
-   // visibleLevel: 2,
-   pan: 1,
-   zoom: 1,
-   height: 0,
-   export: 0,
-   exportFilename: "",
-};
-
-const ABViewOrgChartDefaults = {
-   key: "orgchart", // {string} unique key for this view
-   icon: "sitemap", // {string} fa-[icon] reference for this view
-   labelKey: "OrgChart", // {string} the multilingual label key for the class label
-};
-
-module.exports = class ABViewOrgChartCore extends ABViewWidget {
-   constructor(values, application, parent, defaultValues) {
-      super(
-         values,
-         application,
-         parent,
-         defaultValues || ABViewOrgChartDefaults
-      );
-   }
-
-   static common() {
-      return ABViewOrgChartDefaults;
-   }
-
-   static defaultValues() {
-      return ABViewOrgChartPropertyComponentDefaults;
-   }
-
-   ///
-   /// Instance Methods
-   ///
-
-   /**
-    * @method fromValues()
-    *
-    * initialze this object with the given set of values.
-    * @param {obj} values
-    */
-   fromValues(values) {
-      super.fromValues(values);
-
-      this.settings.datacollectionID =
-         this.settings.datacollectionID ??
-         ABViewOrgChartPropertyComponentDefaults.datacollectionID;
-
-      this.settings.fields =
-         this.settings.fields ?? ABViewOrgChartPropertyComponentDefaults.fields;
-
-      this.settings.direction =
-         this.settings.direction ??
-         ABViewOrgChartPropertyComponentDefaults.direction;
-
-      this.settings.depth = parseInt(
-         this.settings.depth ?? ABViewOrgChartPropertyComponentDefaults.depth
-      );
-
-      this.settings.color =
-         this.settings.color ?? ABViewOrgChartPropertyComponentDefaults.color;
-
-      this.settings.pan = JSON.parse(
-         this.settings.pan ?? ABViewOrgChartPropertyComponentDefaults.pan
-      );
-
-      this.settings.zoom = JSON.parse(
-         this.settings.zoom ?? ABViewOrgChartPropertyComponentDefaults.zoom
-      );
-
-      this.settings.height = parseInt(
-         this.settings.height ?? ABViewOrgChartPropertyComponentDefaults.height
-      );
-
-      this.settings.export = JSON.parse(
-         this.settings.export ?? ABViewOrgChartPropertyComponentDefaults.export
-      );
-
-      this.settings.exportFilename =
-         this.settings.exportFilename ??
-         ABViewOrgChartPropertyComponentDefaults.exportFilename;
-   }
-
-   get datacollection() {
-      const datacollectionID = (this.settings || {}).datacollectionID;
-
-      return this.AB.datacollectionByID(datacollectionID);
-   }
-
-   getValueFields(object) {
-      // OrgChart supports only one parent node.
-      return (
-         object?.connectFields(
-            (f) => f.linkType() == "many" && f.linkViaType() == "one"
-         ) ?? []
-      );
-   }
-
-   /**
-    * @function valueFields()
-    * Return IDs of connect field for each layer of OrgChart, starting from the top to the bottom.
-    * 
-    * @return {Array}
-    * 
-    */
-   valueFields() {
-      let fieldValues = (this.settings?.fields ?? "").split(",");
-      if (!Array.isArray(fieldValues)) fieldValues = [fieldValues];
-
-      const result = [];
-
-      let obj = this.datacollection?.datasource;
-      fieldValues.forEach((fId) => {
-         if (!fId) return;
-
-         const field = obj?.fieldByID?.(fId);
-         if (!field) return;
-
-         result.push(field);
-         obj = field.datasourceLink;
-      });
-
-      return result;
-   }
-
-   // descriptionField() {
-   //    return this.valueField()?.datasourceLink?.fieldByID?.(
-   //       this.settings.columnDescription
-   //    );
-   // }
-};
-
-
-/***/ }),
-
 /***/ 19532:
 /*!********************************************************!*\
   !*** ./AppBuilder/core/views/ABViewPDFImporterCore.js ***!
@@ -36399,6 +36583,76 @@ module.exports = class ABModelAPI extends ABModel {
 
 /***/ }),
 
+/***/ 95627:
+/*!***************************************************!*\
+  !*** ./AppBuilder/platform/ABModelApiNetsuite.js ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+//
+// ABModelAPINetsuite
+//
+// Represents the Data interface for a connection to Netsuite.
+
+const ABModel = __webpack_require__(/*! ./ABModel */ 90940);
+
+module.exports = class ABModelAPINetsuite extends ABModel {
+   ///
+   /// Instance Methods
+   ///
+
+   /**
+    * @method normalizeData()
+    * For a Netsuite object, there are additional steps we need to handle
+    * to normalize our data.
+    */
+   normalizeData(data) {
+      super.normalizeData(data);
+
+      if (!Array.isArray(data)) {
+         data = [data];
+      }
+
+      var boolFields = this.object.fields((f) => f.key == "boolean");
+      let allFields = this.object.fields();
+
+      data.forEach((d) => {
+         // Netsuite sometimes keeps keys all lowercase
+         // which might not match up with what it told us in the meta-catalog
+         // which we need:
+         for (var i = 0; i < allFields.length; i++) {
+            let actualColumn = allFields[i].columnName;
+            let lcColumn = actualColumn.toLowerCase();
+
+            if (
+               typeof d[actualColumn] == "undefined" &&
+               typeof d[lcColumn] != "undefined"
+            ) {
+               d[actualColumn] = d[lcColumn];
+               delete d[lcColumn];
+            }
+         }
+
+         // Netsuite Booleans are "T" or "F"
+         boolFields.forEach((bField) => {
+            let val = d[bField.columnName];
+            // just how many ways can a DB indicate True/False?
+            if (typeof val == "string") {
+               val = val.toLowerCase();
+
+               if (val === "t") val = true;
+               else val = false;
+
+               d[bField.columnName] = val;
+            }
+         });
+      });
+   }
+};
+
+
+/***/ }),
+
 /***/ 61422:
 /*!*********************************************!*\
   !*** ./AppBuilder/platform/ABModelQuery.js ***!
@@ -37358,6 +37612,96 @@ module.exports = class ABObjectApi extends ABObjectApiCore {
     */
    async save() {
       return await super.save(true);
+   }
+
+   migrateCreate() {
+      return Promise.resolve();
+   }
+
+   migrateDrop() {
+      return Promise.resolve();
+   }
+};
+
+
+/***/ }),
+
+/***/ 25285:
+/*!****************************************************!*\
+  !*** ./AppBuilder/platform/ABObjectApiNetsuite.js ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABObjectApiNetsuiteCore = __webpack_require__(/*! ../core/ABObjectApiNetsuiteCore */ 70074);
+
+module.exports = class ABObjectApiNetsuite extends ABObjectApiNetsuiteCore {
+   constructor(attributes, AB) {
+      super(attributes, AB);
+   }
+
+   async getDbInfo() {
+      /*
+      // Data format:
+      {
+          "definitionId": "f2416a1a-d75c-40f2-8180-bad9b5f8b9cc",
+          "tableName": "AB_MockupHR_TeamTargetLocation",
+          "fields": [
+              {
+                  "Field": "uuid",
+                  "Type": "varchar(255)",
+                  "Null": "NO",
+                  "Key": "PRI",
+                  "Default": null,
+                  "Extra": ""
+              },
+              {
+                  "Field": "created_at",
+                  "Type": "datetime",
+                  "Null": "YES",
+                  "Key": "",
+                  "Default": null,
+                  "Extra": ""
+              },
+              {
+                  "Field": "updated_at",
+                  "Type": "datetime",
+                  "Null": "YES",
+                  "Key": "",
+                  "Default": null,
+                  "Extra": ""
+              },
+              {
+                  "Field": "properties",
+                  "Type": "text",
+                  "Null": "YES",
+                  "Key": "",
+                  "Default": null,
+                  "Extra": ""
+              }
+          ]
+      }
+      */
+      let PK = this.PK();
+      let fieldInfo = [];
+      this.fields().forEach((f) => {
+         let field = {
+            Field: f.columnName,
+            Type: f.key,
+            Null: f.settings.required ? "NO" : "YES",
+            Key: PK == f.columnName ? "PRI" : "",
+            Default: "",
+            Extra: "",
+         };
+         fieldInfo.push(field);
+      });
+
+      let TableInfo = {
+         definitionId: this.id,
+         tableName: this.tableName,
+         fields: fieldInfo,
+      };
+
+      return TableInfo;
    }
 };
 
@@ -41690,7 +42034,9 @@ module.exports = class ABField extends ABFieldCore {
       // NOTE: our .migrateXXX() routines expect the object to currently exist
       // in the DB before we perform the DB operations.  So we need to
       // .migrateDrop()  before we actually .objectDestroy() this.
-      await this.migrateDrop();
+      if (!this.object.isAPI) {
+         await this.migrateDrop();
+      }
 
       // the server still references an ABField in relationship to it's
       // ABObject, so we need to destroy the Field 1st, then remove it
@@ -41761,7 +42107,7 @@ module.exports = class ABField extends ABFieldCore {
       // but not connectObject fields:
       // ABFieldConnect.migrateXXX() gets called from the UI popupNewDataField
       // in order to handle the timings of the 2 fields that need to be created
-      if (!this.isConnection && !skipMigrate) {
+      if (!this.isConnection && !skipMigrate && !this.object.isAPI) {
          const fnMigrate = isAdd ? this.migrateCreate() : this.migrateUpdate();
          await fnMigrate;
       }
@@ -42095,6 +42441,10 @@ module.exports = class ABFieldAutoIndex extends ABFieldAutoIndexCore {
     */
    formComponent() {
       return super.formComponent("fieldreadonly");
+   }
+
+   formComponentMobile() {
+      return super.formComponent("mobile-fieldreadonly");
    }
 
    detailComponent() {
@@ -42809,9 +43159,14 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
                   whereRels.glue = "or";
                   whereRels.rules = [];
 
+                  // make sure values are unique:
+                  let valHash = {};
                   values.split(",").forEach((v) => {
+                     valHash[v] = v;
+                  });
+                  Object.keys(valHash).forEach((v) => {
                      whereRels.rules.push({
-                        key: "uuid",
+                        key: linkedObj.PK(),
                         rule: "equals",
                         value: v,
                      });
@@ -46395,6 +46750,10 @@ module.exports = class ABFieldTextFormula extends ABFieldTextFormulaCore {
       return null;
    }
 
+   formComponentMobile() {
+      return null;
+   }
+
    detailComponent() {
       const detailComponentSetting = super.detailComponent();
 
@@ -47368,6 +47727,29 @@ module.exports = class ABMobileView extends ABMobileViewCore {
 
 /***/ }),
 
+/***/ 44496:
+/*!**********************************************************!*\
+  !*** ./AppBuilder/platform/mobile/ABMobileViewCustom.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABMobileViewCustomCore = __webpack_require__(/*! ../../core/mobile/ABMobileViewCustomCore */ 94411);
+
+module.exports = class ABMobileViewCustom extends ABMobileViewCustomCore {
+   // constructor(values, application, parent, defaultValues) {
+   //    super(values, application, parent, defaultValues);
+   // }
+   warningsEval() {
+      super.warningsEval();
+
+      // Add in here any missing or unfindable setting reference
+      // like datacollection ...
+   }
+};
+
+
+/***/ }),
+
 /***/ 57753:
 /*!********************************************************!*\
   !*** ./AppBuilder/platform/mobile/ABMobileViewForm.js ***!
@@ -47825,6 +48207,35 @@ module.exports = class ABMobileViewLabel extends ABMobileViewLabelCore {
 const ABMobileViewListCore = __webpack_require__(/*! ../../core/mobile/ABMobileViewListCore */ 22448);
 
 module.exports = class ABMobileViewList extends ABMobileViewListCore {
+   // constructor(values, application, parent, defaultValues) {
+   //    super(values, application, parent, defaultValues);
+   // }
+   warningsEval() {
+      super.warningsEval();
+
+      ["linkPageAdd", "linkPageDetail"].forEach((k) => {
+         if (this.settings[k]) {
+            let page = this.application.pageByID(this.settings[k], true);
+            if (!page) {
+               this.warningsMessage(`${k} references an unknown Page.`);
+            }
+         }
+      });
+   }
+};
+
+
+/***/ }),
+
+/***/ 41768:
+/*!************************************************************!*\
+  !*** ./AppBuilder/platform/mobile/ABMobileViewTimeline.js ***!
+  \************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABMobileViewTimelineCore = __webpack_require__(/*! ../../core/mobile/ABMobileViewTimelineCore */ 12355);
+
+module.exports = class ABMobileViewTimeline extends ABMobileViewTimelineCore {
    // constructor(values, application, parent, defaultValues) {
    //    super(values, application, parent, defaultValues);
    // }
@@ -56340,44 +56751,6 @@ module.exports = class ABViewMenu extends ABViewMenuCore {
     */
    component() {
       return new ABViewMenuComponent(this);
-   }
-};
-
-
-/***/ }),
-
-/***/ 51601:
-/*!*****************************************************!*\
-  !*** ./AppBuilder/platform/views/ABViewOrgChart.js ***!
-  \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-const ABViewOrgChartCore = __webpack_require__(/*! ../../core/views/ABViewOrgChartCore */ 88870);
-const ABViewOrgChartComponent = __webpack_require__(/*! ./viewComponent/ABViewOrgChartComponent */ 62125);
-
-module.exports = class ABViewOrgChart extends ABViewOrgChartCore {
-   // constructor(values, application, parent, defaultValues) {
-   //    super(values, application, parent, defaultValues);
-   // }
-
-   /**
-    * @method component()
-    * return a UI component based upon this view.
-    * @param {obj} App
-    * @return {obj} UI component
-    */
-   /**
-    * @method component()
-    * return a UI component based upon this view.
-    * @return {obj} UI component
-    */
-   component() {
-      return new ABViewOrgChartComponent(this);
-   }
-
-   fromValues(values) {
-      super.fromValues(values);
-      // this.refreshData();
    }
 };
 
@@ -66913,6 +67286,12 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
                   self.toggleUpdateDelete();
                } else {
                   if (settings.isEditable) {
+                     // get the field related to this col
+                     const currObject = self.datacollection.datasource;
+                     const selectField = currObject.fields(
+                        (f) => f.columnName === col
+                     )[0];
+
                      // if the colum is not the select item column move on to
                      // the next step to save
                      const state = {
@@ -66921,7 +67300,7 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
                      const editor = {
                         row: row,
                         column: col,
-                        config: null,
+                        config: { fieldID: selectField?.id ?? null },
                      };
 
                      self.onAfterEditStop(state, editor);
@@ -67996,6 +68375,8 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
          return false;
       }
 
+      const CurrentObject = this.datacollection.datasource;
+
       if (editor.config)
          switch (editor.config.editor) {
             case "number":
@@ -68015,9 +68396,23 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
             // code block
          }
 
-      if (state.value !== state.old) {
+      // lets make sure we are comparing things properly:
+      // reduce newValue and oldValue down to PK if they were objects
+      let newVal = state.value;
+      if (newVal) {
+         newVal = newVal[CurrentObject.PK()] || newVal;
+      }
+      let oldVal = state.old;
+      if (oldVal) {
+         oldVal = oldVal[CurrentObject.PK()] || oldVal;
+      }
+
+      // NOTE: != vs !== :
+      // want to handle when newVal = "3" and oldVal = 3
+      // that is why we don't use !== so that we convert the values into
+      // the same case.
+      if (newVal != oldVal) {
          const item = $DataTable?.getItem(editor.row);
-         const CurrentObject = this.datacollection.datasource;
 
          item[editor.column] = state.value;
 
@@ -68025,9 +68420,9 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
          $DataTable.removeCellCss(item.id, editor.column, "webix_invalid_cell");
 
          //maxlength field
-         const f = CurrentObject.fieldByID(editor.config.fieldID);
+         const f = CurrentObject.fieldByID(editor.config?.fieldID);
          if (
-            f.settings.maxLength &&
+            f?.settings.maxLength &&
             state.value.length > f.settings.maxLength
          ) {
             this.AB.alert({
@@ -70147,234 +70542,6 @@ module.exports = class ABViewMenuComponent extends ABViewComponent {
             `menu-item ${viewInfo?.name} ${item.id} ${this.view.id}`
          );
       });
-   }
-};
-
-
-/***/ }),
-
-/***/ 62125:
-/*!****************************************************************************!*\
-  !*** ./AppBuilder/platform/views/viewComponent/ABViewOrgChartComponent.js ***!
-  \****************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-const ABViewComponent = (__webpack_require__(/*! ./ABViewComponent */ 23687)["default"]);
-
-module.exports = class ABViewOrgChartComponent extends ABViewComponent {
-   constructor(baseView, idBase, ids) {
-      super(
-         baseView,
-         idBase || `ABViewOrgChart_${baseView.id}`,
-         Object.assign(
-            {
-               chartView: "",
-               chartDom: "",
-            },
-            ids
-         )
-      );
-   }
-
-   ui() {
-      const ids = this.ids;
-      const _ui = super.ui([
-         {
-            view: "template",
-            template: `<div id="${ids.chartDom}"></div>`,
-            css: {
-               position: "relative",
-            },
-         },
-      ]);
-
-      delete _ui.type;
-
-      return _ui;
-   }
-
-   async init(AB, accessLevel) {
-      await super.init(AB, accessLevel);
-
-      const $chartView = $$(this.ids.chartView);
-      if ($chartView)
-         this.AB.Webix.extend($chartView, this.AB.Webix.ProgressBar);
-   }
-
-   async loadOrgChartJs() {
-      this.busy();
-
-      const [orgChartLoader] = await Promise.all([
-         __webpack_require__.e(/*! import() */ "orgchart-js_orgchart-webcomponents_js").then(__webpack_require__.bind(__webpack_require__, /*! ../../../../js/orgchart-webcomponents.js */ 49150)),
-         __webpack_require__.e(/*! import() */ "styles_orgchart-webcomponents_css").then(__webpack_require__.bind(__webpack_require__, /*! ../../../../styles/orgchart-webcomponents.css */ 87597)),
-      ]);
-
-      this.OrgChart = orgChartLoader.default;
-
-      this.ready();
-   }
-
-   async onShow() {
-      super.onShow();
-
-      this.busy();
-      await this.loadOrgChartJs();
-      await this.pullData();
-      this.displayOrgChart();
-      this.ready();
-   }
-
-   async displayOrgChart() {
-      const baseView = this.view;
-      const chartData = this.AB.cloneDeep(this.chartData);
-
-      const orgchart = new this.OrgChart({
-         data: chartData,
-         direction: baseView.settings.direction,
-         // depth: baseView.settings.depth,
-         pan: baseView.settings.pan,
-         zoom: baseView.settings.zoom,
-         // visibleLevel: baseView.settings.visibleLevel,
-
-         exportButton: baseView.settings.export,
-         exportFilename: baseView.settings.exportFilename,
-
-         // ajaxURLs: {
-         //    children: function (nodeData) {
-         //       console.info("nodeData: ", nodeData);
-         //       return null;
-         //    },
-         // },
-         nodeContent: "description",
-      });
-
-      const chartDom = document.querySelector(`#${this.ids.chartDom}`);
-      if (chartDom) {
-         chartDom.textContent = "";
-         chartDom.innerHTML = "";
-         chartDom.appendChild(orgchart);
-      }
-
-      setTimeout(() => {
-         this._setColor();
-      }, 1);
-   }
-
-   async pullData() {
-      const view = this.view;
-      const dc = view.datacollection;
-      const cursor = dc?.getCursor();
-      if (!cursor) return null;
-
-      const valueFields = view.valueFields();
-      // const descriptionField = view.descriptionField?.();
-
-      const chartData = this.chartData;
-      chartData.name = dc?.datasource?.displayData(cursor) ?? "";
-      chartData.description = "";
-      // description:
-      //    descriptionField?.format?.(f) ??
-      //    f[descriptionField?.columnName] ??
-      //    "",
-      chartData._rawData = cursor;
-
-      let parentChartData = [chartData];
-      let currChildren;
-
-      valueFields.forEach((field) => {
-         let _tempParentChartData = [];
-
-         parentChartData.forEach(async (chartItem) => {
-            if (!chartItem) return;
-
-            const rawData = chartItem?._rawData;
-            currChildren = rawData?.[field?.relationName()];
-
-            // Pull data from the server
-            if (!currChildren) {
-               const objLink = field.object;
-               const where = {
-                  glue: "and",
-                  rules: [],
-               };
-               where.rules.push({
-                  key: objLink.PK(),
-                  rule: "equals",
-                  value: rawData[objLink.PK()],
-               });
-               const returnData = await objLink
-                  .model()
-                  .findAll({ where, populate: true });
-               chartItem._rawData = returnData?.data[0];
-               currChildren = chartItem._rawData?.[field?.relationName()];
-
-               this.displayOrgChart();
-            }
-
-            chartItem.children = [];
-            if (currChildren?.length) {
-               currChildren.forEach((childData) => {
-                  chartItem.children.push({
-                     name: field.datasourceLink.displayData(childData),
-                     description: "",
-                     _rawData: childData,
-                  });
-               });
-            }
-
-            _tempParentChartData = _tempParentChartData.concat(
-               chartItem.children
-            );
-         });
-
-         parentChartData = _tempParentChartData;
-      });
-   }
-
-   get chartData() {
-      if (this._chartData == null) {
-         this._chartData = {};
-      }
-      return this._chartData;
-   }
-
-   _setColor() {
-      const view = this.view;
-      let doms = document.querySelectorAll(`org-chart`);
-      doms.forEach((dom) => {
-         dom.style.backgroundImage = "none";
-      });
-
-      doms = document.querySelectorAll(`
-         org-chart .verticalNodes>td::before,
-         org-chart .verticalNodes ul>li::before,
-         org-chart .verticalNodes ul>li::after,
-         org-chart .node .content,
-         org-chart tr.lines .topLine,
-         org-chart tr.lines .rightLine,
-         org-chart tr.lines .leftLine`);
-      doms.forEach((dom) => {
-         dom.style.borderColor = view.settings.color;
-      });
-
-      doms = document.querySelectorAll(`
-         org-chart tr.lines .downLine,
-         org-chart .node .title`);
-      doms.forEach((dom) => {
-         dom.style.backgroundColor = view.settings.color;
-      });
-   }
-
-   busy() {
-      const $chartView = $$(this.ids.chartView);
-      $chartView?.disable?.();
-      $chartView?.showProgress?.({ type: "icon" });
-   }
-
-   ready() {
-      const $chartView = $$(this.ids.chartView);
-      $chartView?.enable?.();
-      $chartView?.hideProgress?.();
    }
 };
 
@@ -84331,4 +84498,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.e4ed66a6e79943dc23e6.js.map
+//# sourceMappingURL=AB.6b144e615b94fa7faaba.js.map
