@@ -42980,7 +42980,7 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
     *
     * @return {Promise}
     */
-   async getOptions(whereClause, term, sort, editor) {
+   async getOptions(whereClause, term, sort, editor, populate = false) {
       const theEditor = editor;
 
       if (theEditor) {
@@ -43119,7 +43119,7 @@ module.exports = class ABFieldConnect extends ABFieldConnectCore {
                   return linkedModel.findAll({
                      where: where,
                      sort: sort,
-                     populate: false,
+                     populate,
                   });
                };
 
@@ -84498,4 +84498,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.6b144e615b94fa7faaba.js.map
+//# sourceMappingURL=AB.272370fbf67e4d7d4837.js.map
