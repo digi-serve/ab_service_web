@@ -27,7 +27,6 @@ jobs:
               path: web
          - run: rm -f ./assets/tenant/default/${{ inputs.prefix }}*
            working-directory: web
-         - run: ls
          - uses: robinraju/release-downloader@v1
            with:
               repository: ${{ inputs.repository }}
@@ -36,6 +35,10 @@ jobs:
               extract: true
               token: ${{ secrets.PAT }}
               out-file-path: web/assets/tenant/default
+         - run: ls assets/tenant/default
+           working-directory: web
+         - run: rm ./assets/tenant/default/${{ inputs.filename }}
+           working-directory: web
          - uses: EndBug/add-and-commit@v9
            with:
               cwd: web
