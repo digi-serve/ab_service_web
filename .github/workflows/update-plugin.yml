@@ -23,7 +23,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v4
-         - run: rm ./assets/tenant/default/${{ inputs.prefix }}*
+         - run: rm -f ./assets/tenant/default/${{ inputs.prefix }}*
          - uses: robinraju/release-downloader@v1
            with:
               repository: ${{ inputs.repository }}
