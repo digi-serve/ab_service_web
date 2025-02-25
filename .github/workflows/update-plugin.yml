@@ -1,0 +1,38 @@
+name: Update Plugin
+run-name: Update ${{ inputs.prefix }} plugin to ${{ inputs.tag }}
+on:
+   workflow_dispatch:
+      inputs:
+         repository:
+            type: string
+            default: digi-serve/plugin_HRTeams
+         tag:
+            description: Release Tag
+            type: string
+            required: true
+         filename:
+            desciption: Release .zip file
+            type: string
+            required: true
+         prefix:
+            description: file prefix
+            type: string
+            required: true
+jobs:
+   update-plugin:
+      steps:
+         - uses: actions/checkout@v4
+         - run: rm /assets/tenant/default/${{ inputs.prefix }}*
+         - uses: robinraju/release-downloader@v1
+           with:
+              repository: ${{ inputs.repository }}
+              tag: ${{ inputs.tag }}
+              filename: ${{ inputs.filename }}
+              extract: true
+              token: ${{ secrets.PAT }}
+              out-file-path: /assets/tenant/default
+         - uses: EndBug/add-and-commit@v9
+           with:
+              message: Update ${{ inputs.prefix }} to ${{ inputs.tag }}
+              new_branch: ${{ inputs.prefix }}/${{ inputs.tag }}
+              default_author: github_actions
