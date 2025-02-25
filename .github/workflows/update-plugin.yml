@@ -20,6 +20,7 @@ on:
             required: true
 jobs:
    update-plugin:
+      runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v4
          - run: rm /assets/tenant/default/${{ inputs.prefix }}*
