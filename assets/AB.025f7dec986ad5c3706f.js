@@ -16462,7 +16462,10 @@ module.exports = class ABFieldDateTimeCore extends ABFieldDateCore {
          return "";
       }
 
-      return webix.Date.dateToStr(datetimeFormat)(dateObj);
+      if (this.AB.Webix)
+         return this.AB.Webix.Date.dateToStr(datetimeFormat)(dateObj);
+      else
+         return dateObj?.toISOString() ?? "";
    }
 
    getTimeFormat() {
@@ -84496,4 +84499,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.8ed86129956ab185a4bf.js.map
+//# sourceMappingURL=AB.025f7dec986ad5c3706f.js.map
