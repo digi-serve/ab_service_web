@@ -1267,11 +1267,26 @@ __webpack_require__.r(__webpack_exports__);
       class: "sidebar_logo"
     }), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null)), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "list list-outline list-strong list-dividers list-translucent"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("ul", null, pagesMenu.map(p => {
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("ul", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("li", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("a", {
+      href: "/list",
+      class: "item-link item-content panel-close"
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+      class: "item-media"
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("i", {
+      class: "material-icons"
+    }, L("contacts"))), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+      class: "item-inner"
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+      class: "item-title"
+    }, L("List of People"))))), pagesMenu.map(p => {
       return (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("li", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("a", {
         href: `/${p.route}`,
         class: "item-link item-content panel-close"
       }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+        class: "item-media"
+      }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("i", {
+        class: "material-icons"
+      }, p.label)), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
         class: "item-inner"
       }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
         class: "item-title"
@@ -1795,7 +1810,7 @@ __webpack_require__.r(__webpack_exports__);
       class: "link icon-only panel-open"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("i", {
       class: "icon material-icons"
-    }))), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
+    }, "menu"))), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
       class: "title"
     }, title), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
       class: "title-large"
@@ -1815,8 +1830,10 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("i", {
-      class: "icon icon-plus"
-    }))))), viewHTML());
+      class: "icon f7-icons if-not-md"
+    }, "plus"), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("i", {
+      class: "icon material-icons md-only"
+    }, "add"))))), viewHTML());
   };
 });
 
@@ -5637,7 +5654,7 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
                               (r) => !this.AB.isNil(r)
                            );
                         }
-                        row[colName].push(f.getRelationValue(newData));
+                        row[colName].push(field.getRelationValue(newData));
 
                         if (!Array.isArray(row[relName])) {
                            row[relName] = [row[relName]].filter(
@@ -5646,7 +5663,7 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
                         }
                         row[relName].push(newData);
                      } else {
-                        row[colName] = f.getRelationValue(newData);
+                        row[colName] = field.getRelationValue(newData);
                         row[relName] = newData;
                      }
 
@@ -7385,11 +7402,11 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
 
    parseTreeCollection(data = {}) {
       // TODO all this does is log "is missing?"
-      if (data === {}) {
-         console.log(
-            "Platform.ABDataCollection.parseTreeCollection() missing!"
-         );
-      }
+      // if (false) {
+      //    console.log(
+      //       "Platform.ABDataCollection.parseTreeCollection() missing!"
+      //    );
+      // }
    }
    // parseTreeCollection(data = {}) {
 
@@ -7892,23 +7909,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _platform_ABObjectExternal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../platform/ABObjectExternal */ 18700);
 /* harmony import */ var _platform_ABObjectImport__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../platform/ABObjectImport */ 94910);
 /* harmony import */ var _platform_ABObjectApi__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../platform/ABObjectApi */ 9611);
-/* harmony import */ var _platform_ABDataCollection__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../platform/ABDataCollection */ 98383);
-/* harmony import */ var _platform_ABObjectQuery__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../platform/ABObjectQuery */ 59545);
-/* harmony import */ var _platform_ABHint__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../platform/ABHint */ 5701);
-/* harmony import */ var _platform_ABProcess__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../platform/ABProcess */ 33046);
-/* harmony import */ var _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../platform/process/ABProcessParticipant */ 74843);
-/* harmony import */ var _platform_process_ABProcessLane__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../platform/process/ABProcessLane */ 23479);
-/* harmony import */ var _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./process/ABProcessTaskManager */ 83316);
-/* harmony import */ var _platform_ABStep__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../platform/ABStep */ 81410);
-/* harmony import */ var _platform_views_ABViewDetailItem__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../platform/views/ABViewDetailItem */ 48172);
-/* harmony import */ var _platform_views_ABViewFormItem__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../platform/views/ABViewFormItem */ 9247);
-/* harmony import */ var _platform_mobile_ABMobileViewFormItem__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../platform/mobile/ABMobileViewFormItem */ 3199);
-/* harmony import */ var _platform_RowFilter__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../platform/RowFilter */ 84470);
-/* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../platform/FilterComplex */ 10758);
-/* harmony import */ var _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../platform/ABMLClass */ 46148);
-/* harmony import */ var _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../platform/ABEmitter */ 4025);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_platform_ABApplication__WEBPACK_IMPORTED_MODULE_0__, _platform_ABApplicationMobile__WEBPACK_IMPORTED_MODULE_1__, _ABFieldManager__WEBPACK_IMPORTED_MODULE_4__, _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_16__]);
-([_platform_ABApplication__WEBPACK_IMPORTED_MODULE_0__, _platform_ABApplicationMobile__WEBPACK_IMPORTED_MODULE_1__, _ABFieldManager__WEBPACK_IMPORTED_MODULE_4__, _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_16__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _platform_ABObjectApiNetsuite__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../platform/ABObjectApiNetsuite */ 65506);
+/* harmony import */ var _platform_ABDataCollection__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../platform/ABDataCollection */ 98383);
+/* harmony import */ var _platform_ABObjectQuery__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../platform/ABObjectQuery */ 59545);
+/* harmony import */ var _platform_ABHint__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../platform/ABHint */ 5701);
+/* harmony import */ var _platform_ABProcess__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../platform/ABProcess */ 33046);
+/* harmony import */ var _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../platform/process/ABProcessParticipant */ 74843);
+/* harmony import */ var _platform_process_ABProcessLane__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../platform/process/ABProcessLane */ 23479);
+/* harmony import */ var _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./process/ABProcessTaskManager */ 83316);
+/* harmony import */ var _platform_ABStep__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../platform/ABStep */ 81410);
+/* harmony import */ var _platform_views_ABViewDetailItem__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../platform/views/ABViewDetailItem */ 48172);
+/* harmony import */ var _platform_views_ABViewFormItem__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../platform/views/ABViewFormItem */ 9247);
+/* harmony import */ var _platform_mobile_ABMobileViewFormItem__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../platform/mobile/ABMobileViewFormItem */ 3199);
+/* harmony import */ var _platform_RowFilter__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../platform/RowFilter */ 84470);
+/* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../platform/FilterComplex */ 10758);
+/* harmony import */ var _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../platform/ABMLClass */ 46148);
+/* harmony import */ var _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../platform/ABEmitter */ 4025);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_platform_ABApplication__WEBPACK_IMPORTED_MODULE_0__, _platform_ABApplicationMobile__WEBPACK_IMPORTED_MODULE_1__, _ABFieldManager__WEBPACK_IMPORTED_MODULE_4__, _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_17__]);
+([_platform_ABApplication__WEBPACK_IMPORTED_MODULE_0__, _platform_ABApplicationMobile__WEBPACK_IMPORTED_MODULE_1__, _ABFieldManager__WEBPACK_IMPORTED_MODULE_4__, _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_17__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /*
  * ABFactoryCore
  * an object that contains the definitions and references for a single tenant.
@@ -7941,11 +7959,17 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_pla
 
 // const ABObjectExternal = require("../platform/ABObjectExternal");
 
+
 // const ABObjectImport = require("../platform/ABObjectImport");
+
 
 // const ABObjectApi = require("../platform/ABObjectApi");
 
+
+
+
 // const ABDataCollection = require("../platform/ABDataCollection");
+
 
 // const ABObjectQuery = require("../platform/ABObjectQuery");
 
@@ -7993,7 +8017,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_pla
 // const EventEmitter = require("../platform/ABEmitter");
 
 
-class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["default"] {
+class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_25__["default"] {
    constructor(definitions) {
       /**
        * @param {hash} definitions
@@ -8050,24 +8074,25 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
          ABDefinition: _platform_ABDefinition__WEBPACK_IMPORTED_MODULE_2__["default"],
          ABFieldManager: _ABFieldManager__WEBPACK_IMPORTED_MODULE_4__["default"],
          ABIndex: _platform_ABIndex__WEBPACK_IMPORTED_MODULE_5__["default"],
-         ABMLClass: _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_23__["default"],
+         ABMLClass: _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_24__["default"],
          ABObject: _platform_ABObject__WEBPACK_IMPORTED_MODULE_6__["default"],
          ABObjectExternal: _platform_ABObjectExternal__WEBPACK_IMPORTED_MODULE_7__["default"],
          ABObjectImport: _platform_ABObjectImport__WEBPACK_IMPORTED_MODULE_8__["default"],
          ABObjectApi: _platform_ABObjectApi__WEBPACK_IMPORTED_MODULE_9__["default"],
-         ABObjectQuery: _platform_ABObjectQuery__WEBPACK_IMPORTED_MODULE_11__["default"],
-         ABProcessParticipant: _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_14__["default"],
+         ABObjectApiNetsuite: _platform_ABObjectApiNetsuite__WEBPACK_IMPORTED_MODULE_10__["default"],
+         ABObjectQuery: _platform_ABObjectQuery__WEBPACK_IMPORTED_MODULE_12__["default"],
+         ABProcessParticipant: _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_15__["default"],
          // ABRole      // Do we need this anymore?
 
          // ABObjectWorkspaceViewGrid,
          // ABObjectWorkspaceViewKanban,
          // ABObjectWorkspaceViewGantt,
 
-         ABProcessTaskManager: _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_16__["default"],
+         ABProcessTaskManager: _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_17__["default"],
 
-         ABViewDetailItem: _platform_views_ABViewDetailItem__WEBPACK_IMPORTED_MODULE_18__["default"],
-         ABViewFormItem: _platform_views_ABViewFormItem__WEBPACK_IMPORTED_MODULE_19__["default"],
-         ABMobileViewFormItem: _platform_mobile_ABMobileViewFormItem__WEBPACK_IMPORTED_MODULE_20__["default"],
+         ABViewDetailItem: _platform_views_ABViewDetailItem__WEBPACK_IMPORTED_MODULE_19__["default"],
+         ABViewFormItem: _platform_views_ABViewFormItem__WEBPACK_IMPORTED_MODULE_20__["default"],
+         ABMobileViewFormItem: _platform_mobile_ABMobileViewFormItem__WEBPACK_IMPORTED_MODULE_21__["default"],
       };
 
       //
@@ -8520,7 +8545,7 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
     * @return {ABDatacollection}
     */
    datacollectionNew(values) {
-      var dc = new _platform_ABDataCollection__WEBPACK_IMPORTED_MODULE_10__["default"](values, this);
+      var dc = new _platform_ABDataCollection__WEBPACK_IMPORTED_MODULE_11__["default"](values, this);
       dc.on("destroyed", () => {
          // make sure it is no longer in our internal list
          this._allDatacollections = this._allDatacollections.filter(
@@ -8626,6 +8651,8 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
          newObj = new _platform_ABObjectExternal__WEBPACK_IMPORTED_MODULE_7__["default"](values, this);
       else if (values.isImported == true)
          newObj = new _platform_ABObjectImport__WEBPACK_IMPORTED_MODULE_8__["default"](values, this);
+      else if (values.isNetsuite == true)
+         newObj = new _platform_ABObjectApiNetsuite__WEBPACK_IMPORTED_MODULE_10__["default"](values, this);
       else if (values.isAPI == true) newObj = new _platform_ABObjectApi__WEBPACK_IMPORTED_MODULE_9__["default"](values, this);
       else newObj = new _platform_ABObject__WEBPACK_IMPORTED_MODULE_6__["default"](values, this);
 
@@ -8720,7 +8747,7 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
     * @return {ABHint}
     */
    hintNew(values) {
-      var newHint = new _platform_ABHint__WEBPACK_IMPORTED_MODULE_12__["default"](values, this);
+      var newHint = new _platform_ABHint__WEBPACK_IMPORTED_MODULE_13__["default"](values, this);
 
       return newHint;
    }
@@ -8763,7 +8790,7 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
    stepNew(id, hintID) {
       var stepDef = this.definitionByID(id);
       if (stepDef) {
-         var getStep = new _platform_ABStep__WEBPACK_IMPORTED_MODULE_17__["default"](stepDef, this);
+         var getStep = new _platform_ABStep__WEBPACK_IMPORTED_MODULE_18__["default"](stepDef, this);
          return getStep;
       } else {
          var params = {
@@ -8771,7 +8798,7 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
                hint: hintID,
             },
          };
-         var newStep = new _platform_ABStep__WEBPACK_IMPORTED_MODULE_17__["default"](params, this);
+         var newStep = new _platform_ABStep__WEBPACK_IMPORTED_MODULE_18__["default"](params, this);
          return newStep;
       }
 
@@ -8814,7 +8841,7 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
     * @return {ABProcess}
     */
    processNew(values) {
-      return new _platform_ABProcess__WEBPACK_IMPORTED_MODULE_13__["default"](values, this);
+      return new _platform_ABProcess__WEBPACK_IMPORTED_MODULE_14__["default"](values, this);
    }
 
    /**
@@ -8831,17 +8858,17 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
       var taskDef = this.definitionByID(id);
       if (taskDef) {
          switch (taskDef.type) {
-            case _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_14__["default"].defaults().type:
-               return new _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_14__["default"](taskDef, process, this);
+            case _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_15__["default"].defaults().type:
+               return new _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_15__["default"](taskDef, process, this);
             // break;
 
-            case _platform_process_ABProcessLane__WEBPACK_IMPORTED_MODULE_15__["default"].defaults().type:
-               return new _platform_process_ABProcessLane__WEBPACK_IMPORTED_MODULE_15__["default"](taskDef, process, this);
+            case _platform_process_ABProcessLane__WEBPACK_IMPORTED_MODULE_16__["default"].defaults().type:
+               return new _platform_process_ABProcessLane__WEBPACK_IMPORTED_MODULE_16__["default"](taskDef, process, this);
             // break;
 
             default:
                // default to a Task
-               return _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_16__["default"].newTask(taskDef, process, this);
+               return _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_17__["default"].newTask(taskDef, process, this);
             // break;
          }
       }
@@ -8863,17 +8890,17 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
 
       switch (element.type) {
          case "bpmn:Participant":
-            newElement = new _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_14__["default"]({}, process, this);
+            newElement = new _platform_process_ABProcessParticipant__WEBPACK_IMPORTED_MODULE_15__["default"]({}, process, this);
             break;
 
          case "bpmn:Lane":
-            newElement = new _platform_process_ABProcessLane__WEBPACK_IMPORTED_MODULE_15__["default"]({}, process, this);
+            newElement = new _platform_process_ABProcessLane__WEBPACK_IMPORTED_MODULE_16__["default"]({}, process, this);
             break;
 
          default:
-            var defaultDef = _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_16__["default"].definitionForElement(element);
+            var defaultDef = _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_17__["default"].definitionForElement(element);
             if (defaultDef) {
-               newElement = _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_16__["default"].newTask(
+               newElement = _process_ABProcessTaskManager__WEBPACK_IMPORTED_MODULE_17__["default"].newTask(
                   defaultDef,
                   process,
                   this
@@ -8930,7 +8957,7 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
     * @return {ABObjectQuery}
     */
    queryNew(values) {
-      return new _platform_ABObjectQuery__WEBPACK_IMPORTED_MODULE_11__["default"](values, this);
+      return new _platform_ABObjectQuery__WEBPACK_IMPORTED_MODULE_12__["default"](values, this);
    }
 
    /**
@@ -8943,7 +8970,7 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
       if (App) {
          console.error("!! Who is calling this with an App?");
       }
-      return new _platform_RowFilter__WEBPACK_IMPORTED_MODULE_21__["default"](App || this._App, idBase, this);
+      return new _platform_RowFilter__WEBPACK_IMPORTED_MODULE_22__["default"](App || this._App, idBase, this);
    }
 
    /**
@@ -8953,7 +8980,7 @@ class ABFactory extends _platform_ABEmitter__WEBPACK_IMPORTED_MODULE_24__["defau
     * @return {FilterComplex}
     */
    filterComplexNew(idBase, options = {}) {
-      return new _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_22__["default"](idBase, this, options);
+      return new _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_23__["default"](idBase, this, options);
    }
 
    /**
@@ -10480,6 +10507,17 @@ class ABModelCore {
             // if (d[c.columnName] == null)
             //  d[c.columnName] = '';
 
+            // Our client side tools need to know that this value is null if it
+            // isn't provided:
+            if (
+               typeof d[relationName] == "undefined" &&
+               typeof d[c.columnName] == "undefined"
+            ) {
+               d[relationName] = null;
+               d[c.columnName] = null;
+               return;
+            }
+
             // if there is no data we can exit now
             if (d[relationName] == null) return;
 
@@ -10806,6 +10844,144 @@ class ABObjectApiCore extends _platform_ABObject__WEBPACK_IMPORTED_MODULE_0__["d
 
       return headers;
    }
+}
+
+
+/***/ }),
+
+/***/ 55336:
+/*!***********************************************************!*\
+  !*** ./src/js/AppBuilder/core/ABObjectApiNetsuiteCore.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ABObjectApiNetsuiteCore)
+/* harmony export */ });
+/* harmony import */ var _platform_ABObjectApi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../platform/ABObjectApi */ 9611);
+/* harmony import */ var _platform_ABModelApiNetsuite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../platform/ABModelApiNetsuite */ 19901);
+
+
+
+class ABObjectApiNetsuiteCore extends _platform_ABObjectApi__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   constructor(attributes, AB) {
+      super(attributes, AB);
+
+      this.isNetsuite = true;
+
+      this.fromValues(attributes);
+   }
+
+   ///
+   /// Instance Methods
+   ///
+
+   /// ABApplication data methods
+
+   fromValues(attributes) {
+      super.fromValues(attributes);
+
+      this.credentials = attributes.credentials ?? {};
+      this.columnRef = attributes.columnRef ?? {};
+   }
+
+   /**
+    * @method toObj()
+    *
+    * properly compile the current state of this ABObjectQuery instance
+    * into the values needed for saving to the DB.
+    *
+    * @return {json}
+    */
+   toObj() {
+      const result = super.toObj();
+
+      result.isNetsuite = true;
+      result.credentials = this.credentials;
+      result.columnRef = this.columnRef;
+
+      return result;
+   }
+
+   /**
+    * @method model
+    * return a Model object that will allow you to interact with the data for
+    * this ABObjectQuery.
+    */
+   model() {
+      var model = new _platform_ABModelApiNetsuite__WEBPACK_IMPORTED_MODULE_1__["default"](this);
+
+      // default the context of this model's operations to this object
+      model.contextKey(this.constructor.contextKey());
+      model.contextValues({ id: this.id }); // the datacollection.id
+
+      return model;
+   }
+
+   /**
+    * @function getPagingValues()
+    *
+    * @return {Object} - {
+    *                       start: "Property name of the API for start index",
+    *                       limit: "Property name of the API for limit return the item number"
+    *                     }
+    */
+   /*
+   getPagingValues({ skip, limit }) {
+      const result = {};
+      const pagingSettings = this.request?.paging ?? {};
+
+      if (pagingSettings.start && skip != null) {
+         result[pagingSettings.start] = skip;
+      }
+      if (pagingSettings.limit && limit != null) {
+         result[pagingSettings.limit] = limit;
+      }
+
+      return result;
+   }
+
+   dataFromKey(data) {
+      let result = [];
+
+      if (!Array.isArray(data)) data = [data];
+
+      data.forEach((item) => {
+         // Clone item
+         let itemResult = { ...item };
+
+         // Pull data from `Data key` of the API object
+         // FORMAT: "Property.Name.Value"
+         (this.response.dataKey ?? "").split(".").forEach((key) => {
+            if (key == "" || key == null) return;
+            itemResult = itemResult?.[key];
+         });
+
+         if (Array.isArray(itemResult)) {
+            result = result.concat(itemResult);
+         } else if (itemResult) {
+            result.push(itemResult);
+         }
+      });
+
+      return result;
+   }
+
+   get headers() {
+      const headers = {};
+
+      (this.request.headers ?? []).forEach((header) => {
+         if (header?.value == null) return;
+
+         headers[header.key] = header.value;
+      });
+
+      return headers;
+   }
+
+   */
 }
 
 
@@ -13425,10 +13601,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var AllViews = [
    // require("../platform/views/ABView"),
-   /////
-   ///// LEFT OFF HERRE:
-   /////
-   /// TODO: test this out:
    await Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ../platform/views/ABView */ 69459)),
    // require("../platform/views/ABViewCarousel"),
    // require("../platform/views/ABViewChart"),
@@ -17232,9 +17404,7 @@ class ABFieldConnectCore extends _platform_dataFields_ABField__WEBPACK_IMPORTED_
          if (options.forUpdate) {
             colName = datasourceLink.PK();
          } else {
-            colName = indexField
-               ? indexField.columnName
-               : datasourceLink.PK();
+            colName = indexField ? indexField.columnName : datasourceLink.PK();
          }
       }
       // NO CUSTOM INDEX
@@ -18296,7 +18466,10 @@ class ABFieldDateTimeCore extends _ABFieldDateCore__WEBPACK_IMPORTED_MODULE_0__[
          return "";
       }
 
-      return webix.Date.dateToStr(datetimeFormat)(dateObj);
+      if (this.AB.Webix)
+         return this.AB.Webix.Date.dateToStr(datetimeFormat)(dateObj);
+      else
+         return dateObj?.toISOString() ?? "";
    }
 
    getTimeFormat() {
@@ -34264,6 +34437,82 @@ class ABModelAPI extends _ABModel__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 /***/ }),
 
+/***/ 19901:
+/*!**********************************************************!*\
+  !*** ./src/js/AppBuilder/platform/ABModelApiNetsuite.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ABModelAPINetsuite)
+/* harmony export */ });
+/* harmony import */ var _ABModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ABModel */ 41637);
+//
+// ABModelAPINetsuite
+//
+// Represents the Data interface for a connection to Netsuite.
+
+
+
+class ABModelAPINetsuite extends _ABModel__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   ///
+   /// Instance Methods
+   ///
+
+   /**
+    * @method normalizeData()
+    * For a Netsuite object, there are additional steps we need to handle
+    * to normalize our data.
+    */
+   normalizeData(data) {
+      super.normalizeData(data);
+
+      if (!Array.isArray(data)) {
+         data = [data];
+      }
+
+      var boolFields = this.object.fields((f) => f.key == "boolean");
+      let allFields = this.object.fields();
+
+      data.forEach((d) => {
+         // Netsuite sometimes keeps keys all lowercase
+         // which might not match up with what it told us in the meta-catalog
+         // which we need:
+         for (var i = 0; i < allFields.length; i++) {
+            let actualColumn = allFields[i].columnName;
+            let lcColumn = actualColumn.toLowerCase();
+
+            if (
+               typeof d[actualColumn] == "undefined" &&
+               typeof d[lcColumn] != "undefined"
+            ) {
+               d[actualColumn] = d[lcColumn];
+               delete d[lcColumn];
+            }
+         }
+
+         // Netsuite Booleans are "T" or "F"
+         boolFields.forEach((bField) => {
+            let val = d[bField.columnName];
+            // just how many ways can a DB indicate True/False?
+            if (typeof val == "string") {
+               val = val.toLowerCase();
+
+               if (val === "t") val = true;
+               else val = false;
+
+               d[bField.columnName] = val;
+            }
+         });
+      });
+   }
+}
+
+
+/***/ }),
+
 /***/ 56972:
 /*!****************************************************!*\
   !*** ./src/js/AppBuilder/platform/ABModelQuery.js ***!
@@ -35167,6 +35416,32 @@ __webpack_require__.r(__webpack_exports__);
  * NOTE: on the web client, these should function just like ABObjects
  */
 class ABObjectApi extends _core_ABObjectApiCore__WEBPACK_IMPORTED_MODULE_0__["default"] {}
+
+
+/***/ }),
+
+/***/ 65506:
+/*!***********************************************************!*\
+  !*** ./src/js/AppBuilder/platform/ABObjectApiNetsuite.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ABObjectApiNetsuite)
+/* harmony export */ });
+/* harmony import */ var _core_ABObjectApiNetsuiteCore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/ABObjectApiNetsuiteCore */ 55336);
+
+
+/**
+ * ABObjectApiNetsuite
+ * These are ABObjects that were Imported from existing Tables in the
+ * system.
+ *
+ * NOTE: on the web client, these should function just like ABObjects
+ */
+class ABObjectApiNetsuite extends _core_ABObjectApiNetsuiteCore__WEBPACK_IMPORTED_MODULE_0__["default"] {}
 
 
 /***/ }),
@@ -44144,12 +44419,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ABMobileViewForm)
 /* harmony export */ });
 /* harmony import */ var _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/mobile/ABMobileViewFormCore.js */ 97835);
-/* harmony import */ var _views_ABViewLinkPage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../views/ABViewLinkPage.js */ 11167);
 /**
  * ABMobileViewForm
  * The view that displays a form on the screen.
  */
-
 
 
 
@@ -44431,8 +44704,6 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
 
       try {
          // is this an update or create?
-         // @achoobert?
-         // query is expecting a string, getting an object
          if (formVals.id) {
             newFormVals = await model.update(formVals.id, formVals);
          } else {
@@ -44522,7 +44793,6 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
          formVals.id = input.val();
       }
 
-      // @achoobert
       // get custom values
       // this.fieldComponents(
       //    (comp) =>
@@ -44714,52 +44984,6 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
 
       return isValid;
    }
-
-   // wip
-   // get linkPageHelper() {
-   //    if (this.__linkPageHelper == null)
-   //       this.__linkPageHelper = new ABViewLinkPage();
-
-   //    return this.__linkPageHelper;
-   // }
-   /**
-    * @method changePage()
-    * Helper method to switch to another View.
-    * @param {ABDataCollection} dv
-    *        The DataCollection we are working with.
-    * @param {obj} rowItem
-    *        the { row:#, column:{string} } of the item that was clicked.
-    * @param {ABViewPage.uuid} page
-    *        The .uuid of the ABViewPage/ABViewTab we are to swtich to.
-    *
-    */
-   // changePage(dv = {}, rowItem = {}, page) {
-   changePage(page) {
-      if (this.__linkPageHelper == null)
-         this.__linkPageHelper = new _views_ABViewLinkPage_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
-
-      // return this.__linkPageHelper;
-      // const rowId = rowItem?.row ?? null;
-
-      // Set cursor to data view
-      // if (dv) dv.setCursor(rowId);
-
-      // Pass settings to link page module
-      // if (this.__linkPageHelper) this.__linkPageHelper.changePage(dv, rowItem, page);
-      if (this.__linkPageHelper) this.__linkPageHelper.changePage(page);
-      else super.changePage(page);
-   }
-
-   // changePage(dv, rowItem, page) {
-   //    const rowId = rowItem?.row ?? null;
-
-   //    // Set cursor to data view
-   //    if (dv) dv.setCursor(rowId);
-
-   //    // Pass settings to link page module
-   //    if (this.__linkPageHelper) this.__linkPageHelper.changePage(page, rowId);
-   //    else super.changePage(page);
-   // }
 }
 
 
@@ -51746,82 +51970,6 @@ class ABViewFormItem extends _core_views_ABViewFormItemCore__WEBPACK_IMPORTED_MO
 
 /***/ }),
 
-/***/ 11167:
-/*!************************************************************!*\
-  !*** ./src/js/AppBuilder/platform/views/ABViewLinkPage.js ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ABViewLinkPageComponent)
-/* harmony export */ });
-/* harmony import */ var _viewComponent_ABViewComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewComponent/ABViewComponent */ 9162);
-
-
-// let L = (...params) => AB.Multilingual.label(...params);
-
-class ABViewLinkPageComponent extends _viewComponent_ABViewComponent__WEBPACK_IMPORTED_MODULE_0__["default"] {
-   constructor(linkPageHelper, idBase) {
-      let base = idBase || `ABViewLinkPage_xxx`;
-      super(base, {});
-
-      // this.linkPageHelper = linkPageHelper;
-      // this.AB = linkPageHelper.AB;
-
-      this.view = null;
-      // {ABViewXXXX}
-      // the ABView object this link references.
-
-      this.datacollection = null;
-      // {ABDataCollection}
-      // The related Datacollection to this view that drives it's data.
-      // we usually have to set the cursor before the view displays the
-      // appropriate data.
-   }
-
-   ui() {
-      return {};
-   }
-
-   init(options) {
-      if (options.view) this.view = options.view;
-
-      if (options.datacollection) this.datacollection = options.datacollection;
-   }
-   /**
-    * @method changePage()
-    *  method to switch to another View.
-    * @param {ABDataCollection} dv
-    *        The DataCollection we are working with.
-    * @param {obj} rowItem
-    *        the { row:#, column:{string} } of the item that was clicked.
-    * @param {ABViewPage.uuid} page
-    *        The .uuid of the ABViewPage/ABViewTab we are to swtich to.
-    *
-    */
-   // changePage(pageId, rowId) {
-   // changePage(dv, rowItem, page) {
-   changePage(page) {
-      console.error("ABViewLinkPage.changePage() is not implemented.", page);
-      // if (this.datacollection) {
-      //    this.datacollection.once("changeCursor", () => {
-      //       this.view?.changePage(pageId);
-      //    });
-      //    this.datacollection.setCursor(rowId);
-      // } else {
-      //    this.view?.changePage(pageId);
-      // }
-
-      this.emit("changePage", page.name);
-
-   }
-}
-
-
-/***/ }),
-
 /***/ 22305:
 /*!********************************************************!*\
   !*** ./src/js/AppBuilder/platform/views/ABViewPage.js ***!
@@ -53645,7 +53793,6 @@ class ABViewRuleListFormSubmitRules extends _ABViewRuleList__WEBPACK_IMPORTED_MO
       if (this.currentObject) {
          Rule.objectLoad(this.currentObject);
       }
-      // formLoad is not defined
       Rule.formLoad(this.currentForm);
       return Rule;
    }
