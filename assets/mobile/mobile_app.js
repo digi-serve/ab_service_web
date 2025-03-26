@@ -1102,8 +1102,10 @@ __webpack_require__.r(__webpack_exports__);
     }
     $store.dispatch("getVersion");
     $on("pageInit", () => {
+      console.error("removed checkforupdates here: ");
       // checkForUpdate();
     });
+
     document.addEventListener("visibilitychange", e => {
       if (document.visibilityState == "visible") {
         checkForUpdate();
@@ -1267,26 +1269,11 @@ __webpack_require__.r(__webpack_exports__);
       class: "sidebar_logo"
     }), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null)), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "list list-outline list-strong list-dividers list-translucent"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("ul", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("li", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("a", {
-      href: "/list",
-      class: "item-link item-content panel-close"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
-      class: "item-media"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("i", {
-      class: "material-icons"
-    }, L("contacts"))), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
-      class: "item-inner"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
-      class: "item-title"
-    }, L("List of People"))))), pagesMenu.map(p => {
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("ul", null, pagesMenu.map(p => {
       return (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("li", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("a", {
         href: `/${p.route}`,
         class: "item-link item-content panel-close"
       }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
-        class: "item-media"
-      }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("i", {
-        class: "material-icons"
-      }, p.label)), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
         class: "item-inner"
       }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
         class: "item-title"
@@ -1810,7 +1797,7 @@ __webpack_require__.r(__webpack_exports__);
       class: "link icon-only panel-open"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("i", {
       class: "icon material-icons"
-    }, "menu"))), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
+    }))), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
       class: "title"
     }, title), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
       class: "title-large"
@@ -1830,10 +1817,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("i", {
-      class: "icon f7-icons if-not-md"
-    }, "plus"), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("i", {
-      class: "icon material-icons md-only"
-    }, "add"))))), viewHTML());
+      class: "icon icon-plus"
+    }))))), viewHTML());
   };
 });
 
@@ -32351,6 +32336,9 @@ class ABDataCollection extends _core_ABDataCollectionCore__WEBPACK_IMPORTED_MODU
       // now check all the fields we are managing and see if they
       // need to initStore()
       let obj = this.datasource;
+      if (id == 'f5410864-de13-452d-b347-c5983f97a349'){
+         console.error("Isaac initing")
+      }
       if (obj) {
          obj.fields().forEach((f) => {
             if (f.isConnection) {
@@ -36770,45 +36758,52 @@ class FilterComplex extends _core_FilterComplexCore__WEBPACK_IMPORTED_MODULE_0__
    }
 
    setValue(settings) {
+      // this is the cause of 
+      // https://github.com/digi-serve/test_pwa/issues/17
       super.setValue(settings);
       this.condition = settings;
 
-      // const el = $$(this.ids.querybuilder);
-      // if (el) {
-      //    if (!settings) {
-      //       // Clear settings value of webix.query
-      //       el.define("value", {
-      //          glue: "and",
-      //          rules: [],
-      //       });
-      //       return;
-      //    }
+      let el;
+      try {
+         el = $$(this.ids.querybuilder);
+      } catch (error) {
+         console.warn("setValue issues: ", error)
+      }
+      if (el) {
+         if (!settings) {
+            // Clear settings value of webix.query
+            el.define("value", {
+               glue: "and",
+               rules: [],
+            });
+            return;
+         }
 
-      //    let qbSettings = this.AB.cloneDeep(settings);
+         let qbSettings = this.AB.cloneDeep(settings);
 
-      //    // Settings should match a condition built upon our QB format:
-      //    // {
-      //    //    glue:"and",
-      //    //    rules:[
-      //    //       {
-      //    //          key:"uuid",
-      //    //          rule:"",
-      //    //          value:""
-      //    //       }
-      //    //    ]
-      //    // }
-      //    // externally our key should be the field.id and the rules should be
-      //    // the "contains", "not_contains", "equal" ... keywords.
-      //    // However, internally, we convert these rules into .ids that are
-      //    // unique for each field (see uiInit()).  So when we bring in settings
-      //    // we need to translate them into our internal format:
+         // Settings should match a condition built upon our QB format:
+         // {
+         //    glue:"and",
+         //    rules:[
+         //       {
+         //          key:"uuid",
+         //          rule:"",
+         //          value:""
+         //       }
+         //    ]
+         // }
+         // externally our key should be the field.id and the rules should be
+         // the "contains", "not_contains", "equal" ... keywords.
+         // However, internally, we convert these rules into .ids that are
+         // unique for each field (see uiInit()).  So when we bring in settings
+         // we need to translate them into our internal format:
 
-      //    _toInternal(qbSettings, this._Fields);
+         _toInternal(qbSettings, this._Fields);
 
-      //    this.__blockOnChange = true;
-      //    el.define("value", qbSettings);
-      //    this.__blockOnChange = false;
-      // }
+         this.__blockOnChange = true;
+         el.define("value", qbSettings);
+         this.__blockOnChange = false;
+      }
    }
 
    getValue() {
@@ -39615,6 +39610,7 @@ class ABFieldConnect extends _core_dataFields_ABFieldConnectCore__WEBPACK_IMPORT
             selectedData.length
          ) {
             selectedData.forEach((val) => {
+               // @achoobert multicombo HTML
                values.push(
                   `<div class='webix_multicombo_value'><span>${val.value}</span><!-- span data-uuid="${val.id}" class="webix_multicombo_delete" role="button" aria-label="Remove item"></span --></div>`
                );
@@ -43991,6 +43987,7 @@ class ABMobilePage extends _core_mobile_ABMobilePageCore__WEBPACK_IMPORTED_MODUL
    viewHTML($h) {
       let allResults = [];
 
+      // here? working page gets triggered from here multiple times
       this.views().forEach((v) => {
          allResults.push(v.html($h));
       });
@@ -44419,10 +44416,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ABMobileViewForm)
 /* harmony export */ });
 /* harmony import */ var _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/mobile/ABMobileViewFormCore.js */ 97835);
+/* harmony import */ var _views_ABViewLinkPage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../views/ABViewLinkPage.js */ 11167);
 /**
  * ABMobileViewForm
  * The view that displays a form on the screen.
  */
+
 
 
 
@@ -44704,6 +44703,8 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
 
       try {
          // is this an update or create?
+         // @achoobert?
+         // query is expecting a string, getting an object
          if (formVals.id) {
             newFormVals = await model.update(formVals.id, formVals);
          } else {
@@ -44793,6 +44794,7 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
          formVals.id = input.val();
       }
 
+      // @achoobert
       // get custom values
       // this.fieldComponents(
       //    (comp) =>
@@ -44984,6 +44986,52 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
 
       return isValid;
    }
+
+   // wip
+   // get linkPageHelper() {
+   //    if (this.__linkPageHelper == null)
+   //       this.__linkPageHelper = new ABViewLinkPage();
+
+   //    return this.__linkPageHelper;
+   // }
+   /**
+    * @method changePage()
+    * Helper method to switch to another View.
+    * @param {ABDataCollection} dv
+    *        The DataCollection we are working with.
+    * @param {obj} rowItem
+    *        the { row:#, column:{string} } of the item that was clicked.
+    * @param {ABViewPage.uuid} page
+    *        The .uuid of the ABViewPage/ABViewTab we are to swtich to.
+    *
+    */
+   // changePage(dv = {}, rowItem = {}, page) {
+   changePage(page) {
+      if (this.__linkPageHelper == null)
+         this.__linkPageHelper = new _views_ABViewLinkPage_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+
+      // return this.__linkPageHelper;
+      // const rowId = rowItem?.row ?? null;
+
+      // Set cursor to data view
+      // if (dv) dv.setCursor(rowId);
+
+      // Pass settings to link page module
+      // if (this.__linkPageHelper) this.__linkPageHelper.changePage(dv, rowItem, page);
+      if (this.__linkPageHelper) this.__linkPageHelper.changePage(page);
+      else super.changePage(page);
+   }
+
+   // changePage(dv, rowItem, page) {
+   //    const rowId = rowItem?.row ?? null;
+
+   //    // Set cursor to data view
+   //    if (dv) dv.setCursor(rowId);
+
+   //    // Pass settings to link page module
+   //    if (this.__linkPageHelper) this.__linkPageHelper.changePage(page, rowId);
+   //    else super.changePage(page);
+   // }
 }
 
 
@@ -45217,8 +45265,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ABMobileViewFormConnect)
 /* harmony export */ });
 /* harmony import */ var _core_mobile_ABMobileViewFormConnectCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/mobile/ABMobileViewFormConnectCore.js */ 55866);
-/* harmony import */ var _ViewFormSelectMultiple_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewFormSelectMultiple.js */ 53691);
-/* harmony import */ var _ViewFormSelectSingle_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ViewFormSelectSingle.js */ 61554);
+/* harmony import */ var _ViewFormSelectImages_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewFormSelectImages.js */ 42399);
+/* harmony import */ var _ViewFormSelectMultiple_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ViewFormSelectMultiple.js */ 53691);
+/* harmony import */ var _ViewFormSelectSingle_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ViewFormSelectSingle.js */ 61554);
 /**
  * ABMobileViewFormConnect
  * The view that displays a form textbox on the screen.
@@ -45228,19 +45277,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 class ABMobileViewFormConnect extends _core_mobile_ABMobileViewFormConnectCore_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
-   // constructor(...params) {
-   //    super(...params);
-   // }
+   constructor(...params) {
+      super(...params);
+
+      const ABViewFormConnectPropertyComponentDefaults = _core_mobile_ABMobileViewFormConnectCore_js__WEBPACK_IMPORTED_MODULE_0__["default"].defaultValues();
+
+      this.__filterComponent.setValue(
+         this.settings.filterConditions ??
+            ABViewFormConnectPropertyComponentDefaults.filterConditions
+      );
+   }
 
    async init() {}
 
    html($h) {
       let field = this.field();
+      console.log("expecting a way to display images here");
       const formComponent =
          field.settings.linkType === "one"
-            ? new _ViewFormSelectSingle_js__WEBPACK_IMPORTED_MODULE_2__["default"](this.AB, field)
-            : new _ViewFormSelectMultiple_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.AB, field);
+            ? new _ViewFormSelectSingle_js__WEBPACK_IMPORTED_MODULE_3__["default"](this.AB, field)
+            : new _ViewFormSelectMultiple_js__WEBPACK_IMPORTED_MODULE_2__["default"](this.AB, field);
+      let isImages = field.settings.type == "image";
+      if (isImages){
+         console.error("isaac making new ui here")
+         let altFormComponent = new _ViewFormSelectImages_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.AB, field);
+         return altFormComponent.html($h);
+      }
 
       return formComponent.html($h);
    }
@@ -45843,7 +45907,7 @@ class ABMobileViewFormItem extends _core_mobile_ABMobileViewFormItemCore__WEBPAC
     * @return {Promise}
     */
    async valuePrepare() {}
-
+   // @achoobert this is the html for a single value
    html($h) {
       return $h`
          <div class="item-content item-input">
@@ -46018,7 +46082,7 @@ class ABMobileViewFormSelectMultiple extends _core_mobile_ABMobileViewFormSelect
          rowData[field.columnName] = this.AB.$(`#${this.idFormElement}`).val();
       }
    }
-
+   // TODO maybe add an overlay + button? @achoobert
    html($h) {
       let value = this.options.find((o) => o.id == this.value)?.text;
       let field = this.field();
@@ -46076,6 +46140,7 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
       ];
 
       this.value = null;
+      this.displayColumn = "id";
    }
 
    async init() {
@@ -46146,13 +46211,17 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
       this.value = vid;
    }
 
+   setDisplayColumn(colString) {
+      this.displayColumn = colString;
+   }
+
    idOption(o) {
       return `O${o.id.replaceAll(" ", "_")}`;
    }
 
    inputElement($h, item) {
       let $inputElement = $h`<option id=${this.idOption(item)} value=${
-         item.id
+         item[this.displayColumn]
       }>${item.text}</option>`;
       if (this.value == item.id) {
          $inputElement.props.selected = "";
@@ -46168,6 +46237,7 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
       if (field.isConnection) {
          let myVal = this.AB.$store.getters[field.id]?.value;
       }
+      // @achoobert this is the html for a single select value
 
       return $h`
          <div class="item-content item-input">
@@ -46601,6 +46671,7 @@ class ABMobileViewList extends _core_mobile_ABMobileViewListCore_js__WEBPACK_IMP
       //    $h`<div class="${this.style} ${this.alignment}">${this.text}</div>`;
 
       let dc = this.datacollection;
+      // TODO @achoobert add `item-media` option
 
       if (!dc || this.AB.$store.getters[dc.id].value.length === 0)
          return () => $h`
@@ -46735,7 +46806,7 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
 
    itemSelected(item) {
       // prevent random clicks when processing a swipeout
-      if (this.isSwipeout[item.uuid]) return;
+      if (this.isSwipeout && this.isSwipeout[item.uuid]) return;
 
       // Make sure our DC registers which item was just selected.
       const dc = this.datacollection;
@@ -46919,6 +46990,15 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
 
       let dc = this.datacollection;
 
+      // this is where a filtered DC fails out
+      console.error(`isaac: lookat ${dc.label} : `, this.AB.$store.getters[dc.id].value);
+      if(dc.label=="Reports_ns_mobile"){
+         this.AB.$store.getters[dc.id].value;
+         this.AB.$store.getters[dc.id].value;
+         setTimeout(() => {
+            console.error("Isaac check if just need time: ", this.AB.$store.getters[dc.id].value)
+         }, 10000);
+      }
       if (!dc || this.AB.$store.getters[dc.id].value.length === 0)
          return () => $h`
                ${this.listTitle($h)}
@@ -46932,7 +47012,6 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
                      )}
                   </ul>
                </div>
-           
          `;
 
       // build a date/hash of our current values
@@ -46974,6 +47053,61 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
 
 /***/ }),
 
+/***/ 42399:
+/*!*******************************************************************!*\
+  !*** ./src/js/AppBuilder/platform/mobile/ViewFormSelectImages.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ViewFormSelectMultiple)
+/* harmony export */ });
+/* harmony import */ var _ViewFormSelectSingle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ViewFormSelectSingle */ 61554);
+
+
+class ViewFormSelectMultiple extends _ViewFormSelectSingle__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   html($h) {
+      let value = this.options.find((o) => o.id == this.value)?.text;
+      // <div class="float-right">
+      //    <a 
+      //    href="#" 
+      //    class="link icon-only"
+      //    onclick=${() => {
+      //       this.openAddPage();
+      //    }}
+      // >
+      // <i class="icon f7-icons if-not-md">plus</i>
+      // <i class="icon material-icons md-only">add</i>
+      // </a>
+      // </div>`
+      // @achoobert add option is here
+      return $h`
+         <div class="list media-list">
+            <a href="#" class="item-link smart-select smart-select-init">
+               <select
+                  name=${this.field.columnName}
+                  multiple
+               >
+                  ${this.options.map((item) => this.inputElement($h, item))}
+               </select>
+               <div class="item-content">
+                  <div class="item-inner">
+                     <div class="item-title">${this.field.label}</div>
+                     <div class="item-media"><img style='max-width: 500px; max-height: 500px;' src='/file/${this.field['image']}/></div>
+                     <div class="item-after">${value || "Value"}</div>
+                  </div>
+               </div>
+            </a>
+         </div>
+         `;
+   }
+}
+
+
+/***/ }),
+
 /***/ 53691:
 /*!*********************************************************************!*\
   !*** ./src/js/AppBuilder/platform/mobile/ViewFormSelectMultiple.js ***!
@@ -46991,6 +47125,19 @@ __webpack_require__.r(__webpack_exports__);
 class ViewFormSelectMultiple extends _ViewFormSelectSingle__WEBPACK_IMPORTED_MODULE_0__["default"] {
    html($h) {
       let value = this.options.find((o) => o.id == this.value)?.text;
+      // <div class="float-right">
+      //    <a 
+      //    href="#" 
+      //    class="link icon-only"
+      //    onclick=${() => {
+      //       this.openAddPage();
+      //    }}
+      // >
+      // <i class="icon f7-icons if-not-md">plus</i>
+      // <i class="icon material-icons md-only">add</i>
+      // </a>
+      // </div>`
+      // @achoobert add option is here
       return $h`
          <a href="#" class="item-link smart-select smart-select-init">
             <select
@@ -51970,6 +52117,82 @@ class ABViewFormItem extends _core_views_ABViewFormItemCore__WEBPACK_IMPORTED_MO
 
 /***/ }),
 
+/***/ 11167:
+/*!************************************************************!*\
+  !*** ./src/js/AppBuilder/platform/views/ABViewLinkPage.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ABViewLinkPageComponent)
+/* harmony export */ });
+/* harmony import */ var _viewComponent_ABViewComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewComponent/ABViewComponent */ 9162);
+
+
+// let L = (...params) => AB.Multilingual.label(...params);
+
+class ABViewLinkPageComponent extends _viewComponent_ABViewComponent__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   constructor(linkPageHelper, idBase) {
+      let base = idBase || `ABViewLinkPage_xxx`;
+      super(base, {});
+
+      // this.linkPageHelper = linkPageHelper;
+      // this.AB = linkPageHelper.AB;
+
+      this.view = null;
+      // {ABViewXXXX}
+      // the ABView object this link references.
+
+      this.datacollection = null;
+      // {ABDataCollection}
+      // The related Datacollection to this view that drives it's data.
+      // we usually have to set the cursor before the view displays the
+      // appropriate data.
+   }
+
+   ui() {
+      return {};
+   }
+
+   init(options) {
+      if (options.view) this.view = options.view;
+
+      if (options.datacollection) this.datacollection = options.datacollection;
+   }
+   /**
+    * @method changePage()
+    *  method to switch to another View.
+    * @param {ABDataCollection} dv
+    *        The DataCollection we are working with.
+    * @param {obj} rowItem
+    *        the { row:#, column:{string} } of the item that was clicked.
+    * @param {ABViewPage.uuid} page
+    *        The .uuid of the ABViewPage/ABViewTab we are to swtich to.
+    *
+    */
+   // changePage(pageId, rowId) {
+   // changePage(dv, rowItem, page) {
+   changePage(page) {
+      console.error("ABViewLinkPage.changePage() is not implemented.", page);
+      // if (this.datacollection) {
+      //    this.datacollection.once("changeCursor", () => {
+      //       this.view?.changePage(pageId);
+      //    });
+      //    this.datacollection.setCursor(rowId);
+      // } else {
+      //    this.view?.changePage(pageId);
+      // }
+
+      this.emit("changePage", page.name);
+
+   }
+}
+
+
+/***/ }),
+
 /***/ 22305:
 /*!********************************************************!*\
   !*** ./src/js/AppBuilder/platform/views/ABViewPage.js ***!
@@ -53793,6 +54016,7 @@ class ABViewRuleListFormSubmitRules extends _ABViewRuleList__WEBPACK_IMPORTED_MO
       if (this.currentObject) {
          Rule.objectLoad(this.currentObject);
       }
+      // formLoad is not defined
       Rule.formLoad(this.currentForm);
       return Rule;
    }
