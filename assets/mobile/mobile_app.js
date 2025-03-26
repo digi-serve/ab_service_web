@@ -45797,7 +45797,7 @@ class ABMobileViewFormImage extends _core_mobile_ABMobileViewFormImageCore_js__W
          <input
             id=${this.idUpload}
             type="file"
-            name="file"
+            name="media_file"
             class="button button-big button-fill"
             accept="image/*"
             capture="environment"
