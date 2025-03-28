@@ -12251,6 +12251,12 @@ module.exports = class FilterComplexCore extends ABComponent {
          case "is_not_empty":
             result = !!value;
             break;
+         case "is_null":
+            result = value == null;
+            break;
+         case "is_not_null":
+            result = value != null;
+            break;
          default:
             result = this.queryFieldValid(value, rule, compareValue);
             break;
@@ -84558,4 +84564,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.f8d69c987e840c7ef274.js.map
+//# sourceMappingURL=AB.c694bb386e092b2d35c6.js.map
