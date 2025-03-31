@@ -9844,7 +9844,7 @@ class ABModelCore {
       }
    }
 
-   request(method, params) {
+   request(/* method, params */) {
       console.error(
          "!!! ABModelCore.request() should be overridden by platform."
       );
@@ -14198,6 +14198,12 @@ class FilterComplexCore extends _platform_ABComponent__WEBPACK_IMPORTED_MODULE_0
             break;
          case "is_not_empty":
             result = !!value;
+            break;
+         case "is_null":
+            result = value == null;
+            break;
+         case "is_not_null":
+            result = value != null;
             break;
          default:
             result = this.queryFieldValid(value, rule, compareValue);
@@ -45793,16 +45799,24 @@ class ABMobileViewFormImage extends _core_mobile_ABMobileViewFormImageCore_js__W
    }
 
    inputElementUpload($h) {
+      let field = this.field();
       let $inputElement = $h`
-         <input
-            id=${this.idUpload}
-            type="file"
-            name="media_file"
-            class="button button-big button-fill"
-            accept="image/*"
-            capture="environment"
-         />
-      `;
+      <input 
+         id=${this.idFormElement} 
+         name=${field.columnName} 
+         type="file"
+         placeholder=""
+      />`;
+      // let $inputElement = $h`
+      //    <input
+      //       id=${this.idUpload}
+      //       type="file"
+      //       name="file"
+      //       class="button button-big button-fill"
+      //       accept="image/*"
+      //       capture="environment"
+      //    />
+      // `;
 
       this.updateProperties($inputElement);
 
@@ -46163,6 +46177,7 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
                this.options.push({
                   id: o.id,
                   text: o.text,
+                  value: field.getRelationValue(o),
                });
             });
             // let obj = field.datasourceLink;
@@ -46221,7 +46236,7 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
 
    inputElement($h, item) {
       let $inputElement = $h`<option id=${this.idOption(item)} value=${
-         item[this.displayColumn]
+         item.value ?? item.id
       }>${item.text}</option>`;
       if (this.value == item.id) {
          $inputElement.props.selected = "";
