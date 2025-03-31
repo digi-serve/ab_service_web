@@ -1089,7 +1089,7 @@ __webpack_require__.r(__webpack_exports__);
     let password = "";
     let versionNumber = Application.version;
     let showingUpdate = false;
-    let apiUrl = document?.location?.origin ?? "http://localhost:8080";
+    let apiUrl = document?.location?.origin ?? "http://10.147.19.41:8080";
     // process.env.NODE_ENV === "production"
     //    ? "https://design.digiserve.org"
     //    : "http://localhost:8010/proxy";
@@ -1263,11 +1263,7 @@ __webpack_require__.r(__webpack_exports__);
       class: "page-content"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "block text-align-center no-margin-bottom"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("img", {
-      src: "assets/mobile/images/digiServe_logo.png",
-      width: "70%",
-      class: "sidebar_logo"
-    }), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null)), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null)), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "list list-outline list-strong list-dividers list-translucent"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("ul", null, pagesMenu.map(p => {
       return (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("li", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("a", {
@@ -1293,10 +1289,7 @@ __webpack_require__.r(__webpack_exports__);
     }, L("Log out"))))))), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "block text-align-center",
       style: "position: absolute; width: 100%; margin-bottom: 15px; bottom: 0px;"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("img", {
-      src: "assets/mobile/images/digiServe_logo.png",
-      width: "30%"
-    }), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("br", null), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("span", {
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("br", null), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("span", {
       class: "version"
     }, "v", versionNumber))))))), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "view view-main view-init safe-areas",
@@ -1312,11 +1305,7 @@ __webpack_require__.r(__webpack_exports__);
       class: "page-content login-screen-content bg-color-primary"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "block text-align-center no-margin-bottom"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("img", {
-      src: "assets/mobile/images/digiServe_logo.png",
-      width: "60%",
-      class: "sidebar_logo"
-    })), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("form", {
+    }), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("form", {
       action: "javascript: null;",
       onSubmit: () => authenticate()
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
@@ -44631,6 +44620,7 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
       (this.viewsNotButtons() || []).forEach((v) => {
          allUpdates.push(v.valuePrepare());
       });
+      // TypeError: null is not an object (evaluating 'file.name')
       await Promise.all(allUpdates);
 
       // get update data
@@ -45584,6 +45574,7 @@ class ABMobileViewFormFile extends _core_mobile_ABMobileViewFormFileCore_js__WEB
 
       // don't upload when not selected.
       let file = formData.get("file");
+      if (file == undefined || file == null) return;
       if (file.name == "" && file.size == 0) return;
 
       try {
@@ -45799,24 +45790,14 @@ class ABMobileViewFormImage extends _core_mobile_ABMobileViewFormImageCore_js__W
    }
 
    inputElementUpload($h) {
-      let field = this.field();
       let $inputElement = $h`
       <input 
-         id=${this.idFormElement} 
-         name=${field.columnName} 
+         id=${this.idUpload} 
+         name="file"
+         accept="image/*"
          type="file"
          placeholder=""
       />`;
-      // let $inputElement = $h`
-      //    <input
-      //       id=${this.idUpload}
-      //       type="file"
-      //       name="file"
-      //       class="button button-big button-fill"
-      //       accept="image/*"
-      //       capture="environment"
-      //    />
-      // `;
 
       this.updateProperties($inputElement);
 
@@ -61375,7 +61356,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* eslint-disabl
             c.hostname && !c.port && (c.port = this.secure ? "443" : "80"),
             (this.agent = c.agent || !1),
             (this.hostname =
-              c.hostname || (b.location ? location.hostname : "localhost")),
+              c.hostname || (b.location ? location.hostname : "10.147.19.41")),
             (this.port =
               c.port ||
               (b.location && location.port
