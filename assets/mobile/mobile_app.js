@@ -11,7 +11,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ F7ViewForm)
 /* harmony export */ });
-/* harmony import */ var framework7__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! framework7 */ 73449);
+/* harmony import */ var framework7__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! framework7 */ 73449);
 /* harmony import */ var _formButton_f7_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formButton.f7.jsx */ 32864);
 /* harmony import */ var _formCheckbox_f7_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./formCheckbox.f7.jsx */ 91298);
 /* harmony import */ var _formConnect_f7_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./formConnect.f7.jsx */ 15210);
@@ -19,9 +19,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _formJSON_f7_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./formJSON.f7.jsx */ 959);
 /* harmony import */ var _formNumber_f7_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./formNumber.f7.jsx */ 67670);
 /* harmony import */ var _formSelectMultiple_f7_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./formSelectMultiple.f7.jsx */ 72124);
-/* harmony import */ var _formSelectSingle_f7_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./formSelectSingle.f7.jsx */ 68220);
-/* harmony import */ var _formTextbox_f7_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./formTextbox.f7.jsx */ 14377);
+/* harmony import */ var _formSelectImages_f7_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./formSelectImages.f7.jsx */ 73614);
+/* harmony import */ var _formSelectSingle_f7_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./formSelectSingle.f7.jsx */ 68220);
+/* harmony import */ var _formTextbox_f7_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./formTextbox.f7.jsx */ 14377);
 /** @jsx $jsx */
+
 
 
 
@@ -72,12 +74,14 @@ class F7ViewForm {
           return new _formJSON_f7_jsx__WEBPACK_IMPORTED_MODULE_4__["default"](AB, this, definition);
         case "numberbox":
           return new _formNumber_f7_jsx__WEBPACK_IMPORTED_MODULE_5__["default"](AB, this, definition);
+        case "selectimages":
+          return new _formSelectImages_f7_jsx__WEBPACK_IMPORTED_MODULE_7__["default"](AB, this, definition);
         case "selectmultiple":
           return new _formSelectMultiple_f7_jsx__WEBPACK_IMPORTED_MODULE_6__["default"](AB, this, definition);
         case "selectsingle":
-          return new _formSelectSingle_f7_jsx__WEBPACK_IMPORTED_MODULE_7__["default"](AB, this, definition);
+          return new _formSelectSingle_f7_jsx__WEBPACK_IMPORTED_MODULE_8__["default"](AB, this, definition);
         default:
-          return new _formTextbox_f7_jsx__WEBPACK_IMPORTED_MODULE_8__["default"](AB, this, definition);
+          return new _formTextbox_f7_jsx__WEBPACK_IMPORTED_MODULE_9__["default"](AB, this, definition);
       }
     });
   }
@@ -254,7 +258,7 @@ class F7ViewForm {
       if (view.definition.fieldType == null) {
         if (view instanceof _formButton_f7_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]) {
           const renderedFieldElements = [...fields];
-          if (fields.length > 0) allResults.push(() => (0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("ul", null, renderedFieldElements));
+          if (fields.length > 0) allResults.push(() => (0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("ul", null, renderedFieldElements));
           allResults.push(view.html());
           fields = [];
         }
@@ -262,21 +266,21 @@ class F7ViewForm {
       }
       switch (view.definition.fieldType) {
         case "LongText":
-          fields.push((0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("li", {
+          fields.push((0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("li", {
             class: "align-top"
           }, view.html()()));
           break;
         default:
-          fields.push((0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("li", null, view.html()()));
+          fields.push((0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("li", null, view.html()()));
           break;
       }
     });
-    if (fields.length > 0) allResults.push(() => (0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("ul", null, fields.map(r => r())));
+    if (fields.length > 0) allResults.push(() => (0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("ul", null, fields.map(r => r())));
     return allResults.map(r => r()); // render each jsx template
   }
 
   html() {
-    return () => (0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("form", {
+    return () => (0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("form", {
       class: "list list-inset list-strong-ios list-dividers-ios list-outline-ios",
       id: this.id
     }, this.viewHTML());
@@ -717,6 +721,58 @@ class F7ViewFormNumber extends _formItem_f7_jsx__WEBPACK_IMPORTED_MODULE_0__["de
       pattern: "[0-9]*",
       "data-error-message": errorMessage
     })))));
+  }
+}
+
+/***/ }),
+
+/***/ 73614:
+/*!**********************************************!*\
+  !*** ./src/js/views/formSelectImages.f7.jsx ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ F7ViewFormSelectImages)
+/* harmony export */ });
+/* harmony import */ var framework7__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! framework7 */ 73449);
+/* harmony import */ var _formItem_f7_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formItem.f7.jsx */ 66382);
+/** @jsx $jsx */
+
+
+class F7ViewFormSelectImages extends _formItem_f7_jsx__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  #AB;
+  #form;
+  constructor(AB, form, definition) {
+    super(definition);
+    this.#AB = AB;
+    this.#form = form;
+  }
+  parseFormData(value) {
+    return this.#AB.$(`#${this.#form.id}`).find(`select[name="${this.definition.field}"]`).val();
+  }
+  html() {
+    const definition = this.definition;
+    return () => (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("a", {
+      href: "#",
+      class: "item-link smart-select smart-select-init"
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("select", {
+      name: definition.name,
+      placeholder: definition.placeholder,
+      Images: true
+    }, definition.settings.options.map(item => (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("option", {
+      value: item.id
+    }, item.text))), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
+      class: "item-content"
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
+      class: "item-inner"
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
+      class: "item-title"
+    }, definition.label), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
+      class: "item-after"
+    }))));
   }
 }
 
@@ -36762,7 +36818,7 @@ class FilterComplex extends _core_FilterComplexCore__WEBPACK_IMPORTED_MODULE_0__
       try {
          el = $$(this.ids.querybuilder);
       } catch (error) {
-         console.warn("setValue issues: ", error)
+         // console.warn("setValue issues: ", error)
       }
       if (el) {
          if (!settings) {
@@ -36820,7 +36876,7 @@ class FilterComplex extends _core_FilterComplexCore__WEBPACK_IMPORTED_MODULE_0__
 
    fieldsLoad(fields = [], object = null) {
       super.fieldsLoad(fields, object);
-      console.log("TODO: How to handle FilterComplex's dependence on webix?");
+      // console.log("TODO: How to handle FilterComplex's dependence on webix?");
       // this.uiInit();
    }
 
@@ -45290,7 +45346,7 @@ class ABMobileViewFormConnect extends _core_mobile_ABMobileViewFormConnectCore_j
 
    html($h) {
       let field = this.field();
-      console.log("expecting a way to display images here");
+      // console.error("expecting a way to display images here");
       const formComponent =
          field.settings.linkType === "one"
             ? new _ViewFormSelectSingle_js__WEBPACK_IMPORTED_MODULE_3__["default"](this.AB, field)
@@ -46081,6 +46137,7 @@ class ABMobileViewFormSelectMultiple extends _core_mobile_ABMobileViewFormSelect
    html($h) {
       let value = this.options.find((o) => o.id == this.value)?.text;
       let field = this.field();
+      console.error("my data: ", this.options.map((item) => this.inputElement($h, item)) )
       return $h`
          <a href="#" class="item-link smart-select smart-select-init">
             <select
@@ -46155,11 +46212,16 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
             let options = await field.options();
             this.options = [];
             options.forEach((o) => {
-               this.options.push({
+               let option = {
                   id: o.id,
                   text: o.text,
                   value: field.getRelationValue(o),
-               });
+               };
+               if (o.Image != undefined) {
+                  // forcing custom column
+                  option["Image"] = o.Image;
+               }
+               this.options.push(option);
             });
             // let obj = field.datasourceLink;
             // if (obj) {
@@ -46216,6 +46278,18 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
    }
 
    inputElement($h, item) {
+      if (item.Image != undefined) {
+         let $inputElement = $h`<div class="custom-option" data-value=${item.value ?? item.id}>
+            <img src="/file/${item.Image}" alt="icon" class="option-icon">
+            <span>${item.text}</span>
+         </div>`;
+
+         if (this.value == item.id) {
+            $inputElement.props.selected = "";
+         }
+         // debugger
+         // return $inputElement;
+      }
       let $inputElement = $h`<option id=${this.idOption(item)} value=${
          item.value ?? item.id
       }>${item.text}</option>`;
@@ -47064,8 +47138,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ViewFormSelectMultiple extends _ViewFormSelectSingle__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   inputElement($h, item) {
+      if (item.Image != undefined) {
+         let $inputElement = $h`<div class="custom-option" data-value=${item.value ?? item.id}>
+            <img src="/file/${item.Image}" alt="icon" class="option-icon">
+            <span>${item.text}</span>
+         </div>`;
+
+         if (this.value == item.id) {
+            $inputElement.props.selected = "";
+         }
+         // debugger
+         return $inputElement;
+      }
+      console.error("No Image");
+      return;
+   }
+
    html($h) {
       let value = this.options.find((o) => o.id == this.value)?.text;
+
+            // NOTE: Async/$store lookups need to be initiated WITHIN the html()
+      // action for Framework7 to register the UI to update once the data is
+      // updated.
+      let field = this.field();
+      if (field.isConnection) {
+         let myVal = this.AB.$store.getters[field.id]?.value;
+      }
+      // @achoobert this is the html for a single select value
+      // debugger
+
+      return $h`
+         <div class="item-content item-input">
+            <div class="item-inner">
+               <div class="item-title item-label">${field?.label}</div>
+               <div class="item-input-wrap">
+                  <select id=${this.idFormElement} name=${field?.columnName}>
+                     ${this.options.map((item) => this.inputElement($h, item))}
+                  </select>
+               </div>
+            </div>
+         </div>
+         `;
+
       // <div class="float-right">
       //    <a 
       //    href="#" 
@@ -47079,25 +47194,25 @@ class ViewFormSelectMultiple extends _ViewFormSelectSingle__WEBPACK_IMPORTED_MOD
       // </a>
       // </div>`
       // @achoobert add option is here
-      return $h`
-         <div class="list media-list">
-            <a href="#" class="item-link smart-select smart-select-init">
-               <select
-                  name=${this.field.columnName}
-                  multiple
-               >
-                  ${this.options.map((item) => this.inputElement($h, item))}
-               </select>
-               <div class="item-content">
-                  <div class="item-inner">
-                     <div class="item-title">${this.field.label}</div>
-                     <div class="item-media"><img style='max-width: 500px; max-height: 500px;' src='/file/${this.field['image']}/></div>
-                     <div class="item-after">${value || "Value"}</div>
-                  </div>
-               </div>
-            </a>
-         </div>
-         `;
+      // return $h`
+      //    <div class="list media-list">
+      //       <a href="#" class="item-link smart-select smart-select-init">
+      //          <select
+      //             name=${this.field.columnName}
+      //             multiple
+      //          >
+      //             ${this.options.map((item) => this.inputElement($h, item))}
+      //          </select>
+      //          <div class="item-content">
+      //             <div class="item-inner">
+      //                <div class="item-title">${this.field.label}</div>
+      //                <div class="item-media"><img style='max-width: 500px; max-height: 500px;' src='/file/${this.field['image']}/></div>
+      //                <div class="item-after">${value || "Value"}</div>
+      //             </div>
+      //          </div>
+      //       </a>
+      //    </div>
+      //    `;
    }
 }
 
@@ -47135,13 +47250,7 @@ class ViewFormSelectMultiple extends _ViewFormSelectSingle__WEBPACK_IMPORTED_MOD
       // </div>`
       // @achoobert add option is here
       return $h`
-         <a href="#" class="item-link smart-select smart-select-init">
-            <select
-               name=${this.field.columnName}
-               multiple
-            >
-               ${this.options.map((item) => this.inputElement($h, item))}
-            </select>
+         <a href="#" class="item-link ">
             <div class="item-content">
                <div class="item-inner">
                   <div class="item-title">${this.field.label}</div>
@@ -58121,6 +58230,18 @@ class Account extends _AppBuilder_platform_ABEmitter__WEBPACK_IMPORTED_MODULE_0_
       if (UserConfig) {
          this.isAuthenticated = true;
          this._config = UserConfig;
+      } else {
+         let { options: tenantConfig } = this.AB.Config.tenantConfig();
+         tenantConfig =
+            typeof tenantConfig === "string"
+               ? JSON.parse(tenantConfig)
+               : tenantConfig;
+         // If no user and tenant isn't using local auth start
+         // the external auth workflow:
+         if (tenantConfig.authType !== "login") {
+            window.location.assign("/auth/login");
+         }
+         // Keep going if the tenant is using local auth
       }
 
       var MetaConfig = this.AB.Config.metaConfig();
