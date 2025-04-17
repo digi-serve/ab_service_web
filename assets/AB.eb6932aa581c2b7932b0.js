@@ -8816,12 +8816,14 @@ module.exports = class ABModelCore {
       let returnType = data.csv_packed.type;
 
       if (parseResult.errors?.length) {
-         console.error("Error parsing CSV data:", parseResult.errors);
-         console.error("result:");
-         console.error(parseResult.data);
-         console.error("Original CSV data:");
-         console.error(data.csv_packed.data);
-         // @todo: what is the appropriate response here?
+         // ignore common error when .data is ""
+         if (data.csv_packed.data !== "") {
+            console.error("Error parsing CSV data:", parseResult.errors);
+            console.error("Original CSV data:");
+            console.error(data.csv_packed.data);
+            console.error("result:");
+            console.error(parseResult.data);
+         }
       }
       let jsonData = parseResult.data;
 
@@ -85123,4 +85125,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.6b8fe7bb1b53e473e3cc.js.map
+//# sourceMappingURL=AB.eb6932aa581c2b7932b0.js.map
