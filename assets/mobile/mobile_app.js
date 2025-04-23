@@ -11,7 +11,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ F7ViewForm)
 /* harmony export */ });
-/* harmony import */ var framework7__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! framework7 */ 73449);
+/* harmony import */ var framework7__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! framework7 */ 73449);
 /* harmony import */ var _formButton_f7_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formButton.f7.jsx */ 32864);
 /* harmony import */ var _formCheckbox_f7_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./formCheckbox.f7.jsx */ 91298);
 /* harmony import */ var _formConnect_f7_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./formConnect.f7.jsx */ 15210);
@@ -19,11 +19,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _formJSON_f7_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./formJSON.f7.jsx */ 959);
 /* harmony import */ var _formNumber_f7_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./formNumber.f7.jsx */ 67670);
 /* harmony import */ var _formSelectMultiple_f7_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./formSelectMultiple.f7.jsx */ 72124);
-/* harmony import */ var _formSelectImages_f7_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./formSelectImages.f7.jsx */ 73614);
-/* harmony import */ var _formSelectSingle_f7_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./formSelectSingle.f7.jsx */ 68220);
-/* harmony import */ var _formTextbox_f7_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./formTextbox.f7.jsx */ 14377);
+/* harmony import */ var _formSelectSingle_f7_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./formSelectSingle.f7.jsx */ 68220);
+/* harmony import */ var _formTextbox_f7_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./formTextbox.f7.jsx */ 14377);
 /** @jsx $jsx */
-
 
 
 
@@ -74,14 +72,12 @@ class F7ViewForm {
           return new _formJSON_f7_jsx__WEBPACK_IMPORTED_MODULE_4__["default"](AB, this, definition);
         case "numberbox":
           return new _formNumber_f7_jsx__WEBPACK_IMPORTED_MODULE_5__["default"](AB, this, definition);
-        case "selectimages":
-          return new _formSelectImages_f7_jsx__WEBPACK_IMPORTED_MODULE_7__["default"](AB, this, definition);
         case "selectmultiple":
           return new _formSelectMultiple_f7_jsx__WEBPACK_IMPORTED_MODULE_6__["default"](AB, this, definition);
         case "selectsingle":
-          return new _formSelectSingle_f7_jsx__WEBPACK_IMPORTED_MODULE_8__["default"](AB, this, definition);
+          return new _formSelectSingle_f7_jsx__WEBPACK_IMPORTED_MODULE_7__["default"](AB, this, definition);
         default:
-          return new _formTextbox_f7_jsx__WEBPACK_IMPORTED_MODULE_9__["default"](AB, this, definition);
+          return new _formTextbox_f7_jsx__WEBPACK_IMPORTED_MODULE_8__["default"](AB, this, definition);
       }
     });
   }
@@ -258,7 +254,7 @@ class F7ViewForm {
       if (view.definition.fieldType == null) {
         if (view instanceof _formButton_f7_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]) {
           const renderedFieldElements = [...fields];
-          if (fields.length > 0) allResults.push(() => (0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("ul", null, renderedFieldElements));
+          if (fields.length > 0) allResults.push(() => (0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("ul", null, renderedFieldElements));
           allResults.push(view.html());
           fields = [];
         }
@@ -266,21 +262,21 @@ class F7ViewForm {
       }
       switch (view.definition.fieldType) {
         case "LongText":
-          fields.push((0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("li", {
+          fields.push((0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("li", {
             class: "align-top"
           }, view.html()()));
           break;
         default:
-          fields.push((0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("li", null, view.html()()));
+          fields.push((0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("li", null, view.html()()));
           break;
       }
     });
-    if (fields.length > 0) allResults.push(() => (0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("ul", null, fields.map(r => r())));
+    if (fields.length > 0) allResults.push(() => (0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("ul", null, fields.map(r => r())));
     return allResults.map(r => r()); // render each jsx template
   }
 
   html() {
-    return () => (0,framework7__WEBPACK_IMPORTED_MODULE_10__["default"])("form", {
+    return () => (0,framework7__WEBPACK_IMPORTED_MODULE_9__["default"])("form", {
       class: "list list-inset list-strong-ios list-dividers-ios list-outline-ios",
       id: this.id
     }, this.viewHTML());
@@ -726,58 +722,6 @@ class F7ViewFormNumber extends _formItem_f7_jsx__WEBPACK_IMPORTED_MODULE_0__["de
 
 /***/ }),
 
-/***/ 73614:
-/*!**********************************************!*\
-  !*** ./src/js/views/formSelectImages.f7.jsx ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ F7ViewFormSelectImages)
-/* harmony export */ });
-/* harmony import */ var framework7__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! framework7 */ 73449);
-/* harmony import */ var _formItem_f7_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formItem.f7.jsx */ 66382);
-/** @jsx $jsx */
-
-
-class F7ViewFormSelectImages extends _formItem_f7_jsx__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  #AB;
-  #form;
-  constructor(AB, form, definition) {
-    super(definition);
-    this.#AB = AB;
-    this.#form = form;
-  }
-  parseFormData(value) {
-    return this.#AB.$(`#${this.#form.id}`).find(`select[name="${this.definition.field}"]`).val();
-  }
-  html() {
-    const definition = this.definition;
-    return () => (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("a", {
-      href: "#",
-      class: "item-link smart-select smart-select-init"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("select", {
-      name: definition.name,
-      placeholder: definition.placeholder,
-      Images: true
-    }, definition.settings.options.map(item => (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("option", {
-      value: item.id
-    }, item.text))), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
-      class: "item-content"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
-      class: "item-inner"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
-      class: "item-title"
-    }, definition.label), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
-      class: "item-after"
-    }))));
-  }
-}
-
-/***/ }),
-
 /***/ 72124:
 /*!************************************************!*\
   !*** ./src/js/views/formSelectMultiple.f7.jsx ***!
@@ -1143,9 +1087,9 @@ __webpack_require__.r(__webpack_exports__);
     let defaultPath = "/";
     let username = "";
     let password = "";
-    let versionNumber = Application.version;
+    let versionNumber = Application?.version;
     let showingUpdate = false;
-    let apiUrl = document?.location?.origin ?? "http://10.147.19.41:8080";
+    let apiUrl = document?.location?.origin ?? "http://localhost:8080";
     // process.env.NODE_ENV === "production"
     //    ? "https://design.digiserve.org"
     //    : "http://localhost:8010/proxy";
@@ -1158,10 +1102,8 @@ __webpack_require__.r(__webpack_exports__);
     }
     $store.dispatch("getVersion");
     $on("pageInit", () => {
-      console.error("removed checkforupdates here: ");
       // checkForUpdate();
     });
-
     document.addEventListener("visibilitychange", e => {
       if (document.visibilityState == "visible") {
         checkForUpdate();
@@ -1246,12 +1188,12 @@ __webpack_require__.r(__webpack_exports__);
     };
     async function checkForUpdate() {
       if (!showingUpdate) {
-        let getVersionPath = `${apiUrl}${Application.urlCurrentVersion}`;
+        let getVersionPath = `${apiUrl}${Application?.urlCurrentVersion}`;
         const response = await AB.Network.get({
           url: getVersionPath
         });
         const version = response?.version ?? "0.0.0";
-        const currVersion = Application.version;
+        const currVersion = Application?.version;
         console.log("getVersionPath: ", version);
         console.log("getCurrVersion: ", currVersion);
         if (currVersion.trim() != version.trim()) {
@@ -1298,7 +1240,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     }
-    let pagesMenu = Application.pages(p => p.menuType == "menu");
+    let pagesMenu = Application?.pages(p => p.menuType == "menu") ?? [];
     return () => (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       id: "app"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
@@ -1315,17 +1257,36 @@ __webpack_require__.r(__webpack_exports__);
       class: "navbar-inner"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "title"
-    }, Application.label ?? L("PWA")))), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+    }, Application?.label ?? L("PWA")))), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "page-content"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "block text-align-center no-margin-bottom"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null)), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("img", {
+      src: "assets/mobile/images/digiServe_logo.png",
+      width: "70%",
+      class: "sidebar_logo"
+    }), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null)), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "list list-outline list-strong list-dividers list-translucent"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("ul", null, pagesMenu.map(p => {
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("ul", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("li", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("a", {
+      href: "/list",
+      class: "item-link item-content panel-close"
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+      class: "item-media"
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("i", {
+      class: "material-icons"
+    }, L("contacts"))), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+      class: "item-inner"
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+      class: "item-title"
+    }, L("List of People"))))), pagesMenu.map(p => {
       return (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("li", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("a", {
         href: `/${p.route}`,
         class: "item-link item-content panel-close"
       }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
+        class: "item-media"
+      }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("i", {
+        class: "material-icons"
+      }, p.label)), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
         class: "item-inner"
       }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
         class: "item-title"
@@ -1345,7 +1306,10 @@ __webpack_require__.r(__webpack_exports__);
     }, L("Log out"))))))), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "block text-align-center",
       style: "position: absolute; width: 100%; margin-bottom: 15px; bottom: 0px;"
-    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("br", null), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("span", {
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("p", null, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("img", {
+      src: "assets/mobile/images/digiServe_logo.png",
+      width: "30%"
+    }), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("br", null), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("span", {
       class: "version"
     }, "v", versionNumber))))))), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "view view-main view-init safe-areas",
@@ -1361,7 +1325,11 @@ __webpack_require__.r(__webpack_exports__);
       class: "page-content login-screen-content bg-color-primary"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
       class: "block text-align-center no-margin-bottom"
-    }), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("form", {
+    }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("img", {
+      src: "assets/mobile/images/digiServe_logo.png",
+      width: "60%",
+      class: "sidebar_logo"
+    })), (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("form", {
       action: "javascript: null;",
       onSubmit: () => authenticate()
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_0__["default"])("div", {
@@ -1842,7 +1810,7 @@ __webpack_require__.r(__webpack_exports__);
       class: "link icon-only panel-open"
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("i", {
       class: "icon material-icons"
-    }))), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
+    }, "menu"))), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
       class: "title"
     }, title), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("div", {
       class: "title-large"
@@ -1862,8 +1830,10 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     }, (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("i", {
-      class: "icon icon-plus"
-    }))))), viewHTML());
+      class: "icon f7-icons if-not-md"
+    }, "plus"), (0,framework7__WEBPACK_IMPORTED_MODULE_1__["default"])("i", {
+      class: "icon material-icons md-only"
+    }, "add"))))), viewHTML());
   };
 });
 
@@ -2301,20 +2271,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ 30381);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! nanoid */ 53416);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! uuid */ 55877);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./platform/FilterComplex */ 10758);
-/* harmony import */ var _definitions_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../definitions.js */ 49670);
-/* harmony import */ var _resources_Config_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../resources/Config.js */ 77269);
-/* harmony import */ var _resources_Account_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../resources/Account.js */ 12968);
-/* harmony import */ var _resources_Multilingual_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../resources/Multilingual.js */ 28917);
-/* harmony import */ var _resources_Network_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../resources/Network.js */ 93360);
-/* harmony import */ var _resources_Storage_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../resources/Storage.js */ 35397);
-/* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./core/ABViewManagerCore */ 85642);
-/* harmony import */ var _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../resources/Tenant.js */ 75342);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_0__, _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_11__]);
-([_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_0__, _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_11__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! nanoid */ 53416);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! papaparse */ 57460);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(papaparse__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! uuid */ 55877);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./platform/FilterComplex */ 10758);
+/* harmony import */ var _definitions_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../definitions.js */ 49670);
+/* harmony import */ var _resources_Config_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../resources/Config.js */ 77269);
+/* harmony import */ var _resources_Account_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../resources/Account.js */ 12968);
+/* harmony import */ var _resources_Multilingual_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../resources/Multilingual.js */ 28917);
+/* harmony import */ var _resources_Network_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../resources/Network.js */ 93360);
+/* harmony import */ var _resources_Storage_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../resources/Storage.js */ 35397);
+/* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./core/ABViewManagerCore */ 85642);
+/* harmony import */ var _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../resources/Tenant.js */ 75342);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_0__, _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__]);
+([_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_0__, _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 // const ABFactoryCore = require("./core/ABFactoryCore");
 
 
@@ -2322,6 +2294,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 
 
 // @TODO: what is F7 method of working with dates?  can we swap libraries with moment?
+
 
 
 
@@ -2421,27 +2394,27 @@ class ABFactory extends _core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_0__["defaul
       super(definitions);
 
       // Common Reference to Configuration Values
-      this.Config = _resources_Config_js__WEBPACK_IMPORTED_MODULE_6__["default"];
+      this.Config = _resources_Config_js__WEBPACK_IMPORTED_MODULE_7__["default"];
       let appDiv = document.querySelector("#app");
       this.Config.settingsFromDiv(appDiv);
 
       //
       // Resources
       //
-      this.Account = _resources_Account_js__WEBPACK_IMPORTED_MODULE_7__["default"];
+      this.Account = _resources_Account_js__WEBPACK_IMPORTED_MODULE_8__["default"];
       // this.Dialog = Dialog;
-      this.Multilingual = _resources_Multilingual_js__WEBPACK_IMPORTED_MODULE_8__["default"];
-      this.Network = _resources_Network_js__WEBPACK_IMPORTED_MODULE_9__["default"];
-      this.Storage = _resources_Storage_js__WEBPACK_IMPORTED_MODULE_10__["default"];
-      this.Tenant = _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_12__["default"];
+      this.Multilingual = _resources_Multilingual_js__WEBPACK_IMPORTED_MODULE_9__["default"];
+      this.Network = _resources_Network_js__WEBPACK_IMPORTED_MODULE_10__["default"];
+      this.Storage = _resources_Storage_js__WEBPACK_IMPORTED_MODULE_11__["default"];
+      this.Tenant = _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_13__["default"];
       // this.Webix = Webix;
 
       // Plugin Classes
       // this.ClassUI = ClassUI;
 
       // additional Class definitions
-      this.Class.FilterComplex = _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_4__["default"];
-      this.Class.ABViewManager = _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_11__["default"];
+      this.Class.FilterComplex = _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_5__["default"];
+      this.Class.ABViewManager = _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__["default"];
 
       // Temp placeholders until Resources are implemented:
       this.Analytics = {
@@ -3216,7 +3189,7 @@ class ABFactory extends _core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_0__["defaul
    }
 
    jobID() {
-      return (0,nanoid__WEBPACK_IMPORTED_MODULE_13__.nanoid)();
+      return (0,nanoid__WEBPACK_IMPORTED_MODULE_14__.nanoid)();
    }
 
    Label() {
@@ -3299,7 +3272,7 @@ class ABFactory extends _core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_0__["defaul
    }
 
    uuid() {
-      return (0,uuid__WEBPACK_IMPORTED_MODULE_3__.v4)();
+      return (0,uuid__WEBPACK_IMPORTED_MODULE_4__.v4)();
    }
 
    warn(message, ...rest) {
@@ -3311,6 +3284,17 @@ class ABFactory extends _core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_0__["defaul
 
    isString(...params) {
       return lodash__WEBPACK_IMPORTED_MODULE_1___default().isString(params);
+   }
+
+   csvToJson(csvData) {
+      return papaparse__WEBPACK_IMPORTED_MODULE_3___default().parse(csvData, {
+         header: true,
+         skipEmptyLines: true,
+      });
+   }
+
+   jsonToCsv(jsonData) {
+      return papaparse__WEBPACK_IMPORTED_MODULE_3___default().unparse(jsonData);
    }
 }
 await window.__AB_preload;
@@ -6438,24 +6422,43 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
 
                      // then we have to ask for the values we need to add:
                      valuesToAdd = Object.keys(valuesToAdd); // convert to []
-                     if (valuesToAdd.length > 0) {
+                     // NOTE: .staleRefresh() is designed to handle a single requst
+                     // that will be compiled with other requests to be more efficient
+                     // so we need to make 1 .staleRefresh() at a time and then
+                     // compile those results into our data collection.
+                     let prmsAllRefreshes = [];
+                     let allAdds = [];
+                     (valuesToAdd || []).forEach((v) => {
                         let cond = { where: {} };
-                        cond.where[PK] = valuesToAdd;
+                        cond.where[PK] = v;
                         // NOTE: we are using the abbreviated condition syntax here.
 
                         // NOTE: staleRefresh() has some buffering capabilities
                         // that combine multiple calls into 1 more efficient call:
-                        this.model.staleRefresh(cond).then((res) => {
-                           // check to make sure there is data to work with
-                           if (Array.isArray(res.data) && res.data.length) {
-                              res.data.forEach((d) => {
-                                 if (!this.__dataCollection.exists(d[PK])) {
-                                    this.__dataCollection.add(d);
+                        prmsAllRefreshes.push(
+                           this.model.staleRefresh(cond).then((res) => {
+                              // check to make sure there is data to work with
+                              if (Array.isArray(res.data) && res.data.length) {
+                                 res.data.forEach((d) => {
+                                    allAdds.push(d);
+                                 });
+                              } else {
+                                 if (res.data) {
+                                    allAdds.push(res.data);
                                  }
-                              });
+                              }
+                           })
+                        );
+                     });
+                     Promise.all(prmsAllRefreshes).then(() => {
+                        allAdds.forEach((d) => {
+                           if (this.isValidData(d)) {
+                              if (!this.__dataCollection.exists(d[PK])) {
+                                 this.__dataCollection.add(d);
+                              }
                            }
                         });
-                     }
+                     });
                   }
 
                   return;
@@ -10504,6 +10507,311 @@ class ABModelCore {
       // return this.request("put", params);
    }
 
+   isCsvPacked(data) {
+      if (data.csv_packed) {
+         return true;
+      }
+      return false;
+   }
+
+   csvPack(data) {
+      // data should be the original json data packet we want to send
+      // {
+      //   data: [{obj1}, {obj2}, ... {objN}],
+      //   total_bytes:xx,
+      // }
+      // we want to convert this to:
+      // {
+      //   csv_packed:{
+      //     data: "csv data",
+      //     relations: {
+      //       {connectionID}: "csv data", // each entry has entry._csvID, that is the lookup
+      //       {connectionID}: "csv data",
+      //       ...
+      //   }
+      //   total_bytes:xx,
+      // }
+      let packedData = { data: "", relations: {} };
+      let myObject = this.object;
+
+      let content = data.data;
+      let returnType = "array";
+      if (!Array.isArray(content)) {
+         returnType = "single";
+         content = [content];
+      }
+      content = content.filter((row) => !this.AB.isNil(row));
+
+      // stringify any potential json data
+      // starting with List data
+      let keys = ["list", "json"];
+      let stringifyFields = myObject.fields((f) => keys.indexOf(f.key) > -1);
+      stringifyFields.forEach((f) => {
+         content.forEach((row) => {
+            if (row[f.columnName]) {
+               row[f.columnName] = JSON.stringify(row[f.columnName]);
+            }
+         });
+      });
+
+      // break out and compact the connected data
+      let connections = myObject.connectFields();
+      connections.forEach((connField) => {
+         let connHash = {};
+         let relationName = connField.relationName();
+         let connPK = connField.datasourceLink.PK();
+
+         // gather all the connected data for this field
+         content.forEach((row) => {
+            if (row[relationName]) {
+               if (Array.isArray(row[relationName])) {
+                  row[relationName].forEach((r) => {
+                     if (!connHash[r.id]) {
+                        connHash[r.id] = r;
+                     }
+                  });
+               } else {
+                  let r = row[relationName];
+                  if (!connHash[r.id]) {
+                     connHash[r.id] = r;
+                  }
+               }
+            }
+         });
+
+         // assign a smaller id value
+         Object.keys(connHash).forEach((id, indx) => {
+            connHash[id]._csvID = indx;
+         });
+
+         // now reencode the connection data to reference the new _csvID
+         content.forEach((row) => {
+            let ids = [];
+            let hasRelationData = false;
+            if (row[relationName]) {
+               hasRelationData = true;
+               if (Array.isArray(row[relationName])) {
+                  row[relationName].forEach((r) => {
+                     ids.push(connHash[r.id]._csvID);
+                  });
+               } else {
+                  let r = row[relationName];
+                  ids.push(connHash[r.id]._csvID);
+               }
+            }
+            // only make an update if it did have relation data
+            if (hasRelationData) {
+               row[connField.columnName] = JSON.stringify(ids);
+               delete row[relationName];
+            }
+         });
+
+         let connData = Object.values(connHash);
+         connData.forEach((c) => {
+            if (c.id == c[connPK]) {
+               delete c.id;
+            }
+
+            // if translations are present return them to an object
+            if (c.translations) {
+               c.translations = JSON.stringify(c.translations);
+            }
+         });
+         let connDataCsv = this.AB.jsonToCsv(connData);
+         packedData.relations[connField.id] = connDataCsv;
+      });
+
+      // final data preparations for csv encoding
+      content.forEach((row) => {
+         // client side .normalizeData() should repopulate .id
+         delete row.id;
+
+         // we don't use .properties anymore, right?
+         delete row.properties;
+
+         // make sure embedded translations are stringified.
+         if (row.translations) {
+            row.translations = JSON.stringify(row.translations);
+         }
+
+         // special case for relations that are empty
+         connections.forEach((connField) => {
+            let relationName = connField.relationName();
+            if (row[relationName] === null) {
+               delete row[relationName];
+            }
+         });
+      });
+
+      // now convert the data to CSV
+      packedData.data = this.AB.jsonToCsv(content);
+      packedData.type = returnType; // single or array
+
+      let newData = {};
+      Object.keys(data).forEach((key) => {
+         if (key != "data") {
+            newData[key] = data[key];
+         }
+      });
+      newData.csv_packed = packedData;
+      return newData;
+   }
+
+   csvUnpack(data) {
+      // data should be a data packet returned from the server
+      // {
+      //   csv_packed:{
+      //     data: "csv data",
+      //     relations: {
+      //       {connectionID}: "csv data", // each entry has entry._csvID, that is the lookup
+      //       {connectionID}: "csv data",
+      //       ...
+      //   }
+      //   total_bytes:xx,
+      // }
+      // we want to convert this to:
+      // {
+      //   data: [{obj1}, {obj2}, ... {objN}],
+      //   total_bytes:xx,
+      // }
+
+      let myObject = this.object;
+      let parseResult = this.AB.csvToJson(data.csv_packed.data);
+      // parseResult = { data: [], errors:[], meta:{}}
+
+      let returnType = data.csv_packed.type;
+
+      if (parseResult.errors?.length) {
+         console.error("Error parsing CSV data:", parseResult.errors);
+         console.error("result:");
+         console.error(parseResult.data);
+         console.error("Original CSV data:");
+         console.error(data.csv_packed.data);
+         // @todo: what is the appropriate response here?
+      }
+      let jsonData = parseResult.data;
+
+      let keyFields = ["list", "boolean", "number", "json"];
+      let parseFields = myObject.fields((f) => keyFields.indexOf(f.key) > -1);
+      jsonData.forEach((row) => {
+         // unstringify any list,bool,number fields
+         parseFields.forEach((f) => {
+            let val = row[f.columnName];
+            if (val && typeof val == "string") {
+               try {
+                  row[f.columnName] = JSON.parse(val);
+               } catch (e) {
+                  console.error(
+                     "Error parsing JSON data for column: " + f.columnName,
+                     val,
+                     e
+                  );
+               }
+            }
+         });
+
+         // if translations are present return them to an object
+         if (row.translations) {
+            row.translations = JSON.parse(row.translations);
+         }
+      });
+
+      let connections = myObject.connectFields();
+      connections.forEach((connField) => {
+         let relationName = connField.relationName();
+
+         if (data.csv_packed.relations[connField.id]) {
+            let connDataParseResult = this.AB.csvToJson(
+               data.csv_packed.relations[connField.id]
+            );
+            let connData = connDataParseResult.data;
+
+            let connHash = {};
+            let connPK = connField.datasourceLink.PK();
+            connData.forEach((c) => {
+               if (!c.id) {
+                  c.id = c[connPK];
+               }
+               connHash[c._csvID] = c;
+            });
+
+            jsonData.forEach((row) => {
+               let ids = [];
+               let populatedData = [];
+               let entries = [];
+               try {
+                  entries = JSON.parse(row[connField.columnName]);
+               } catch (e) {
+                  if (row[connField.columnName] == "") {
+                     // not a problem, just no data
+                  } else {
+                     // this might be a situation on the server where
+                     // row[columnName] has a value, but row[relationName] is empty.
+                     if (typeof row[relationName] == "undefined") {
+                        row[relationName] = null;
+                     }
+                     // console.error(
+                     //    "Error parsing JSON data for column: " +
+                     //       connField.columnName,
+                     //    e
+                     // );
+                  }
+               }
+               if (!Array.isArray(entries)) {
+                  entries = [entries];
+               }
+               entries.forEach((id) => {
+                  if (connHash[id]) {
+                     let connEntry = connHash[id];
+                     ids.push(connField.getRelationValue(connEntry));
+                     // Alternatively, we could remove the row[columnName] and let
+                     // normalizeData() repopulate it.
+                     populatedData.push(connEntry);
+                  }
+               });
+               if (connField.linkType() == "many") {
+                  row[connField.columnName] = ids;
+                  row[connField.relationName()] = populatedData;
+               } else {
+                  row[connField.columnName] = ids[0];
+                  row[connField.relationName()] = populatedData[0];
+               }
+            });
+
+            // now clear the ._csvID from the data
+            Object.keys(connHash).forEach((id) => {
+               delete connHash[id]._csvID;
+            });
+         }
+      });
+
+      // final pass to clear up stringified relation data
+      jsonData.forEach((row) => {
+         connections.forEach((connField) => {
+            // many connections must be an array, not "[]"
+            if (connField.linkType() == "many") {
+               let val = row[connField.columnName];
+               if (val && typeof val == "string") {
+                  row[connField.columnName] = JSON.parse(val);
+               }
+            }
+         });
+      });
+
+      let returnData = {};
+      Object.keys(data).forEach((key) => {
+         if (key != "csv_packed") {
+            returnData[key] = data[key];
+         }
+      });
+      returnData.data = jsonData;
+
+      if (returnType == "single" && Array.isArray(returnData.data)) {
+         returnData.data = returnData.data[0];
+      }
+      return returnData;
+   }
+
    normalizeData(data) {
       // convert to array
       if (!(data instanceof Array)) data = [data];
@@ -14475,20 +14783,30 @@ class FilterComplexCore extends _platform_ABComponent__WEBPACK_IMPORTED_MODULE_0
 
       let connectedVal = "";
 
+      let linkType = field.linkType();
+
       if (rowData) {
          if (rowData[relationName]) {
-            connectedVal = (
-               (field.indexField
-                  ? rowData[relationName][field.indexField.columnName]
-                  : null) ?? // custom index
-               (field.indexField2
-                  ? rowData[relationName][field.indexField2.columnName]
-                  : null) ?? // custom index 2
-               rowData[relationName].id ??
-               rowData[relationName]
-            )
-               .toString()
-               .toLowerCase();
+            if (linkType == "many") {
+               // lets get an array of connected ids => stringified()
+               connectedVal = JSON.stringify(
+                  getConnectFieldValue(rowData, field).map((i) => i.id || i)
+               );
+            } else {
+               // connectedVal = (
+               //    (field.indexField
+               //       ? rowData[relationName][field.indexField.columnName]
+               //       : null) ?? // custom index
+               //    (field.indexField2
+               //       ? rowData[relationName][field.indexField2.columnName]
+               //       : null) ?? // custom index 2
+               //    rowData[relationName].id ??
+               //    rowData[relationName]
+               // )
+               connectedVal = getConnectFieldValue(rowData, field)
+                  .toString()
+                  .toLowerCase();
+            }
          } else {
             let fieldVal = getFieldVal(rowData, field);
             if (fieldVal != null) {
@@ -14518,7 +14836,21 @@ class FilterComplexCore extends _platform_ABComponent__WEBPACK_IMPORTED_MODULE_0
             ? compareValue.toLowerCase?.()
             : compareValue;
 
-      switch (rule) {
+      // NOTE: if linkType == many, and rule is equals/not_equal,
+      // these will be interpreted as "contains/not_contains"
+      let ruleSafe = rule;
+      if (linkType == "many") {
+         switch (rule) {
+            case "equals":
+               ruleSafe = "contains";
+               break;
+            case "not_equal":
+               ruleSafe = "not_contains";
+               break;
+         }
+      }
+
+      switch (ruleSafe) {
          case "contains":
             return connectedVal.toString().indexOf(compareValueLowercase) > -1;
          case "not_contains":
@@ -20239,7 +20571,7 @@ class ABFieldNumberCore extends _platform_dataFields_ABField__WEBPACK_IMPORTED_M
    format(rowData) {
       if (
          rowData?.[this.columnName] == null ||
-         (rowData[this.columnName] != 0 && rowData[this.columnName] == "")
+         (rowData[this.columnName] !== 0 && rowData[this.columnName] == "")
       )
          return "";
 
@@ -24990,6 +25322,7 @@ var AllProcessElements = [
    await Promise.all(/*! import() */[__webpack_require__.e("vendors"), __webpack_require__.e("app")]).then(__webpack_require__.bind(__webpack_require__, /*! ../../platform/process/tasks/ABProcessTaskUser */ 67429)),
    await Promise.all(/*! import() */[__webpack_require__.e("vendors"), __webpack_require__.e("app")]).then(__webpack_require__.bind(__webpack_require__, /*! ../../platform/process/tasks/ABProcessTaskUserApproval */ 70852)),
    await Promise.all(/*! import() */[__webpack_require__.e("vendors"), __webpack_require__.e("app")]).then(__webpack_require__.bind(__webpack_require__, /*! ../../platform/process/tasks/ABProcessTaskUserExternal */ 82659)),
+   await Promise.all(/*! import() */[__webpack_require__.e("vendors"), __webpack_require__.e("app")]).then(__webpack_require__.bind(__webpack_require__, /*! ../../platform/process/tasks/ABProcessTaskUserForm */ 89476)),
    await Promise.all(/*! import() */[__webpack_require__.e("vendors"), __webpack_require__.e("app")]).then(__webpack_require__.bind(__webpack_require__, /*! ../../platform/process/tasks/ABProcessTrigger */ 50135)),
    await Promise.all(/*! import() */[__webpack_require__.e("vendors"), __webpack_require__.e("app")]).then(__webpack_require__.bind(__webpack_require__, /*! ../../platform/process/tasks/ABProcessTriggerLifecycle */ 82712)),
    await Promise.all(/*! import() */[__webpack_require__.e("vendors"), __webpack_require__.e("app")]).then(__webpack_require__.bind(__webpack_require__, /*! ../../platform/process/tasks/ABProcessTriggerTimer */ 63807)),
@@ -28392,6 +28725,114 @@ class ABProcessTaskUserExternalCore extends _platform_process_tasks_ABProcessEle
             label: `${this.label}->Response`,
          },
       ];
+   }
+}
+
+
+/***/ }),
+
+/***/ 53205:
+/*!***************************************************************************!*\
+  !*** ./src/js/AppBuilder/core/process/tasks/ABProcessTaskUserFormCore.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ABProcessTaskUserFormCore)
+/* harmony export */ });
+/* harmony import */ var _platform_process_tasks_ABProcessElement_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../platform/process/tasks/ABProcessElement.js */ 50138);
+
+
+const ABProcessTaskUserFormDefaults = {
+   category: null,
+   // category: {string} | null
+   // if this Element should show up on one of the popup replace menus, then
+   // specify one of the categories of elements it should be an option for.
+   // Available choices: [ "start", "gateway", "task", "end" ].
+   //
+   // if it shouldn't show up under the popup menu, then leave this null
+
+   icon: "form", // font-awesome icon reference.  (without the 'fa-').  so 'user'  to reference 'fa-user'
+   // icon: {string}
+   // font-awesome icon reference.  (without the 'fa-').  so 'user'  to reference 'fa-user'
+
+   instanceValues: [""],
+   // instanceValues: {array}
+   // a list of values this element tracks as it is operating in a process.
+
+   key: "Form",
+   // key: {string}
+   // unique key to reference this specific Task
+
+   settings: ["formBuilder"],
+   // settings: {array}
+   // a list of internal setting values this Element tracks. These are the
+   // values set by the platform .propertiesStash()
+};
+
+const settings = {};
+
+class ABProcessTaskUserFormCore extends _platform_process_tasks_ABProcessElement_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   constructor(attributes, process, AB) {
+      for (const key in settings)
+         attributes[key] = attributes[key] ?? settings[key];
+      super(
+         Object.assign(
+            {
+               type: "process.task.service.form",
+            },
+            attributes
+         ),
+         process,
+         AB,
+         ABProcessTaskUserFormDefaults
+      );
+
+      // listen
+   }
+
+   // return the default values for this DataField
+   static defaults() {
+      return ABProcessTaskUserFormDefaults;
+   }
+
+   static DiagramReplace() {
+      return null;
+   }
+
+   /**
+    * processDataFields()
+    * return an array of avaiable data fields that this element
+    * can provide to other ProcessElements.
+    * Different Process Elements can make data available to other
+    * process Elements.
+    * @return {array} | null
+    */
+   processDataFields() {
+      return (this.formBuilder?.components ?? [])
+         .filter((comp) => comp.type != "button")
+         .map((comp) => {
+            return {
+               key: comp.key,
+               label: `${this.label}->${comp.label}`,
+            };
+         });
+   }
+
+   /**
+    * processData()
+    * return the current value requested for the given data key.
+    * @param {obj} instance
+    * @return {mixed} | null
+    */
+   processData(instance, key) {
+      if (!key) return null;
+
+      const myState = this.myState(instance);
+
+      return myState[key];
    }
 }
 
@@ -32387,9 +32828,6 @@ class ABDataCollection extends _core_ABDataCollectionCore__WEBPACK_IMPORTED_MODU
       // now check all the fields we are managing and see if they
       // need to initStore()
       let obj = this.datasource;
-      if (id == 'f5410864-de13-452d-b347-c5983f97a349'){
-         console.error("Isaac initing")
-      }
       if (obj) {
          obj.fields().forEach((f) => {
             if (f.isConnection) {
@@ -33579,7 +34017,7 @@ dc.define("dataFeed", (value, params) => {
    }
 
    stateValues() {
-      if (!this.DC.$state) return (this.DC.$state = []);
+      if (!this.DC.$state) return [];
       return this.DC.$state[this.DC.id];
    }
 
@@ -33784,7 +34222,7 @@ dc.define("dataFeed", (value, params) => {
    /*
 
    attachEvent(str, fn() ) // onAfterCursorChange
-
+   
    updateItem(d.id,updateItemData);
 
    loadNext(count, start);
@@ -33915,6 +34353,18 @@ class ABModel extends _core_ABModelCore__WEBPACK_IMPORTED_MODULE_0__["default"] 
                data = data.data || context.id;
             }
          } else {
+            if (this.isCsvPacked(data)) {
+               let lengthPacked = JSON.stringify(data).length;
+               data = this.csvUnpack(data);
+               let lengthUnpacked = JSON.stringify(data).length;
+               console.log(
+                  `CSV Pack: ${lengthUnpacked} -> ${lengthPacked} (${(
+                     (lengthPacked / lengthUnpacked) *
+                     100
+                  ).toFixed(2)}%)`
+               );
+            }
+
             // on a findAll we normalize data.data
             this.normalizeData(data.data);
          }
@@ -36809,52 +37259,45 @@ class FilterComplex extends _core_FilterComplexCore__WEBPACK_IMPORTED_MODULE_0__
    }
 
    setValue(settings) {
-      // this is the cause of 
-      // https://github.com/digi-serve/test_pwa/issues/17
       super.setValue(settings);
       this.condition = settings;
 
-      let el;
-      try {
-         el = $$(this.ids.querybuilder);
-      } catch (error) {
-         // console.warn("setValue issues: ", error)
-      }
-      if (el) {
-         if (!settings) {
-            // Clear settings value of webix.query
-            el.define("value", {
-               glue: "and",
-               rules: [],
-            });
-            return;
-         }
+      // const el = $$(this.ids.querybuilder);
+      // if (el) {
+      //    if (!settings) {
+      //       // Clear settings value of webix.query
+      //       el.define("value", {
+      //          glue: "and",
+      //          rules: [],
+      //       });
+      //       return;
+      //    }
 
-         let qbSettings = this.AB.cloneDeep(settings);
+      //    let qbSettings = this.AB.cloneDeep(settings);
 
-         // Settings should match a condition built upon our QB format:
-         // {
-         //    glue:"and",
-         //    rules:[
-         //       {
-         //          key:"uuid",
-         //          rule:"",
-         //          value:""
-         //       }
-         //    ]
-         // }
-         // externally our key should be the field.id and the rules should be
-         // the "contains", "not_contains", "equal" ... keywords.
-         // However, internally, we convert these rules into .ids that are
-         // unique for each field (see uiInit()).  So when we bring in settings
-         // we need to translate them into our internal format:
+      //    // Settings should match a condition built upon our QB format:
+      //    // {
+      //    //    glue:"and",
+      //    //    rules:[
+      //    //       {
+      //    //          key:"uuid",
+      //    //          rule:"",
+      //    //          value:""
+      //    //       }
+      //    //    ]
+      //    // }
+      //    // externally our key should be the field.id and the rules should be
+      //    // the "contains", "not_contains", "equal" ... keywords.
+      //    // However, internally, we convert these rules into .ids that are
+      //    // unique for each field (see uiInit()).  So when we bring in settings
+      //    // we need to translate them into our internal format:
 
-         _toInternal(qbSettings, this._Fields);
+      //    _toInternal(qbSettings, this._Fields);
 
-         this.__blockOnChange = true;
-         el.define("value", qbSettings);
-         this.__blockOnChange = false;
-      }
+      //    this.__blockOnChange = true;
+      //    el.define("value", qbSettings);
+      //    this.__blockOnChange = false;
+      // }
    }
 
    getValue() {
@@ -36876,7 +37319,7 @@ class FilterComplex extends _core_FilterComplexCore__WEBPACK_IMPORTED_MODULE_0__
 
    fieldsLoad(fields = [], object = null) {
       super.fieldsLoad(fields, object);
-      // console.log("TODO: How to handle FilterComplex's dependence on webix?");
+      console.log("TODO: How to handle FilterComplex's dependence on webix?");
       // this.uiInit();
    }
 
@@ -39661,7 +40104,6 @@ class ABFieldConnect extends _core_dataFields_ABFieldConnectCore__WEBPACK_IMPORT
             selectedData.length
          ) {
             selectedData.forEach((val) => {
-               // @achoobert multicombo HTML
                values.push(
                   `<div class='webix_multicombo_value'><span>${val.value}</span><!-- span data-uuid="${val.id}" class="webix_multicombo_delete" role="button" aria-label="Remove item"></span --></div>`
                );
@@ -44030,15 +44472,10 @@ class ABMobilePage extends _core_mobile_ABMobilePageCore__WEBPACK_IMPORTED_MODUL
          ignoreCache: true,
       });
    }
-   hide() {
-      // TODO Does this need more?
-      this.AB.$f7.view.main.router.back();
-   }
 
    viewHTML($h) {
       let allResults = [];
 
-      // here? working page gets triggered from here multiple times
       this.views().forEach((v) => {
          allResults.push(v.html($h));
       });
@@ -44467,12 +44904,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ABMobileViewForm)
 /* harmony export */ });
 /* harmony import */ var _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/mobile/ABMobileViewFormCore.js */ 97835);
-/* harmony import */ var _views_ABViewLinkPage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../views/ABViewLinkPage.js */ 11167);
 /**
  * ABMobileViewForm
  * The view that displays a form on the screen.
  */
-
 
 
 
@@ -44495,11 +44930,11 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
             v.valueLoad?.(rowData);
          });
          let id = this.idID;
-         this.$form.prepend(`<input
+         this.$form.prepend(`<input 
                        id="${id}"
-                       name="id"
-                       readonly
-                       type="hidden"
+                       name="id" 
+                       readonly 
+                       type="hidden" 
                        placeholder=""
                     />`);
          let input = this.$form.find(`#${id}`);
@@ -44676,7 +45111,6 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
       (this.viewsNotButtons() || []).forEach((v) => {
          allUpdates.push(v.valuePrepare());
       });
-      // TypeError: null is not an object (evaluating 'file.name')
       await Promise.all(allUpdates);
 
       // get update data
@@ -44755,8 +45189,6 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
 
       try {
          // is this an update or create?
-         // @achoobert?
-         // query is expecting a string, getting an object
          if (formVals.id) {
             newFormVals = await model.update(formVals.id, formVals);
          } else {
@@ -44846,7 +45278,6 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
          formVals.id = input.val();
       }
 
-      // @achoobert
       // get custom values
       // this.fieldComponents(
       //    (comp) =>
@@ -45038,52 +45469,6 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
 
       return isValid;
    }
-
-   // wip
-   // get linkPageHelper() {
-   //    if (this.__linkPageHelper == null)
-   //       this.__linkPageHelper = new ABViewLinkPage();
-
-   //    return this.__linkPageHelper;
-   // }
-   /**
-    * @method changePage()
-    * Helper method to switch to another View.
-    * @param {ABDataCollection} dv
-    *        The DataCollection we are working with.
-    * @param {obj} rowItem
-    *        the { row:#, column:{string} } of the item that was clicked.
-    * @param {ABViewPage.uuid} page
-    *        The .uuid of the ABViewPage/ABViewTab we are to swtich to.
-    *
-    */
-   // changePage(dv = {}, rowItem = {}, page) {
-   changePage(page) {
-      if (this.__linkPageHelper == null)
-         this.__linkPageHelper = new _views_ABViewLinkPage_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
-
-      // return this.__linkPageHelper;
-      // const rowId = rowItem?.row ?? null;
-
-      // Set cursor to data view
-      // if (dv) dv.setCursor(rowId);
-
-      // Pass settings to link page module
-      // if (this.__linkPageHelper) this.__linkPageHelper.changePage(dv, rowItem, page);
-      if (this.__linkPageHelper) this.__linkPageHelper.changePage(page);
-      else super.changePage(page);
-   }
-
-   // changePage(dv, rowItem, page) {
-   //    const rowId = rowItem?.row ?? null;
-
-   //    // Set cursor to data view
-   //    if (dv) dv.setCursor(rowId);
-
-   //    // Pass settings to link page module
-   //    if (this.__linkPageHelper) this.__linkPageHelper.changePage(page, rowId);
-   //    else super.changePage(page);
-   // }
 }
 
 
@@ -45317,9 +45702,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ABMobileViewFormConnect)
 /* harmony export */ });
 /* harmony import */ var _core_mobile_ABMobileViewFormConnectCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/mobile/ABMobileViewFormConnectCore.js */ 55866);
-/* harmony import */ var _ViewFormSelectImages_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewFormSelectImages.js */ 42399);
-/* harmony import */ var _ViewFormSelectMultiple_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ViewFormSelectMultiple.js */ 53691);
-/* harmony import */ var _ViewFormSelectSingle_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ViewFormSelectSingle.js */ 61554);
+/* harmony import */ var _ViewFormSelectMultiple_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewFormSelectMultiple.js */ 53691);
+/* harmony import */ var _ViewFormSelectSingle_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ViewFormSelectSingle.js */ 61554);
 /**
  * ABMobileViewFormConnect
  * The view that displays a form textbox on the screen.
@@ -45329,34 +45713,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 class ABMobileViewFormConnect extends _core_mobile_ABMobileViewFormConnectCore_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
-   constructor(...params) {
-      super(...params);
-
-      const ABViewFormConnectPropertyComponentDefaults = _core_mobile_ABMobileViewFormConnectCore_js__WEBPACK_IMPORTED_MODULE_0__["default"].defaultValues();
-
-      this.__filterComponent.setValue(
-         this.settings.filterConditions ??
-            ABViewFormConnectPropertyComponentDefaults.filterConditions
-      );
-   }
+   // constructor(...params) {
+   //    super(...params);
+   // }
 
    async init() {}
 
    html($h) {
       let field = this.field();
-      // console.error("expecting a way to display images here");
       const formComponent =
          field.settings.linkType === "one"
-            ? new _ViewFormSelectSingle_js__WEBPACK_IMPORTED_MODULE_3__["default"](this.AB, field)
-            : new _ViewFormSelectMultiple_js__WEBPACK_IMPORTED_MODULE_2__["default"](this.AB, field);
-      let isImages = field.settings.type == "image";
-      if (isImages){
-         console.error("isaac making new ui here")
-         let altFormComponent = new _ViewFormSelectImages_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.AB, field);
-         return altFormComponent.html($h);
-      }
+            ? new _ViewFormSelectSingle_js__WEBPACK_IMPORTED_MODULE_2__["default"](this.AB, field)
+            : new _ViewFormSelectMultiple_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.AB, field);
 
       return formComponent.html($h);
    }
@@ -45630,7 +45999,6 @@ class ABMobileViewFormFile extends _core_mobile_ABMobileViewFormFileCore_js__WEB
 
       // don't upload when not selected.
       let file = formData.get("file");
-      if (file == undefined || file == null) return;
       if (file.name == "" && file.size == 0) return;
 
       try {
@@ -45847,13 +46215,15 @@ class ABMobileViewFormImage extends _core_mobile_ABMobileViewFormImageCore_js__W
 
    inputElementUpload($h) {
       let $inputElement = $h`
-      <input 
-         id=${this.idUpload} 
-         name="file"
-         accept="image/*"
-         type="file"
-         placeholder=""
-      />`;
+         <input
+            id=${this.idUpload}
+            type="file"
+            name="file"
+            class="button button-big button-fill"
+            accept="image/*"
+            capture="environment"
+         />
+      `;
 
       this.updateProperties($inputElement);
 
@@ -45958,7 +46328,7 @@ class ABMobileViewFormItem extends _core_mobile_ABMobileViewFormItemCore__WEBPAC
     * @return {Promise}
     */
    async valuePrepare() {}
-   // @achoobert this is the html for a single value
+
    html($h) {
       return $h`
          <div class="item-content item-input">
@@ -46133,11 +46503,10 @@ class ABMobileViewFormSelectMultiple extends _core_mobile_ABMobileViewFormSelect
          rowData[field.columnName] = this.AB.$(`#${this.idFormElement}`).val();
       }
    }
-   // TODO maybe add an overlay + button? @achoobert
+
    html($h) {
       let value = this.options.find((o) => o.id == this.value)?.text;
       let field = this.field();
-      console.error("my data: ", this.options.map((item) => this.inputElement($h, item)) )
       return $h`
          <a href="#" class="item-link smart-select smart-select-init">
             <select
@@ -46192,7 +46561,6 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
       ];
 
       this.value = null;
-      this.displayColumn = "id";
    }
 
    async init() {
@@ -46212,16 +46580,11 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
             let options = await field.options();
             this.options = [];
             options.forEach((o) => {
-               let option = {
+               this.options.push({
                   id: o.id,
                   text: o.text,
                   value: field.getRelationValue(o),
-               };
-               if (o.Image != undefined) {
-                  // forcing custom column
-                  option["Image"] = o.Image;
-               }
-               this.options.push(option);
+               });
             });
             // let obj = field.datasourceLink;
             // if (obj) {
@@ -46269,27 +46632,11 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
       this.value = vid;
    }
 
-   setDisplayColumn(colString) {
-      this.displayColumn = colString;
-   }
-
    idOption(o) {
       return `O${o.id.replaceAll(" ", "_")}`;
    }
 
    inputElement($h, item) {
-      if (item.Image != undefined) {
-         let $inputElement = $h`<div class="custom-option" data-value=${item.value ?? item.id}>
-            <img src="/file/${item.Image}" alt="icon" class="option-icon">
-            <span>${item.text}</span>
-         </div>`;
-
-         if (this.value == item.id) {
-            $inputElement.props.selected = "";
-         }
-         // debugger
-         // return $inputElement;
-      }
       let $inputElement = $h`<option id=${this.idOption(item)} value=${
          item.value ?? item.id
       }>${item.text}</option>`;
@@ -46307,7 +46654,6 @@ class ABMobileViewFormSelectSingle extends _core_mobile_ABMobileViewFormSelectSi
       if (field.isConnection) {
          let myVal = this.AB.$store.getters[field.id]?.value;
       }
-      // @achoobert this is the html for a single select value
 
       return $h`
          <div class="item-content item-input">
@@ -46741,7 +47087,6 @@ class ABMobileViewList extends _core_mobile_ABMobileViewListCore_js__WEBPACK_IMP
       //    $h`<div class="${this.style} ${this.alignment}">${this.text}</div>`;
 
       let dc = this.datacollection;
-      // TODO @achoobert add `item-media` option
 
       if (!dc || this.AB.$store.getters[dc.id].value.length === 0)
          return () => $h`
@@ -46876,7 +47221,7 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
 
    itemSelected(item) {
       // prevent random clicks when processing a swipeout
-      if (this.isSwipeout && this.isSwipeout[item.uuid]) return;
+      if (this.isSwipeout[item.uuid]) return;
 
       // Make sure our DC registers which item was just selected.
       const dc = this.datacollection;
@@ -47060,15 +47405,6 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
 
       let dc = this.datacollection;
 
-      // this is where a filtered DC fails out
-      console.error(`isaac: lookat ${dc.label} : `, this.AB.$store.getters[dc.id].value);
-      if(dc.label=="Reports_ns_mobile"){
-         this.AB.$store.getters[dc.id].value;
-         this.AB.$store.getters[dc.id].value;
-         setTimeout(() => {
-            console.error("Isaac check if just need time: ", this.AB.$store.getters[dc.id].value)
-         }, 10000);
-      }
       if (!dc || this.AB.$store.getters[dc.id].value.length === 0)
          return () => $h`
                ${this.listTitle($h)}
@@ -47082,6 +47418,7 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
                      )}
                   </ul>
                </div>
+           
          `;
 
       // build a date/hash of our current values
@@ -47123,102 +47460,6 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
 
 /***/ }),
 
-/***/ 42399:
-/*!*******************************************************************!*\
-  !*** ./src/js/AppBuilder/platform/mobile/ViewFormSelectImages.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ViewFormSelectMultiple)
-/* harmony export */ });
-/* harmony import */ var _ViewFormSelectSingle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ViewFormSelectSingle */ 61554);
-
-
-class ViewFormSelectMultiple extends _ViewFormSelectSingle__WEBPACK_IMPORTED_MODULE_0__["default"] {
-   inputElement($h, item) {
-      if (item.Image != undefined) {
-         let $inputElement = $h`<div class="custom-option" data-value=${item.value ?? item.id}>
-            <img src="/file/${item.Image}" alt="icon" class="option-icon">
-            <span>${item.text}</span>
-         </div>`;
-
-         if (this.value == item.id) {
-            $inputElement.props.selected = "";
-         }
-         // debugger
-         return $inputElement;
-      }
-      console.error("No Image");
-      return;
-   }
-
-   html($h) {
-      let value = this.options.find((o) => o.id == this.value)?.text;
-
-            // NOTE: Async/$store lookups need to be initiated WITHIN the html()
-      // action for Framework7 to register the UI to update once the data is
-      // updated.
-      let field = this.field();
-      if (field.isConnection) {
-         let myVal = this.AB.$store.getters[field.id]?.value;
-      }
-      // @achoobert this is the html for a single select value
-      // debugger
-
-      return $h`
-         <div class="item-content item-input">
-            <div class="item-inner">
-               <div class="item-title item-label">${field?.label}</div>
-               <div class="item-input-wrap">
-                  <select id=${this.idFormElement} name=${field?.columnName}>
-                     ${this.options.map((item) => this.inputElement($h, item))}
-                  </select>
-               </div>
-            </div>
-         </div>
-         `;
-
-      // <div class="float-right">
-      //    <a 
-      //    href="#" 
-      //    class="link icon-only"
-      //    onclick=${() => {
-      //       this.openAddPage();
-      //    }}
-      // >
-      // <i class="icon f7-icons if-not-md">plus</i>
-      // <i class="icon material-icons md-only">add</i>
-      // </a>
-      // </div>`
-      // @achoobert add option is here
-      // return $h`
-      //    <div class="list media-list">
-      //       <a href="#" class="item-link smart-select smart-select-init">
-      //          <select
-      //             name=${this.field.columnName}
-      //             multiple
-      //          >
-      //             ${this.options.map((item) => this.inputElement($h, item))}
-      //          </select>
-      //          <div class="item-content">
-      //             <div class="item-inner">
-      //                <div class="item-title">${this.field.label}</div>
-      //                <div class="item-media"><img style='max-width: 500px; max-height: 500px;' src='/file/${this.field['image']}/></div>
-      //                <div class="item-after">${value || "Value"}</div>
-      //             </div>
-      //          </div>
-      //       </a>
-      //    </div>
-      //    `;
-   }
-}
-
-
-/***/ }),
-
 /***/ 53691:
 /*!*********************************************************************!*\
   !*** ./src/js/AppBuilder/platform/mobile/ViewFormSelectMultiple.js ***!
@@ -47236,21 +47477,14 @@ __webpack_require__.r(__webpack_exports__);
 class ViewFormSelectMultiple extends _ViewFormSelectSingle__WEBPACK_IMPORTED_MODULE_0__["default"] {
    html($h) {
       let value = this.options.find((o) => o.id == this.value)?.text;
-      // <div class="float-right">
-      //    <a 
-      //    href="#" 
-      //    class="link icon-only"
-      //    onclick=${() => {
-      //       this.openAddPage();
-      //    }}
-      // >
-      // <i class="icon f7-icons if-not-md">plus</i>
-      // <i class="icon material-icons md-only">add</i>
-      // </a>
-      // </div>`
-      // @achoobert add option is here
       return $h`
-         <a href="#" class="item-link ">
+         <a href="#" class="item-link smart-select smart-select-init">
+            <select
+               name=${this.field.columnName}
+               multiple
+            >
+               ${this.options.map((item) => this.inputElement($h, item))}
+            </select>
             <div class="item-content">
                <div class="item-inner">
                   <div class="item-title">${this.field.label}</div>
@@ -50309,6 +50543,25 @@ class ABProcessTaskUserExternal extends _core_process_tasks_ABProcessTaskUserExt
 
 /***/ }),
 
+/***/ 89476:
+/*!***************************************************************************!*\
+  !*** ./src/js/AppBuilder/platform/process/tasks/ABProcessTaskUserForm.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ABProcessTaskUserForm)
+/* harmony export */ });
+/* harmony import */ var _core_process_tasks_ABProcessTaskUserFormCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../core/process/tasks/ABProcessTaskUserFormCore.js */ 53205);
+
+
+class ABProcessTaskUserForm extends _core_process_tasks_ABProcessTaskUserFormCore_js__WEBPACK_IMPORTED_MODULE_0__["default"] {}
+
+
+/***/ }),
+
 /***/ 50135:
 /*!**********************************************************************!*\
   !*** ./src/js/AppBuilder/platform/process/tasks/ABProcessTrigger.js ***!
@@ -52222,82 +52475,6 @@ class ABViewFormItem extends _core_views_ABViewFormItemCore__WEBPACK_IMPORTED_MO
 
 /***/ }),
 
-/***/ 11167:
-/*!************************************************************!*\
-  !*** ./src/js/AppBuilder/platform/views/ABViewLinkPage.js ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ABViewLinkPageComponent)
-/* harmony export */ });
-/* harmony import */ var _viewComponent_ABViewComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewComponent/ABViewComponent */ 9162);
-
-
-// let L = (...params) => AB.Multilingual.label(...params);
-
-class ABViewLinkPageComponent extends _viewComponent_ABViewComponent__WEBPACK_IMPORTED_MODULE_0__["default"] {
-   constructor(linkPageHelper, idBase) {
-      let base = idBase || `ABViewLinkPage_xxx`;
-      super(base, {});
-
-      // this.linkPageHelper = linkPageHelper;
-      // this.AB = linkPageHelper.AB;
-
-      this.view = null;
-      // {ABViewXXXX}
-      // the ABView object this link references.
-
-      this.datacollection = null;
-      // {ABDataCollection}
-      // The related Datacollection to this view that drives it's data.
-      // we usually have to set the cursor before the view displays the
-      // appropriate data.
-   }
-
-   ui() {
-      return {};
-   }
-
-   init(options) {
-      if (options.view) this.view = options.view;
-
-      if (options.datacollection) this.datacollection = options.datacollection;
-   }
-   /**
-    * @method changePage()
-    *  method to switch to another View.
-    * @param {ABDataCollection} dv
-    *        The DataCollection we are working with.
-    * @param {obj} rowItem
-    *        the { row:#, column:{string} } of the item that was clicked.
-    * @param {ABViewPage.uuid} page
-    *        The .uuid of the ABViewPage/ABViewTab we are to swtich to.
-    *
-    */
-   // changePage(pageId, rowId) {
-   // changePage(dv, rowItem, page) {
-   changePage(page) {
-      console.error("ABViewLinkPage.changePage() is not implemented.", page);
-      // if (this.datacollection) {
-      //    this.datacollection.once("changeCursor", () => {
-      //       this.view?.changePage(pageId);
-      //    });
-      //    this.datacollection.setCursor(rowId);
-      // } else {
-      //    this.view?.changePage(pageId);
-      // }
-
-      this.emit("changePage", page.name);
-
-   }
-}
-
-
-/***/ }),
-
 /***/ 22305:
 /*!********************************************************!*\
   !*** ./src/js/AppBuilder/platform/views/ABViewPage.js ***!
@@ -53068,7 +53245,6 @@ class ABViewRule {
    }
 
    objectLoad(object) {
-      console.assert(object, "objectLoad(): object is required.");
       this.currentObject = object;
       this.listActions.forEach((a) => {
          a.objectLoad(object);
@@ -53086,12 +53262,12 @@ class ABViewRule {
       this.AB = object.AB;
    }
 
-   formLoad(form) {
-      this.currentForm = form;
-      this.listActions.forEach((a) => {
-         a.formLoad(form);
-      });
-   }
+   // formLoad(form) {
+   //    this.currentForm = form;
+   //    this.listActions.forEach((a) => {
+   //       a.formLoad(form);
+   //    });
+   // }
 
    processPre(options = {}) {
       let isValid = this.isValid(options.data);
@@ -54117,11 +54293,7 @@ class ABViewRuleListFormSubmitRules extends _ABViewRuleList__WEBPACK_IMPORTED_MO
       ];
 
       var Rule = new _ABViewRule__WEBPACK_IMPORTED_MODULE_1__["default"](listActions);
-      console.assert(this.objectLoad, "this.objectLoad is not defined");
-      if (this.currentObject) {
-         Rule.objectLoad(this.currentObject);
-      }
-      // formLoad is not defined
+      Rule.objectLoad(this.currentObject);
       Rule.formLoad(this.currentForm);
       return Rule;
    }
@@ -55867,8 +56039,7 @@ class ABViewRuleActionFormSubmitRuleParentPage extends _ABViewRuleAction__WEBPAC
          var pageParent = pageCurrent.pageParent();
 
          // redirect page
-         // options.form.changePage(pageParent);
-         pageParent.show();
+         options.form.changePage(pageParent.id);
 
          resolve();
       });
@@ -58231,7 +58402,7 @@ class Account extends _AppBuilder_platform_ABEmitter__WEBPACK_IMPORTED_MODULE_0_
          this.isAuthenticated = true;
          this._config = UserConfig;
       } else {
-         let { options: tenantConfig } = this.AB.Config.tenantConfig();
+         let tenantConfig = this.AB?.Config?.tenantConfig?.()?.options ?? {};
          tenantConfig =
             typeof tenantConfig === "string"
                ? JSON.parse(tenantConfig)
@@ -59651,6 +59822,7 @@ class NetworkRest extends _AppBuilder_platform_ABEmitter__WEBPACK_IMPORTED_MODUL
                         context:
                            "NetworkRest:_request:Error returned from Server (req.ab.error())",
                         data: packet.data,
+                        message: packet.message,
                      });
                      // this.AB.Analytics.logError(packet.data);
                      // this.AB.error(packet.data);
@@ -59661,10 +59833,14 @@ class NetworkRest extends _AppBuilder_platform_ABEmitter__WEBPACK_IMPORTED_MODUL
                            null
                         );
                      }
-                     return reject(packet.data);
+                     let error = new Error(packet.message ?? packet.data);
+                     error.response = packet;
+                     error.text = packet.message;
+                     error.url = `${params.method} ${params.url}`;
+                     return reject(error);
                   } else {
                      // unknown/unexpected error:
-                     var error = new Error(
+                     let error = new Error(
                         `${err.status} ${err.statusText || err.message}: ${
                            params.method
                         } ${params.url}`
@@ -59770,6 +59946,12 @@ class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["defau
       // Pass the io.socket.on(*) events to our AB factory.
       listSocketEvents.forEach((ev) => {
          io.socket.on(ev, (data) => {
+            // data should be in the format:
+            // {
+            //    objectId: {uuid},
+            //    data: {object}
+            // }
+
             // check if the ev contains 'datacollection'
             // and do a single normalizeData() on the incoming data here
             // before sending it off to be processed.
@@ -59780,6 +59962,23 @@ class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["defau
                   if (obj) {
                      let model = obj.model();
                      if (ev != "ab.datacollection.delete") {
+                        // if data is packed, then unpack it
+                        let model = obj.model();
+                        if (model.isCsvPacked(values)) {
+                           let lengthPacked = JSON.stringify(data).length;
+                           values = model.csvUnpack(values);
+                           data.data = values.data;
+                           let lengthUnpacked = JSON.stringify(data).length;
+                           data.__length = lengthUnpacked;
+                           data.__lengthPacked = lengthPacked;
+                           console.log(
+                              `CSV Pack: ${lengthUnpacked} -> ${lengthPacked} (${(
+                                 (lengthPacked / lengthUnpacked) *
+                                 100
+                              ).toFixed(2)}%)`
+                           );
+                        }
+
                         let jobID = this.AB.jobID();
                         console.log(`${jobID} : ${ev}:normalization begin`);
                         let timeFrom = performance.now();
@@ -60159,6 +60358,8 @@ __webpack_require__.r(__webpack_exports__);
          component: (0,_pages_list_f7_jsx__WEBPACK_IMPORTED_MODULE_3__["default"])(AB),
       },
    ];
+
+   if (!AB.Account.isAuthenticated) return routes;
 
    // build our Tabs:
    // NOTE: we build links only for the Root level Tabs
@@ -61477,7 +61678,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* eslint-disabl
             c.hostname && !c.port && (c.port = this.secure ? "443" : "80"),
             (this.agent = c.agent || !1),
             (this.hostname =
-              c.hostname || (b.location ? location.hostname : "10.147.19.41")),
+              c.hostname || (b.location ? location.hostname : "localhost")),
             (this.port =
               c.port ||
               (b.location && location.port
