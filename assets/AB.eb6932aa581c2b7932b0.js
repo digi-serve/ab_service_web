@@ -316,30 +316,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./core/ABFactoryCore */ 66124);
-/* harmony import */ var _core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./core/ABFactoryCore */ 66124);
+/* harmony import */ var _core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ 84529);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ 41655);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! nanoid */ 27869);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! uuid */ 15460);
-/* harmony import */ var _utils_performance__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../utils/performance */ 76431);
-/* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./platform/FilterComplex */ 46334);
-/* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _platform_views_ABViewGridPopupSortFields__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./platform/views/ABViewGridPopupSortFields */ 216);
-/* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config/Config.js */ 97970);
-/* harmony import */ var _resources_Account_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../resources/Account.js */ 42674);
-/* harmony import */ var _ui_ClassUI_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../ui/ClassUI.js */ 93692);
-/* harmony import */ var _factory_utils_Dialog_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_factory_utils/Dialog.js */ 79750);
-/* harmony import */ var _resources_Multilingual_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../resources/Multilingual.js */ 34224);
-/* harmony import */ var _resources_Network_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../resources/Network.js */ 46147);
-/* harmony import */ var _resources_Storage_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../resources/Storage.js */ 97112);
-/* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./core/ABViewManagerCore */ 74834);
-/* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../resources/Tenant.js */ 38913);
-/* harmony import */ var _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./uiSettings/config.js */ 37468);
-/* harmony import */ var _platform_views_viewComponent_ABViewComponent_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./platform/views/viewComponent/ABViewComponent.js */ 23687);
+/* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! nanoid */ 27869);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! uuid */ 15460);
+/* harmony import */ var _utils_performance__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../utils/performance */ 76431);
+/* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./platform/FilterComplex */ 46334);
+/* harmony import */ var _platform_FilterComplex__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_platform_FilterComplex__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _platform_views_ABViewGridPopupSortFields__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./platform/views/ABViewGridPopupSortFields */ 216);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! papaparse */ 24691);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(papaparse__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _config_Config_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../config/Config.js */ 97970);
+/* harmony import */ var _resources_Account_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../resources/Account.js */ 42674);
+/* harmony import */ var _ui_ClassUI_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../ui/ClassUI.js */ 93692);
+/* harmony import */ var _factory_utils_Dialog_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_factory_utils/Dialog.js */ 79750);
+/* harmony import */ var _resources_Multilingual_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../resources/Multilingual.js */ 34224);
+/* harmony import */ var _resources_Network_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../resources/Network.js */ 46147);
+/* harmony import */ var _resources_Storage_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../resources/Storage.js */ 97112);
+/* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./core/ABViewManagerCore */ 74834);
+/* harmony import */ var _core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../resources/Tenant.js */ 38913);
+/* harmony import */ var _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./uiSettings/config.js */ 37468);
+/* harmony import */ var _platform_views_viewComponent_ABViewComponent_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./platform/views/viewComponent/ABViewComponent.js */ 23687);
+
 
 
 
@@ -431,32 +434,32 @@ class ABValidator {
 // AppBuilder Objects
 //
 
-class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___default()) {
+class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_3___default()) {
    constructor(definitions) {
       super(definitions);
 
       // Common Reference to Configuration Values
-      this.Config = _config_Config_js__WEBPACK_IMPORTED_MODULE_3__["default"];
+      this.Config = _config_Config_js__WEBPACK_IMPORTED_MODULE_4__["default"];
 
       //
       // Resources
       //
-      this.Account = _resources_Account_js__WEBPACK_IMPORTED_MODULE_4__["default"];
-      this.Dialog = _factory_utils_Dialog_js__WEBPACK_IMPORTED_MODULE_5__["default"];
-      this.Multilingual = _resources_Multilingual_js__WEBPACK_IMPORTED_MODULE_6__["default"];
-      this.Network = _resources_Network_js__WEBPACK_IMPORTED_MODULE_7__["default"];
-      this.Storage = _resources_Storage_js__WEBPACK_IMPORTED_MODULE_8__["default"];
-      this.Tenant = _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_9__["default"];
+      this.Account = _resources_Account_js__WEBPACK_IMPORTED_MODULE_5__["default"];
+      this.Dialog = _factory_utils_Dialog_js__WEBPACK_IMPORTED_MODULE_6__["default"];
+      this.Multilingual = _resources_Multilingual_js__WEBPACK_IMPORTED_MODULE_7__["default"];
+      this.Network = _resources_Network_js__WEBPACK_IMPORTED_MODULE_8__["default"];
+      this.Storage = _resources_Storage_js__WEBPACK_IMPORTED_MODULE_9__["default"];
+      this.Tenant = _resources_Tenant_js__WEBPACK_IMPORTED_MODULE_10__["default"];
       this.Webix = webix;
 
       // Plugin Classes
-      this.ClassUI = _ui_ClassUI_js__WEBPACK_IMPORTED_MODULE_10__["default"];
+      this.ClassUI = _ui_ClassUI_js__WEBPACK_IMPORTED_MODULE_11__["default"];
 
       // additional Class definitions
-      this.Class.FilterComplex = (_platform_FilterComplex__WEBPACK_IMPORTED_MODULE_11___default());
-      this.Class.ABViewManager = (_core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_12___default());
-      this.Class.SortPopup = _platform_views_ABViewGridPopupSortFields__WEBPACK_IMPORTED_MODULE_13__["default"];
-      this.Class.ABViewComponent = _platform_views_viewComponent_ABViewComponent_js__WEBPACK_IMPORTED_MODULE_14__["default"];
+      this.Class.FilterComplex = (_platform_FilterComplex__WEBPACK_IMPORTED_MODULE_12___default());
+      this.Class.ABViewManager = (_core_ABViewManagerCore__WEBPACK_IMPORTED_MODULE_13___default());
+      this.Class.SortPopup = _platform_views_ABViewGridPopupSortFields__WEBPACK_IMPORTED_MODULE_14__["default"];
+      this.Class.ABViewComponent = _platform_views_viewComponent_ABViewComponent_js__WEBPACK_IMPORTED_MODULE_15__["default"];
 
       // Temp placeholders until Resources are implemented:
       this.Analytics = {
@@ -474,9 +477,9 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
          }
       };
 
-      this.performance = _utils_performance__WEBPACK_IMPORTED_MODULE_15__["default"];
+      this.performance = _utils_performance__WEBPACK_IMPORTED_MODULE_16__["default"];
 
-      this.UISettings = _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_16__["default"];
+      this.UISettings = _uiSettings_config_js__WEBPACK_IMPORTED_MODULE_17__["default"];
 
       this.Validation = {
          validator: () => {
@@ -1205,7 +1208,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
     * @param {json} info Additional related information concerning the issue.
     */
    notify(domain, error, info) {
-      _utils_performance__WEBPACK_IMPORTED_MODULE_15__["default"].notify(domain, error, info);
+      _utils_performance__WEBPACK_IMPORTED_MODULE_16__["default"].notify(domain, error, info);
    }
 
    plugins() {
@@ -1258,7 +1261,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
    }
 
    jobID() {
-      return (0,nanoid__WEBPACK_IMPORTED_MODULE_17__.nanoid)();
+      return (0,nanoid__WEBPACK_IMPORTED_MODULE_18__.nanoid)();
    }
 
    Label() {
@@ -1336,7 +1339,7 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
    }
 
    uuid() {
-      return (0,uuid__WEBPACK_IMPORTED_MODULE_18__["default"])();
+      return (0,uuid__WEBPACK_IMPORTED_MODULE_19__["default"])();
    }
 
    warn(message, ...rest) {
@@ -1399,6 +1402,17 @@ class ABFactory extends (_core_ABFactoryCore__WEBPACK_IMPORTED_MODULE_2___defaul
    async cssLoadAll(urls) {
       urls = urls.filter((u) => u);
       await Promise.all(urls.map((url) => this.cssLoad(url)));
+   }
+
+   csvToJson(csvData) {
+      return papaparse__WEBPACK_IMPORTED_MODULE_2___default().parse(csvData, {
+         header: true,
+         skipEmptyLines: true,
+      });
+   }
+
+   jsonToCsv(jsonData) {
+      return papaparse__WEBPACK_IMPORTED_MODULE_2___default().unparse(jsonData);
    }
 }
 
@@ -4620,24 +4634,43 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
 
                      // then we have to ask for the values we need to add:
                      valuesToAdd = Object.keys(valuesToAdd); // convert to []
-                     if (valuesToAdd.length > 0) {
+                     // NOTE: .staleRefresh() is designed to handle a single requst
+                     // that will be compiled with other requests to be more efficient
+                     // so we need to make 1 .staleRefresh() at a time and then
+                     // compile those results into our data collection.
+                     let prmsAllRefreshes = [];
+                     let allAdds = [];
+                     (valuesToAdd || []).forEach((v) => {
                         let cond = { where: {} };
-                        cond.where[PK] = valuesToAdd;
+                        cond.where[PK] = v;
                         // NOTE: we are using the abbreviated condition syntax here.
 
                         // NOTE: staleRefresh() has some buffering capabilities
                         // that combine multiple calls into 1 more efficient call:
-                        this.model.staleRefresh(cond).then((res) => {
-                           // check to make sure there is data to work with
-                           if (Array.isArray(res.data) && res.data.length) {
-                              res.data.forEach((d) => {
-                                 if (!this.__dataCollection.exists(d[PK])) {
-                                    this.__dataCollection.add(d);
+                        prmsAllRefreshes.push(
+                           this.model.staleRefresh(cond).then((res) => {
+                              // check to make sure there is data to work with
+                              if (Array.isArray(res.data) && res.data.length) {
+                                 res.data.forEach((d) => {
+                                    allAdds.push(d);
+                                 });
+                              } else {
+                                 if (res.data) {
+                                    allAdds.push(res.data);
                                  }
-                              });
+                              }
+                           })
+                        );
+                     });
+                     Promise.all(prmsAllRefreshes).then(() => {
+                        allAdds.forEach((d) => {
+                           if (this.isValidData(d)) {
+                              if (!this.__dataCollection.exists(d[PK])) {
+                                 this.__dataCollection.add(d);
+                              }
                            }
                         });
-                     }
+                     });
                   }
 
                   return;
@@ -7888,6 +7921,8 @@ module.exports = class ABMLClassCore extends ABEmitter {
 //    })
 //
 
+// const { isArray } = require("lodash");
+
 module.exports = class ABModelCore {
    constructor(object) {
       // link me to my ABObject
@@ -7955,7 +7990,7 @@ module.exports = class ABModelCore {
       }
    }
 
-   request(method, params) {
+   request(/* method, params */) {
       console.error(
          "!!! ABModelCore.request() should be overridden by platform."
       );
@@ -8570,6 +8605,349 @@ module.exports = class ABModelCore {
       // return this.request("put", params);
    }
 
+   /**
+    * @method isCsvPacked
+    * check if the data is packed in a csv format
+    * @param {json} data  the json condition statement.
+    * @return {boolean} true if the data is packed in a csv format
+    *                   false if the data is not packed in a csv format
+    */
+   isCsvPacked(data) {
+      if (data.csv_packed) {
+         return true;
+      }
+      return false;
+   }
+
+   /**
+    * @method csvPack
+    * pack the data into a csv format
+    * @param {json} data
+    *               The original data format.
+    *              {
+    *                data: [{obj1}, {obj2}, ... {objN}],
+    *                total_bytes:xx,
+    *              }
+    * @return {json} the csv packed data
+    *                {
+    *                  csv_packed:{
+    *                    data: "<csv data>",
+    *                    relations: {
+    *                      {connectionID}: "<csv data>",
+    *                      {connectionID}: "<csv data>",
+    *                      ...
+    *                    },
+    *                  },
+    *                  total_bytes:xx,
+    *                }
+    */
+   csvPack(data) {
+      // data should be the original json data packet we want to send
+      // {
+      //   data: [{obj1}, {obj2}, ... {objN}],
+      //   total_bytes:xx,
+      // }
+      // we want to convert this to:
+      // {
+      //   csv_packed:{
+      //     data: "csv data",
+      //     relations: {
+      //       {connectionID}: "csv data", // each entry has entry._csvID, that is the lookup
+      //       {connectionID}: "csv data",
+      //       ...
+      //   }
+      //   total_bytes:xx,
+      // }
+      let packedData = { data: "", relations: {} };
+      let myObject = this.object;
+
+      let content = data.data;
+      let returnType = "array";
+      if (!Array.isArray(content)) {
+         returnType = "single";
+         content = [content];
+      }
+      content = content.filter((row) => !this.AB.isNil(row));
+
+      // stringify any potential json data
+      // starting with List data
+      let keys = ["list", "json"];
+      let stringifyFields = myObject.fields((f) => keys.indexOf(f.key) > -1);
+      stringifyFields.forEach((f) => {
+         content.forEach((row) => {
+            if (row[f.columnName]) {
+               row[f.columnName] = JSON.stringify(row[f.columnName]);
+            }
+         });
+      });
+
+      // break out and compact the connected data
+      let connections = myObject.connectFields();
+      connections.forEach((connField) => {
+         let connHash = {};
+         let relationName = connField.relationName();
+         let connPK = connField.datasourceLink.PK();
+
+         // gather all the connected data for this field
+         content.forEach((row) => {
+            if (row[relationName]) {
+               if (Array.isArray(row[relationName])) {
+                  row[relationName].forEach((r) => {
+                     if (!connHash[r.id]) {
+                        connHash[r.id] = r;
+                     }
+                  });
+               } else {
+                  let r = row[relationName];
+                  if (!connHash[r.id]) {
+                     connHash[r.id] = r;
+                  }
+               }
+            }
+         });
+
+         // assign a smaller id value
+         Object.keys(connHash).forEach((id, indx) => {
+            connHash[id]._csvID = indx;
+         });
+
+         // now reencode the connection data to reference the new _csvID
+         content.forEach((row) => {
+            let ids = [];
+            let hasRelationData = false;
+            if (row[relationName]) {
+               hasRelationData = true;
+               if (Array.isArray(row[relationName])) {
+                  row[relationName].forEach((r) => {
+                     ids.push(connHash[r.id]._csvID);
+                  });
+               } else {
+                  let r = row[relationName];
+                  ids.push(connHash[r.id]._csvID);
+               }
+            }
+            // only make an update if it did have relation data
+            if (hasRelationData) {
+               row[connField.columnName] = JSON.stringify(ids);
+               delete row[relationName];
+            }
+         });
+
+         let connData = Object.values(connHash);
+         connData.forEach((c) => {
+            if (c.id == c[connPK]) {
+               delete c.id;
+            }
+
+            // if translations are present return them to an object
+            if (c.translations) {
+               c.translations = JSON.stringify(c.translations);
+            }
+         });
+         let connDataCsv = this.AB.jsonToCsv(connData);
+         packedData.relations[connField.id] = connDataCsv;
+      });
+
+      // final data preparations for csv encoding
+      content.forEach((row) => {
+         // client side .normalizeData() should repopulate .id
+         delete row.id;
+
+         // we don't use .properties anymore, right?
+         delete row.properties;
+
+         // make sure embedded translations are stringified.
+         if (row.translations) {
+            row.translations = JSON.stringify(row.translations);
+         }
+
+         // special case for relations that are empty
+         connections.forEach((connField) => {
+            let relationName = connField.relationName();
+            if (row[relationName] === null) {
+               delete row[relationName];
+            }
+         });
+      });
+
+      // now convert the data to CSV
+      packedData.data = this.AB.jsonToCsv(content);
+      packedData.type = returnType; // single or array
+
+      let newData = {};
+      Object.keys(data).forEach((key) => {
+         if (key != "data") {
+            newData[key] = data[key];
+         }
+      });
+      newData.csv_packed = packedData;
+      return newData;
+   }
+
+   /**
+    * @method csvUnpack
+    * unpack the data from our csv format
+    * @param {json} data
+    *              The csv packed data format.
+    * @return {json} the unpacked data
+    */
+   csvUnpack(data) {
+      // data should be a data packet returned from the server
+      // {
+      //   csv_packed:{
+      //     data: "csv data",
+      //     relations: {
+      //       {connectionID}: "csv data", // each entry has entry._csvID, that is the lookup
+      //       {connectionID}: "csv data",
+      //       ...
+      //   }
+      //   total_bytes:xx,
+      // }
+      // we want to convert this to:
+      // {
+      //   data: [{obj1}, {obj2}, ... {objN}],
+      //   total_bytes:xx,
+      // }
+
+      let myObject = this.object;
+      let parseResult = this.AB.csvToJson(data.csv_packed.data);
+      // parseResult = { data: [], errors:[], meta:{}}
+
+      let returnType = data.csv_packed.type;
+
+      if (parseResult.errors?.length) {
+         // ignore common error when .data is ""
+         if (data.csv_packed.data !== "") {
+            console.error("Error parsing CSV data:", parseResult.errors);
+            console.error("Original CSV data:");
+            console.error(data.csv_packed.data);
+            console.error("result:");
+            console.error(parseResult.data);
+         }
+      }
+      let jsonData = parseResult.data;
+
+      let keyFields = ["list", "boolean", "number", "json"];
+      let parseFields = myObject.fields((f) => keyFields.indexOf(f.key) > -1);
+      jsonData.forEach((row) => {
+         // unstringify any list,bool,number fields
+         parseFields.forEach((f) => {
+            let val = row[f.columnName];
+            if (val && typeof val == "string") {
+               try {
+                  row[f.columnName] = JSON.parse(val);
+               } catch (e) {
+                  console.error(
+                     "Error parsing JSON data for column: " + f.columnName,
+                     val,
+                     e
+                  );
+               }
+            }
+         });
+
+         // if translations are present return them to an object
+         if (row.translations) {
+            row.translations = JSON.parse(row.translations);
+         }
+      });
+
+      let connections = myObject.connectFields();
+      connections.forEach((connField) => {
+         let relationName = connField.relationName();
+
+         if (data.csv_packed.relations[connField.id]) {
+            let connDataParseResult = this.AB.csvToJson(
+               data.csv_packed.relations[connField.id]
+            );
+            let connData = connDataParseResult.data;
+
+            let connHash = {};
+            let connPK = connField.datasourceLink.PK();
+            connData.forEach((c) => {
+               if (!c.id) {
+                  c.id = c[connPK];
+               }
+               connHash[c._csvID] = c;
+            });
+
+            jsonData.forEach((row) => {
+               let ids = [];
+               let populatedData = [];
+               let entries = [];
+               try {
+                  entries = JSON.parse(row[connField.columnName]);
+               } catch (e) {
+                  if (row[connField.columnName] == "") {
+                     // not a problem, just no data
+                  } else {
+                     // this might be a situation on the server where
+                     // row[columnName] has a value, but row[relationName] is empty.
+                     if (typeof row[relationName] == "undefined") {
+                        row[relationName] = null;
+                     }
+                     // console.error(
+                     //    "Error parsing JSON data for column: " +
+                     //       connField.columnName,
+                     //    e
+                     // );
+                  }
+               }
+               if (!Array.isArray(entries)) {
+                  entries = [entries];
+               }
+               entries.forEach((id) => {
+                  if (connHash[id]) {
+                     let connEntry = connHash[id];
+                     ids.push(connField.getRelationValue(connEntry));
+                     // Alternatively, we could remove the row[columnName] and let
+                     // normalizeData() repopulate it.
+                     populatedData.push(connEntry);
+                  }
+               });
+               if (connField.linkType() == "many") {
+                  row[connField.columnName] = ids;
+                  row[connField.relationName()] = populatedData;
+               } else {
+                  row[connField.columnName] = ids[0];
+                  row[connField.relationName()] = populatedData[0];
+               }
+            });
+
+            // now clear the ._csvID from the data
+            Object.keys(connHash).forEach((id) => {
+               delete connHash[id]._csvID;
+            });
+         }
+      });
+
+      // final pass to clear up stringified relation data
+      jsonData.forEach((row) => {
+         connections.forEach((connField) => {
+            // many connections must be an array, not "[]"
+            if (connField.linkType() == "many") {
+               let val = row[connField.columnName];
+               if (val && typeof val == "string") {
+                  row[connField.columnName] = JSON.parse(val);
+               }
+            }
+         });
+      });
+
+      let returnData = {};
+      Object.keys(data).forEach((key) => {
+         if (key != "csv_packed") {
+            returnData[key] = data[key];
+         }
+      });
+      returnData.data = jsonData;
+
+      if (returnType == "single" && Array.isArray(returnData.data)) {
+         returnData.data = returnData.data[0];
+      }
+      return returnData;
+   }
+
    normalizeData(data) {
       // convert to array
       if (!(data instanceof Array)) data = [data];
@@ -9085,6 +9463,7 @@ module.exports = class ABObjectApiNetsuiteCore extends ABObjectApi {
 var ABModel = __webpack_require__(/*! ../platform/ABModel */ 90940);
 var ABMLClass = __webpack_require__(/*! ../platform/ABMLClass */ 72982);
 
+/* eslint-disable-next-line no-undef */
 const L = (...params) => AB.Multilingual.label(...params);
 
 module.exports = class ABObjectCore extends ABMLClass {
@@ -12251,6 +12630,12 @@ module.exports = class FilterComplexCore extends ABComponent {
          case "is_not_empty":
             result = !!value;
             break;
+         case "is_null":
+            result = value == null;
+            break;
+         case "is_not_null":
+            result = value != null;
+            break;
          default:
             result = this.queryFieldValid(value, rule, compareValue);
             break;
@@ -12476,20 +12861,30 @@ module.exports = class FilterComplexCore extends ABComponent {
 
       let connectedVal = "";
 
+      let linkType = field.linkType();
+
       if (rowData) {
          if (rowData[relationName]) {
-            connectedVal = (
-               (field.indexField
-                  ? rowData[relationName][field.indexField.columnName]
-                  : null) ?? // custom index
-               (field.indexField2
-                  ? rowData[relationName][field.indexField2.columnName]
-                  : null) ?? // custom index 2
-               rowData[relationName].id ??
-               rowData[relationName]
-            )
-               .toString()
-               .toLowerCase();
+            if (linkType == "many") {
+               // lets get an array of connected ids => stringified()
+               connectedVal = JSON.stringify(
+                  getConnectFieldValue(rowData, field).map((i) => i.id || i)
+               );
+            } else {
+               // connectedVal = (
+               //    (field.indexField
+               //       ? rowData[relationName][field.indexField.columnName]
+               //       : null) ?? // custom index
+               //    (field.indexField2
+               //       ? rowData[relationName][field.indexField2.columnName]
+               //       : null) ?? // custom index 2
+               //    rowData[relationName].id ??
+               //    rowData[relationName]
+               // )
+               connectedVal = getConnectFieldValue(rowData, field)
+                  .toString()
+                  .toLowerCase();
+            }
          } else {
             let fieldVal = getFieldVal(rowData, field);
             if (fieldVal != null) {
@@ -12519,7 +12914,21 @@ module.exports = class FilterComplexCore extends ABComponent {
             ? compareValue.toLowerCase?.()
             : compareValue;
 
-      switch (rule) {
+      // NOTE: if linkType == many, and rule is equals/not_equal,
+      // these will be interpreted as "contains/not_contains"
+      let ruleSafe = rule;
+      if (linkType == "many") {
+         switch (rule) {
+            case "equals":
+               ruleSafe = "contains";
+               break;
+            case "not_equal":
+               ruleSafe = "not_contains";
+               break;
+         }
+      }
+
+      switch (ruleSafe) {
          case "contains":
             return connectedVal.toString().indexOf(compareValueLowercase) > -1;
          case "not_contains":
@@ -16462,7 +16871,10 @@ module.exports = class ABFieldDateTimeCore extends ABFieldDateCore {
          return "";
       }
 
-      return webix.Date.dateToStr(datetimeFormat)(dateObj);
+      if (this.AB.Webix)
+         return this.AB.Webix.Date.dateToStr(datetimeFormat)(dateObj);
+      else
+         return dateObj?.toISOString() ?? "";
    }
 
    getTimeFormat() {
@@ -18162,7 +18574,7 @@ module.exports = class ABFieldNumberCore extends ABField {
    format(rowData) {
       if (
          rowData?.[this.columnName] == null ||
-         (rowData[this.columnName] != 0 && rowData[this.columnName] == "")
+         (rowData[this.columnName] !== 0 && rowData[this.columnName] == "")
       )
          return "";
 
@@ -22761,6 +23173,7 @@ var AllProcessElements = [
    __webpack_require__(/*! ../../platform/process/tasks/ABProcessTaskUser */ 38205),
    __webpack_require__(/*! ../../platform/process/tasks/ABProcessTaskUserApproval */ 2282),
    __webpack_require__(/*! ../../platform/process/tasks/ABProcessTaskUserExternal */ 66066),
+   __webpack_require__(/*! ../../platform/process/tasks/ABProcessTaskUserForm */ 5035),
    __webpack_require__(/*! ../../platform/process/tasks/ABProcessTrigger */ 46091),
    __webpack_require__(/*! ../../platform/process/tasks/ABProcessTriggerLifecycle */ 73295),
    __webpack_require__(/*! ../../platform/process/tasks/ABProcessTriggerTimer */ 12774),
@@ -26053,6 +26466,108 @@ module.exports = class ABProcessTaskUserExternalCore extends ABProcessElement {
             label: `${this.label}->Response`,
          },
       ];
+   }
+};
+
+
+/***/ }),
+
+/***/ 88828:
+/*!********************************************************************!*\
+  !*** ./AppBuilder/core/process/tasks/ABProcessTaskUserFormCore.js ***!
+  \********************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABProcessElement = __webpack_require__(/*! ../../../platform/process/tasks/ABProcessElement.js */ 54919);
+
+const ABProcessTaskUserFormDefaults = {
+   category: null,
+   // category: {string} | null
+   // if this Element should show up on one of the popup replace menus, then
+   // specify one of the categories of elements it should be an option for.
+   // Available choices: [ "start", "gateway", "task", "end" ].
+   //
+   // if it shouldn't show up under the popup menu, then leave this null
+
+   icon: "form", // font-awesome icon reference.  (without the 'fa-').  so 'user'  to reference 'fa-user'
+   // icon: {string}
+   // font-awesome icon reference.  (without the 'fa-').  so 'user'  to reference 'fa-user'
+
+   instanceValues: [""],
+   // instanceValues: {array}
+   // a list of values this element tracks as it is operating in a process.
+
+   key: "Form",
+   // key: {string}
+   // unique key to reference this specific Task
+
+   settings: ["formBuilder"],
+   // settings: {array}
+   // a list of internal setting values this Element tracks. These are the
+   // values set by the platform .propertiesStash()
+};
+
+const settings = {};
+
+module.exports = class ABProcessTaskUserFormCore extends ABProcessElement {
+   constructor(attributes, process, AB) {
+      for (const key in settings)
+         attributes[key] = attributes[key] ?? settings[key];
+      super(
+         Object.assign(
+            {
+               type: "process.task.service.form",
+            },
+            attributes
+         ),
+         process,
+         AB,
+         ABProcessTaskUserFormDefaults
+      );
+
+      // listen
+   }
+
+   // return the default values for this DataField
+   static defaults() {
+      return ABProcessTaskUserFormDefaults;
+   }
+
+   static DiagramReplace() {
+      return null;
+   }
+
+   /**
+    * processDataFields()
+    * return an array of avaiable data fields that this element
+    * can provide to other ProcessElements.
+    * Different Process Elements can make data available to other
+    * process Elements.
+    * @return {array} | null
+    */
+   processDataFields() {
+      return (this.formBuilder?.components ?? [])
+         .filter((comp) => comp.type != "button")
+         .map((comp) => {
+            return {
+               key: comp.key,
+               label: `${this.label}->${comp.label}`,
+            };
+         });
+   }
+
+   /**
+    * processData()
+    * return the current value requested for the given data key.
+    * @param {obj} instance
+    * @return {mixed} | null
+    */
+   processData(instance, key) {
+      if (!key) return null;
+
+      const myState = this.myState(instance);
+
+      return myState[key];
    }
 };
 
@@ -31763,7 +32278,9 @@ function settingsDefault(base, field) {
  */
 function settingsDefaultJSON(base, field) {
    try {
-      base[field] = JSON.parse(base[field]);
+      if (typeof base[field] == "string") {
+         base[field] = JSON.parse(base[field]);
+      }
    } catch (e) {
       base[field] = ABViewGridPropertyComponentDefaults[field];
    }
@@ -35996,6 +36513,17 @@ module.exports = class ABModel extends ABModelCore {
                this.normalizeData(data);
             }
          } else {
+            if (this.isCsvPacked(data)) {
+               let lengthPacked = JSON.stringify(data).length;
+               data = this.csvUnpack(data);
+               let lengthUnpacked = JSON.stringify(data).length;
+               console.log(
+                  `CSV Pack: ${lengthUnpacked} -> ${lengthPacked} (${(
+                     (lengthPacked / lengthUnpacked) *
+                     100
+                  ).toFixed(2)}%)`
+               );
+            }
             // on a findAll we normalize data.data
             this.normalizeData(data.data);
          }
@@ -51132,6 +51660,21 @@ const ABProcessTaskUserExternalCore = __webpack_require__(/*! ../../../core/proc
 
 module.exports = class ABProcessTaskUserExternal extends (
    ABProcessTaskUserExternalCore
+) {};
+
+
+/***/ }),
+
+/***/ 5035:
+/*!********************************************************************!*\
+  !*** ./AppBuilder/platform/process/tasks/ABProcessTaskUserForm.js ***!
+  \********************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const ABProcessTaskUserFormCore = __webpack_require__(/*! ../../../core/process/tasks/ABProcessTaskUserFormCore.js */ 88828);
+
+module.exports = class ABProcessTaskUserForm extends (
+   ABProcessTaskUserFormCore
 ) {};
 
 
@@ -68512,7 +69055,7 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
             //       }
             //    });
          } else validator.updateGrid(editor.row, $DataTable);
-      } else $DataTable.clearSelection();
+      } else $DataTable?.clearSelection();
 
       return false;
 
@@ -68750,7 +69293,8 @@ class ABViewGridComponent extends _ABViewComponent__WEBPACK_IMPORTED_MODULE_0__[
          columnHeaders = ab.cloneDeep(this.settings.columnConfig);
 
       // if that is empty for some reason, rebuild from our CurrentObject
-      if (columnHeaders.length === 0) columnHeaders = objColumnHeaders;
+      if (!columnHeaders || columnHeaders.length === 0)
+         columnHeaders = objColumnHeaders;
 
       // sanity check:
       // columnHeaders can't contain a column that doesn't exist in objColumHeaders:
@@ -82500,10 +83044,14 @@ class NetworkRest extends EventEmitter {
                            null
                         );
                      }
-                     return reject(packet.data);
+                     let error = new Error(packet.message ?? packet.data);
+                     error.response = packet;
+                     error.text = packet.message;
+                     error.url = `${params.method} ${params.url}`;
+                     return reject(error);
                   } else {
                      // unknown/unexpected error:
-                     var error = new Error(
+                     let error = new Error(
                         `${err.status} ${err.statusText || err.message}: ${
                            params.method
                         } ${params.url}`
@@ -82596,6 +83144,7 @@ const listSocketEvents = [
    "ab.datacollection.delete",
    "ab.inbox.create",
    "ab.inbox.update",
+   "ab.task.userform",
    // "ab.object.update",
 ];
 // {array}
@@ -82734,6 +83283,11 @@ class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["defau
       // Pass the io.socket.on(*) events to our AB factory.
       listSocketEvents.forEach((ev) => {
          io.socket.on(ev, (data) => {
+            // data should be in the format:
+            // {
+            //    objectId: {uuid},
+            //    data: {object}
+            // }
             socketDataLog(this.AB, ev, data);
 
             // ensure we only process a network update 1x
@@ -82749,8 +83303,25 @@ class NetworkRestSocket extends _NetworkRest__WEBPACK_IMPORTED_MODULE_0__["defau
                if (values) {
                   let obj = this.AB.objectByID(data.objectId);
                   if (obj) {
-                     let model = obj.model();
                      if (ev != "ab.datacollection.delete") {
+                        // if data is packed, then unpack it
+                        let model = obj.model();
+                        if (model.isCsvPacked(values)) {
+                           let lengthPacked = data.__length;
+                           delete data.__length;
+                           values = model.csvUnpack(values);
+                           data.data = values.data;
+                           let lengthUnpacked = JSON.stringify(data).length;
+                           data.__length = lengthUnpacked;
+                           data.__lengthPacked = lengthPacked;
+                           console.log(
+                              `CSV Pack: ${lengthUnpacked} -> ${lengthPacked} (${(
+                                 (lengthPacked / lengthUnpacked) *
+                                 100
+                              ).toFixed(2)}%)`
+                           );
+                        }
+
                         let jobID = this.AB.jobID();
                         _utils_performance__WEBPACK_IMPORTED_MODULE_1__["default"].mark(`${ev}:normalization`, {
                            op: "function",
@@ -83646,6 +84217,8 @@ class ABCustomFormBuilderBuilder extends (_lazyComponent_js__WEBPACK_IMPORTED_MO
     * @returns {Object} custom webix ui
     */
    ui() {
+      const _this = this;
+
       return {
          name: this.key,
          defaults: {
@@ -83654,10 +84227,20 @@ class ABCustomFormBuilderBuilder extends (_lazyComponent_js__WEBPACK_IMPORTED_MO
             autofit: true,
          },
          $init: async function (config) {
-            const comp = this.parseDataFields(config.dataFields);
+            let comp, defaultComponent;
+
+            if (config.dataFields) {
+               comp = this.parseDataFields(config.dataFields);
+               defaultComponent = comp.approveButton.schema;
+            } else {
+               comp = _this.inputComponents();
+               defaultComponent = comp.saveButton.schema;
+            }
+
             const formComponents = config.formComponents
                ? config.formComponents
-               : { components: [comp.approveButton.schema] };
+               : { components: [defaultComponent] };
+
             try {
                this.builder = new this.FormBuilder(this.$view, formComponents, {
                   noDefaultSubmitButton: true,
@@ -83687,7 +84270,7 @@ class ABCustomFormBuilderBuilder extends (_lazyComponent_js__WEBPACK_IMPORTED_MO
          },
          // set up a function that can be called to request the form schema
          getFormData: function () {
-            return this.builder.schema;
+            return this.builder.schema ?? this.builder.form;
          },
          // Pass functions into the Webix component to be use in $init
          label: this.label,
@@ -83706,7 +84289,7 @@ class ABCustomFormBuilderBuilder extends (_lazyComponent_js__WEBPACK_IMPORTED_MO
     */
    parseDataFields(fields) {
       const components = {};
-      fields.forEach(({ field, key, label }) => {
+      fields?.forEach(({ field, key, label }) => {
          if (!field) return;
 
          const schema = {
@@ -83862,6 +84445,51 @@ class ABCustomFormBuilderBuilder extends (_lazyComponent_js__WEBPACK_IMPORTED_MO
       };
       return components;
    }
+
+   inputComponents() {
+      return {
+         textbox: {
+            title: "Textbox",
+            key: "YOUR_KEY",
+            icon: "font",
+            schema: {
+               type: "textfield",
+               key: "YOUR_KEY",
+               label: "[YOUR LABEL]",
+               placeholder: "Enter your information.",
+               input: true,
+            },
+         },
+         textarea: {
+            title: "Textarea",
+            key: "YOUR_KEY",
+            icon: "bold",
+            schema: {
+               type: "textarea",
+               key: "YOUR_KEY",
+               label: "[YOUR LABEL]",
+               placeholder: "Enter your information.",
+            },
+         },
+         saveButton: {
+            title: "Submit Button",
+            key: "submit",
+            icon: "check-square",
+            schema: {
+               label: "Submit",
+               type: "button",
+               key: "submit",
+               event: "submit",
+               block: true,
+               size: "lg",
+               input: false,
+               leftIcon: "fa fa-check-square",
+               action: "event",
+               theme: "success",
+            },
+         },
+      };
+   }
 }
 
 
@@ -83920,6 +84548,7 @@ module.exports = class ABCustomFormIOPreview extends ABLazyCustomComponent {
             // }
 
             const form = new Form(component.$view, formComponents);
+            component._formio = form;
             // readOnly: true
             // sanitizeConfig: {
             //     addTags: ["a", "label", "img", "i"],
@@ -84496,4 +85125,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.8ed86129956ab185a4bf.js.map
+//# sourceMappingURL=AB.eb6932aa581c2b7932b0.js.map

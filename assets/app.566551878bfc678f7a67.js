@@ -801,7 +801,7 @@ class Bootstrap extends EventEmitter {
     * @param {Promise} webixLoading - so we know when webix is finished loading
     */
    async init(webixLoading) {
-      const loadABFactory = Promise.all(/*! import() | AB */[__webpack_require__.e("vendor-node_modules_atomicjs_dist_atomic_min_js-node_modules_atomicjs_dist_atomic_polyfills_m-9e1c11"), __webpack_require__.e("AB")]).then(__webpack_require__.bind(__webpack_require__, /*! ../AppBuilder/ABFactory */ 21353));
+      const loadABFactory = Promise.all(/*! import() | AB */[__webpack_require__.e("vendor-node_modules_atomicjs_dist_atomic_min_js-node_modules_atomicjs_dist_atomic_polyfills_m-6fe1ea"), __webpack_require__.e("AB")]).then(__webpack_require__.bind(__webpack_require__, /*! ../AppBuilder/ABFactory */ 21353));
       // @const {Promise} loadABFactory Defer loading the ABFactory for a smaller
       // inital file size, allowing us to show the loading UI sooner.
       /**
@@ -6169,16 +6169,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClassUI.js */ 93692);
-/* harmony import */ var _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ClassUIPage.js */ 73995);
+/* harmony import */ var _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ClassUIPage.js */ 73995);
 /* harmony import */ var _portal_work_inbox_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./portal_work_inbox.js */ 47547);
-/* harmony import */ var _portal_work_inbox_taskWindow_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./portal_work_inbox_taskWindow.js */ 40179);
+/* harmony import */ var _portal_work_inbox_taskWindow_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./portal_work_inbox_taskWindow.js */ 40179);
 /* harmony import */ var _portal_work_user_profile_window_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./portal_work_user_profile_window.js */ 98957);
 /* harmony import */ var _portal_work_user_switcheroo_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./portal_work_user_switcheroo.js */ 18098);
-/* harmony import */ var _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./portal_work_user_qr_window.js */ 41239);
-/* harmony import */ var _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./portal_work_user_mobile_qr.js */ 16735);
-/* harmony import */ var _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./portal_access_level_manager.js */ 86582);
-/* harmony import */ var _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./portal_translation_tool.js */ 96451);
-/* harmony import */ var _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./portal_tutorial_manager.js */ 63683);
+/* harmony import */ var _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./portal_work_user_qr_window.js */ 41239);
+/* harmony import */ var _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./portal_work_user_mobile_qr.js */ 16735);
+/* harmony import */ var _portal_work_task_user_form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./portal_work_task_user_form.js */ 60303);
+/* harmony import */ var _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./portal_access_level_manager.js */ 86582);
+/* harmony import */ var _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./portal_translation_tool.js */ 96451);
+/* harmony import */ var _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./portal_tutorial_manager.js */ 63683);
+
 
 
 
@@ -6458,6 +6460,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
       allInits.push(_portal_work_user_profile_window_js__WEBPACK_IMPORTED_MODULE_3__["default"].init(this.AB));
       allInits.push(_portal_work_user_switcheroo_js__WEBPACK_IMPORTED_MODULE_1__["default"].init(this.AB));
+      _portal_work_task_user_form_js__WEBPACK_IMPORTED_MODULE_4__["default"].init(this.AB);
 
       // {hash}  { ABViewPage.id : ClassUIPage() }
       // track each of the page containers (instances of ClassUIPage) that
@@ -6494,7 +6497,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       $$("abSidebarMenu").define("data", menu_data);
       this.sidebarResize();
 
-      _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_4__["default"].init(AB);
+      _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_5__["default"].init(AB);
 
       const userMenuOptions = [
          { id: "user_profile", label: L("User Profile"), icon: "user" },
@@ -6634,15 +6637,15 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
                         AB.Account.logout();
                         break;
                      case "user_qr":
-                        _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_5__["default"].init(AB);
-                        _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_5__["default"].show();
+                        _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_6__["default"].init(AB);
+                        _portal_work_user_qr_window_js__WEBPACK_IMPORTED_MODULE_6__["default"].show();
                         break;
                      default: {
                         // was this one of our Mobile Apps?
                         const mobileApp = this.AB.applicationByID(id);
                         if (mobileApp) {
-                           _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_4__["default"].load(mobileApp);
-                           _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_4__["default"].show();
+                           _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_5__["default"].load(mobileApp);
+                           _portal_work_user_mobile_qr_js__WEBPACK_IMPORTED_MODULE_5__["default"].show();
                         } else {
                            const item = userMenuOptions.filter(
                               (o) => o.id == id
@@ -6797,7 +6800,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       }
 
       if (DefaultPage) {
-         const container = new _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_6__["default"](
+         const container = new _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_7__["default"](
             this.pageID(DefaultPage),
             DefaultPage,
             this.App,
@@ -6828,7 +6831,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
             if (pages[j].getUserAccess?.() === 0) continue;
 
             if (!DefaultPage || pages[j].id !== DefaultPage.id) {
-               const cont = new _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_6__["default"](
+               const cont = new _ClassUIPage_js__WEBPACK_IMPORTED_MODULE_7__["default"](
                   this.pageID(pages[j]),
                   pages[j],
                   this.App,
@@ -6862,7 +6865,7 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       //
       // Step 7: As well as the Inbox Task Window
       //
-      allInits.push(_portal_work_inbox_taskWindow_js__WEBPACK_IMPORTED_MODULE_7__["default"].init(this.AB));
+      allInits.push(_portal_work_inbox_taskWindow_js__WEBPACK_IMPORTED_MODULE_8__["default"].init(this.AB));
 
       // Network and Queued operations Alert
       this.AB.Network.on("queued", () => {
@@ -7274,16 +7277,16 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
                onItemClick: (id /*, event */) => {
                   switch (id) {
                      case "accessLevel":
-                        _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_8__["default"].init(this);
-                        _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_8__["default"].show();
+                        _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_9__["default"].init(this);
+                        _portal_access_level_manager_js__WEBPACK_IMPORTED_MODULE_9__["default"].show();
                         break;
                      case "translation":
-                        _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_9__["default"].init(this);
-                        _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_9__["default"].show();
+                        _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_10__["default"].init(this);
+                        _portal_translation_tool_js__WEBPACK_IMPORTED_MODULE_10__["default"].show();
                         break;
                      case "tutorial":
-                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_10__["default"].init(this);
-                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_10__["default"].show();
+                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_11__["default"].init(this);
+                        _portal_tutorial_manager_js__WEBPACK_IMPORTED_MODULE_11__["default"].show();
                         break;
                      default:
                         //eslint-disable-next-line
@@ -8134,6 +8137,156 @@ class PortalWorkInboxTaskwindow extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new PortalWorkInboxTaskwindow());
+
+
+/***/ }),
+
+/***/ 60303:
+/*!******************************************!*\
+  !*** ./ui/portal_work_task_user_form.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClassUI.js */ 93692);
+
+
+class PortalWorkTaskUserForm extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
+   constructor() {
+      super("portal_work_task_user_form", {
+         formIO: "",
+      });
+   }
+
+   ui() {
+      const ids = this.ids;
+
+      return {
+         id: ids.component,
+         view: "window",
+         height: 500,
+         width: 600,
+         position: "center",
+         modal: true,
+         resize: true,
+         head: {
+            view: "toolbar",
+            css: "webix_dark",
+            cols: [
+               {},
+               {
+                  view: "label",
+                  label: this.label(""),
+                  autowidth: true,
+               },
+               {},
+               {
+                  view: "button",
+                  width: 35,
+                  css: "webix_transparent",
+                  type: "icon",
+                  icon: "nomargin fa fa-times",
+                  click: () => {
+                     this.hide();
+                  },
+               },
+            ],
+         },
+         body: {
+            view: "layout",
+            padding: 10,
+            rows: [this.uiFormIO()],
+         },
+      };
+   }
+
+   uiFormIO(
+      processId,
+      taskId,
+      instanceId,
+      formComponents = { components: [] }
+   ) {
+      const ids = this.ids;
+      const _this = this;
+
+      return {
+         id: ids.formIO,
+         view: "formiopreview",
+         processId,
+         taskId,
+         instanceId,
+         formComponents: formComponents,
+         onButton: function () {
+            _this.submitData(this.processId, this.taskId, this.instanceId);
+         },
+      };
+   }
+
+   refreshFormIO(
+      processId,
+      taskId,
+      instanceId,
+      formComponents = { components: [] }
+   ) {
+      const ids = this.ids;
+      const formIoDef = this.uiFormIO(
+         processId,
+         taskId,
+         instanceId,
+         formComponents
+      );
+
+      this.AB.Webix.ui(formIoDef, $$(ids.formIO));
+   }
+
+   init(AB) {
+      const ui = this.ui();
+
+      this.AB = AB;
+      this.AB.custom.formiopreview.init();
+      this.AB.Webix.ui(ui);
+      this.AB.on("ab.task.userform", (data) => {
+         this.refreshFormIO(
+            data.processId,
+            data.taskId,
+            data.instanceId,
+            data.formio
+         );
+         this.show();
+      });
+   }
+
+   show() {
+      const $popup = $$(this.ids.component);
+      $popup?.show();
+   }
+
+   hide() {
+      const $popup = $$(this.ids.component);
+      $popup?.hide();
+   }
+
+   submitData(processID, taskID, instanceID) {
+      const ids = this.ids;
+      const values = $$(ids.formIO)?._formio?.instance?.data ?? null;
+      if (!values) return;
+
+      this.AB.Network.post({
+         url: `/process/userform/${processID}/${taskID}`,
+         data: {
+            instanceID,
+            values,
+         },
+      });
+
+      this.hide();
+   }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new PortalWorkTaskUserForm());
 
 
 /***/ }),
@@ -9770,7 +9923,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.13.3+c20601";
+   version = "1.14.4+c20705";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10311,7 +10464,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ /* webpack/runtime/startup prefetch */
 /******/ (() => {
 /******/ 	__webpack_require__.O(0, ["app"], () => {
-/******/ 		__webpack_require__.E("vendor-node_modules_atomicjs_dist_atomic_min_js-node_modules_atomicjs_dist_atomic_polyfills_m-9e1c11");
+/******/ 		__webpack_require__.E("vendor-node_modules_atomicjs_dist_atomic_min_js-node_modules_atomicjs_dist_atomic_polyfills_m-6fe1ea");
 /******/ 		__webpack_require__.E("AB");
 /******/ 	}, 5);
 /******/ })();
@@ -10321,4 +10474,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.fae0ff4a1450e051038d.js.map
+//# sourceMappingURL=app.566551878bfc678f7a67.js.map
