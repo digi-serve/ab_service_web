@@ -5177,7 +5177,7 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
                // if (rowId) {
                this.__dataCollection.setCursor(rowId || null);
 
-               if (this.__dataCollection.data.count() == 0) {
+               if (this.__dataCollection.count() == 0) {
                   this.emit("collectionEmpty", {});
                }
 
@@ -34018,7 +34018,7 @@ dc.define("dataFeed", (value, params) => {
 
    stateValues() {
       if (!this.DC.$state) return [];
-      return this.DC.$state[this.DC.id];
+      return this.DC.$state[this.DC.id] || [];
    }
 
    add(value, indx) {
@@ -34036,7 +34036,7 @@ dc.define("dataFeed", (value, params) => {
    }
 
    count() {
-      return this.stateValues().length();
+      return this.stateValues().length || 0;
    }
 
    exists(ID) {
@@ -47221,7 +47221,7 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
 
    itemSelected(item) {
       // prevent random clicks when processing a swipeout
-      if (this.isSwipeout[item.uuid]) return;
+      if (this.isSwipeout && this.isSwipeout[item.uuid]) return;
 
       // Make sure our DC registers which item was just selected.
       const dc = this.datacollection;
@@ -65664,9 +65664,13 @@ __webpack_require__.r(__webpack_exports__);
       },
       actions: {
          getAppBuilderData({ state }, id) {
-            let DC = AB.datacollectionByID(id);
-            DC.setState(state);
-            DC.loadData();
+            try {
+               let DC = AB.datacollectionByID(id);
+               DC.setState(state);
+               DC.loadData();
+            } catch (err) {
+               console.err(err);
+            }
          },
          setUser({ state }, user) {
             state["user"] = user;
