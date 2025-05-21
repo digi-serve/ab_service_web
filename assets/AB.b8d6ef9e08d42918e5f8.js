@@ -8876,7 +8876,10 @@ module.exports = class ABModelCore {
                let populatedData = [];
                let entries = [];
                try {
-                  entries = JSON.parse(row[connField.columnName]);
+                  // ok, we know this is a possibility, so just skip it
+                  if (row[connField.columnName] !== "") {
+                     entries = JSON.parse(row[connField.columnName]);
+                  }
                } catch (e) {
                   if (row[connField.columnName] == "") {
                      // not a problem, just no data
@@ -85125,4 +85128,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.eb6932aa581c2b7932b0.js.map
+//# sourceMappingURL=AB.b8d6ef9e08d42918e5f8.js.map
