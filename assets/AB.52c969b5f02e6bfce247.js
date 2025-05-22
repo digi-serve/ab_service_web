@@ -4820,28 +4820,20 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
    //    return null;
    // }
 
-   async loadData(start, limit) {
-      // mark data status is initializing
-      if (this._dataStatus == this.dataStatusFlag.notInitial) {
-         this._dataStatus = this.dataStatusFlag.initializing;
-         this.emit("initializingData", {});
-      }
-
-      var obj = this.datasource;
-      if (obj == null) {
-         this._dataStatus = this.dataStatusFlag.initialized;
-         return Promise.resolve([]);
-      }
-
-      var model = obj.model();
-      if (model == null) {
-         this._dataStatus = this.dataStatusFlag.initialized;
-         return Promise.resolve([]);
-      }
-
-      // pull the defined sort values
-      var sorts = this.settings.objectWorkspace.sortFields || [];
-
+   /**
+    * @method getWhereClause()
+    * Return the current where condition for the datacollection.
+    * The where condition might change depending if we are following
+    * another datacollection or not.
+    *
+    * NOTE: start and limit might be effected by some of our settings
+    * so we include them here and then return those values as well.
+    *
+    * @param {int} start
+    * @param {int} limit
+    * @returns [ wheres, start, limit ]
+    */
+   getWhereClause(start, limit) {
       // pull filter conditions
       let wheres = this.AB.cloneDeep(
          this.settings.objectWorkspace.filterConditions ?? {}
@@ -4918,7 +4910,114 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
 
       // remove any null in the .rules
       // if (wheres?.rules?.filter) wheres.rules = wheres.rules.filter((r) => r);
-      wheres = obj.whereCleanUp(wheres);
+      wheres = this.datasource.whereCleanUp(wheres);
+
+      return [wheres, start, limit];
+   }
+
+   async loadData(start, limit) {
+      // mark data status is initializing
+      if (this._dataStatus == this.dataStatusFlag.notInitial) {
+         this._dataStatus = this.dataStatusFlag.initializing;
+         this.emit("initializingData", {});
+      }
+
+      var obj = this.datasource;
+      if (obj == null) {
+         this._dataStatus = this.dataStatusFlag.initialized;
+         return Promise.resolve([]);
+      }
+
+      var model = obj.model();
+      if (model == null) {
+         this._dataStatus = this.dataStatusFlag.initialized;
+         return Promise.resolve([]);
+      }
+
+      // pull the defined sort values
+      var sorts = this.settings.objectWorkspace.sortFields || [];
+
+      let [wheres, s2, l2] = this.getWhereClause(start, limit);
+      start = s2;
+      limit = l2;
+
+      // // pull filter conditions
+      // let wheres = this.AB.cloneDeep(
+      //    this.settings.objectWorkspace.filterConditions ?? {}
+      // );
+      // // if we pass new wheres with a reload use them instead
+      // if (this.__reloadWheres) {
+      //    wheres = this.__reloadWheres;
+      // }
+      // wheres.glue = wheres.glue || "and";
+      // wheres.rules = wheres.rules || [];
+
+      // const __additionalWheres = {
+      //    glue: "and",
+      //    rules: [],
+      // };
+
+      // // add the filterCond if there are rules to add
+      // if (this.__filterCond?.rules?.length > 0) {
+      //    __additionalWheres.rules.push(this.__filterCond);
+      // }
+
+      // // Filter by a selected cursor of a link DC
+      // let linkRule = this.ruleLinkedData();
+      // if (!this.settings.loadAll && linkRule) {
+      //    __additionalWheres.rules.push(linkRule);
+      // }
+      // // pull data rows following the follow data collection
+      // else if (this.datacollectionFollow) {
+      //    const followCursor = this.datacollectionFollow.getCursor();
+      //    // store the PK as a variable
+      //    let PK = this.datasource.PK();
+      //    // if the datacollection we are following is a query
+      //    // add "BASE_OBJECT." to the PK so we can select the
+      //    // right value to report the cursor change to
+      //    if (this.datacollectionFollow.settings.isQuery) {
+      //       PK = "BASE_OBJECT." + PK;
+      //    }
+      //    if (followCursor) {
+      //       start = 0;
+      //       limit = null;
+      //       wheres = {
+      //          glue: "and",
+      //          rules: [
+      //             {
+      //                key: this.datasource.PK(),
+      //                rule: "equals",
+      //                value: followCursor[PK],
+      //             },
+      //          ],
+      //       };
+      //    }
+      //    // Set no return rows
+      //    else {
+      //       wheres = {
+      //          glue: "and",
+      //          rules: [
+      //             {
+      //                key: this.datasource.PK(),
+      //                rule: "equals",
+      //                value: "NO RESULT ROW",
+      //             },
+      //          ],
+      //       };
+      //    }
+      // }
+
+      // // Combine setting & program filters
+      // if (__additionalWheres.rules.length) {
+      //    if (wheres.rules.length) {
+      //       __additionalWheres.rules.unshift(wheres);
+      //    }
+      //    wheres = __additionalWheres;
+      // }
+
+      // // remove any null in the .rules
+      // // if (wheres?.rules?.filter) wheres.rules = wheres.rules.filter((r) => r);
+      // wheres = obj.whereCleanUp(wheres);
 
       // set query condition
       var cond = {
@@ -35293,6 +35392,12 @@ module.exports = class ABDataCollection extends ABDataCollectionCore {
    constructor(attributes, AB) {
       super(attributes, AB);
       this.setMaxListeners(0);
+      this.blacklistLoadData = {};
+      // { key : ?? }
+      // keep track of previous loadData() calls that might not
+      // have fully completed yet. We don't want to get in a
+      // race condition where we keep trying to load the same frame
+      // over and over again.
    }
 
    /**
@@ -35422,6 +35527,7 @@ module.exports = class ABDataCollection extends ABDataCollectionCore {
    }
 
    loadData(start, limit = 20) {
+      console.log(`loadData: ${start}, ${limit}`);
       return super.loadData(start, limit).catch((err) => {
          // hideProgressOfComponents() is a platform specific action.
          this.hideProgressOfComponents();
@@ -35717,8 +35823,19 @@ module.exports = class ABDataCollection extends ABDataCollectionCore {
                (start, count) => {
                   if (start < 0) start = 0;
 
+                  // since the where clause can change if we are following
+                  // another cursor, include the where as part of the key:
+                  let [where] = this.getWhereClause(start, 0);
+                  let key = `${JSON.stringify(where)}-${start}-${count}`;
+                  if (this.blacklistLoadData[key]) {
+                     return false;
+                  }
+                  this.blacklistLoadData[key] = true;
                   // load more data to the data collection
-                  this.loadData(start, count);
+                  this.loadData(start, count).finally(() => {
+                     // remove from blacklist
+                     delete this.blacklistLoadData[key];
+                  });
 
                   return false; // <-- prevent the default "onDataRequest"
                }
@@ -36519,7 +36636,25 @@ module.exports = class ABModel extends ABModelCore {
             if (this.isCsvPacked(data)) {
                let lengthPacked = JSON.stringify(data).length;
                data = this.csvUnpack(data);
-               let lengthUnpacked = JSON.stringify(data).length;
+
+               // JOHNNY: getting "RangeError: Invalid string length"
+               // when data.data is too large. So we are just going
+               // to .stringify() the rows individually and count the
+               // length of each one.
+
+               let lengthUnpacked = 0;
+               for (var d = 0; d < data.data.length; d++) {
+                  lengthUnpacked += JSON.stringify(data.data[d]).length;
+               }
+
+               Object.keys(data)
+                  .filter((k) => k != "data")
+                  .map((k) => {
+                     lengthUnpacked += `${k}:${data[k]},`.length;
+                  });
+
+               lengthUnpacked += 5; // for the brackets
+
                console.log(
                   `CSV Pack: ${lengthUnpacked} -> ${lengthPacked} (${(
                      (lengthPacked / lengthUnpacked) *
@@ -85128,4 +85263,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.b8d6ef9e08d42918e5f8.js.map
+//# sourceMappingURL=AB.52c969b5f02e6bfce247.js.map
