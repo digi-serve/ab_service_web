@@ -3160,6 +3160,14 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       return this._dataStatus;
    }
 
+   get isDataInitialized() {
+      return this.dataStatus == this.dataStatusFlag.initialized;
+   }
+
+   dataInitialized() {
+      this._dataStatus = this.dataStatusFlag.initialized;
+   }
+
    ///
    /// Cursor
    ///
@@ -3393,7 +3401,11 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
                // if (rowId) {
                this.__dataCollection.setCursor(rowId || null);
 
-               if (this.__dataCollection.data.count() == 0) {
+               // NOTE: differnece between ab_platform_web and ab_platform_pwa
+               if (
+                  this.__dataCollection.data?.count?.() == 0 ||
+                  this.__dataCollection.data?.length == 0
+               ) {
                   this.emit("collectionEmpty", {});
                }
 
@@ -8773,11 +8785,12 @@ module.exports = class ABModelCore {
       let keys = ["list", "json"];
       let stringifyFields = myObject.fields((f) => keys.indexOf(f.key) > -1);
       stringifyFields.forEach((f) => {
-         content.forEach((row) => {
+         for (let I = 0; I < content.length; I++) {
+            let row = content[I];
             if (row[f.columnName]) {
                row[f.columnName] = JSON.stringify(row[f.columnName]);
             }
-         });
+         }
       });
 
       // break out and compact the connected data
@@ -8788,7 +8801,8 @@ module.exports = class ABModelCore {
          let connPK = connField.datasourceLink.PK();
 
          // gather all the connected data for this field
-         content.forEach((row) => {
+         for (let I = 0; I < content.length; I++) {
+            let row = content[I];
             if (row[relationName]) {
                if (Array.isArray(row[relationName])) {
                   row[relationName].forEach((r) => {
@@ -8803,7 +8817,7 @@ module.exports = class ABModelCore {
                   }
                }
             }
-         });
+         }
 
          // assign a smaller id value
          Object.keys(connHash).forEach((id, indx) => {
@@ -8811,7 +8825,8 @@ module.exports = class ABModelCore {
          });
 
          // now reencode the connection data to reference the new _csvID
-         content.forEach((row) => {
+         for (let I = 0; I < content.length; I++) {
+            let row = content[I];
             let ids = [];
             let hasRelationData = false;
             if (row[relationName]) {
@@ -8830,7 +8845,7 @@ module.exports = class ABModelCore {
                row[connField.columnName] = JSON.stringify(ids);
                delete row[relationName];
             }
-         });
+         }
 
          let connData = Object.values(connHash);
          connData.forEach((c) => {
@@ -8848,7 +8863,8 @@ module.exports = class ABModelCore {
       });
 
       // final data preparations for csv encoding
-      content.forEach((row) => {
+      for (let I = 0; I < content.length; I++) {
+         let row = content[I];
          // client side .normalizeData() should repopulate .id
          delete row.id;
 
@@ -8867,7 +8883,7 @@ module.exports = class ABModelCore {
                delete row[relationName];
             }
          });
-      });
+      }
 
       // now convert the data to CSV
       packedData.data = this.AB.jsonToCsv(content);
@@ -85263,4 +85279,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.52c969b5f02e6bfce247.js.map
+//# sourceMappingURL=AB.747a53aec813a3dcc950.js.map
