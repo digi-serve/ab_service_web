@@ -2791,6 +2791,10 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       // {ABModel}
       // An instance of the ABModel used for this DataCollection to
       // access data on the server.
+
+      this._pendingLoadDataResolves = {
+         /* jobID : {pendingResolve } */
+      };
    }
 
    /**
@@ -5091,12 +5095,11 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
       // the actual resolve() should happen in the
       // .processIncomingData() after the  data is processed.
       return new Promise((resolve, reject) => {
-         this._pendingLoadDataResolve = {
-            resolve: resolve,
-            reject: reject,
-         };
-
+         const jobID = this.AB.jobID();
+         cond.jobID = jobID;
+         this._pendingLoadDataResolves[jobID] = { resolve, reject };
          this.platformFind(model, cond).catch((err) => {
+            delete this._pendingLoadDataResolves[jobID];
             reject(err);
          });
       });
@@ -5234,11 +5237,9 @@ module.exports = class ABDataCollectionCore extends ABMLClass {
             }
 
             // now we close out our .loadData() promise.resolve() :
-            if (this._pendingLoadDataResolve) {
-               this._pendingLoadDataResolve.resolve();
-
-               // after we call .resolve() stop tracking this:
-               this._pendingLoadDataResolve = null;
+            if (data.jobID) { 
+               this._pendingLoadDataResolves[data.jobID].resolve();
+               delete this._pendingLoadDataResolves[data.jobID];
             }
 
             // If dc set load all, then it will not trigger .loadData in dc at
@@ -8848,8 +8849,9 @@ module.exports = class ABModelCore {
          }
 
          let connData = Object.values(connHash);
+         const isPKID = connPK === "id";
          connData.forEach((c) => {
-            if (c.id == c[connPK]) {
+            if (!isPKID && c.id == c[connPK]) {
                delete c.id;
             }
 
@@ -8863,10 +8865,11 @@ module.exports = class ABModelCore {
       });
 
       // final data preparations for csv encoding
+      const isPKID = myObject.PK();
       for (let I = 0; I < content.length; I++) {
          let row = content[I];
          // client side .normalizeData() should repopulate .id
-         delete row.id;
+         !isPKID && delete row.id;
 
          // we don't use .properties anymore, right?
          delete row.properties;
@@ -85296,4 +85299,4 @@ module.exports = class ABCustomEditList {
 /***/ })
 
 }]);
-//# sourceMappingURL=AB.14b82eb724b6557e6bf8.js.map
+//# sourceMappingURL=AB.2e40208c4b731699b905.js.map
