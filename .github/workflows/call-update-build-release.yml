@@ -10,11 +10,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - branch: master
+          - branch: is/pwa
             webpack: update
-          - branch: develop
-            webpack: dev
-            pre_release: dev
     name: Update Service Web ${{ matrix.branch }} (Platform)
     uses: ./.github/workflows/update-build-release.yml
     secrets:
@@ -22,7 +19,7 @@ jobs:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-    with: 
+    with:
       version: ${{ github.event.client_payload.version }}
       type: ${{ github.event.client_payload.type }}
       pre_release: ${{ matrix.pre_release }}
@@ -38,18 +35,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - branch: master
+          - branch: is/pwa
             webpack: update
-          - branch: develop
-            webpack: dev
-            pre_release: dev
     name: Update Service Web ${{ matrix.branch }} (Designer)
     uses: ./.github/workflows/update-build-release.yml
     secrets:
       TOKEN: ${{ secrets.PAT }}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    with: 
+    with:
       version: ${{ github.event.client_payload.version }}
       type: ${{ github.event.client_payload.type }}
       pre_release: ${{ matrix.pre_release }}

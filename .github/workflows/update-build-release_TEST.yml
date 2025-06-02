@@ -1,0 +1,73 @@
+name: "Update, Build and Release"
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+      type:
+        type: string
+        required: true
+      pre_release:
+        type: string
+        required: false
+      branch:
+        type: string
+        required: true
+      webpack_repo:
+        type: string
+        required: true
+      webpack_repo_short:
+        type: string
+        required: true
+      webpack_path:
+        type: string
+        required: true
+      webpack_command:
+        type: string
+        required: true
+      build_meta_prefix:
+        type: string
+        required: true
+    secrets:
+      TOKEN:
+        required: true
+      # DOCKER_USERNAME:
+      #   required: true
+      # DOCKER_PASSWORD:
+      # required: true
+      # SENTRY_AUTH_TOKEN:
+      #   required: false
+jobs:
+  call-update-files:
+    name: Update Files
+    uses: ./.github/workflows/update-web-files.yml
+    secrets:
+      TOKEN: ${{ secrets.TOKEN }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    with:
+      web_ref: ${{ inputs.branch }}
+      repository: ${{ inputs.webpack_repo }}
+      short_name: ${{ inputs.webpack_repo_short }}
+      path: ${{ inputs.webpack_path }}
+      version: ${{ inputs.version }}
+      webpack: ${{ inputs.webpack_command }}
+      pre_release: ${{ inputs.pre_release }}
+
+  call-run-cy-test:
+    name: Test
+    needs: call-update-files
+    uses: digi-serve/.github/.github/workflows/cypress-e2e-tests.yml@master
+    with:
+      ref: ${{ needs.call-update-files.outputs.branch }}
+#   call-docker-build:
+#     name: Build
+#     uses: ./.github/workflows/docker-build-with-ref.yml
+#     needs: [call-merge-release, call-bump-version]
+#     secrets:
+#       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#     with:
+#       base_tag: ${{ inputs.branch }}
+#       ref: ${{ inputs.branch }}
+#       tags: ${{ inputs.branch }},${{ needs.call-bump-version.outputs.new_version }}

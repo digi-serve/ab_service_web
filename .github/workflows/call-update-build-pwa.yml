@@ -1,0 +1,31 @@
+name: "Update Platform PWA"
+run-name: Update ${{ github.event.client_payload.repo }} to ${{ github.event.client_payload.version }}
+on:
+  repository_dispatch:
+    type: [pwa_new_version]
+jobs:
+  call-update-platform_pwa:
+    if: ${{ github.event.client_payload.repo == 'ab_platform_pwa' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - branch: is/pwa
+            webpack: update
+    name: Update Service PWA ${{ matrix.branch }} (Platform)
+    uses: ./.github/workflows/update-build-release_TEST.yml
+    secrets:
+      TOKEN: ${{ secrets.PAT }}
+      # DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      # DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      # SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    with:
+      version: ${{ github.event.client_payload.version }}
+      type: ${{ github.event.client_payload.type }}
+      pre_release: ${{ matrix.pre_release }}
+      branch: ${{ matrix.branch }}
+      webpack_repo: digi-serve/ab_platform_pwa
+      webpack_repo_short: platform_pwa
+      webpack_path: ab_platform_pwa
+      webpack_command: ${{ matrix.webpack }}
+      build_meta_prefix: p
