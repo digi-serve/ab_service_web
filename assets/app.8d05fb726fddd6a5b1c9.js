@@ -6674,8 +6674,36 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
       //
       // Step 1: prepare the AppState so we can determine which options
       // should be pre selected.
-      //
-      const AppState = (await this.AB.Storage.get(this.storageKey)) ?? {
+
+      /**
+       * @typedef {Object} AppState
+       * @property {string} lastSelectedApp ABApplication.id of the last App selected,
+       * @property {Object} lastPages a lookup of all the last selected Pages for each Application {hash}  { ABApplication.id : ABPage.id }
+       */
+
+      // 1.1 Check for App & Page secified on the route (query params /?app=...&page=...)
+      // Ref: https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+      const queryParams = new URLSearchParams(window.location.search);
+      if (queryParams.has("app") && queryParams.has("page")) {
+         const appParam = queryParams.get("app");
+         // Check its a real appID to address: https://github.com/digi-serve/ab_platform_web/security/code-scanning/630
+         const app = this.AB.applicationByID(appParam);
+         if (!app) {
+            console.error(`Trying to Navigate to unknown app ${appParam}`);
+         } else {
+            this.AppState = {
+               lastSelectedApp: app.id,
+               lastPages: {},
+            };
+            this.AppState.lastPages[app.id] = queryParams.get("page");
+         }
+      }
+
+      // 1.2 Load the last app / page from storage
+      this.AppState =
+         this.AppState ?? (await this.AB.Storage.get(this.storageKey));
+      // 1.3 Create a new AppState
+      this.AppState = this.AppState ?? {
          lastSelectedApp: null,
          // {string}  the ABApplication.id of the last App selected
 
@@ -6683,8 +6711,6 @@ class PortalWork extends _ClassUI_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
          // {hash}  { ABApplication.id : ABPage.id }
          // a lookup of all the last selected Pages for each Application
       };
-
-      this.AppState = AppState;
 
       // set default selected App if not already set
       // just choose the 1st App in the list (must have pages that we have
@@ -9923,7 +9949,7 @@ try {
    /* global WEBPACK_MODE SENTRY_DSN VERSION */
    webpackMode = "development";
    dsn = undefined;
-   version = "1.14.12+c20711";
+   version = "1.15.0";
 } catch (err) {
    console.warn(
       "Error reading from webpack, check the DefinePlugin is working correctly",
@@ -10474,4 +10500,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app.a9676f09d78f085e65a7.js.map
+//# sourceMappingURL=app.8d05fb726fddd6a5b1c9.js.map
