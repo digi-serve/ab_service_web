@@ -2,7 +2,7 @@ name: "Update Platform Web"
 run-name: Update ${{ github.event.client_payload.repo }} to ${{ github.event.client_payload.version }}
 on:
   repository_dispatch:
-    type: [web_new_version]
+    types: [web_new_version]
 jobs:
   call-update-platform_web:
     if: ${{ github.event.client_payload.repo == 'ab_platform_web' }}
@@ -18,16 +18,17 @@ jobs:
     name: Update Service Web ${{ matrix.branch }} (Platform)
     uses: ./.github/workflows/update-build-release.yml
     secrets:
-      TOKEN: ${{ secrets.PAT }}
+      app_secret: ${{ secrets.GS_DEV_APP_PK }}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     with: 
+      app_id: ${{ vars.GS_DEV_APP_ID }}
       version: ${{ github.event.client_payload.version }}
       type: ${{ github.event.client_payload.type }}
       pre_release: ${{ matrix.pre_release }}
       branch: ${{ matrix.branch }}
-      webpack_repo: digi-serve/ab_platform_web
+      webpack_repo: ab_platform_web
       webpack_repo_short: platform_web
       webpack_path: ab_platform_web
       webpack_command: ${{ matrix.webpack }}
@@ -46,15 +47,16 @@ jobs:
     name: Update Service Web ${{ matrix.branch }} (Designer)
     uses: ./.github/workflows/update-build-release.yml
     secrets:
-      TOKEN: ${{ secrets.PAT }}
+      app_secret: ${{ secrets.GS_DEV_APP_PK }}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     with: 
+      app_id: ${{ vars.GS_DEV_APP_ID }}
       version: ${{ github.event.client_payload.version }}
       type: ${{ github.event.client_payload.type }}
       pre_release: ${{ matrix.pre_release }}
       branch: ${{ matrix.branch }}
-      webpack_repo: digi-serve/plugin_ABDesigner
+      webpack_repo: plugin_ABDesigner
       webpack_repo_short: ABDesigner
       webpack_path: plugins/ABDesigner
       webpack_command: ${{ matrix.webpack }}

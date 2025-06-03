@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       repository:
-        description: Full repo name with organization
+        description: Full repo name without organization
         required: true
         type: string
       short_name:
@@ -22,14 +22,18 @@ on:
         type: string
         required: true
       webpack:
-        description: webpack build command (npm run build:[command])
+        description: 'webpack build command (npm run build:[command])'
         required: true
         type: string
       pre_release:
         type: string
         required: false
+      app_id:
+        description: GitHub APP ID for Auth (of Client ID)
+        type: string
     secrets:
-      TOKEN:
+      app_secret:
+        description: GitHub APP Client Secret for Auth
         required: true
       SENTRY_AUTH_TOKEN:
         required: false
@@ -52,18 +56,26 @@ jobs:
         run: echo "branch=CI/update$PRE/$SHORT_NAME-$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Checkout Service Web
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.web_ref }}
           path: web
+
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ inputs.app_id }}
+          private-key: ${{ secrets.app_secret }}
+          repositories: ${{ inputs.repository }}
         
       - name: Checkout Webpack Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: v${{ inputs.version }}
-          token: ${{ secrets.TOKEN }}
+          token: ${{ steps.generate-token.outputs.tokens }}
           submodules: recursive
-          repository: ${{ inputs.repository }}
+          repository: ${{ github.repository_owner }}/${{ inputs.repository }}
           path: ${{ inputs.path }}
 
       - run: npm i

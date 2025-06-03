@@ -42,15 +42,15 @@ jobs:
     with:
       base_tag: ${{ github.base_ref }}
       tags: ${{ github.base_ref }},${{ needs.call-bump-version.outputs.new_version }}
-  dispatch-runtime-update:
-    name: Dipsatch AB Runtime Update
+  call-dispatch-update:
     needs: [ call-docker-build, call-bump-version, call-get-label ]
     # Only update the "master" version in runtime
     if: ${{  github.base_ref == 'master' }}
-    uses: ./.github/workflows/dispatch-runtime-update.yml
+    uses: digi-serve/.github/.github/workflows/dispatch-update.yml@master
     with:
       type: patch
       version: ${{ needs.call-bump-version.outputs.new_version }}
+      app_id: ${{ vars.GS_DEV_APP_ID }}
     secrets:
-      TOKEN: ${{ secrets.PAT }}
+      app_secret: ${{ secrets.GS_DEV_APP_PK }}
       
