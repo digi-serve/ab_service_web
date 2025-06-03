@@ -5,7 +5,7 @@ on:
       inputs:
          repository:
             type: string
-            default: digi-serve/plugin_HRTeams
+            default: plugin_HRTeams
          tag:
             description: Release Tag
             type: string
@@ -27,13 +27,20 @@ jobs:
               path: web
          - run: rm -f ./assets/tenant/default/${{ inputs.prefix }}*
            working-directory: web
+         - name: Generate a token
+           id: generate-token
+           uses: actions/create-github-app-token@v2
+           with:
+              app-id: ${{ vars.GS_DEV_APP_ID }}
+              private-key: ${{ secrets.GS_DEV_APP_PK }}
+              repositories: ${{ inputs.repository }}
          - uses: robinraju/release-downloader@v1
            with:
-              repository: ${{ inputs.repository }}
+              repository: ${{ github.repository_owner }}/${{ inputs.repository }}
               tag: ${{ inputs.tag }}
               filename: ${{ inputs.filename }}
               extract: true
-              token: ${{ secrets.PAT }}
+              token: ${{ steps.generate-token.outputs.token }}
          - run: ls
          - run: mv build/* web/assets/tenant/default
          - uses: EndBug/add-and-commit@v9

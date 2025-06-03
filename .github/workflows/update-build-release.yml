@@ -29,8 +29,12 @@ on:
       build_meta_prefix:
         type: string
         required: true
+      app_id:
+        description: GitHub APP ID for Auth (of Client ID)
+        type: string
     secrets:
-      TOKEN:
+      app_secret:
+        description: GitHub APP Client Secret for Auth
         required: true
       DOCKER_USERNAME:
         required: true
@@ -43,9 +47,10 @@ jobs:
     name: Update Files
     uses: ./.github/workflows/update-web-files.yml
     secrets:
-      TOKEN: ${{ secrets.TOKEN }}
+      app_secret: ${{ secrets.app_secret}}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     with:
+      app_id: ${{ inputs.app_id }}
       web_ref: ${{ inputs.branch }}
       repository: ${{ inputs.webpack_repo }}
       short_name: ${{ inputs.webpack_repo_short }}
@@ -96,16 +101,16 @@ jobs:
       ref: ${{ inputs.branch }}
       tags: ${{ inputs.branch }},${{ needs.call-bump-version.outputs.new_version }}
 
-  call-dispatch-runtime-update:
-    name: Dispatch
+  call-dispatch-update:
     needs: [ call-docker-build, call-bump-version ]
     if: ${{ inputs.branch == 'master' }}
-    uses: ./.github/workflows/dispatch-runtime-update.yml
+    uses: digi-serve/.github/.github/workflows/dispatch-update.yml@master
     with:
       version: ${{ needs.call-bump-version.outputs.new_version }}
       type: patch
+      app_id: ${{ inputs.app_id }}
     secrets:
-      TOKEN: ${{ secrets.TOKEN }}
+      app_secret: ${{ secrets.app_secret}}
 
   call-open-pr-fail:
     name: Tests Failed
