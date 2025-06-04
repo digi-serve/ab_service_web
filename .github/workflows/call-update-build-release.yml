@@ -61,3 +61,35 @@ jobs:
       webpack_path: plugins/ABDesigner
       webpack_command: ${{ matrix.webpack }}
       build_meta_prefix: d
+  call-update-platform_pwa:
+    if: ${{ github.event.client_payload.repo == 'test_pwa' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - branch: is/pwa
+            webpack: update
+          # - branch: master
+          #   webpack: update
+          # - branch: develop
+          #   webpack: dev
+          #   pre_release: dev
+    name: Update Service Web ${{ matrix.branch }} (Platform)
+    uses: ./.github/workflows/update-build-release.yml
+    secrets:
+      app_secret: ${{ secrets.GS_DEV_APP_PK }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    with: 
+      app_id: ${{ vars.GS_DEV_APP_ID }}
+      version: ${{ github.event.client_payload.version }}
+      type: ${{ github.event.client_payload.type }}
+      pre_release: ${{ matrix.pre_release }}
+      branch: ${{ matrix.branch }}
+      webpack_repo: test_pwa
+      webpack_repo_short: platform_pwa
+      webpack_path: test_pwa
+      webpack_command: ${{ matrix.webpack }}
+      build_meta_prefix: p
+  
