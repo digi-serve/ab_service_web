@@ -4941,7 +4941,7 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
    }
 
    dataInitialized() {
-      this.dataStatus = this.dataStatusFlag.initialized;
+      this._dataStatus = this.dataStatusFlag.initialized;
    }
 
    ///
@@ -5177,7 +5177,11 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
                // if (rowId) {
                this.__dataCollection.setCursor(rowId || null);
 
-               if (this.__dataCollection.count() == 0) {
+               // NOTE: differnece between ab_platform_web and ab_platform_pwa
+               if (
+                  this.__dataCollection.data?.count?.() == 0 ||
+                  this.__dataCollection.data?.length == 0
+               ) {
                   this.emit("collectionEmpty", {});
                }
 
@@ -6608,28 +6612,20 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
    //    return null;
    // }
 
-   async loadData(start, limit) {
-      // mark data status is initializing
-      if (this._dataStatus == this.dataStatusFlag.notInitial) {
-         this._dataStatus = this.dataStatusFlag.initializing;
-         this.emit("initializingData", {});
-      }
-
-      var obj = this.datasource;
-      if (obj == null) {
-         this._dataStatus = this.dataStatusFlag.initialized;
-         return Promise.resolve([]);
-      }
-
-      var model = obj.model();
-      if (model == null) {
-         this._dataStatus = this.dataStatusFlag.initialized;
-         return Promise.resolve([]);
-      }
-
-      // pull the defined sort values
-      var sorts = this.settings.objectWorkspace.sortFields || [];
-
+   /**
+    * @method getWhereClause()
+    * Return the current where condition for the datacollection.
+    * The where condition might change depending if we are following
+    * another datacollection or not.
+    *
+    * NOTE: start and limit might be effected by some of our settings
+    * so we include them here and then return those values as well.
+    *
+    * @param {int} start
+    * @param {int} limit
+    * @returns [ wheres, start, limit ]
+    */
+   getWhereClause(start, limit) {
       // pull filter conditions
       let wheres = this.AB.cloneDeep(
          this.settings.objectWorkspace.filterConditions ?? {}
@@ -6706,7 +6702,114 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
 
       // remove any null in the .rules
       // if (wheres?.rules?.filter) wheres.rules = wheres.rules.filter((r) => r);
-      wheres = obj.whereCleanUp(wheres);
+      wheres = this.datasource.whereCleanUp(wheres);
+
+      return [wheres, start, limit];
+   }
+
+   async loadData(start, limit) {
+      // mark data status is initializing
+      if (this._dataStatus == this.dataStatusFlag.notInitial) {
+         this._dataStatus = this.dataStatusFlag.initializing;
+         this.emit("initializingData", {});
+      }
+
+      var obj = this.datasource;
+      if (obj == null) {
+         this.dataInitialized();
+         return Promise.resolve([]);
+      }
+
+      var model = obj.model();
+      if (model == null) {
+         this.dataInitialized();
+         return Promise.resolve([]);
+      }
+
+      // pull the defined sort values
+      var sorts = this.settings.objectWorkspace.sortFields || [];
+
+      let [wheres, s2, l2] = this.getWhereClause(start, limit);
+      start = s2;
+      limit = l2;
+
+      // // pull filter conditions
+      // let wheres = this.AB.cloneDeep(
+      //    this.settings.objectWorkspace.filterConditions ?? {}
+      // );
+      // // if we pass new wheres with a reload use them instead
+      // if (this.__reloadWheres) {
+      //    wheres = this.__reloadWheres;
+      // }
+      // wheres.glue = wheres.glue || "and";
+      // wheres.rules = wheres.rules || [];
+
+      // const __additionalWheres = {
+      //    glue: "and",
+      //    rules: [],
+      // };
+
+      // // add the filterCond if there are rules to add
+      // if (this.__filterCond?.rules?.length > 0) {
+      //    __additionalWheres.rules.push(this.__filterCond);
+      // }
+
+      // // Filter by a selected cursor of a link DC
+      // let linkRule = this.ruleLinkedData();
+      // if (!this.settings.loadAll && linkRule) {
+      //    __additionalWheres.rules.push(linkRule);
+      // }
+      // // pull data rows following the follow data collection
+      // else if (this.datacollectionFollow) {
+      //    const followCursor = this.datacollectionFollow.getCursor();
+      //    // store the PK as a variable
+      //    let PK = this.datasource.PK();
+      //    // if the datacollection we are following is a query
+      //    // add "BASE_OBJECT." to the PK so we can select the
+      //    // right value to report the cursor change to
+      //    if (this.datacollectionFollow.settings.isQuery) {
+      //       PK = "BASE_OBJECT." + PK;
+      //    }
+      //    if (followCursor) {
+      //       start = 0;
+      //       limit = null;
+      //       wheres = {
+      //          glue: "and",
+      //          rules: [
+      //             {
+      //                key: this.datasource.PK(),
+      //                rule: "equals",
+      //                value: followCursor[PK],
+      //             },
+      //          ],
+      //       };
+      //    }
+      //    // Set no return rows
+      //    else {
+      //       wheres = {
+      //          glue: "and",
+      //          rules: [
+      //             {
+      //                key: this.datasource.PK(),
+      //                rule: "equals",
+      //                value: "NO RESULT ROW",
+      //             },
+      //          ],
+      //       };
+      //    }
+      // }
+
+      // // Combine setting & program filters
+      // if (__additionalWheres.rules.length) {
+      //    if (wheres.rules.length) {
+      //       __additionalWheres.rules.unshift(wheres);
+      //    }
+      //    wheres = __additionalWheres;
+      // }
+
+      // // remove any null in the .rules
+      // // if (wheres?.rules?.filter) wheres.rules = wheres.rules.filter((r) => r);
+      // wheres = obj.whereCleanUp(wheres);
 
       // set query condition
       var cond = {
@@ -6929,7 +7032,7 @@ class ABDataCollectionCore extends _platform_ABMLClass__WEBPACK_IMPORTED_MODULE_
 
             // mark initialized data
             if (this._dataStatus != this.dataStatusFlag.initialized) {
-               this._dataStatus = this.dataStatusFlag.initialized;
+               this.dataInitialized();
                this.emit("initializedData", {});
             }
          }, 100);
@@ -10507,6 +10610,13 @@ class ABModelCore {
       // return this.request("put", params);
    }
 
+   /**
+    * @method isCsvPacked
+    * check if the data is packed in a csv format
+    * @param {json} data  the json condition statement.
+    * @return {boolean} true if the data is packed in a csv format
+    *                   false if the data is not packed in a csv format
+    */
    isCsvPacked(data) {
       if (data.csv_packed) {
          return true;
@@ -10514,6 +10624,28 @@ class ABModelCore {
       return false;
    }
 
+   /**
+    * @method csvPack
+    * pack the data into a csv format
+    * @param {json} data
+    *               The original data format.
+    *              {
+    *                data: [{obj1}, {obj2}, ... {objN}],
+    *                total_bytes:xx,
+    *              }
+    * @return {json} the csv packed data
+    *                {
+    *                  csv_packed:{
+    *                    data: "<csv data>",
+    *                    relations: {
+    *                      {connectionID}: "<csv data>",
+    *                      {connectionID}: "<csv data>",
+    *                      ...
+    *                    },
+    *                  },
+    *                  total_bytes:xx,
+    *                }
+    */
    csvPack(data) {
       // data should be the original json data packet we want to send
       // {
@@ -10547,11 +10679,12 @@ class ABModelCore {
       let keys = ["list", "json"];
       let stringifyFields = myObject.fields((f) => keys.indexOf(f.key) > -1);
       stringifyFields.forEach((f) => {
-         content.forEach((row) => {
+         for (let I = 0; I < content.length; I++) {
+            let row = content[I];
             if (row[f.columnName]) {
                row[f.columnName] = JSON.stringify(row[f.columnName]);
             }
-         });
+         }
       });
 
       // break out and compact the connected data
@@ -10562,7 +10695,8 @@ class ABModelCore {
          let connPK = connField.datasourceLink.PK();
 
          // gather all the connected data for this field
-         content.forEach((row) => {
+         for (let I = 0; I < content.length; I++) {
+            let row = content[I];
             if (row[relationName]) {
                if (Array.isArray(row[relationName])) {
                   row[relationName].forEach((r) => {
@@ -10577,7 +10711,7 @@ class ABModelCore {
                   }
                }
             }
-         });
+         }
 
          // assign a smaller id value
          Object.keys(connHash).forEach((id, indx) => {
@@ -10585,7 +10719,8 @@ class ABModelCore {
          });
 
          // now reencode the connection data to reference the new _csvID
-         content.forEach((row) => {
+         for (let I = 0; I < content.length; I++) {
+            let row = content[I];
             let ids = [];
             let hasRelationData = false;
             if (row[relationName]) {
@@ -10604,7 +10739,7 @@ class ABModelCore {
                row[connField.columnName] = JSON.stringify(ids);
                delete row[relationName];
             }
-         });
+         }
 
          let connData = Object.values(connHash);
          connData.forEach((c) => {
@@ -10622,7 +10757,8 @@ class ABModelCore {
       });
 
       // final data preparations for csv encoding
-      content.forEach((row) => {
+      for (let I = 0; I < content.length; I++) {
+         let row = content[I];
          // client side .normalizeData() should repopulate .id
          delete row.id;
 
@@ -10641,7 +10777,7 @@ class ABModelCore {
                delete row[relationName];
             }
          });
-      });
+      }
 
       // now convert the data to CSV
       packedData.data = this.AB.jsonToCsv(content);
@@ -10657,6 +10793,13 @@ class ABModelCore {
       return newData;
    }
 
+   /**
+    * @method csvUnpack
+    * unpack the data from our csv format
+    * @param {json} data
+    *              The csv packed data format.
+    * @return {json} the unpacked data
+    */
    csvUnpack(data) {
       // data should be a data packet returned from the server
       // {
@@ -10682,12 +10825,14 @@ class ABModelCore {
       let returnType = data.csv_packed.type;
 
       if (parseResult.errors?.length) {
-         console.error("Error parsing CSV data:", parseResult.errors);
-         console.error("result:");
-         console.error(parseResult.data);
-         console.error("Original CSV data:");
-         console.error(data.csv_packed.data);
-         // @todo: what is the appropriate response here?
+         // ignore common error when .data is ""
+         if (data.csv_packed.data !== "") {
+            console.error("Error parsing CSV data:", parseResult.errors);
+            console.error("Original CSV data:");
+            console.error(data.csv_packed.data);
+            console.error("result:");
+            console.error(parseResult.data);
+         }
       }
       let jsonData = parseResult.data;
 
@@ -10740,7 +10885,10 @@ class ABModelCore {
                let populatedData = [];
                let entries = [];
                try {
-                  entries = JSON.parse(row[connField.columnName]);
+                  // ok, we know this is a possibility, so just skip it
+                  if (row[connField.columnName] !== "") {
+                     entries = JSON.parse(row[connField.columnName]);
+                  }
                } catch (e) {
                   if (row[connField.columnName] == "") {
                      // not a problem, just no data
@@ -32781,6 +32929,12 @@ class ABDataCollection extends _core_ABDataCollectionCore__WEBPACK_IMPORTED_MODU
    constructor(attributes, AB) {
       super(attributes, AB);
       this.setMaxListeners(0);
+      this.blacklistLoadData = {};
+      // { key : ?? }
+      // keep track of previous loadData() calls that might not
+      // have fully completed yet. We don't want to get in a
+      // race condition where we keep trying to load the same frame
+      // over and over again.
 
       this.$state = null;
       // {Framework7.store} The shared F7 data store
@@ -32909,6 +33063,7 @@ class ABDataCollection extends _core_ABDataCollectionCore__WEBPACK_IMPORTED_MODU
       return super.loadData(start, limit).catch((err) => {
          // hideProgressOfComponents() is a platform specific action.
          this.hideProgressOfComponents();
+         this.emit("loadData", {});
 
          // propagate the error here:
          if (err) {
@@ -33082,8 +33237,24 @@ class ABDataCollection extends _core_ABDataCollectionCore__WEBPACK_IMPORTED_MODU
                         if (component.showProgress)
                            component.showProgress({ type: "icon" });
 
-                        // load more data to the data collection
-                        dc.loadNext(count, start);
+                        if (start < 0) start = 0;
+
+                        // // load more data to the data collection
+                        // dc.loadNext(count, start);
+
+                        // since the where clause can change if we are following
+                        // another cursor, include the where as part of the key:
+                        let [where] = this.getWhereClause(start, 0);
+                        let key = `${JSON.stringify(where)}-${start}-${count}`;
+                        if (this.blacklistLoadData[key]) {
+                           return false;
+                        }
+                        this.blacklistLoadData[key] = true;
+
+                        this.loadData(start, count).finally(() => {
+                           // remove from blacklist
+                           delete this.blacklistLoadData[key];
+                        });
 
                         return false; // <-- prevent the default "onDataRequest"
                      }
@@ -34017,8 +34188,8 @@ dc.define("dataFeed", (value, params) => {
    }
 
    stateValues() {
-      if (!this.DC.$state) return [];
-      return this.DC.$state[this.DC.id] || [];
+      if (!this.DC.$state) return (this.DC.$state = []);
+      return this.DC.$state[this.DC.id];
    }
 
    add(value, indx) {
@@ -34036,7 +34207,7 @@ dc.define("dataFeed", (value, params) => {
    }
 
    count() {
-      return this.stateValues().length || 0;
+      return this.stateValues().length;
    }
 
    exists(ID) {
@@ -34156,7 +34327,13 @@ dc.define("dataFeed", (value, params) => {
       let pos = data.pos || 0;
       let tc = data.total_count || 0;
 
-      if (Array.isArray(dataIn) && dataIn.length == 0) return;
+      if (Array.isArray(dataIn) && dataIn.length == 0) {
+         if (tc == 0) {
+            // this is an actual empty data set.
+            this.clearAll();
+         }
+         return;
+      }
 
       if (pos == 0) {
          this.setValues(dataIn);
@@ -34222,7 +34399,7 @@ dc.define("dataFeed", (value, params) => {
    /*
 
    attachEvent(str, fn() ) // onAfterCursorChange
-   
+
    updateItem(d.id,updateItemData);
 
    loadNext(count, start);
@@ -34343,9 +34520,47 @@ class ABModel extends _core_ABModelCore__WEBPACK_IMPORTED_MODULE_0__["default"] 
             context.reject?.(err);
             return;
          }
+
+         if (this.isCsvPacked(data)) {
+            let lengthPacked = JSON.stringify(data).length;
+            data = this.csvUnpack(data);
+
+            // JOHNNY: getting "RangeError: Invalid string length"
+            // when data.data is too large. So we are just going
+            // to .stringify() the rows individually and count the
+            // length of each one.
+
+            let lengthUnpacked = 0;
+            if (Array.isArray(data.data)) {
+               for (var d = 0; d < data.data.length; d++) {
+                  lengthUnpacked += JSON.stringify(data.data[d]).length;
+               }
+            } else {
+               lengthUnpacked += JSON.stringify(data.data).length;
+            }
+
+            Object.keys(data)
+               .filter((k) => k != "data")
+               .map((k) => {
+                  lengthUnpacked += `${k}:${data[k]},`.length;
+               });
+
+            lengthUnpacked += 5; // for the brackets
+
+            console.log(
+               `CSV Pack: ${lengthUnpacked} -> ${lengthPacked} (${(
+                  (lengthPacked / lengthUnpacked) *
+                  100
+               ).toFixed(2)}%)`
+            );
+         }
+
          if (key) {
             // on "update" & "create" we want to normalizeData()
             if (key.indexOf("delete") == -1) {
+               // on anything with a key, we shouldn't have data.data
+               data = data.data || data;
+
                this.normalizeData(data);
             } else {
                // triggers to ab.datacollection.delete need to send the .id
@@ -34353,18 +34568,6 @@ class ABModel extends _core_ABModelCore__WEBPACK_IMPORTED_MODULE_0__["default"] 
                data = data.data || context.id;
             }
          } else {
-            if (this.isCsvPacked(data)) {
-               let lengthPacked = JSON.stringify(data).length;
-               data = this.csvUnpack(data);
-               let lengthUnpacked = JSON.stringify(data).length;
-               console.log(
-                  `CSV Pack: ${lengthUnpacked} -> ${lengthPacked} (${(
-                     (lengthPacked / lengthUnpacked) *
-                     100
-                  ).toFixed(2)}%)`
-               );
-            }
-
             // on a findAll we normalize data.data
             this.normalizeData(data.data);
          }
@@ -44472,6 +44675,10 @@ class ABMobilePage extends _core_mobile_ABMobilePageCore__WEBPACK_IMPORTED_MODUL
          ignoreCache: true,
       });
    }
+   hide() {
+      // TODO Does this need more?
+      this.AB.$f7.view.main.router.back();
+   }
 
    viewHTML($h) {
       let allResults = [];
@@ -44522,22 +44729,17 @@ class ABMobilePage extends _core_mobile_ABMobilePageCore__WEBPACK_IMPORTED_MODUL
 
                   const viewInit = async (v, callback) => {
                      await v.init();
-
                      callback();
                   };
                   const init = () =>
                      new Promise((resolve) => {
+                        // wait for DC to be initialized before
+                        // initializing the view.
                         if (dc && !dc.isDataInitialized) {
+                           dc.on("initializedData", () => {
+                              viewInit(v, resolve);
+                           });
                            $store.dispatch("getAppBuilderData", dc.id);
-
-                           const waitDCInit = setInterval(async () => {
-                              if (dc.isDataInitialized) {
-                                 clearInterval(waitDCInit);
-
-                                 await viewInit(v, resolve);
-                              }
-                           }, 500);
-
                            return;
                         }
 
@@ -44840,7 +45042,9 @@ class ABMobileViewCustom extends _core_mobile_ABMobileViewCustomCore_js__WEBPACK
          this._init = new Function(
             "$AB",
             "$DC",
-            `return (async () => { ${this.settings.initCode} })()`
+            `return (async () => { 
+               ${this.settings.initCode}
+            })()`
          );
       } else {
          this._init = new Function(
@@ -44855,7 +45059,9 @@ class ABMobileViewCustom extends _core_mobile_ABMobileViewCustomCore_js__WEBPACK
             "$AB",
             "$h",
             "$DC",
-            `return (() => { ${this.settings.htmlCode} })()`
+            `return (() => { 
+               ${this.settings.htmlCode} 
+            })()`
          );
       } else {
          this._html = new Function(
@@ -44875,6 +45081,19 @@ class ABMobileViewCustom extends _core_mobile_ABMobileViewCustomCore_js__WEBPACK
    }
 
    async init() {
+      // prepare our DataCollections
+      // For Framework7's templates to recoginze updates to the data,
+      // the store.dispatch() needs to be called during the template
+      // rendering process.
+      // So we will do that here and make sure the DCs are loaded before
+      // entering the init() routine.
+      let promises = [];
+      Object.keys(this.$DC).forEach((key) => {
+         let dc = this.$DC[key];
+         promises.push(this.AB.$store.dispatch("getAppBuilderData", dc.id));
+      });
+      await Promise.all(promises);
+
       // Call the custom init function if it exists
       if (this._init) {
          await this._init(this.AB, this.$DC);
@@ -44930,11 +45149,11 @@ class ABMobileViewForm extends _core_mobile_ABMobileViewFormCore_js__WEBPACK_IMP
             v.valueLoad?.(rowData);
          });
          let id = this.idID;
-         this.$form.prepend(`<input 
+         this.$form.prepend(`<input
                        id="${id}"
-                       name="id" 
-                       readonly 
-                       type="hidden" 
+                       name="id"
+                       readonly
+                       type="hidden"
                        placeholder=""
                     />`);
          let input = this.$form.find(`#${id}`);
@@ -45999,6 +46218,7 @@ class ABMobileViewFormFile extends _core_mobile_ABMobileViewFormFileCore_js__WEB
 
       // don't upload when not selected.
       let file = formData.get("file");
+      if (file == undefined || file == null) return;
       if (file.name == "" && file.size == 0) return;
 
       try {
@@ -46215,15 +46435,13 @@ class ABMobileViewFormImage extends _core_mobile_ABMobileViewFormImageCore_js__W
 
    inputElementUpload($h) {
       let $inputElement = $h`
-         <input
-            id=${this.idUpload}
-            type="file"
-            name="file"
-            class="button button-big button-fill"
-            accept="image/*"
-            capture="environment"
-         />
-      `;
+      <input 
+         id=${this.idUpload} 
+         name="file"
+         accept="image/*"
+         type="file"
+         placeholder=""
+      />`;
 
       this.updateProperties($inputElement);
 
@@ -47221,7 +47439,7 @@ class ABMobileViewTimeline extends _core_mobile_ABMobileViewTimelineCore_js__WEB
 
    itemSelected(item) {
       // prevent random clicks when processing a swipeout
-      if (this.isSwipeout && this.isSwipeout[item.uuid]) return;
+      if ( (typeof(this.isSwipeout) != "undefined") && this.isSwipeout[item.uuid]) return;
 
       // Make sure our DC registers which item was just selected.
       const dc = this.datacollection;
@@ -53245,6 +53463,7 @@ class ABViewRule {
    }
 
    objectLoad(object) {
+      console.assert(object, "objectLoad(): object is required.");
       this.currentObject = object;
       this.listActions.forEach((a) => {
          a.objectLoad(object);
@@ -53262,12 +53481,12 @@ class ABViewRule {
       this.AB = object.AB;
    }
 
-   // formLoad(form) {
-   //    this.currentForm = form;
-   //    this.listActions.forEach((a) => {
-   //       a.formLoad(form);
-   //    });
-   // }
+   formLoad(form) {
+      this.currentForm = form;
+      this.listActions.forEach((a) => {
+         a.formLoad(form);
+      });
+   }
 
    processPre(options = {}) {
       let isValid = this.isValid(options.data);
@@ -54293,7 +54512,10 @@ class ABViewRuleListFormSubmitRules extends _ABViewRuleList__WEBPACK_IMPORTED_MO
       ];
 
       var Rule = new _ABViewRule__WEBPACK_IMPORTED_MODULE_1__["default"](listActions);
-      Rule.objectLoad(this.currentObject);
+      console.assert(this.objectLoad, "this.objectLoad is not defined");
+      if (this.currentObject) {
+         Rule.objectLoad(this.currentObject);
+      }
       Rule.formLoad(this.currentForm);
       return Rule;
    }
@@ -56039,7 +56261,8 @@ class ABViewRuleActionFormSubmitRuleParentPage extends _ABViewRuleAction__WEBPAC
          var pageParent = pageCurrent.pageParent();
 
          // redirect page
-         options.form.changePage(pageParent.id);
+         // options.form.changePage(pageParent);
+         pageParent.show();
 
          resolve();
       });
@@ -59199,18 +59422,18 @@ class Network extends _AppBuilder_platform_ABEmitter__WEBPACK_IMPORTED_MODULE_0_
     * @return {bool}
     */
    isNetworkConnected() {
-      console.log(
-         "TODO: Network.isNetworkConnected(): replace online check to expected order."
-      );
-      // if this isn't a Cordova Plugin, then return navigator data:
-      if (typeof Connection == "undefined") {
-         // NOTE: this technically only detects if we are connected to a
-         // network.  It doesn't guarantee we can communicate across the 'net
-         return navigator.onLine;
-      }
+      // console.log(
+      //    "TODO: Network.isNetworkConnected(): replace online check to expected order."
+      // );
+      // // if this isn't a Cordova Plugin, then return navigator data:
+      // if (typeof Connection == "undefined") {
+      //    // NOTE: this technically only detects if we are connected to a
+      //    // network.  It doesn't guarantee we can communicate across the 'net
+      //    return navigator.onLine;
+      // }
 
       // if this is a Web Client and using sails.socket.io
-      if (io && io.socket && io.socket.isConnected) {
+      if (typeof io != "undefined" && io.socket && io.socket.isConnected) {
          return io.socket.isConnected();
       }
 
@@ -59715,7 +59938,7 @@ class NetworkRest extends _AppBuilder_platform_ABEmitter__WEBPACK_IMPORTED_MODUL
          }
          // Fix: don't set content-type if passed in data is a FormData object.
          if (
-            !Object.prototype.toString.call(params.data) === "[object FormData]"
+            Object.prototype.toString.call(params.data) !== "[object FormData]"
          ) {
             params.headers["Content-type"] = "application/json";
          }
@@ -65664,13 +65887,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       actions: {
          getAppBuilderData({ state }, id) {
-            try {
-               let DC = AB.datacollectionByID(id);
-               DC.setState(state);
-               DC.loadData();
-            } catch (err) {
-               console.err(err);
-            }
+            let DC = AB.datacollectionByID(id);
+            DC.setState(state);
+            DC.loadData();
          },
          setUser({ state }, user) {
             state["user"] = user;
