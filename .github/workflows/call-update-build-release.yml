@@ -67,14 +67,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - branch: pwa
+          - branch: master
             webpack: update
-          # - branch: master
-          #   webpack: update
-          # - branch: develop
-          #   webpack: dev
-          #   pre_release: dev
-    name: Update Service Web ${{ matrix.branch }} (Platform)
+          - branch: develop
+            webpack: dev
+            pre_release: dev
+    name: Update Service Web ${{ matrix.branch }} (PWA)
     uses: ./.github/workflows/update-build-release.yml
     secrets:
       app_secret: ${{ secrets.GS_DEV_APP_PK }}
