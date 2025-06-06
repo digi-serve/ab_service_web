@@ -28,7 +28,7 @@ jobs:
   call-generate-build-meta:
     name: Meta
     if: ${{ inputs.platform_ver != '' }}
-    uses: digi-serve/.github/.github/workflows/generate-build-meta.yml@master
+    uses: CruGlobal/.github/.github/workflows/generate-build-meta.yml@master
     with: 
       version: ${{ inputs.platform_ver }}
       identifier: ${{ inputs.build_meta_prefix }}

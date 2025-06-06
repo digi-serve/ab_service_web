@@ -7,4 +7,4 @@ on:
 jobs:
    call-e2e-tests:
       name: E2E Tests
-      uses: digi-serve/.github/.github/workflows/cypress-e2e-tests.yml@master
+      uses: CruGlobal/.github/.github/workflows/cypress-e2e-tests.yml@master
