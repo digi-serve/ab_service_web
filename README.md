@@ -1,6 +1,6 @@
-[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/digi-serve/ab_service_web/pr-merge-release.yml?logo=github&label=Build%20%26%20Test)](https://github.com/digi-serve/ab_service_web/actions/workflows/pr-merge-release.yml)
-[![GitHub tag (with filter)](https://img.shields.io/github/v/tag/digi-serve/ab_service_web?logo=github&label=Latest%20Version)
-](https://github.com/digi-serve/ab_service_web/releases)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/CruGlobal/ab_service_web/pr-merge-release.yml?logo=github&label=Build%20%26%20Test)](https://github.com/CruGlobal/ab_service_web/actions/workflows/pr-merge-release.yml)
+[![GitHub tag (with filter)](https://img.shields.io/github/v/tag/CruGlobal/ab_service_web?logo=github&label=Latest%20Version)
+](https://github.com/CruGlobal/ab_service_web/releases)
 [![Docker Pulls](https://img.shields.io/docker/pulls/digiserve/ab-web?logo=docker&logoColor=white&label=Docker%20Pulls)](https://hub.docker.com/r/digiserve/ab-web)
 [![Image Size](https://img.shields.io/docker/image-size/digiserve/ab-web/master?logo=docker&logoColor=white&label=Image%20Size)](https://hub.docker.com/r/digiserve/ab-web/tags)
 [![Static Badge](https://img.shields.io/badge/Uses-NGINX-%23009639?logo=nginx)](https://hub.docker.com/_/nginx/)
@@ -9,7 +9,7 @@
 An AppBuilder service. This is our web server for incoming connections.
 
 ## Install
-See [ab_cli](https://github.com/digi-serve/ab-cli)
+See [ab_cli](https://github.com/CruGlobal/ab-cli)
 
 ## Pull Requests
 Pull Requests should be tagged with a label `major`, `minor` or `patch`. Use `major` for breaking changes, `minor` for new features, or `patch` for bug fixes. To merge without creating a release a `no_release` tag can be added instead.

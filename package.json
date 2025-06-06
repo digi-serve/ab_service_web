@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/digi-serve/ab_web.git"
+    "url": "git+https://github.com/CruGlobal/ab_web.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/digi-serve/ab_web/issues"
+    "url": "https://github.com/CruGlobal/ab_web/issues"
   },
-  "homepage": "https://github.com/digi-serve/ab_web#readme",
+  "homepage": "https://github.com/CruGlobal/ab_web#readme",
   "dependencies": {
     "bpmn-js": "^9.0.3",
     "tinymce": "^5.10.7"
